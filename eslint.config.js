@@ -1,18 +1,19 @@
 // eslint.config.mjs
-import js from '@eslint/js';
-import globals from 'globals';
-import pluginReact from 'eslint-plugin-react';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
-import prettierPlugin from 'eslint-plugin-prettier';
-import { defineConfig } from 'eslint/config';
+import js from "@eslint/js";
+import globals from "globals";
+import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
+import pluginJsxA11y from "eslint-plugin-jsx-a11y";
+import prettierPlugin from "eslint-plugin-prettier";
+import { defineConfig } from "eslint/config";
+import vitest from "eslint-plugin-vitest-globals";
 
 export default defineConfig([
   {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
+    files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'module',
+      sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.node,
@@ -23,46 +24,41 @@ export default defineConfig([
     },
     plugins: {
       react: pluginReact,
-      'react-hooks': pluginReactHooks,
-      'jsx-a11y': pluginJsxA11y,
+      "react-hooks": pluginReactHooks,
+      "jsx-a11y": pluginJsxA11y,
       prettier: prettierPlugin,
     },
     rules: {
       ...js.configs.recommended.rules,
       ...pluginReact.configs.recommended.rules,
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'jsx-a11y/alt-text': 'warn',
-      'prettier/prettier': 'error',
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "jsx-a11y/alt-text": "warn",
+      "prettier/prettier": "warn",
+      "react/react-in-jsx-scope": "off",
     },
     settings: {
       react: {
-        version: 'detect',
+        version: "detect",
       },
     },
   },
   {
-    files: ['**/*.test.{js,jsx}'],
+    files: ["**/*.test.{js,jsx}"],
     plugins: {
       vitest,
-    },
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...vitest.environments['vitest/globals'].globals,
-      },
     },
     rules: {
       ...vitest.configs.recommended.rules,
     },
   },
   {
-    files: ['**/*.json'],
+    files: ["**/*.json"],
     languageOptions: {
-      parser: (await import('jsonc-eslint-parser')).default,
+      parser: (await import("jsonc-eslint-parser")).default,
     },
     rules: {
-      'no-unused-expressions': 'off',
+      "no-unused-expressions": "off",
     },
   },
 ]);
