@@ -28,16 +28,9 @@ npm run build
 npm run preview
 ```
 
-## Docker development deploy
+## Docker deploy
 
 ```
-docker build -t <image_name>:<image_version> --no-cache -f ./dev.Dockerfile
-docker run -d -p <external_port>:5173 --name <container_name> <image_name>:<image_version>
-```
-
-## Docker production deploy
-
-```
-docker build -t <image_name>:<image_version> --no-cache -f ./prod.Dockerfile
+docker build -t <image_name>:<image_version> --no-cache -f ./Dockerfile
 docker run -d -p <external_port>:80 --name <container_name> <image_name>:<image_version>
 ```
