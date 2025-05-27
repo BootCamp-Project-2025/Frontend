@@ -73,5 +73,5 @@ jobs:
       - name: Tag Docker image
         run: docker tag frontend-repo:dev projectdev2025.azurecr.io/frontend-repo:dev
 
-      - name: Push to ACR.
+      - name: Push to ACR
         run: docker push projectdev2025.azurecr.io/frontend-repo:dev
