@@ -34,7 +34,7 @@ export default defineConfig([
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "jsx-a11y/alt-text": "warn",
-      "prettier/prettier": "warn",
+      "prettier/prettier": ["warn", { endOfLine: "auto" }],
       "react/react-in-jsx-scope": "off",
     },
     settings: {
