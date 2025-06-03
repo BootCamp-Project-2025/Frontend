@@ -1,4 +1,3 @@
-// PopupContext.jsx
 import PropTypes from "prop-types";
 import { createContext, useCallback, useContext, useState } from "react";
 

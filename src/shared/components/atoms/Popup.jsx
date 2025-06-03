@@ -12,7 +12,6 @@ export default function PopupRoot() {
   useEffect(() => {
     if (isOpen) {
       setIsClosing(false);
-      // Forzamos foco al overlay para que onKeyDown funcione
       setTimeout(() => {
         overlayRef.current?.focus();
       }, 0);
