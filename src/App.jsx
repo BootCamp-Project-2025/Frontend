@@ -1,7 +1,5 @@
-import SelectionPage from "./domains/identity/atoms/Selection";
-
 function App() {
-  return <SelectionPage></SelectionPage>;
+  return <>Hello world!</>;
 }
 
 export default App;
