@@ -1,0 +1,11 @@
+.button img,
+.button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.button.search img,
+.button.search img {
+  width: 24px;
+  height: 24px;
+}
