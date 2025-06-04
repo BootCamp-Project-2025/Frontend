@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
 
+const BUTTON_STYLE_TYPES = {
+  DEFAUTL: "default",
+};
+
 export const Input = ({
   type,
   name,
@@ -7,9 +11,10 @@ export const Input = ({
   placeholder = "",
   error = "",
   styleType = "",
+  classname = "",
 }) => {
   const variantsStyle = {
-    default: `border text-gray-600 p-1 rounded-md outline-none ${error ? "border-red-500" : "border-gray-400"}`,
+    [BUTTON_STYLE_TYPES.DEFAUTL]: `border text-gray-600 p-1 rounded-md outline-none ${error ? "border-red-500" : "border-gray-400"}`,
   };
 
   const variantClasses = variantsStyle[styleType]
@@ -22,7 +27,7 @@ export const Input = ({
       name={name}
       id={id}
       placeholder={placeholder}
-      className={variantClasses}
+      className={`${classname} ${variantClasses}`}
     />
   );
 };
@@ -33,5 +38,6 @@ Input.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
-  styleType: PropTypes.string,
+  styleType: PropTypes.oneOf(Object.values(BUTTON_STYLE_TYPES)),
+  classname: PropTypes.string,
 };
