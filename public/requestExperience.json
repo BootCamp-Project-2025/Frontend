@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "jobPosition": "Software Engineer",
+    "employer": "TechCorp",
+    "country": "USA",
+    "startDate": "2020/05",
+    "endDate": "2022-08",
+    "description": "As a Software Engineer at TechCorp, I was responsible for designing and implementing scalable web applications using React, Node.js, and MongoDB. I worked closely with UX designers and backend teams to develop efficient, user-friendly features. My role also included code reviews, writing unit tests, and deploying applications using CI/CD pipelines."
+  },
+  {
+    "id": 2,
+    "jobPosition": "Backend Developer",
+    "employer": "DevSolutions",
+    "country": "Germany",
+    "startDate": "2018/01",
+    "endDate": "2020/04",
+    "description": "At DevSolutions, I worked as a Backend Developer focusing on creating and maintaining RESTful APIs using Express.js and PostgreSQL. I optimized query performance and ensured security best practices. I also collaborated with frontend developers to define API contracts, implemented authentication mechanisms, and managed data migrations and versioning for various services."
+  },
+  {
+    "id": 3,
+    "jobPosition": "Intern",
+    "employer": "Startup Inc.",
+    "country": "Brazil",
+    "startDate": "2017/06",
+    "endDate": "2017/12",
+    "description": "During my internship at Startup Inc., I gained hands-on experience in web development and software QA. I contributed to frontend development using HTML, CSS, and JavaScript, and participated in daily stand-ups with the agile team. I also assisted in writing test cases, logging bugs, and improving UI accessibility across platforms."
+  }
+]

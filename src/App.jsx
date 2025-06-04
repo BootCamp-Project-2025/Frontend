@@ -1,5 +1,7 @@
+import { ExperienceSection } from "./shared/components/organisms/ExperienceSection";
+
 function App() {
-  return <>Hello world!</>;
+  return <ExperienceSection></ExperienceSection>
 }
 
 export default App;
