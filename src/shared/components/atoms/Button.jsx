@@ -16,7 +16,7 @@ export const Button = ({
   color = "",
   onClick = () => {},
 }) => {
-  const base = "flex items-center justify-center gap-2 cursor-pointer";
+  const base = "flex items-center justify-center w-max gap-2 cursor-pointer";
 
   const variantsStyle = {
     [BUTTON_STYLE_TYPES.ADD]:
