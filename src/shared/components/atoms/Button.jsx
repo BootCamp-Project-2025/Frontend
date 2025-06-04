@@ -16,7 +16,8 @@ export const Button = ({
   color = "",
   onClick = () => {},
 }) => {
-  const base = "flex items-center justify-center w-max gap-2 cursor-pointer hover:brightness-90 hover:duration-150 active:brightness-115 active:duration-150";
+  const base =
+    "flex items-center justify-center w-max gap-2 cursor-pointer hover:brightness-90 hover:duration-150 active:brightness-115 active:duration-150";
 
   const variantsStyle = {
     [BUTTON_STYLE_TYPES.ADD]: `px-4 py-2 font-bold rounded-xl text-black ${!color ? "bg-blue-500 hover:bg-blue-600" : ""}`,
