@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --color-blue: #3B82F6;
-  --color-orange: #F6AF3B;
-  --color-light: #FAFAFA;
-  --color-dark: #4B4B4B;
-  --color-violet: #513BF6;
-  --color-blueLight: #3BE0F6;
-  --color-green: #82F63B;
-  --color-pink: #F63B82;
+  --color-blue: #3b82f6;
+  --color-orange: #f6af3b;
+  --color-light: #fafafa;
+  --color-dark: #4b4b4b;
+  --color-violet: #513bf6;
+  --color-blueLight: #3be0f6;
+  --color-green: #82f63b;
+  --color-pink: #f63b82;
   --color-transparent: #00000000;
 }
