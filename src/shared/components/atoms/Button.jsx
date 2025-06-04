@@ -20,8 +20,10 @@ export const Button = ({
 
   const variantsStyle = {
     [BUTTON_STYLE_TYPES.ADD]: "px-4 py-2 font-bold rounded-xl text-black",
-    [BUTTON_STYLE_TYPES.CALL_TO_ACTION]: "text-white py-1 px-5 font-semibold rounded-xl",
-    [BUTTON_STYLE_TYPES.DELETE]: "bg-transparent border border-red-500 rounded-full p-2",
+    [BUTTON_STYLE_TYPES.CALL_TO_ACTION]:
+      "text-white py-1 px-5 font-semibold rounded-xl",
+    [BUTTON_STYLE_TYPES.DELETE]:
+      "bg-transparent border border-red-500 rounded-full p-2",
     [BUTTON_STYLE_TYPES.EDIT]: "text-white rounded-full p-2",
     [BUTTON_STYLE_TYPES.SEARCH]: "rounded-sm p-2 search",
   };
