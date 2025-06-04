@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
-const BUTTON_STYLE_TYPES = {
-  DEFAUTL: "default",
+const INPUT_STYLE_TYPES = {
+  DEFAULT: "default",
 };
 
 export const Input = ({
@@ -14,7 +14,7 @@ export const Input = ({
   classname = "",
 }) => {
   const variantsStyle = {
-    [BUTTON_STYLE_TYPES.DEFAUTL]: `border text-gray-600 p-1 rounded-md outline-none ${error ? "border-red-500" : "border-gray-400"}`,
+    [INPUT_STYLE_TYPES.DEFAULT]: `border text-gray-600 p-1 rounded-md outline-none ${error ? "border-red-500" : "border-gray-400"}`,
   };
 
   const variantClasses = variantsStyle[styleType]
@@ -38,6 +38,6 @@ Input.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
-  styleType: PropTypes.oneOf(Object.values(BUTTON_STYLE_TYPES)),
+  styleType: PropTypes.oneOf(Object.values(INPUT_STYLE_TYPES)),
   classname: PropTypes.string,
 };

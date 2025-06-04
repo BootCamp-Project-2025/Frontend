@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const BUTTON_STYLE_TYPES = {
+const IMAGE_STYLE_TYPES = {
   PROFILE: "profile",
 };
 
@@ -13,7 +13,7 @@ export const Image = ({
   classname = "",
 }) => {
   const variantsStyle = {
-    [BUTTON_STYLE_TYPES.PROFILE]: "rounded-full border border-black-500",
+    [IMAGE_STYLE_TYPES.PROFILE]: "rounded-full border border-black-500",
   };
 
   const variantClasses = variantsStyle[styleType]
@@ -34,6 +34,6 @@ Image.propTypes = {
   alt: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
-  styleType: PropTypes.oneOf(Object.values(BUTTON_STYLE_TYPES)),
+  styleType: PropTypes.oneOf(Object.values(IMAGE_STYLE_TYPES)),
   classname: PropTypes.string,
 };
