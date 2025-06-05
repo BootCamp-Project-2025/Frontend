@@ -16,13 +16,13 @@ export const MonthInput = ({
       <input
         {...register}
         type="month"
-        className={`bg-white py-1.5 px-2.5 rounded-md outline-2 focus:outline-3  w-full ${errorMessage ? "outline-red-500 focus:outline-red-500" : "outline-gray-300 focus:outline-blue-700"}`}
+        className={`bg-white py-1.5 px-2.5 rounded-md outline-2 focus:outline-3  w-full ${errorMessage ? "outline-pink-500 focus:outline-pink-500" : "outline-gray-300 focus:outline-blue-500"}`}
         spellCheck="false"
         min={min}
         max={max}
         id={id}
       />
-      {errorMessage && <p className="text-sm  text-red-500">{errorMessage}</p>}
+      {errorMessage && <p className="text-sm  text-pink-500">{errorMessage}</p>}
     </div>
   );
 };
