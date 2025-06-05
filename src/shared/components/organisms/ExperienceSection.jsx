@@ -40,6 +40,10 @@ export const ExperienceSection = () => {
     }
   };
 
+  const removeExperience = (cardId) => {
+    setExperienceList((prev) => prev.filter((e) => e.id !== cardId));
+  };
+
   const closeExperienceForm = () => {
     setExperienceFormVisible(false);
     setExperienceCardSelected(null);
@@ -86,6 +90,7 @@ export const ExperienceSection = () => {
               addExperienceCard={addExperienceCard}
               closeExperienceForm={closeExperienceForm}
               updateExperienceCard={updateExperienceCard}
+              removeExperience={removeExperience}
               {...experienceCardSelected}
             />
           )}

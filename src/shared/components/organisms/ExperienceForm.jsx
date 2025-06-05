@@ -15,6 +15,7 @@ export const ExperienceForm = ({
   addExperienceCard = () => {},
   closeExperienceForm = () => {},
   updateExperienceCard = () => {},
+  removeExperience = () => {},
 }) => {
   const {
     register,
@@ -126,6 +127,10 @@ export const ExperienceForm = ({
           <button
             type="button"
             className="px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white"
+            onClick={() => {
+              removeExperience(id);
+              closeExperienceForm();
+            }}
           >
             Delete
           </button>
@@ -152,4 +157,5 @@ ExperienceForm.propTypes = {
   addExperienceCard: PropTypes.func,
   closeExperienceForm: PropTypes.func,
   updateExperienceCard: PropTypes.func,
+  removeExperience: PropTypes.func,
 };
