@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProfileSection } from "./ProfileSection";
-import { ButtonProfileSection } from "../atoms/ButtonProfileSection";
+import { ButtonProfileAddCard } from "../atoms/ButtonProfileAddCard";
 import { DialogContainer } from "../atoms/DialogContainer";
 import { ExperienceForm } from "./ExperienceForm";
 import { ExperienceCard } from "../molecules/ExperienceCard";
@@ -32,7 +32,7 @@ export const ExperienceSection = () => {
     );
   };
 
-  const editExperience = (cardId) => {
+  const editExperienceCard = (cardId) => {
     const experience = experienceList.find((e) => e.id == cardId);
     if (experience) {
       setExperienceCardSelected(experience);
@@ -40,7 +40,7 @@ export const ExperienceSection = () => {
     }
   };
 
-  const removeExperience = (cardId) => {
+  const removeExperienceCard = (cardId) => {
     setExperienceList((prev) => prev.filter((e) => e.id !== cardId));
   };
 
@@ -64,15 +64,15 @@ export const ExperienceSection = () => {
                 startDate={exp.startDate}
                 endDate={exp.endDate}
                 description={exp.description}
-                editExperience={editExperience}
+                editExperienceCard={editExperienceCard}
               />
             ))}
             <div>
-              <ButtonProfileSection
+              <ButtonProfileAddCard
                 onClick={() => setExperienceFormVisible(true)}
               >
                 Add Experience
-              </ButtonProfileSection>
+              </ButtonProfileAddCard>
             </div>
           </>
         </ProfileSection>
@@ -90,7 +90,7 @@ export const ExperienceSection = () => {
               addExperienceCard={addExperienceCard}
               closeExperienceForm={closeExperienceForm}
               updateExperienceCard={updateExperienceCard}
-              removeExperience={removeExperience}
+              removeExperienceCard={removeExperienceCard}
               {...experienceCardSelected}
             />
           )}

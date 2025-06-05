@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-export const ButtonProfileSection = ({ onClick = () => {}, children }) => {
+export const ButtonProfileAddCard = ({ onClick = () => {}, children }) => {
   return (
     <button
       onClick={onClick}
@@ -17,7 +17,7 @@ export const ButtonProfileSection = ({ onClick = () => {}, children }) => {
   );
 };
 
-ButtonProfileSection.propTypes = {
+ButtonProfileAddCard.propTypes = {
   children: PropTypes.element,
   onClick: PropTypes.func,
 };

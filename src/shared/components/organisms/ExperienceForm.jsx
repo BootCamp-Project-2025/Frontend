@@ -3,6 +3,7 @@ import { TextInput } from "../molecules/TextInput";
 import { MonthInput } from "../molecules/MothInput";
 import { TextAreaInput } from "../molecules/TextAreaInput";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 export const ExperienceForm = ({
   id = "",
@@ -15,11 +16,11 @@ export const ExperienceForm = ({
   addExperienceCard = () => {},
   closeExperienceForm = () => {},
   updateExperienceCard = () => {},
-  removeExperience = () => {},
+  removeExperienceCard = () => {},
 }) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
     watch,
   } = useForm({
@@ -33,15 +34,44 @@ export const ExperienceForm = ({
     },
   });
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const saveNewExperienceDB = async (data) => {
+    await delay(1000);
+    // create logic to save new experience at database
+    // db should give as a experience's id
+    // create logic to manage errors
+    let newId = crypto.randomUUID();
+    addExperienceCard({ ...data, id: newId });
+    closeExperienceForm();
+  };
+
+  const updateExperienceDB = async (data) => {
+    await delay(1000);
+    // create logic to updata experience at database
+    // create logic to manage errors
+    updateExperienceCard(data);
+  };
+
+  const deleteExperienceDB = async (id) => {
+    setIsDeleting(true);
+    await delay(1000);
+    // create logic to delete experience at database
+    // create logic to manage errors
+    removeExperienceCard(id);
+    setIsDeleting(false);
+    closeExperienceForm();
+  };
+
   return (
     <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
+      onSubmit={handleSubmit(async (data) => {
         if (id != "") {
-          updateExperienceCard({ ...data, id });
+          await updateExperienceDB({ ...data, id });
         } else {
-          addExperienceCard({ ...data, id: crypto.randomUUID() });
-          closeExperienceForm();
+          await saveNewExperienceDB(data);
         }
       })}
       className="flex flex-col gap-2 items-start"
@@ -122,24 +152,39 @@ export const ExperienceForm = ({
         rows={5}
       ></TextAreaInput>
 
-      <div className="flex flex-row justify-end w-full mt-2 gap-2">
+      <div className="flex flex-row justify-center w-full mt-2 gap-4">
         {id != "" && (
           <button
             type="button"
-            className="px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white"
+            disabled={isSubmitting || isDeleting}
+            className="w-35 px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+            style={{
+              background: isDeleting || isSubmitting ? "gray" : "",
+              cursor: isDeleting || isSubmitting ? "default" : "",
+            }}
             onClick={() => {
-              removeExperience(id);
-              closeExperienceForm();
+              deleteExperienceDB(id);
             }}
           >
-            Delete
+            {isDeleting && (
+              <div className="w-4 h-4 min-w-4 border-2 rounded-full border-gray-200 border-r-transparent animate-spin"></div>
+            )}
+            <p>Delete</p>
           </button>
         )}
         <button
           type="submit"
-          className="px-7 py-1.5 bg-[#3B82F6] rounded-full cursor-pointer  text-white"
+          disabled={isSubmitting || isDeleting}
+          className="w-35 px-7 py-1.5 bg-[#3B82F6] rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+          style={{
+            background: isDeleting || isSubmitting ? "gray" : "",
+            cursor: isDeleting || isSubmitting ? "default" : "",
+          }}
         >
-          Save
+          {isSubmitting && (
+            <div className="w-4 h-4 min-w-4 border-2 rounded-full border-gray-200 border-r-transparent animate-spin"></div>
+          )}
+          <p>Save</p>
         </button>
       </div>
     </form>
@@ -157,5 +202,5 @@ ExperienceForm.propTypes = {
   addExperienceCard: PropTypes.func,
   closeExperienceForm: PropTypes.func,
   updateExperienceCard: PropTypes.func,
-  removeExperience: PropTypes.func,
+  removeExperienceCard: PropTypes.func,
 };
