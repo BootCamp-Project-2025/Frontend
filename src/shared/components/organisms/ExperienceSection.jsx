@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { ProfileSection } from "./ProfileSection";
 import { ButtonProfileSection } from "../atoms/ButtonProfileSection";
 import { DialogContainer } from "../atoms/DialogContainer";
-import { ExperienceSectionForm } from "./ExperienceSectionForm";
+import { ExperienceForm } from "./ExperienceForm";
 import { ExperienceCard } from "../molecules/ExperienceCard";
 
 export const ExperienceSection = () => {
   const [experienceFormVisible, setExperienceFormVisible] = useState(false);
   const [experienceList, setExperienceList] = useState([]);
+  const [experienceCardSelected, setExperienceCardSelected] = useState(null);
 
   useEffect(() => {
     fetch("/requestExperience.json")
@@ -20,8 +21,28 @@ export const ExperienceSection = () => {
     setExperienceList((prev) => [...prev, experience]);
   };
 
+  const updateExperienceCard = (experience) => {
+    setExperienceList((prev) =>
+      prev.map((element) => {
+        if (element.id == experience.id) {
+          return experience;
+        }
+        return element;
+      })
+    );
+  };
+
+  const editExperience = (cardId) => {
+    const experience = experienceList.find((e) => e.id == cardId);
+    if (experience) {
+      setExperienceCardSelected(experience);
+      setExperienceFormVisible(true);
+    }
+  };
+
   const closeExperienceForm = () => {
     setExperienceFormVisible(false);
+    setExperienceCardSelected(null);
   };
 
   return (
@@ -39,6 +60,7 @@ export const ExperienceSection = () => {
                 startDate={exp.startDate}
                 endDate={exp.endDate}
                 description={exp.description}
+                editExperience={editExperience}
               />
             ))}
             <div>
@@ -55,20 +77,16 @@ export const ExperienceSection = () => {
       <DialogContainer
         isOpen={experienceFormVisible}
         onClose={() => {
-          setExperienceFormVisible((prev) => !prev);
+          closeExperienceForm();
         }}
       >
         <div className="px-7 py-7 flex flex-col max-h-[85vh] max-w-[90vw]  w-200 overflow-y-auto">
           {experienceFormVisible && (
-            <ExperienceSectionForm
+            <ExperienceForm
               addExperienceCard={addExperienceCard}
               closeExperienceForm={closeExperienceForm}
-              jobPosition={""}
-              employer={""}
-              country={""}
-              startDate={""}
-              endDate={""}
-              description={""}
+              updateExperienceCard={updateExperienceCard}
+              {...experienceCardSelected}
             />
           )}
         </div>

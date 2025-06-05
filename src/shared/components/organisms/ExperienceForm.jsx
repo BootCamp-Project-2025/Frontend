@@ -4,7 +4,8 @@ import { MonthInput } from "../molecules/MothInput";
 import { TextAreaInput } from "../molecules/TextAreaInput";
 import PropTypes from "prop-types";
 
-export const ExperienceSectionForm = ({
+export const ExperienceForm = ({
+  id = "",
   jobPosition = "",
   employer = "",
   country = "",
@@ -13,13 +14,12 @@ export const ExperienceSectionForm = ({
   endDate = "",
   addExperienceCard = () => {},
   closeExperienceForm = () => {},
+  updateExperienceCard = () => {},
 }) => {
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit,
-    setError,
-    setValue,
     watch,
   } = useForm({
     defaultValues: {
@@ -35,18 +35,23 @@ export const ExperienceSectionForm = ({
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        addExperienceCard({ ...data, id: crypto.randomUUID() });
-        closeExperienceForm();
+        console.log(data);
+        if (id != "") {
+          updateExperienceCard({ ...data, id });
+        } else {
+          addExperienceCard({ ...data, id: crypto.randomUUID() });
+          closeExperienceForm();
+        }
       })}
       className="flex flex-col gap-2 items-start"
     >
-      <h1 className="text-center w-full text-2xl font-semibold text-gray-700">
+      <h1 className="text-center w-full text-2xl font-semibold text-blue-500">
         Experience Form
       </h1>
       <TextInput
         register={register("jobPosition", {
           required: "This filed is required",
-          minLength: { value: 1, message: "At least 1 letter" },
+          minLength: { value: 3, message: "At least 3 letter" },
           maxLength: { value: 50, message: "Maximum 50 letters" },
         })}
         maxLength={50}
@@ -59,9 +64,10 @@ export const ExperienceSectionForm = ({
         <TextInput
           register={register("employer", {
             required: "This filed is required",
-            minLength: { value: 1, message: "At least 1 letter" },
-            maxLength: { value: 30, message: "Maximum 30 letters" },
+            minLength: { value: 3, message: "At least 3 letter" },
+            maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
+          maxLength={50}
           label={"Employer"}
           placeholder={"Employer name"}
           errorMessage={errors?.employer?.message}
@@ -70,9 +76,10 @@ export const ExperienceSectionForm = ({
         <TextInput
           register={register("country", {
             required: "This filed is required",
-            minLength: { value: 1, message: "At least 1 letter" },
-            maxLength: { value: 30, message: "Maximum 30 letters" },
+            minLength: { value: 3, message: "At least 3 letter" },
+            maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
+          maxLength={50}
           label={"Country"}
           placeholder={"Country"}
           errorMessage={errors?.country?.message}
@@ -114,19 +121,28 @@ export const ExperienceSectionForm = ({
         rows={5}
       ></TextAreaInput>
 
-      <div className="flex flex-row justify-end w-full mt-2">
+      <div className="flex flex-row justify-end w-full mt-2 gap-2">
+        {id != "" && (
+          <button
+            type="button"
+            className="px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white"
+          >
+            Delete
+          </button>
+        )}
         <button
           type="submit"
           className="px-7 py-1.5 bg-[#3B82F6] rounded-full cursor-pointer  text-white"
         >
-          Completed
+          Save
         </button>
       </div>
     </form>
   );
 };
 
-ExperienceSectionForm.propTypes = {
+ExperienceForm.propTypes = {
+  id: PropTypes.string,
   jobPosition: PropTypes.string,
   employer: PropTypes.string,
   country: PropTypes.string,
@@ -135,4 +151,5 @@ ExperienceSectionForm.propTypes = {
   endDate: PropTypes.string,
   addExperienceCard: PropTypes.func,
   closeExperienceForm: PropTypes.func,
+  updateExperienceCard: PropTypes.func,
 };
