@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import HealthCheck from "./domains/core/HealthCheck";
+import CourseCardList from "./domains/Course/organisms/CourseCardList.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/health-check" element={<HealthCheck />} />
+        <Route default path="/" element={<App />} />
+        <Route path="courses" element={<CourseCardList />} />
       </Routes>
     </BrowserRouter>
   );
