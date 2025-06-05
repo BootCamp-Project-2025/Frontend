@@ -3,7 +3,7 @@ import { TextInput } from "../molecules/TextInput";
 import { MonthInput } from "../molecules/MothInput";
 import { TextAreaInput } from "../molecules/TextAreaInput";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export const ExperienceForm = ({
   id = "",
@@ -64,6 +64,16 @@ export const ExperienceForm = ({
     setIsDeleting(false);
     closeExperienceForm();
   };
+
+  const getMaxMonth = () => {
+    console.log("calculando moth");
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    return `${year}-${month}`;
+  };
+
+  const maxMoth = useMemo(() => getMaxMonth(), []);
 
   return (
     <form
@@ -129,6 +139,7 @@ export const ExperienceForm = ({
               return true;
             },
           })}
+          max={maxMoth}
           errorMessage={errors?.startDate?.message}
         ></MonthInput>
 
@@ -137,6 +148,7 @@ export const ExperienceForm = ({
           register={register("endDate", {
             required: "This field is requried",
           })}
+          max={maxMoth}
           errorMessage={errors?.endDate?.message}
         ></MonthInput>
       </div>
