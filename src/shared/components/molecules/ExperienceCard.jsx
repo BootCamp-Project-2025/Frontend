@@ -1,22 +1,56 @@
+import PropTypes from "prop-types";
 
-export const ExperienceCard = ({id, jobPosition, employer, country, startDate,endDate, description}) => {
+export const ExperienceCard = ({
+  id,
+  jobPosition,
+  employer,
+  country,
+  startDate,
+  endDate,
+  description,
+}) => {
   return (
     <div className="bg-[#D7E6FD] p-4 rounded-lg">
       <div className="flex flex-row gap-2.5">
-        <div className="w-7 min-w-6 " >
-          <svg  width= "100%" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M29 15V26H3V15M16 20V16M20 6C20 6 20 2 16 2C12 2 12 6 12 6M2 6H30V14C30 14 24 18 16 18C8 18 2 14 2 14V6Z" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        <div className="w- min-w-6 ">
+          <svg
+            className="fill-gray-800 w-full"
+            viewBox="0 -960 960 960"
+            width="24px"
+          >
+            <path d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm400 360H600v80H360v-80H160v160h640v-160Zm-360 0h80v-80h-80v80Zm-280-80h200v-80h240v80h200v-200H160v200Zm320 40Z" />
           </svg>
         </div>
         <div className="flex flex-col gap-1 w-full">
-          <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between ">
-             <p className="text-nowrap">{jobPosition} </p>
-             <p className="text-nowrap">{startDate} - {endDate}</p>
+          <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
+            <p className="text-nowrap">{jobPosition} </p>
+            <p className="text-nowrap text-sm">
+              {startDate} - {endDate}
+            </p>
           </div>
-          <p className="text-sm text-gray-500">{employer}, {country}</p>
+          <p className="text-sm text-gray-500">
+            {employer}, {country}
+          </p>
           <p className="text-sm text-gray-500 line-clamp-3">{description}</p>
+        </div>
+        <div>
+          <div className=" w-8 h-8 rounded-full bg-orange-500 hover:bg-orange-400 flex justify-center items-center cursor-pointer">
+            <svg viewBox="0 -960 960 960" className="w-5 h-5 fill-white">
+              <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+ExperienceCard.propTypes = {
+  id: PropTypes.string,
+  jobPosition: PropTypes.string,
+  employer: PropTypes.string,
+  country: PropTypes.string,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  description: PropTypes.string,
+};
