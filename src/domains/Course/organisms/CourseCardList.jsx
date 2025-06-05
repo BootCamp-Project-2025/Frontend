@@ -14,6 +14,7 @@ function CourseCardList({ style = {}, className = "" }) {
       {data.map((course, id) => (
         <CourseCard
           key={id}
+          courseId={course.id}
           courseName={course.name}
           courseImage={course.imgSrc}
         />

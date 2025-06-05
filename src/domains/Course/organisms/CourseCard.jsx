@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import { Button } from "../../../shared/components/atoms/Button";
 
-function CourseCard({ courseName, style = {}, courseImage, className = "" }) {
+function CourseCard({
+  courseName,
+  courseImage,
+  onEditClick,
+  onDeleteClick,
+  style = {},
+  className = "",
+}) {
   return (
     <div
       style={style}
@@ -15,10 +22,15 @@ function CourseCard({ courseName, style = {}, courseImage, className = "" }) {
       <div className="ml-2 flex gap-3 p-3 flex-col justify-evenly">
         <p className="text-blue-500 text-3xl">{courseName}</p>
         <div className="flex gap-6">
-          <Button classname=" font-medium text-sm" styleType="callToAction">
+          <Button
+            onClick={() => onEditClick()}
+            classname=" font-medium text-sm"
+            styleType="callToAction"
+          >
             Edit Course
           </Button>
           <Button
+            onClick={() => onDeleteClick()}
             classname="text-red-500 text-sm font-medium border-red-500 border-1"
             styleType="addBtn"
             color="light"
@@ -34,6 +46,8 @@ export default CourseCard;
 
 CourseCard.propTypes = {
   courseName: PropTypes.string,
+  onDeleteClick: PropTypes.func,
+  onEditClick: PropTypes.func,
   courseImage: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
