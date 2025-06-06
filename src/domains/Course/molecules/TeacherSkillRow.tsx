@@ -15,7 +15,7 @@ function TeacherSkillRow({ skill, level, edit }) {
           classname="self-end flex-end mr-0 "
           styleType="editBtn"
         >
-          ed
+          e
         </Button>
       </div>
     </div>
