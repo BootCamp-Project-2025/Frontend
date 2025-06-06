@@ -9,7 +9,7 @@ export const ExperienceCard = ({
   startDate,
   endDate,
   description,
-  editExperienceCard,
+  editCard,
 }) => {
   return (
     <div className="bg-[#D7E6FD] p-4 rounded-lg">
@@ -38,7 +38,7 @@ export const ExperienceCard = ({
         <div>
           <ButtonProfileEditCard
             onClick={() => {
-              editExperienceCard(id);
+              editCard(id);
             }}
           ></ButtonProfileEditCard>
         </div>
@@ -55,5 +55,5 @@ ExperienceCard.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   description: PropTypes.string,
-  editExperienceCard: PropTypes.func,
+  editCard: PropTypes.func,
 };

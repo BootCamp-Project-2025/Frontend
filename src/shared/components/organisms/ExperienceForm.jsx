@@ -13,10 +13,10 @@ export const ExperienceForm = ({
   description = "",
   startDate = "",
   endDate = "",
-  addExperienceCard = () => {},
-  closeExperienceForm = () => {},
-  updateExperienceCard = () => {},
-  removeExperienceCard = () => {},
+  addCard = () => {},
+  closeForm = () => {},
+  updateCard = () => {},
+  removeCard = () => {},
 }) => {
   const {
     register,
@@ -38,31 +38,31 @@ export const ExperienceForm = ({
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const saveNewExperienceDB = async (data) => {
+  const saveNewRecordDB = async (data) => {
     await delay(1000);
-    // create logic to save new experience at database
-    // db should give as a experience's id
+    // create logic to save new record at database
+    // db should give as a record's id
     // create logic to manage errors
     let newId = crypto.randomUUID();
-    addExperienceCard({ ...data, id: newId });
-    closeExperienceForm();
+    addCard({ ...data, id: newId });
+    closeForm();
   };
 
-  const updateExperienceDB = async (data) => {
+  const updateRecordDB = async (data) => {
     await delay(1000);
-    // create logic to updata experience at database
+    // create logic to updata record at database
     // create logic to manage errors
-    updateExperienceCard(data);
+    updateCard(data);
   };
 
-  const deleteExperienceDB = async (id) => {
+  const deleteRecordDB = async (id) => {
     setIsDeleting(true);
     await delay(1000);
-    // create logic to delete experience at database
+    // create logic to delete record at database
     // create logic to manage errors
-    removeExperienceCard(id);
+    removeCard(id);
     setIsDeleting(false);
-    closeExperienceForm();
+    closeForm();
   };
 
   const getMaxMonth = () => {
@@ -79,9 +79,9 @@ export const ExperienceForm = ({
     <form
       onSubmit={handleSubmit(async (data) => {
         if (id != "") {
-          await updateExperienceDB({ ...data, id });
+          await updateRecordDB({ ...data, id });
         } else {
-          await saveNewExperienceDB(data);
+          await saveNewRecordDB(data);
         }
       })}
       className="flex flex-col gap-2 items-start"
@@ -175,7 +175,7 @@ export const ExperienceForm = ({
               cursor: isDeleting || isSubmitting ? "default" : "",
             }}
             onClick={() => {
-              deleteExperienceDB(id);
+              deleteRecordDB(id);
             }}
           >
             {isDeleting && (
@@ -211,8 +211,8 @@ ExperienceForm.propTypes = {
   description: PropTypes.string,
   startDate: PropTypes.string,
   endDate: PropTypes.string,
-  addExperienceCard: PropTypes.func,
-  closeExperienceForm: PropTypes.func,
-  updateExperienceCard: PropTypes.func,
-  removeExperienceCard: PropTypes.func,
+  addCard: PropTypes.func,
+  closeForm: PropTypes.func,
+  updateCard: PropTypes.func,
+  removeCard: PropTypes.func,
 };

@@ -6,47 +6,47 @@ import { ExperienceForm } from "./ExperienceForm";
 import { ExperienceCard } from "../molecules/ExperienceCard";
 
 export const ExperienceSection = () => {
-  const [experienceFormVisible, setExperienceFormVisible] = useState(false);
-  const [experienceList, setExperienceList] = useState([]);
-  const [experienceCardSelected, setExperienceCardSelected] = useState(null);
+  const [formVisible, setFormVisible] = useState(false);
+  const [recordList, setRecordList] = useState([]);
+  const [cardSelected, setCardSelected] = useState(null);
 
   useEffect(() => {
     fetch("/requestExperience.json")
       .then((res) => res.json())
-      .then((data) => setExperienceList(data))
-      .catch((err) => console.error("Error loading experience data:", err));
+      .then((data) => setRecordList(data))
+      .catch((err) => console.error("Error loading  data:", err));
   }, []);
 
-  const addExperienceCard = (experience) => {
-    setExperienceList((prev) => [...prev, experience]);
+  const addCard = (record) => {
+    setRecordList((prev) => [...prev, record]);
   };
 
-  const updateExperienceCard = (experience) => {
-    setExperienceList((prev) =>
+  const updateCard = (record) => {
+    setRecordList((prev) =>
       prev.map((element) => {
-        if (element.id == experience.id) {
-          return experience;
+        if (element.id == record.id) {
+          return record;
         }
         return element;
       })
     );
   };
 
-  const editExperienceCard = (cardId) => {
-    const experience = experienceList.find((e) => e.id == cardId);
-    if (experience) {
-      setExperienceCardSelected(experience);
-      setExperienceFormVisible(true);
+  const editCard = (cardId) => {
+    const record = recordList.find((e) => e.id == cardId);
+    if (record) {
+      setCardSelected(record);
+      setFormVisible(true);
     }
   };
 
-  const removeExperienceCard = (cardId) => {
-    setExperienceList((prev) => prev.filter((e) => e.id !== cardId));
+  const removeCard = (cardId) => {
+    setRecordList((prev) => prev.filter((e) => e.id !== cardId));
   };
 
-  const closeExperienceForm = () => {
-    setExperienceFormVisible(false);
-    setExperienceCardSelected(null);
+  const closeForm = () => {
+    setFormVisible(false);
+    setCardSelected(null);
   };
 
   return (
@@ -54,7 +54,7 @@ export const ExperienceSection = () => {
       <div className="p-4">
         <ProfileSection title={"Experience"}>
           <>
-            {experienceList.map((exp) => (
+            {recordList.map((exp) => (
               <ExperienceCard
                 key={exp.id}
                 id={exp.id}
@@ -64,13 +64,11 @@ export const ExperienceSection = () => {
                 startDate={exp.startDate}
                 endDate={exp.endDate}
                 description={exp.description}
-                editExperienceCard={editExperienceCard}
+                editCard={editCard}
               />
             ))}
             <div>
-              <ButtonProfileAddCard
-                onClick={() => setExperienceFormVisible(true)}
-              >
+              <ButtonProfileAddCard onClick={() => setFormVisible(true)}>
                 Add Experience
               </ButtonProfileAddCard>
             </div>
@@ -79,19 +77,19 @@ export const ExperienceSection = () => {
       </div>
 
       <DialogContainer
-        isOpen={experienceFormVisible}
+        isOpen={formVisible}
         onClose={() => {
-          closeExperienceForm();
+          closeForm();
         }}
       >
         <div className="px-7 py-7 flex flex-col max-h-[85vh] max-w-[90vw]  w-200 overflow-y-auto">
-          {experienceFormVisible && (
+          {formVisible && (
             <ExperienceForm
-              addExperienceCard={addExperienceCard}
-              closeExperienceForm={closeExperienceForm}
-              updateExperienceCard={updateExperienceCard}
-              removeExperienceCard={removeExperienceCard}
-              {...experienceCardSelected}
+              addCard={addCard}
+              closeForm={closeForm}
+              updateCard={updateCard}
+              removeCard={removeCard}
+              {...cardSelected}
             />
           )}
         </div>
