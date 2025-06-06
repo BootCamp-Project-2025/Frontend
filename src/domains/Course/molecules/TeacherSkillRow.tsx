@@ -7,9 +7,9 @@ function TeacherSkillRow({ skill, level, edit }) {
       className="py-1 my-4 flex justify-between rounded-lg px-2"
       style={{ backgroundColor: "#D7E6FD" }}
     >
-      <p className="font-bold self-start my-auto">{skill}</p>
+      <p className="font-bold self-start my-auto font-sans">{skill}</p>
       <div className="flex gap-1.5">
-        <p className="self-end my-auto">{level}</p>
+        <p className="self-end my-auto font-sans">{level}</p>
         <Button
           onClick={edit}
           classname="self-end flex-end mr-0 "
