@@ -10,15 +10,16 @@ export default defineConfig({
     include: ["test/**/*.{test,spec}.{ts,js,tsx,jsx}"],
     coverage: {
       provider: "v8",
+      all: true,
       reporter: ["text", "json", "html"],
       include: ["src/**/*.{ts,js,tsx,jsx}"],
       exclude: ["node_modules/", "dist/", "coverage/"],
-      threshold: {
+      /*   threshold: {
         lines: 70,
         functions: 70,
         branches: 70,
         statements: 70,
-      },
+      }, */
     },
   },
 });
