@@ -39,16 +39,27 @@ function TeacherSkillPopup({
           X
         </button>
       </div>
-      <h4 className="text-blue-500 text-2xl text-center">Skill Form</h4>
+      <h4 className="font-sans text-blue-500 text-2xl font-bold text-center">
+        Skill Form
+      </h4>
       <TeacherSkillForm skill={skillState} update={setSkillState} />
       <div className="flex gap-4 justify-center mt-4">
         <div className="w-1/2 flex justify-end">
-          <Button onClick={deleteSkill} color="pink" styleType="callToAction">
+          <Button
+            classname="font-sans"
+            onClick={deleteSkill}
+            color="pink"
+            styleType="callToAction"
+          >
             Delete
           </Button>
         </div>
         <div className="w-1/2 flex justify-start">
-          <Button onClick={saveSkill} styleType="callToAction">
+          <Button
+            classname="font-sans"
+            onClick={saveSkill}
+            styleType="callToAction"
+          >
             Save
           </Button>
         </div>

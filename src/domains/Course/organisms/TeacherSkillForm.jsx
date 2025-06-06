@@ -8,14 +8,18 @@ function TeacherSkillForm({ skill, update }) {
   return (
     <div className="flex gap-4 justify-center">
       <div className="w-fit">
-        <p style={textStyle}>Skills</p>
+        <p className="mb-1 font-sans" style={textStyle}>
+          Skills
+        </p>
         <Input styleType="default" id={"skill"} type={"text"} />
       </div>
       <div className="w-fit">
-        <p style={textStyle}>Proficiency</p>
+        <p className="mb-1 font-sans" style={textStyle}>
+          Proficiency
+        </p>
         <select
           onChange={(e) => update({ ...skill, level: e.target.value })}
-          className="border text-gray-600 p-1 rounded-md outline-none"
+          className="border text-gray-600 p-1 rounded-md outline-none font-sans"
           type="select"
           value={skill.level}
         >
