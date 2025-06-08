@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 export default function CertificationCard({ certification, onEdit }) {
   const handleEditClick = () => {
@@ -7,7 +7,7 @@ export default function CertificationCard({ certification, onEdit }) {
   };
 
   return (
-    <div className="flex p-4 m-2 w-4/5 gap-3 justify-between bg-[#D7E6FD] text-[#2525252] rounded-2xl">
+    <div className="flex p-4 gap-3 justify-between bg-[#D7E6FD] text-[#2525252] rounded-2xl">
       <div className="flex gap-5">
         <svg
           width="19"
@@ -28,7 +28,7 @@ export default function CertificationCard({ certification, onEdit }) {
             {certification.name} - {certification.year}
           </div>
           <span className="text-lg font-light">
-            {certification.acreditedBy}
+            {certification.institution}
           </span>
         </div>
       </div>
@@ -58,7 +58,7 @@ CertificationCard.propTypes = {
   certification: PropTypes.shape({
     year: PropTypes.number.isRequired,
     name: PropTypes.string,
-    acreditedBy: PropTypes.string,
+    institution: PropTypes.string,
   }).isRequired,
   onEdit: PropTypes.func,
 };
