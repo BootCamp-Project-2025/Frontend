@@ -56,7 +56,7 @@ function TeacherSkills({ className = "", style = {} }) {
           />
         ))}
 
-        <Button onClick={() => handleSkill()} styleType="callToAction">
+        <Button onClick={handleSkill} styleType="callToAction">
           + Add Skill
         </Button>
       </div>
