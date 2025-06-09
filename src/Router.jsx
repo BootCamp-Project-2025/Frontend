@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import HealthCheck from "./domains/core/HealthCheck";
-import { EducationSection } from "./shared/components/organisms/EducationSection";
+import { EducationSection } from "./domains/profile/components/organisms/EducationSection";
 
 export default function Router() {
   return (

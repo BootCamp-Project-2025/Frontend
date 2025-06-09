@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { TextInput } from "../molecules/TextInput";
-import { MonthInput } from "../molecules/MothInput";
 import PropTypes from "prop-types";
 import { useMemo, useState } from "react";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { MonthInput } from "../../../../shared/components/molecules/MothInput";
 
 export const EducationForm = ({
   id = "",

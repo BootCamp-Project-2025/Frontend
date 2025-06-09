@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ProfileSection } from "./ProfileSection";
-import { ButtonProfileAddCard } from "../atoms/ButtonProfileAddCard";
-import { DialogContainer } from "../atoms/DialogContainer";
-import { EducationForm } from "./EducationForm";
+import { ProfileSection } from "../molecules/ProfileSection";
 import { EducationCard } from "../molecules/EducationCard";
+import { ButtonProfileAddCard } from "../atoms/ButtonProfileAddCard";
+import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
+import { EducationForm } from "./EducationForm";
 
 export const EducationSection = () => {
   const [formVisible, setFormVisible] = useState(false);
