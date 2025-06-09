@@ -3,23 +3,40 @@ import { Button } from "../../../shared/components/atoms/Button";
 import TeacherSkillRow from "../molecules/TeacherSkillRow";
 import TeacherSkillPopup from "./TeacherSkillPopup";
 import usePopup from "../../../shared/hooks/usePopup";
+import { useState } from "react";
 
 function TeacherSkills({ className = "", style = {} }) {
   const { openPopup, closePopup } = usePopup();
   //load data from API
-  const data = [
+  const [data, setData] = useState([
     { skill: "react", level: "Intermediate" },
     { skill: "react", level: "begginer" },
-  ];
+  ]);
+
+  const addSkill = (skill, newSkill) => {
+    {
+      if (newSkill) {
+        setData([...data, skill]);
+      } else {
+        console.log(skill, "edit skill functionality not implemented yet.");
+      }
+    }
+  };
 
   function handleSkill(skill) {
     if (skill) {
       //popups require API integration for create,update and delete
       openPopup(() =>
-        TeacherSkillPopup({ closePopup: closePopup, skill: skill })
+        TeacherSkillPopup({
+          closePopup: closePopup,
+          addSkill: addSkill,
+          skill: skill,
+        })
       );
     } else {
-      openPopup(() => TeacherSkillPopup({ closePopup: closePopup }));
+      openPopup(() =>
+        TeacherSkillPopup({ closePopup: closePopup, addSkill: addSkill })
+      );
     }
   }
 

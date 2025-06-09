@@ -14,6 +14,7 @@ const buttonStyle = {
 
 function TeacherSkillPopup({
   closePopup,
+  addSkill,
   className = "",
   style = {},
   skill = { skill: "", level: "Beginner" },
@@ -32,10 +33,11 @@ function TeacherSkillPopup({
   }
 
   function saveSkill() {
+    addSkill(skillState);
     if (newSkillRef.current) {
-      // Placeholder for save functionality with API
+      addSkill(skillState, true);
     } else {
-      // Placeholder for edit functionality with API
+      addSkill(skillState, false);
     }
 
     console.log(skillState, "Save skill functionality not implemented yet.");
@@ -85,6 +87,7 @@ export default TeacherSkillPopup;
 
 TeacherSkillPopup.propTypes = {
   closePopup: propTypes.func,
+  addSkill: propTypes.func,
   className: propTypes.string,
   style: propTypes.object,
   skill: propTypes.object,
