@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 CourseForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
@@ -32,7 +32,6 @@ export default function CourseForm({ onSubmit }) {
             name="name"
             type="text"
             {...register("name", { required: true })}
-            required
             className={`border  ${errors.name ? "border-red-500" : " border-gray-300 focus:border-blue-400"} rounded-lg px-3 py-2 w-full  transition outline-0`}
           />
           {errors.name && (
