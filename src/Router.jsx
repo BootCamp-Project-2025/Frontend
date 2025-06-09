@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import HealthCheck from "./domains/core/HealthCheck";
-import { ExperienceSection } from "./shared/components/organisms/ExperienceSection";
+import { ExperienceSection } from "./domains/profile/components/organisms/ExperienceSection";
 
 export default function Router() {
   return (
@@ -9,10 +9,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/health-check" element={<HealthCheck />} />
-        <Route
-          path="/teacherProfile"
-          element={<ExperienceSection></ExperienceSection>}
-        />
+        <Route path="/teacherProfile" element={<ExperienceSection />} />
       </Routes>
     </BrowserRouter>
   );

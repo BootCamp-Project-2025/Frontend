@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { TextInput } from "../molecules/TextInput";
-import { MonthInput } from "../molecules/MothInput";
-import { TextAreaInput } from "../molecules/TextAreaInput";
 import PropTypes from "prop-types";
 import { useMemo, useState } from "react";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { MonthInput } from "../../../../shared/components/molecules/MothInput";
+import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaInput";
 
 export const ExperienceForm = ({
   id = "",
