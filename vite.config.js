@@ -5,8 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   test: {
-    globals: true,
     environment: "jsdom",
+    globals: true,
+    setupFiles: "./setupTests.ts",
     include: ["test/**/*.{test,spec}.{ts,js,tsx,jsx}"],
     coverage: {
       provider: "v8",
