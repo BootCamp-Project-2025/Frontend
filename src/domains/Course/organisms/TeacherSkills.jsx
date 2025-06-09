@@ -14,6 +14,7 @@ function TeacherSkills({ className = "", style = {} }) {
 
   function handleSkill(skill) {
     if (skill) {
+      //popups require API integration for create,update and delete
       openPopup(() =>
         TeacherSkillPopup({ closePopup: closePopup, skill: skill })
       );

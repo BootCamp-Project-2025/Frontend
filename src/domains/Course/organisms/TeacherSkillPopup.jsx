@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import { Button } from "../../../shared/components/atoms/Button";
 import TeacherSkillForm from "./TeacherSkillForm";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const buttonStyle = {
   backgroundColor: "#C5C5C5",
@@ -19,14 +19,27 @@ function TeacherSkillPopup({
   skill = { skill: "", level: "Beginner" },
 }) {
   const [skillState, setSkillState] = useState(skill);
+  const newSkillRef = useRef(skill.skill === "");
 
   function deleteSkill() {
+    // Placeholder for delete functionality with API
+    if (newSkillRef.current) {
+      closePopup();
+      return;
+    }
     console.log(skillState, "Delete skill functionality not implemented yet.");
     closePopup();
   }
 
   function saveSkill() {
+    if (newSkillRef.current) {
+      // Placeholder for save functionality with API
+    } else {
+      // Placeholder for edit functionality with API
+    }
+
     console.log(skillState, "Save skill functionality not implemented yet.");
+    closePopup();
   }
   return (
     <div style={style} className={`${className} relative`}>

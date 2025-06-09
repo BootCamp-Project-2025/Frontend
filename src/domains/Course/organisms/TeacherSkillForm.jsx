@@ -11,7 +11,13 @@ function TeacherSkillForm({ skill, update }) {
         <p className="mb-1 font-sans" style={textStyle}>
           Skills
         </p>
-        <Input styleType="default" id={"skill"} type={"text"} />
+        <Input
+          onChange={(e) => update({ ...skill, skill: e.target.value })}
+          value={skill.skill}
+          styleType="default"
+          id={"skill"}
+          type={"text"}
+        />
       </div>
       <div className="w-fit">
         <p className="mb-1 font-sans" style={textStyle}>
