@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import CourseFormModal from "../../../../../src/domains/Course/components/templates/CourseFormModal";
+import CourseFormModal from "../../../../src/domains/teacher/components/organisms/CourseFormModal";
 
 vi.mock(
-  "../../../../../src/domains/Course/components/organisms/CourseForm",
+  "../../../../src/domains/teacher/components/molecules/CourseForm",
   () => ({
     __esModule: true,
     default: ({ onSubmit }) => (
@@ -20,7 +20,7 @@ vi.mock(
 );
 
 vi.mock(
-  "../../../../../src/domains/Course/components/organisms/CourseTypeSelection",
+  "../../../../src/domains/teacher/components/molecules/CourseTypeSelection",
   () => ({
     __esModule: true,
     default: ({ setCourseType }) => (

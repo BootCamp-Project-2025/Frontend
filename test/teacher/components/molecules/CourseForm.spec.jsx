@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CourseForm from "../../../../../src/domains/Course/components/organisms/CourseForm";
+import CourseForm from "../../../../src/domains/teacher/components/molecules/CourseForm";
 import { describe, it, expect, vi } from "vitest";
 
 describe("CourseForm", () => {

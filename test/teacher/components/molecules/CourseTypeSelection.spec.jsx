@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import CourseTypeSelection from "../../../../../src/domains/Course/components/organisms/CourseTypeSelection";
+import CourseTypeSelection from "../../../../src/domains/teacher/components/molecules/CourseTypeSelection";
 
 describe("CourseTypeSelection", () => {
   it("renders the heading", () => {
