@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import CertificationCard from "../organisms/CertificationCard";
+import CertificationCard from "../molecules/CertificationCard";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useState } from "react";
 import usePopup from "../../../../shared/hooks/usePopup";
-import CertificationForm from "../organisms/CertificationForm";
+import CertificationForm from "../molecules/CertificationForm";
 
 export default function CertificationList() {
   // TODO: Replace with actual data fetching logic
