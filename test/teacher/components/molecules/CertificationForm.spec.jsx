@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from "@testing-library/react";
-import CertificationForm from "../../../../src/domains/profile/components/organisms/CertificationForm";
+import CertificationForm from "../../../../src/domains/teacher/components/molecules/CertificationForm";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
 describe("CertificationForm", () => {

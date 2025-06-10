@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CertificationList from "../../../../src/domains/profile/components/templates/CertificationList";
+import CertificationList from "../../../../src/domains/teacher/components/organisms/CertificationList";
 import * as usePopupModule from "../../../../src/shared/hooks/usePopup";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { act } from "react-dom/test-utils";
 
 vi.mock(
-  "../../../../src/domains/profile/components/organisms/CertificationCard",
+  "../../../../src/domains/teacher/components/molecules/CertificationCard",
   () => ({
     default: ({ certification, onEdit }) => (
       <div data-testid="cert-card">
@@ -22,7 +22,7 @@ vi.mock("../../../../src/shared/components/atoms/Button", () => ({
 }));
 
 vi.mock(
-  "../../../../src/domains/profile/components/organisms/CertificationForm",
+  "../../../../src/domains/teacher/components/molecules/CertificationForm",
   () => ({
     default: () => <div>CertificationForm</div>,
   })

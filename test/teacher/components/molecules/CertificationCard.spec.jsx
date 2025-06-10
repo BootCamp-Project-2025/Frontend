@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import CertificationCard from "../../../../src/domains/profile/components/organisms/CertificationCard";
+import CertificationCard from "../../../../src/domains/teacher/components/molecules/CertificationCard";
 import { describe, it, expect, vi } from "vitest";
 
 describe("CertificationCard", () => {
