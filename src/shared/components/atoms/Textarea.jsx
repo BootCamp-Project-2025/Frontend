@@ -26,8 +26,8 @@ export default function Textarea({
         placeholder={placeholder}
       ></textarea>
       <div className="flex flex-col gap-0.5 text-red-500">
-        {errors.map((error) => {
-          return <p>{error}</p>;
+        {errors.map((error, i) => {
+          return <p key={i}>{error}</p>;
         })}
       </div>
     </div>

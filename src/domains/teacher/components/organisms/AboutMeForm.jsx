@@ -13,7 +13,6 @@ export default function AboutMeForm() {
 
   const handleDelete = () => {
     setDescription("");
-    handleSubmit();
   };
 
   const handleOnChange = (e) => {

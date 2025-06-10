@@ -21,7 +21,7 @@ export default function AboutMeSection() {
       </div>
       <div>
         <Button onClick={handlePopup} styleType="addBtn">
-          Button
+          Edit About me
         </Button>
       </div>
     </div>
