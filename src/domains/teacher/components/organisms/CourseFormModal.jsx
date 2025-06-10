@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import CourseForm from "../organisms/CourseForm";
-import CourseTypeSelection from "../organisms/CourseTypeSelection";
+import CourseForm from "../molecules/CourseForm";
+import CourseTypeSelection from "../molecules/CourseTypeSelection";
 
 CourseFormModal.propTypes = {
   closePopup: PropTypes.func.isRequired,
