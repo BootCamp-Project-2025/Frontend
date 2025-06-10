@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "./button.css";
+import "./Button.css";
 
 const BUTTON_STYLE_TYPES = {
   ADD: "addBtn",
