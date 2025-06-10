@@ -169,7 +169,7 @@ export const ExperienceForm = ({
           <button
             type="button"
             disabled={isSubmitting || isDeleting}
-            className="w-35 px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+            className="text-base w-35 px-7 py-1.5 bg-pink-500 hover:bg-pink-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
             style={{
               background: isDeleting || isSubmitting ? "gray" : "",
               cursor: isDeleting || isSubmitting ? "default" : "",
@@ -187,7 +187,7 @@ export const ExperienceForm = ({
         <button
           type="submit"
           disabled={isSubmitting || isDeleting}
-          className="w-35 px-7 py-1.5 bg-[#3B82F6] rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+          className="text-base w-35 px-7 py-1.5 bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
           style={{
             background: isDeleting || isSubmitting ? "gray" : "",
             cursor: isDeleting || isSubmitting ? "default" : "",

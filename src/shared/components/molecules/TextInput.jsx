@@ -9,14 +9,14 @@ export const TextInput = ({
   maxLength = undefined,
 }) => {
   return (
-    <div className="flex flex-col gap-1.5 text-md w-full">
-      <label htmlFor={id} className="text-gray-600  font-semibold">
+    <div className="flex flex-col gap-1.5 w-full">
+      <label htmlFor={id} className="text-gray-600  font-semibold text-lg ">
         {label}
       </label>
       <input
         {...register}
         type="text"
-        className={`bg-white py-1.5 px-2.5 rounded-md outline-2 focus:outline-3  ${errorMessage ? "outline-pink-500 focus:outline-pink-500" : "outline-gray-300 focus:outline-blue-500"}`}
+        className={`bg-white py-1.5 px-2.5 rounded-md outline-1 focus:outline-2 text-base ${errorMessage ? "outline-pink-500 focus:outline-pink-500" : "outline-gray-300 focus:outline-blue-500"}`}
         spellCheck="false"
         placeholder={placeholder}
         maxLength={maxLength}
