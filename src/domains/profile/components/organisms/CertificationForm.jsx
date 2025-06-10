@@ -29,6 +29,7 @@ export default function CertificationForm({
       <div className="relative w-full flex justify-center items-center">
         <h3 className="font-bold text-blue-500 text-xl">Certification Form</h3>
         <button
+          aria-label="Close form"
           className="w-9 h-9 rounded-full bg-gray-300 absolute right-0 flex justify-center items-center hover:bg-gray-400 transition-colors duration-200"
           onClick={closePopup}
         >
