@@ -5,7 +5,7 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import AboutMeCard from "./AboutMeCard";
 
 export default function AboutMeSection() {
-  const { openPopup, closePopup } = usePopup();
+  const { openPopup } = usePopup();
 
   const handlePopup = () => {
     openPopup(AboutMeCard, { title: "popup form" }, true);

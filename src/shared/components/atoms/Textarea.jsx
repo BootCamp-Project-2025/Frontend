@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function Textarea({
   id = "",
   placeholder = "",
@@ -33,3 +35,15 @@ export default function Textarea({
     </div>
   );
 }
+
+Textarea.propTypes = {
+  id: PropTypes.string,
+  placeholder: PropTypes.string,
+  errors: PropTypes.array,
+  className: PropTypes.string,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  cols: PropTypes.string,
+  rows: PropTypes.string,
+};
