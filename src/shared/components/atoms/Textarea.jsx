@@ -1,5 +1,5 @@
 export default function Textarea({
-  id,
+  id = "",
   placeholder = "",
   errors = [],
   className = "",
