@@ -3,7 +3,11 @@ import { Button } from "../../../../shared/components/atoms/Button";
 
 export default function CertificationCard({ certification, onEdit }) {
   const handleEditClick = () => {
-    onEdit(certification);
+    if (onEdit) {
+      onEdit(certification);
+    } else {
+      console.error("onEdit function is not provided");
+    }
   };
 
   return (
