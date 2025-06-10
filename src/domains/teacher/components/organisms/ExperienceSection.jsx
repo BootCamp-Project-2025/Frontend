@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-
-import { ExperienceForm } from "./ExperienceForm";
+import { ProfileSection } from "../molecules/ProfileSection";
 import { ExperienceCard } from "../molecules/ExperienceCard";
 import { ButtonProfileAddCard } from "../atoms/ButtonProfileAddCard";
 import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
-import { ProfileSection } from "../molecules/ProfileSection";
+import { ExperienceForm } from "./ExperienceForm";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 export const ExperienceSection = () => {
   const [formVisible, setFormVisible] = useState(false);
@@ -76,6 +76,8 @@ export const ExperienceSection = () => {
           </>
         </ProfileSection>
       </div>
+
+      <Button> hola</Button>
 
       <DialogContainer
         isOpen={formVisible}
