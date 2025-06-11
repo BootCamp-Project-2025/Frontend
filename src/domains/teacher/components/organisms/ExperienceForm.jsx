@@ -91,7 +91,7 @@ export const ExperienceForm = ({
       </h1>
       <TextInput
         register={register("jobPosition", {
-          required: "This filed is required",
+          required: "This field is required",
           minLength: { value: 3, message: "At least 3 letter" },
           maxLength: { value: 50, message: "Maximum 50 letters" },
         })}
@@ -99,12 +99,13 @@ export const ExperienceForm = ({
         label={"Position"}
         placeholder={"Job position"}
         errorMessage={errors?.jobPosition?.message}
+        id={"jobPosition"}
       ></TextInput>
 
       <div className="flex flex-row w-full sm:gap-5 sm:flex-nowrap flex-wrap gap-2 ">
         <TextInput
           register={register("employer", {
-            required: "This filed is required",
+            required: "This field is required",
             minLength: { value: 3, message: "At least 3 letter" },
             maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
@@ -112,11 +113,12 @@ export const ExperienceForm = ({
           label={"Employer"}
           placeholder={"Employer name"}
           errorMessage={errors?.employer?.message}
+          id={"employer"}
         ></TextInput>
 
         <TextInput
           register={register("country", {
-            required: "This filed is required",
+            required: "This field is required",
             minLength: { value: 3, message: "At least 3 letter" },
             maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
@@ -124,6 +126,7 @@ export const ExperienceForm = ({
           label={"Country"}
           placeholder={"Country"}
           errorMessage={errors?.country?.message}
+          id={"country"}
         ></TextInput>
       </div>
       <div className="flex flex-row w-full sm:gap-5  sm:flex-nowrap flex-wrap gap-2">
@@ -141,15 +144,17 @@ export const ExperienceForm = ({
           })}
           max={maxMoth}
           errorMessage={errors?.startDate?.message}
+          id={"startDate"}
         ></MonthInput>
 
         <MonthInput
           label="End Date"
           register={register("endDate", {
-            required: "This field is requried",
+            required: "This field is required",
           })}
           max={maxMoth}
           errorMessage={errors?.endDate?.message}
+          id={"endDate"}
         ></MonthInput>
       </div>
       <TextAreaInput
@@ -161,6 +166,7 @@ export const ExperienceForm = ({
         })}
         maxLength={500}
         errorMessage={errors?.description?.message}
+        id={"description"}
         rows={5}
       ></TextAreaInput>
 

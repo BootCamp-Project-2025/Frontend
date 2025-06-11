@@ -12,7 +12,7 @@ export const ExperienceCard = ({
   editCard,
 }) => {
   return (
-    <div className="bg-[#D7E6FD] p-4 rounded-lg">
+    <div className=" bg-[#D7E6FD] p-4 rounded-lg" data-testid="experience-card">
       <div className="flex flex-row gap-2.5">
         <div className="w- min-w-6 ">
           <svg
@@ -38,6 +38,7 @@ export const ExperienceCard = ({
         <div>
           <Button
             styleType="editBtn"
+            classname="editButton"
             onClick={() => {
               editCard(id);
             }}

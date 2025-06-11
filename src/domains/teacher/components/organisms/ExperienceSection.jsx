@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
-import { ExperienceCard } from "../molecules/ExperienceCard";
 import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
 import { ExperienceForm } from "./ExperienceForm";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { ExperienceCard } from "../molecules/ExperienceCard";
 
 export const ExperienceSection = () => {
   const [formVisible, setFormVisible] = useState(false);

@@ -22,6 +22,7 @@ export const TextAreaInput = ({
         maxLength={maxLength}
         rows={rows}
         placeholder={placeholder}
+        id={id}
       ></textarea>
       {errorMessage && <p className="text-sm  text-pink-500">{errorMessage}</p>}
     </div>
