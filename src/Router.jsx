@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import CourseCardList from "./domains/Course/organisms/CourseCardList.jsx";
+import CourseCardList from "./domains/course/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
 
 export default function Router() {
