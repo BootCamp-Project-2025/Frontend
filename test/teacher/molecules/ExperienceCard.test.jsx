@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ExperienceCard } from "../../../src/domains/Teacher/components/molecules/ExperienceCard";
+import { ExperienceCard } from "../../../src/domains/teacher/components/molecules/ExperienceCard";
 
 describe("ExperienceCard", () => {
   const mockProps = {
