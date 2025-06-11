@@ -94,6 +94,7 @@ export const EducationForm = ({
         label={"University"}
         placeholder={"University name"}
         errorMessage={errors?.university?.message}
+        id={"university"}
       ></TextInput>
 
       <div className="flex flex-row w-full sm:gap-5 sm:flex-nowrap flex-wrap gap-2 ">
@@ -107,6 +108,7 @@ export const EducationForm = ({
           label={"Career"}
           placeholder={"career name"}
           errorMessage={errors?.career?.message}
+          id={"career"}
         ></TextInput>
       </div>
       <div className="flex flex-row w-full sm:gap-5  sm:flex-nowrap flex-wrap gap-2">
@@ -124,6 +126,7 @@ export const EducationForm = ({
           })}
           max={maxMoth}
           errorMessage={errors?.startDate?.message}
+          id={"startDate"}
         ></MonthInput>
 
         <MonthInput
@@ -133,6 +136,7 @@ export const EducationForm = ({
           })}
           max={maxMoth}
           errorMessage={errors?.endDate?.message}
+          id={"endDate"}
         ></MonthInput>
       </div>
 

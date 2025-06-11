@@ -23,7 +23,7 @@ export const EducationCard = ({
         </div>
         <div className="flex flex-col gap-1 w-full">
           <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
-            <p className="text-nowrap text-xl">{university} </p>
+            <p className="text-nowrap text-xl">{university}</p>
           </div>
           <p className="text-gray-500 text-lg">{career}</p>
           <p className="text-gray-500 text-base">
