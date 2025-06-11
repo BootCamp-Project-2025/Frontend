@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import CertificationList from "../../../../src/domains/teacher/components/organisms/CertificationList";
 import * as usePopupModule from "../../../../src/shared/hooks/usePopup";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
@@ -53,9 +53,11 @@ describe("CertificationList", () => {
     expect(screen.getByText("Certification 3")).toBeInTheDocument();
   });
 
-  it("opens add certification popup when Add Certification button is clicked", () => {
+  it("opens add certification popup when Add Certification button is clicked", async () => {
     render(<CertificationList />);
-    fireEvent.click(screen.getByText(/Add Certification/i));
+    await waitFor(() =>
+      fireEvent.click(screen.getByText(/Add Certification/i))
+    );
     expect(openPopupMock).toHaveBeenCalledWith(
       expect.any(Function),
       expect.objectContaining({
@@ -67,9 +69,9 @@ describe("CertificationList", () => {
     );
   });
 
-  it("opens edit certification popup when Edit is clicked", () => {
+  it("opens edit certification popup when Edit is clicked", async () => {
     render(<CertificationList />);
-    fireEvent.click(screen.getAllByText("Edit")[0]);
+    await waitFor(() => fireEvent.click(screen.getAllByText("Edit")[0]));
     expect(openPopupMock).toHaveBeenCalledWith(
       expect.any(Function),
       expect.objectContaining({
@@ -82,34 +84,30 @@ describe("CertificationList", () => {
     );
   });
 
-  it("adds a new certification when onAddCertification is called", () => {
+  it("adds a new certification when onAddCertification is called", async () => {
     render(<CertificationList />);
     fireEvent.click(screen.getByText(/Add Certification/i));
     const onSubmit = openPopupMock.mock.calls[0][1].onSubmit;
-    act(() => {
-      onSubmit({ name: "New Cert", institution: "XYZ", year: 2020 });
+    await act(async () => {
+      await onSubmit({ name: "New Cert", institution: "XYZ", year: 2020 });
     });
-    expect(
-      screen.getByText((text) => text.includes("New Cert"))
-    ).toBeInTheDocument();
+    expect(screen.getByText(/New Cert/)).toBeInTheDocument();
     expect(screen.getAllByTestId("cert-card")).toHaveLength(4);
   });
 
-  it("edits a certification when onEditCertification is called", () => {
+  it("edits a certification when onEditCertification is called", async () => {
     render(<CertificationList />);
     fireEvent.click(screen.getAllByText("Edit")[0]);
     const onSubmit = openPopupMock.mock.calls[0][1].onSubmit;
-    act(() => {
-      onSubmit({
+    await act(async () => {
+      await onSubmit({
         id: "1",
         name: "Updated Cert",
         institution: "ABC",
         year: 2015,
       });
     });
-    expect(
-      screen.getByText((text) => text.includes("Updated Cert"))
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Updated Cert/)).toBeInTheDocument();
     expect(screen.queryByText("Certification 1")).not.toBeInTheDocument();
   });
 
@@ -117,7 +115,9 @@ describe("CertificationList", () => {
     render(<CertificationList />);
     fireEvent.click(screen.getAllByText("Edit")[0]);
     const onDelete = openPopupMock.mock.calls[0][1].onDelete;
-    await act(() => onDelete("1"));
+    await act(async () => {
+      await onDelete("1");
+    });
     expect(screen.queryByText("Certification 1")).not.toBeInTheDocument();
     expect(screen.getAllByTestId("cert-card")).toHaveLength(2);
   });

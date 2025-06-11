@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import CertificationForm from "../../../../src/domains/teacher/components/molecules/CertificationForm";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
@@ -20,24 +20,24 @@ describe("CertificationForm", () => {
     expect(screen.getByRole("button", { name: /Save/i })).toBeInTheDocument();
   });
 
-  it("calls closePopup when close button is clicked", () => {
+  it("calls closePopup when close button is clicked", async () => {
     render(<CertificationForm {...defaultProps} />);
     const closeBtn = screen.getByRole("button", { name: /Close form/i });
-    fireEvent.click(closeBtn);
+    await waitFor(() => fireEvent.click(closeBtn));
     expect(defaultProps.closePopup).toHaveBeenCalled();
   });
 
   it("shows validation errors when submitting empty form", async () => {
     render(<CertificationForm {...defaultProps} />);
-    fireEvent.click(screen.getByRole("button", { name: /Save/i }));
+    await waitFor(() =>
+      fireEvent.click(screen.getByRole("button", { name: /Save/i }))
+    );
 
     expect(
-      await screen.findByText(/Certification name is required/i)
+      screen.getByText(/Certification name is required/i)
     ).toBeInTheDocument();
-    expect(
-      await screen.findByText(/Institution is required/i)
-    ).toBeInTheDocument();
-    expect(await screen.findByText(/Year is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/Institution is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/Year is required/i)).toBeInTheDocument();
   });
 
   it("submits form with valid data", async () => {
@@ -52,9 +52,10 @@ describe("CertificationForm", () => {
       target: { value: "2022" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /Save/i }));
+    await waitFor(() =>
+      fireEvent.click(screen.getByRole("button", { name: /Save/i }))
+    );
 
-    await screen.findByRole("button", { name: /Save/i }); // Esperar que no haya errores
     expect(defaultProps.onSubmit).toHaveBeenCalledWith({
       id: "",
       name: "React Cert",
@@ -82,7 +83,7 @@ describe("CertificationForm", () => {
     expect(screen.getByRole("button", { name: /Delete/i })).toBeInTheDocument();
   });
 
-  it("calls onDelete with certification id when Delete is clicked", () => {
+  it("calls onDelete with certification id when Delete is clicked", async () => {
     const onDelete = vi.fn();
     const certification = {
       id: "1",
@@ -97,7 +98,8 @@ describe("CertificationForm", () => {
         certification={certification}
       />
     );
-    fireEvent.click(screen.getByRole("button", { name: /Delete/i }));
+    const deleteBtn = screen.getByRole("button", { name: /Delete/i });
+    await waitFor(() => fireEvent.click(deleteBtn));
     expect(onDelete).toHaveBeenCalledWith("1");
   });
 
@@ -114,25 +116,27 @@ describe("CertificationForm", () => {
       target: { value: "1800" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /Save/i }));
+    await waitFor(() =>
+      fireEvent.click(screen.getByRole("button", { name: /Save/i }))
+    );
 
-    const minLengthErrors = await screen.findAllByText(
+    const minLengthErrors = screen.getAllByText(
       /Minimum length is 2 characters/i
     );
     expect(minLengthErrors).toHaveLength(2); // name + institution
 
-    expect(
-      await screen.findByText(/Year must be after 1900/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Year must be after 1900/i)).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText(/Year/i), {
       target: { value: `${new Date().getFullYear() + 1}` },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /Save/i }));
+    await waitFor(() =>
+      fireEvent.click(screen.getByRole("button", { name: /Save/i }))
+    );
 
     expect(
-      await screen.findByText(/Year cannot be in the future/i)
+      screen.getByText(/Year cannot be in the future/i)
     ).toBeInTheDocument();
   });
 });
