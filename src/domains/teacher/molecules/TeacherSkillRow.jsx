@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import { Button } from "../../../shared/components/atoms/Button";
 
-function TeacherSkillRow({ skill, level, edit }) {
+function TeacherSkillRow({ skill, level, onclick }) {
   return (
     <div
       className="py-1 my-4 flex justify-between rounded-lg px-2"
@@ -11,7 +11,7 @@ function TeacherSkillRow({ skill, level, edit }) {
       <div className="flex gap-1.5">
         <p className="self-end my-auto font-sans">{level}</p>
         <Button
-          onClick={edit}
+          onClick={onclick}
           classname="self-end flex-end mr-0 "
           styleType="editBtn"
         >

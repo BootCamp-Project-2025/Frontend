@@ -1,40 +1,24 @@
 import propTypes from "prop-types";
-import { Input } from "../../../shared/components/atoms/Input";
+import InputSkillLabeled from "../molecules/InputSkillLabeled";
+import SelectSkillLabeled from "../molecules/SelectSkillLabeled";
 
-const textStyle = {
-  fontSize: "18px",
-};
 function TeacherSkillForm({ skill, update }) {
+  const handleSkillInputChange = (e) =>
+    update({ ...skill, skill: e.target.value });
+
+  const changeLevel = (e) => update({ ...skill, level: e.target.value });
   return (
     <div className="flex gap-4 justify-center">
-      <div className="w-fit">
-        <p className="mb-1 font-sans" style={textStyle}>
-          Skills
-        </p>
-        <Input
-          onChange={(e) => update({ ...skill, skill: e.target.value })}
-          value={skill.skill}
-          styleType="default"
-          id={"skill"}
-          type={"text"}
-        />
-      </div>
-      <div className="w-fit">
-        <p className="mb-1 font-sans" style={textStyle}>
-          Proficiency
-        </p>
-        <select
-          onChange={(e) => update({ ...skill, level: e.target.value })}
-          className="border text-gray-600 p-1 rounded-md outline-none font-sans"
-          type="select"
-          value={skill.level}
-        >
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-          <option value="Expert">Expert</option>
-        </select>
-      </div>
+      <InputSkillLabeled
+        onChange={handleSkillInputChange}
+        value={skill.skill}
+        className="flex-1/2"
+      />
+      <SelectSkillLabeled
+        onChange={changeLevel}
+        className="flex-1/2"
+        value={skill.level}
+      />
     </div>
   );
 }
