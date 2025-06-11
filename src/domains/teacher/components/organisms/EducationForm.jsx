@@ -86,7 +86,7 @@ export const EducationForm = ({
       </h1>
       <TextInput
         register={register("university", {
-          required: "This filed is required",
+          required: "This field is required",
           minLength: { value: 3, message: "At least 3 letter" },
           maxLength: { value: 50, message: "Maximum 50 letters" },
         })}
@@ -99,12 +99,12 @@ export const EducationForm = ({
       <div className="flex flex-row w-full sm:gap-5 sm:flex-nowrap flex-wrap gap-2 ">
         <TextInput
           register={register("career", {
-            required: "This filed is required",
+            required: "This field is required",
             minLength: { value: 3, message: "At least 3 letter" },
             maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
           maxLength={50}
-          label={"career"}
+          label={"Career"}
           placeholder={"career name"}
           errorMessage={errors?.career?.message}
         ></TextInput>
@@ -129,7 +129,7 @@ export const EducationForm = ({
         <MonthInput
           label="End Date"
           register={register("endDate", {
-            required: "This field is requried",
+            required: "This field is required",
           })}
           max={maxMoth}
           errorMessage={errors?.endDate?.message}
@@ -141,7 +141,7 @@ export const EducationForm = ({
           <button
             type="button"
             disabled={isSubmitting || isDeleting}
-            className="w-35 px-7 py-1.5 bg-pink-500 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+            className="text-base w-35 px-7 py-1.5 bg-pink-500 hover:bg-pink-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
             style={{
               background: isDeleting || isSubmitting ? "gray" : "",
               cursor: isDeleting || isSubmitting ? "default" : "",
@@ -159,7 +159,7 @@ export const EducationForm = ({
         <button
           type="submit"
           disabled={isSubmitting || isDeleting}
-          className="w-35 px-7 py-1.5 bg-[#3B82F6] rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
+          className="text-base w-35 px-7 py-1.5 bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
           style={{
             background: isDeleting || isSubmitting ? "gray" : "",
             cursor: isDeleting || isSubmitting ? "default" : "",
