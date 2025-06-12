@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import TeacherSkillForm from "../../../../src/domains/teacher/components/organisms/TeacherSkillForm";
+import TeacherSkillForm from "../../../../../src/domains/teacher/components/organisms/TeacherSkillForm";
 import { describe, expect, it } from "vitest";
 
 describe("TeacherSkillForm Component", () => {

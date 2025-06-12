@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import TeacherSkillRow from "../../../../src/domains/teacher/components/molecules/TeacherSkillRow";
+import TeacherSkillRow from "../../../../../src/domains/teacher/components/molecules/TeacherSkillRow";
 import { describe, expect, it } from "vitest";
 
 describe("TeacherSkillRow component", () => {
