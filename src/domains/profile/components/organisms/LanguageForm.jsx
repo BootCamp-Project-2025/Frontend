@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 
 export const LanguageForm = ({
@@ -58,21 +59,17 @@ export const LanguageForm = ({
 
       <div className="flex flex-col w-full">
         <label className="font-medium">Proficiency</label>
-        <select
-          {...register("proficiency", { required: "Required" })}
-          className="mt-1 p-2 border rounded"
-        >
-          <option value="">Select…</option>
-          <option value="Basic">Basic</option>
-          <option value="Conversational">Conversational</option>
-          <option value="Fluent">Fluent</option>
-          <option value="Native">Native</option>
-        </select>
-        {errors.proficiency && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.proficiency.message}
-          </p>
-        )}
+        <SelectInput
+          register={register("proficiency", { required: "Required" })}
+          label={"Language"}
+          options={[
+            { value: "basic", label: "Basic" },
+            { value: "conversational", label: "Conversational" },
+            { value: "fluent", label: "Fluent" },
+            { value: "native", label: "Native" },
+          ]}
+          errorMessage={errors.proficiency?.message}
+        />
       </div>
 
       <div className="flex justify-end gap-3 mt-4">
