@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { TextInput } from "../molecules/TextInput";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
 
 export const LanguageForm = ({
   id = "",
