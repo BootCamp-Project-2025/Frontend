@@ -32,7 +32,7 @@ describe("ExperienceCard", () => {
     const editButton = screen.getByRole("button");
     expect(editButton).toBeInTheDocument();
 
-    const editIcon = editButton.querySelector("svg");
+    const editIcon = editButton.querySelector(".material-symbols-outlined");
     expect(editIcon).toBeInTheDocument();
   });
 
