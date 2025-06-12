@@ -1,69 +1,79 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { TextInput } from "../atoms/TextInput";
-import { SelectInput } from "../atoms/SelectInput";
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { TextInput } from "../molecules/TextInput";
 
-export function LanguageForm({
+export const LanguageForm = ({
   id = "",
   name = "",
   proficiency = "",
-  addLanguage,
-  updateLanguage,
-  removeLanguage,
-  closeForm,
-}) {
+  addLanguage = () => {},
+  updateLanguage = () => {},
+  removeLanguage = () => {},
+  closeForm = () => {},
+}) => {
   const {
     register,
-    handleSubmit,
     formState: { errors, isSubmitting },
+    handleSubmit,
   } = useForm({
     defaultValues: { name, proficiency },
   });
+
   const [isDeleting, setIsDeleting] = useState(false);
+  const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
   const onSave = async (data) => {
     if (id) {
-      await updateLanguage({ ...data, id });
+      await delay(500);
+      updateLanguage({ ...data, id });
     } else {
-      let newId = crypto.randomUUID();
-      await addLanguage({ ...data, id: newId });
+      await delay(500);
+      addLanguage({ ...data, id: crypto.randomUUID() });
     }
     closeForm();
   };
 
   const onDelete = async () => {
     setIsDeleting(true);
-    await removeLanguage(id);
+    await delay(500);
+    removeLanguage(id);
     setIsDeleting(false);
     closeForm();
   };
 
   return (
     <form onSubmit={handleSubmit(onSave)} className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold text-blue-600 text-center">
+      <h2 className="text-2xl font-semibold text-blue-500 text-center">
         {id ? "Edit Language" : "Add Language"}
       </h2>
 
       <TextInput
-        register={register("name", { required: "Required", minLength: 2 })}
+        id="name"
         label="Language"
         placeholder="e.g. Spanish"
+        register={register("name", { required: "Required" })}
         errorMessage={errors.name?.message}
       />
 
-      <SelectInput
-        register={register("proficiency", { required: "Required" })}
-        label="Proficiency"
-        options={[
-          { value: "Basic", label: "Basic" },
-          { value: "Conversational", label: "Conversational" },
-          { value: "Fluent", label: "Fluent" },
-          { value: "Native", label: "Native" },
-        ]}
-        errorMessage={errors.proficiency?.message}
-      />
+      <div className="flex flex-col w-full">
+        <label className="font-medium">Proficiency</label>
+        <select
+          {...register("proficiency", { required: "Required" })}
+          className="mt-1 p-2 border rounded"
+        >
+          <option value="">Select…</option>
+          <option value="Basic">Basic</option>
+          <option value="Conversational">Conversational</option>
+          <option value="Fluent">Fluent</option>
+          <option value="Native">Native</option>
+        </select>
+        {errors.proficiency && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.proficiency.message}
+          </p>
+        )}
+      </div>
 
       <div className="flex justify-end gap-3 mt-4">
         {id && (
@@ -86,14 +96,14 @@ export function LanguageForm({
       </div>
     </form>
   );
-}
+};
 
 LanguageForm.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   proficiency: PropTypes.string,
-  addLanguage: PropTypes.func.isRequired,
-  updateLanguage: PropTypes.func.isRequired,
-  removeLanguage: PropTypes.func.isRequired,
-  closeForm: PropTypes.func.isRequired,
+  addLanguage: PropTypes.func,
+  updateLanguage: PropTypes.func,
+  removeLanguage: PropTypes.func,
+  closeForm: PropTypes.func,
 };
