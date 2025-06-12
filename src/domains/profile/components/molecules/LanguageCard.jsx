@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Button } from "../atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 export const LanguageCard = ({ id, name, proficiency, editCard }) => (
   <div

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ProfileSection } from "../molecules/ProfileSection";
-import { DialogContainer } from "../atoms/DialogContainer";
+import { ProfileSection } from "../../../../shared/components/molecules/ProfileSection";
+import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
 import { LanguageForm } from "./LanguageForm";
-import { Button } from "../atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 import { LanguageCard } from "../molecules/LanguageCard";
 
 export const LanguageSection = () => {
