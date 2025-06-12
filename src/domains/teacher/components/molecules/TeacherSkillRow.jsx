@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 function TeacherSkillRow({ skill, level, onclick }) {
   return (

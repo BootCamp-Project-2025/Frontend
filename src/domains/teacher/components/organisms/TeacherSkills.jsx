@@ -1,8 +1,8 @@
 import propTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 import TeacherSkillRow from "../molecules/TeacherSkillRow";
 import TeacherSkillPopup from "./TeacherSkillPopup";
-import usePopup from "../../../shared/hooks/usePopup";
+import usePopup from "../../../../shared/hooks/usePopup";
 import { useState } from "react";
 
 function TeacherSkills({ className = "", style = {} }) {

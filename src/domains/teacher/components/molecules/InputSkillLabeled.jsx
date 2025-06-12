@@ -1,4 +1,4 @@
-import { Input } from "../../../shared/components/atoms/Input";
+import { Input } from "../../../../shared/components/atoms/Input";
 import Label from "../atoms/Label";
 import propTypes from "prop-types";
 

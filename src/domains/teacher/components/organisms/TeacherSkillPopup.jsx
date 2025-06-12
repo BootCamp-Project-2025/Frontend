@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
 import TeacherSkillForm from "./TeacherSkillForm";
 import { useRef, useState } from "react";
 
