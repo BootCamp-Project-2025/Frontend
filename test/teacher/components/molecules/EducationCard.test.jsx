@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { EducationCard } from "../../../../src/domains/teacher/components/molecules/EducationCard";
 
 describe("EducationCard", () => {
@@ -27,8 +27,8 @@ describe("EducationCard", () => {
     const editButton = screen.getByRole("button");
     expect(editButton).toBeInTheDocument();
 
-    const editIcon = editButton.querySelector("svg");
-    expect(editIcon).toBeInTheDocument();
+    const span = within(editButton).getByText("edit");
+    expect(span).toHaveClass("material-symbols-outlined");
   });
 
   it("applies the correct background and styling classes", () => {
