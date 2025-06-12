@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import TeacherSkillRow from "../../../../src/domains/teacher/molecules/TeacherSkillRow";
+import TeacherSkillRow from "../../../../src/domains/teacher/components/molecules/TeacherSkillRow";
 import { describe, expect, it } from "vitest";
 
 describe("TeacherSkillRow component", () => {
   const defaultProps = {
     skill: "react",
     level: "Beginer",
-    edit: () => {
+    onclick: () => {
       console.log("edit");
     },
   };
