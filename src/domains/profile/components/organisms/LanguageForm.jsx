@@ -60,6 +60,7 @@ export const LanguageForm = ({
       <div className="flex flex-col w-full">
         <label className="font-medium">Proficiency</label>
         <SelectInput
+          id="proficiency"
           register={register("proficiency", { required: "Required" })}
           label={"Language"}
           options={[

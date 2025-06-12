@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProfileSection } from "../../../../shared/components/molecules/ProfileSection";
+import { ProfileSection } from "../../../teacher/components/molecules/ProfileSection";
 import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
 import { LanguageForm } from "./LanguageForm";
 import { Button } from "../../../../shared/components/atoms/Button";
