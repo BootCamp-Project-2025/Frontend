@@ -1,7 +1,7 @@
 import { describe, it, vi, expect, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { EducationForm } from "../../../src/domains/teacher/components/organisms/EducationForm";
+import { EducationForm } from "../../../../src/domains/teacher/components/organisms/EducationForm";
 
 vi.stubGlobal("crypto", {
   randomUUID: () => "mocked-uuid-1234",

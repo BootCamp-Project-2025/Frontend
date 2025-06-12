@@ -1,6 +1,6 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { describe, it, vi, expect, beforeEach } from "vitest";
-import { EducationSection } from "../../../src/domains/teacher/components/organisms/EducationSection";
+import { EducationSection } from "../../../../src/domains/teacher/components/organisms/EducationSection";
 
 beforeEach(() => {
   global.fetch = vi.fn(() =>

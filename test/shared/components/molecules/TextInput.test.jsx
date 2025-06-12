@@ -1,7 +1,7 @@
 // TextInput.test.jsx
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { TextInput } from "../../../src/shared/components/molecules/TextInput";
+import { TextInput } from "../../../../src/shared/components/molecules/TextInput";
 
 describe("TextInput", () => {
   it("renders correctly with label and placeholder", () => {

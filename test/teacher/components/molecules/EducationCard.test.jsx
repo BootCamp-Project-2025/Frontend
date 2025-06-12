@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { EducationCard } from "../../../src/domains/teacher/components/molecules/EducationCard";
+import { EducationCard } from "../../../../src/domains/teacher/components/molecules/EducationCard";
 
 describe("EducationCard", () => {
   const mockProps = {
