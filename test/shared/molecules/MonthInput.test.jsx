@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { MonthInput } from "../../../src/shared/components/molecules/MothInput";
+import { MonthInput } from "../../../src/shared/components/molecules/MonthInput";
 
 describe("MonthInput", () => {
   it("renders input  with a label ", () => {

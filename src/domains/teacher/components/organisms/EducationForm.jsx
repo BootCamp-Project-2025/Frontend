@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { useMemo, useState } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
-import { MonthInput } from "../../../../shared/components/molecules/MothInput";
+import { MonthInput } from "../../../../shared/components/molecules/MonthInput";
 
 export const EducationForm = ({
   id = "",
@@ -61,14 +61,13 @@ export const EducationForm = ({
   };
 
   const getMaxMonth = () => {
-    console.log("calculando moth");
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, "0");
     return `${year}-${month}`;
   };
 
-  const maxMoth = useMemo(() => getMaxMonth(), []);
+  const maxMonth = useMemo(() => getMaxMonth(), []);
 
   return (
     <form
@@ -124,7 +123,7 @@ export const EducationForm = ({
               return true;
             },
           })}
-          max={maxMoth}
+          max={maxMonth}
           errorMessage={errors?.startDate?.message}
           id={"startDate"}
         ></MonthInput>
@@ -134,7 +133,7 @@ export const EducationForm = ({
           register={register("endDate", {
             required: "This field is required",
           })}
-          max={maxMoth}
+          max={maxMonth}
           errorMessage={errors?.endDate?.message}
           id={"endDate"}
         ></MonthInput>
