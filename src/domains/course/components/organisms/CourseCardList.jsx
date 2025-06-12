@@ -1,10 +1,9 @@
 import CourseCard from "./CourseCard";
 import PropTypes from "prop-types";
-import { useGetCourseList } from "../customHooks/UseGetCourseList";
+import { useGetCourseList } from "../../customHooks/UseGetCourseList";
 
 function CourseCardList({ style = {}, className = "" }) {
   const data = useGetCourseList();
-  console.log(data);
 
   return (
     <div

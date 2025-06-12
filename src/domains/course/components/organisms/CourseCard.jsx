@@ -1,14 +1,17 @@
 import PropTypes from "prop-types";
-import { Button } from "../../../shared/components/atoms/Button";
+import { Button } from "../../../../shared/components/atoms/Button";
+import { NavLink } from "react-router-dom";
 
 function CourseCard({
+  courseId,
   courseName,
   courseImage,
-  onEditClick,
-  onDeleteClick,
   style = {},
   className = "",
 }) {
+  function deleteCourse() {
+    console.log(`deleted course ${courseId}`);
+  }
   return (
     <div
       style={style}
@@ -22,15 +25,13 @@ function CourseCard({
       <div className="ml-2 flex gap-3 p-3 flex-col justify-evenly">
         <p className="text-blue-500 text-3xl">{courseName}</p>
         <div className="flex gap-6">
-          <Button
-            onClick={() => onEditClick()}
-            classname=" font-medium text-sm"
-            styleType="callToAction"
-          >
-            Edit Course
+          <Button classname=" font-medium text-sm" styleType="callToAction">
+            <NavLink to={`/course/${courseId}`} end>
+              Edit Course
+            </NavLink>
           </Button>
           <Button
-            onClick={() => onDeleteClick()}
+            onClick={deleteCourse}
             classname="text-red-500 text-sm font-medium border-red-500 border-1"
             styleType="addBtn"
             color="light"
@@ -46,6 +47,7 @@ export default CourseCard;
 
 CourseCard.propTypes = {
   courseName: PropTypes.string,
+  courseId: PropTypes.string,
   onDeleteClick: PropTypes.func,
   onEditClick: PropTypes.func,
   courseImage: PropTypes.string,
