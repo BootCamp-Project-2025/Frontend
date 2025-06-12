@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { TextAreaInput } from "../../../src/shared/components/molecules/TextAreaInput";
+import { TextAreaInput } from "../../../../src/shared/components/molecules/TextAreaInput";
 
 describe("TextAreaInput", () => {
   it("renders with label and placeholder", () => {
