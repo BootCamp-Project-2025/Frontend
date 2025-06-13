@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
+import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
 import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
 
 export default function Router() {
@@ -12,6 +13,7 @@ export default function Router() {
         <Route path="/about-me" element={<AboutMeSection />} />
         <Route path="courses" element={<CourseCardList />} />
         <Route path="/health-check" element={<HealthCheck />} />
+        <Route path="/teacherProfile" element={<EducationSection />} />
       </Routes>
     </BrowserRouter>
   );
