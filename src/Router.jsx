@@ -5,7 +5,6 @@ import HealthCheck from "./domains/core/HealthCheck";
 import TeacherSkills from "./domains/teacher/organisms/TeacherSkills";
 import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
 
-
 export default function Router() {
   return (
     <BrowserRouter>
