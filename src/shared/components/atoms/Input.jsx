@@ -12,6 +12,8 @@ export const Input = ({
   error = "",
   styleType = "",
   classname = "",
+  onChange,
+  value,
 }) => {
   const variantsStyle = {
     [INPUT_STYLE_TYPES.DEFAULT]: `border text-gray-600 p-1 rounded-md outline-none ${error ? "border-red-500" : "border-gray-400"}`,
@@ -26,6 +28,8 @@ export const Input = ({
       type={type}
       name={name}
       id={id}
+      onChange={onChange}
+      value={value}
       placeholder={placeholder}
       className={`${classname} ${variantClasses}`}
     />
@@ -40,4 +44,6 @@ Input.propTypes = {
   error: PropTypes.string,
   styleType: PropTypes.oneOf(Object.values(INPUT_STYLE_TYPES)),
   classname: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };
