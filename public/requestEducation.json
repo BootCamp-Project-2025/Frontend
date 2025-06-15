@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "university": "Universidad de Buenos Aires",
+    "career": "Ingeniería en Sistemas",
+    "startDate": "2018-03",
+    "endDate": "2022-12"
+  },
+  {
+    "id": 2,
+    "university": "Universidad Nacional Autónoma de México",
+    "career": "Medicina",
+    "startDate": "2017-08",
+    "endDate": "2023-06"
+  },
+  {
+    "id": 3,
+    "university": "Pontificia Universidad Católica de Chile",
+    "career": "Derecho",
+    "startDate": "2019-03",
+    "endDate": "2024-12"
+  },
+  {
+    "id": 4,
+    "university": "Universidad de São Paulo",
+    "career": "Arquitectura",
+    "startDate": "2020-01",
+    "endDate": "2025-11"
+  }
+]
