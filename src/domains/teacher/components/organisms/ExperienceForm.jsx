@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { MonthInput } from "../../../../shared/components/molecules/MonthInput";
 import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaInput";
+import { v4 as uuidv4 } from "uuid";
 
 export const ExperienceForm = ({
   id = "",
@@ -43,7 +44,7 @@ export const ExperienceForm = ({
     // create logic to save new record at database
     // db should give as a record's id
     // create logic to manage errors
-    let newId = crypto.randomUUID();
+    let newId = uuidv4();
     addCard({ ...data, id: newId });
     closeForm();
   };

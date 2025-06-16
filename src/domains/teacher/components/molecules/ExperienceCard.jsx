@@ -17,17 +17,19 @@ export const ExperienceCard = ({
         <div className="w- min-w-6 ">
           <span className="material-symbols-outlined">business_center</span>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1 overflow-hidden">
           <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
-            <p className="text-nowrap text-xl">{jobPosition} </p>
-            <p className="text-nowrap text-base">
+            <p className=" text-xl">{jobPosition} </p>
+            <p className=" text-base">
               {startDate} - {endDate}
             </p>
           </div>
           <p className="text-lg text-gray-500">
             {employer}, {country}
           </p>
-          <p className="text-lg text-gray-500 line-clamp-3">{description}</p>
+          <p className="text-lg text-gray-500 line-clamp-3 overflow-ellipsis">
+            {description}
+          </p>
         </div>
         <div>
           <Button
