@@ -16,15 +16,8 @@ export default function Router() {
         <Route path="courses" element={<CourseCardList />} />
         <Route path="/health-check" element={<HealthCheck />} />
         <Route path="/certifications" element={<CertificationsList />} />
-        <Route
-          path="/teacherProfile"
-          element={
-            <>
-              <EducationSection />
-              <ExperienceSection />
-            </>
-          }
-        />
+        <Route path="/education" element={<EducationSection />} />
+        <Route path="/experience" element={<ExperienceSection />} />
       </Routes>
     </BrowserRouter>
   );
