@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
-import TeacherSkills from "./domains/teacher/organisms/TeacherSkills";
+import TeacherSkills from "./domains/teacher/components/organisms/TeacherSkills";
 import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
 
 export default function Router() {
