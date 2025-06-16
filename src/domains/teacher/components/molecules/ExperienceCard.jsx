@@ -17,7 +17,7 @@ export const ExperienceCard = ({
         <div className="w- min-w-6 ">
           <span className="material-symbols-outlined">business_center</span>
         </div>
-        <div className="flex flex-col gap-1 overflow-hidden">
+        <div className="flex flex-col gap-1 w-full overflow-hidden">
           <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
             <p className=" text-xl">{jobPosition} </p>
             <p className=" text-base">
