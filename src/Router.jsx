@@ -4,6 +4,7 @@ import CourseCardList from "./domains/course/components/organisms/CourseCardList
 import HealthCheck from "./domains/core/HealthCheck";
 import { ExperienceSection } from "./domains/Teacher/components/organisms/ExperienceSection";
 import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
+import { LanguageSection } from "./domains/teacher/components/organisms/LanguageSection.jsx";
 
 export default function Router() {
   return (
@@ -14,6 +15,7 @@ export default function Router() {
         <Route path="courses" element={<CourseCardList />} />
         <Route path="/health-check" element={<HealthCheck />} />
         <Route path="/teacherProfile" element={<ExperienceSection />} />
+        <Route path="/teacherLanguageSection" element={<LanguageSection />} />
       </Routes>
     </BrowserRouter>
   );

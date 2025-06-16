@@ -1,8 +1,5 @@
-import { LanguageSection } from "../src/domains/profile/components/organisms/LanguageSection";
-
 function App() {
-  /* return <>Hello world</>; */
-  return <LanguageSection />;
+  return <>Hello world</>;
 }
 
 export default App;
