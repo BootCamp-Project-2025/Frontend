@@ -19,6 +19,7 @@ export default function Router() {
         <Route
           path="/teacher-skills"
           element={<TeacherSkills className="w-1/3" style={{ Width: "30%" }} />}
+        />
         <Route path="/certifications" element={<CertificationsList />} />
         <Route
           path="/teacherProfile"
