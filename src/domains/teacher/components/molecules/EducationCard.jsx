@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { Icon } from "../../../../shared/components/atoms/Icon";
+import { Card } from "../../../../shared/components/atoms/Card";
+import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
 export const EducationCard = ({
   id,
@@ -10,8 +13,22 @@ export const EducationCard = ({
   editCard,
 }) => {
   return (
-    <div className=" bg-[#D7E6FD] p-4 rounded-lg" data-testid="experience-card">
-      <div className="flex flex-row gap-2.5">
+    <Card filled data-testid="experience-card">
+      <InfoCardLayout
+        icon={<span className="material-symbols-outlined">school</span>}
+        title={university}
+        body={
+          <div className="flex flex-col gap-1 w-full">
+            <p className="text-gray-500 text-lg">{career}</p>
+            <p className="text-gray-500 text-base">
+              {startDate}, {endDate}
+            </p>
+          </div>
+        }
+        onClickButton={() => {
+          editCard(id);
+        }}
+      >
         <div className="w- min-w-6 ">
           <span className="material-symbols-outlined">school</span>
         </div>
@@ -26,17 +43,18 @@ export const EducationCard = ({
         </div>
         <div>
           <Button
-            styleType="editBtn"
-            classname="editButton"
+            color="warning"
+            radius="full"
+            square
             onClick={() => {
               editCard(id);
             }}
           >
-            <span className="material-symbols-outlined">edit</span>
+            <Icon icon={"edit"} />
           </Button>
         </div>
-      </div>
-    </div>
+      </InfoCardLayout>
+    </Card>
   );
 };
 

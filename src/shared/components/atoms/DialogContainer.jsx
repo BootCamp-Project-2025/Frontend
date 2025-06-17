@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { Button } from "./Button";
+import { Title } from "./Title";
+import { Icon } from "./Icon";
 export const DialogContainer = ({
   isOpen = true,
   onClose = () => {},
@@ -22,20 +25,25 @@ export const DialogContainer = ({
       onDoubleClick={onClose}
     >
       <div
-        className="bg-white rounded-md relative p-1"
-        onDoubleClick={(e) => {
-          e.stopPropagation();
-        }}
+        className="bg-white rounded-md relative p-4 flex flex-col"
+        // onDoubleClick={(e) => {
+        //   e.stopPropagation();
+        // }}
       >
+        <div>
+          <Title>Title</Title>
+        </div>
         {children}
-        <button
-          className="p-1.5 rounded-[50%] bg-gray-400 font-semibold text-white absolute top-4 right-4 hover:bg-gray-500 cursor-pointer "
+        <Button
+          aria-label="Close form"
+          color="default"
+          radius="full"
           onClick={onClose}
+          square
+          className={"absolute top-4 right-4"}
         >
-          <svg className="h-6 w-6 fill-white" viewBox="0 -960 960 960">
-            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-          </svg>
-        </button>
+          <Icon icon="close" className="w-2 h-2" />
+        </Button>
       </div>
     </div>
   );

@@ -4,27 +4,32 @@ import CourseCardList from "./domains/course/components/organisms/CourseCardList
 import HealthCheck from "./domains/core/HealthCheck";
 import { ExperienceSection } from "./domains/teacher/components/organisms/ExperienceSection";
 import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
-import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
-import CertificationsList from "./domains/teacher/components/organisms/CertificationList.jsx";
+import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSection";
+import CertificationsList from "./domains/teacher/components/organisms/CertificationSection.jsx";
+import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
+import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/about-me" element={<AboutMeSection />} />
         <Route path="courses" element={<CourseCardList />} />
-        <Route path="/health-check" element={<HealthCheck />} />
-        <Route path="/certifications" element={<CertificationsList />} />
+        <Route path="health-check" element={<HealthCheck />} />
+        <Route path="course-select" element={<CourseTypeSelection />} />
         <Route
-          path="/teacherProfile"
+          path="teacher-profile"
           element={
-            <>
+            <div className="px-8 flex flex-col gap-4">
+              <AboutMeSection />
               <EducationSection />
               <ExperienceSection />
-            </>
+              <CertificationsList />
+            </div>
           }
         />
+
+        <Route path="button-gallery" element={<ButtonGallery />} />
       </Routes>
     </BrowserRouter>
   );

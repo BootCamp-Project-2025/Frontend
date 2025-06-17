@@ -55,13 +55,7 @@ export default function CourseForm({ onSubmit }) {
           )}
         </div>
 
-        <Button
-          styleType="addBtn"
-          type="submit"
-          classname="text-white self-center"
-        >
-          Create course
-        </Button>
+        <Button type="submit">Create course</Button>
       </form>
     </div>
   );

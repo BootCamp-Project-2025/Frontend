@@ -4,9 +4,11 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import { useState } from "react";
 import usePopup from "../../../../shared/hooks/usePopup";
 import CertificationForm from "../molecules/CertificationForm";
-import Icon from "../atoms/Icon";
+import { Icon } from "../../../../shared/components/atoms/Icon";
+import { ProfileSection } from "../molecules/ProfileSection";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
-export default function CertificationList() {
+export default function CertificationSection() {
   // TODO: Replace with actual data fetching logic
   const [certifications, setCertifications] = useState([
     { id: "1", name: "Certification 1", institution: "ABC", year: 2015 },
@@ -18,20 +20,34 @@ export default function CertificationList() {
 
   const handleOpenNewCertificationPopup = (certification) => {
     openPopup(
-      CertificationForm,
-      { closePopup, onSubmit: onAddCertification, certification },
+      PopupFormLayout,
+      {
+        title: "Certification Form",
+        children: (
+          <CertificationForm
+            onSubmit={onAddCertification}
+            certification={certification}
+          />
+        ),
+        onClose: closePopup,
+      },
       true
     );
   };
 
   const handleOpenEditCertificationPopup = (certification) => {
     openPopup(
-      CertificationForm,
+      PopupFormLayout,
       {
-        closePopup,
-        onSubmit: onEditCertification,
-        onDelete: onDeleteCertification,
-        certification,
+        title: "Certification Form",
+        children: (
+          <CertificationForm
+            onSubmit={onEditCertification}
+            onDelete={onDeleteCertification}
+            certification={certification}
+          />
+        ),
+        onClose: closePopup,
       },
       true
     );
@@ -65,8 +81,7 @@ export default function CertificationList() {
   };
 
   return (
-    <div className="flex flex-col border border-blue-500 rounded-3xl w-full p-4 gap-4">
-      <h2 className="font-bold text-2xl text-blue-500">Certifications</h2>
+    <ProfileSection title="Certifications">
       <div className="flex flex-col gap-4">
         {certifications &&
           certifications.map((certification, index) => (
@@ -77,19 +92,21 @@ export default function CertificationList() {
             />
           ))}
       </div>
-      <Button
-        classname="self-start text-white font-medium"
-        styleType="addBtn"
-        onClick={() => handleOpenNewCertificationPopup()}
-      >
-        <Icon icon="add" className="w-5 h-5" />
-        Add Certification
-      </Button>
-    </div>
+      <div>
+        <Button
+          classname="self-start text-white font-medium"
+          styleType="addBtn"
+          onClick={() => handleOpenNewCertificationPopup()}
+        >
+          <Icon icon="add" className="w-4 h-4" />
+          Add Certification
+        </Button>
+      </div>
+    </ProfileSection>
   );
 }
 
-CertificationList.propTypes = {
+CertificationSection.propTypes = {
   certifications: PropTypes.arrayOf(
     PropTypes.shape({
       year: PropTypes.number.isRequired,

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
-import Input from "../atoms/Input";
-import Icon from "../atoms/Icon";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { NumberInput } from "../../../../shared/components/molecules/NumberInput";
 
 export default function CertificationForm({
   closePopup,
@@ -26,30 +26,21 @@ export default function CertificationForm({
   };
 
   return (
-    <>
-      <div className="relative w-full flex justify-center items-center">
-        <h3 className="font-bold text-blue-500 text-xl">Certification Form</h3>
-        <button
-          aria-label="Close form"
-          className="w-6 h-6 rounded-full bg-gray-300 absolute right-0 flex justify-center items-center hover:bg-gray-400 transition-colors duration-200"
-          onClick={closePopup}
-        >
-          <Icon icon="close" className="w-3 h-3" />
-        </button>
-      </div>
-      <form
-        className="w-[80vw]  lg:w-[30vw] p-3 gap-3 flex flex-col"
-        onSubmit={handleSubmit(onSubmitCertificationForm)}
-      >
-        <input defaultValue={certification?.id} hidden {...register("id")} />
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          label="Certification Name"
-          error={errors.name ? errors.name.message : ""}
-          defaultValue={certification?.name || ""}
-          {...register("name", {
+    <form
+      className="p-3 gap-3 flex flex-col"
+      onSubmit={handleSubmit(onSubmitCertificationForm)}
+    >
+      <input defaultValue={certification?.id} hidden {...register("id")} />
+
+      <TextInput
+        id={"name"}
+        maxLength={50}
+        label={"Certification Name"}
+        placeholder={"Certification name"}
+        errorMessage={errors.name ? errors.name.message : ""}
+        register={
+          ("name",
+          {
             required: "Certification name is required",
             minLength: {
               value: 2,
@@ -59,62 +50,58 @@ export default function CertificationForm({
               value: 100,
               message: "Maximum length is 100 characters",
             },
+          })
+        }
+      ></TextInput>
+      <div className="flex flex-col lg:flex-row gap-3 w-full">
+        <TextInput
+          id="institution"
+          label="Institution"
+          placeholder="Institution"
+          errorMessage={errors.institution?.message}
+          maxLength={50}
+          register={register("institution", {
+            required: "Institution is required",
+            minLength: {
+              value: 2,
+              message: "Minimum length is 2 characters",
+            },
+            maxLength: {
+              value: 50,
+              message: "Maximum length is 50 characters",
+            },
           })}
         />
-        <div className="flex flex-col lg:flex-row gap-3 w-full">
-          <Input
-            id="institution"
-            name="institution"
-            type="text"
-            label="Institution"
-            error={errors.institution ? errors.institution.message : ""}
-            defaultValue={certification?.institution || ""}
-            {...register("institution", {
-              required: "Institution is required",
-              minLength: {
-                value: 2,
-                message: "Minimum length is 2 characters",
-              },
-              maxLength: {
-                value: 50,
-                message: "Maximum length is 50 characters",
-              },
-            })}
-          />
-          <Input
-            id="year"
-            name="year"
-            type="number"
-            label="Year"
-            error={errors.year ? errors.year.message : ""}
-            defaultValue={certification?.year || ""}
-            {...register("year", {
-              required: "Year is required",
-              min: { value: 1900, message: "Year must be after 1900" },
-              max: {
-                value: new Date().getFullYear(),
-                message: `Year cannot be in the future`,
-              },
-            })}
-          />
-        </div>
-        <div className="flex justify-around gap-3 w-full">
-          {onDelete && certification ? (
-            <Button
-              styleType="callToAction"
-              type="button"
-              color="pink"
-              onClick={() => onDelete(certification.id)}
-            >
-              Delete
-            </Button>
-          ) : null}
-          <Button styleType="callToAction" type="submit">
-            Save
+        <NumberInput
+          id="year"
+          name="year"
+          type="number"
+          label="Year"
+          errorMessage={errors.year ? errors.year.message : ""}
+          register={register("year", {
+            required: "Year is required",
+            min: { value: 1900, message: "Year must be after 1900" },
+            max: {
+              value: new Date().getFullYear(),
+              message: `Year cannot be in the future`,
+            },
+          })}
+        />
+      </div>
+      <div className="flex justify-around gap-3 w-full mt-4">
+        {onDelete && certification ? (
+          <Button
+            styleType="callToAction"
+            color="danger"
+            variant="bordered"
+            onClick={() => onDelete(certification.id)}
+          >
+            Delete
           </Button>
-        </div>
-      </form>
-    </>
+        ) : null}
+        <Button type="submit">Save</Button>
+      </div>
+    </form>
   );
 }
 
