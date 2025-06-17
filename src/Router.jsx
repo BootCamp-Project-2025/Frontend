@@ -3,7 +3,10 @@ import App from "./App";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
 import TeacherSkills from "./domains/teacher/components/organisms/TeacherSkills";
+import { ExperienceSection } from "./domains/teacher/components/organisms/ExperienceSection";
+import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
 import AboutMeSection from "./domains/teacher/components/templates/AboutMeSection";
+import CertificationsList from "./domains/teacher/components/organisms/CertificationList.jsx";
 
 export default function Router() {
   return (
@@ -16,6 +19,15 @@ export default function Router() {
         <Route
           path="/teacher-skills"
           element={<TeacherSkills className="w-1/3" style={{ Width: "30%" }} />}
+        <Route path="/certifications" element={<CertificationsList />} />
+        <Route
+          path="/teacherProfile"
+          element={
+            <>
+              <EducationSection />
+              <ExperienceSection />
+            </>
+          }
         />
       </Routes>
     </BrowserRouter>

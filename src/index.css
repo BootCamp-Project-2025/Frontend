@@ -10,3 +10,7 @@
   --color-green-500: #82f63b;
   --color-pink-500: #f63b82;
 }
+
+body {
+  font-family: "Albert Sans";
+}
