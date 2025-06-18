@@ -7,6 +7,7 @@ export const MonthInput = ({
   min = undefined,
   max = undefined,
   id = undefined,
+  ...rest
 }) => {
   return (
     <div className="flex flex-col gap-1.5 w-full">
@@ -21,6 +22,7 @@ export const MonthInput = ({
         min={min}
         max={max}
         id={id}
+        {...rest}
       />
       {errorMessage && <p className="text-sm  text-pink-500">{errorMessage}</p>}
     </div>

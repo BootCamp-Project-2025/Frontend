@@ -35,7 +35,7 @@ export const ExperienceCard = ({
         onClickButton={() => {
           editCard(id);
         }}
-      ></InfoCardLayout>
+      />
     </Card>
   );
 };

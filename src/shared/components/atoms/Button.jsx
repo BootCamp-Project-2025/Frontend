@@ -131,9 +131,11 @@ export function Button({
   square = false,
   isSpinning = false,
   className,
+  ...rest
 }) {
   return (
     <button
+      role="button"
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -146,6 +148,7 @@ export function Button({
         square ? "aspect-square" : "",
         className
       )}
+      {...rest}
     >
       <div className="flex flex-row gap-2 items-center justify-between">
         {isSpinning ? (

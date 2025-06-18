@@ -8,14 +8,33 @@ import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
 export default function CertificationSection() {
-  const [recordList, setRecordList] = useState([]);
+  const [recordList, setRecordList] = useState([
+    {
+      id: "1",
+      name: "Certification 1",
+      institution: "Frontend Masters",
+      year: 2020,
+    },
+    {
+      id: "2",
+      name: "Certification 2",
+      institution: "Oracle Academy",
+      year: 2019,
+    },
+    // {
+    //   id: "3",
+    //   name: "Docker for Developers",
+    //   institution: "Udemy",
+    //   year: 2021,
+    // },
+  ]);
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    fetch("/requestCertifications.json")
-      .then((res) => res.json())
-      .then((data) => setRecordList(data))
-      .catch((err) => console.error("Error loading data:", err));
+    // fetch("/requestCertifications.json")
+    //   .then((res) => res.json())
+    //   .then((data) => setRecordList(data))
+    //   .catch((err) => console.error("Error loading data:", err));
   }, []);
 
   const handleOpenPopup = () => {
@@ -81,16 +100,12 @@ export default function CertificationSection() {
           <CertificationCard
             key={cert.id}
             certification={cert}
-            onEdit={() => handleOpenEditPopup(cert)}
+            onEdit={(selected) => handleOpenEditPopup(selected)}
           />
         ))}
       </div>
       <div>
-        <Button
-          classname="self-start text-white font-medium"
-          styleType="addBtn"
-          onClick={handleOpenPopup}
-        >
+        <Button onClick={handleOpenPopup}>
           <Icon icon="add" className="w-4 h-4" />
           Add Certification
         </Button>

@@ -27,7 +27,7 @@ export function Title({
   className = "",
 }) {
   return (
-    <h1
+    <p
       className={clsx(
         baseStayle,
         sizeStyles[size],
@@ -36,7 +36,7 @@ export function Title({
       )}
     >
       {children}
-    </h1>
+    </p>
   );
 }
 

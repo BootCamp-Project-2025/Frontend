@@ -36,6 +36,7 @@ export function Card({
   color = "primary",
   radius = "medium",
   className = "",
+  ...rest
 }) {
   return (
     <div
@@ -47,6 +48,7 @@ export function Card({
         bordered && borderStyles[color],
         className
       )}
+      {...rest}
     >
       {children}
     </div>

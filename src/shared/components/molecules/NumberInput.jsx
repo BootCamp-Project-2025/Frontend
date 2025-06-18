@@ -7,6 +7,7 @@ export const NumberInput = ({
   placeholder = "",
   id = undefined,
   maxLength = undefined,
+  ...rest
 }) => {
   return (
     <div className="flex flex-col gap-1.5 w-full">
@@ -21,6 +22,7 @@ export const NumberInput = ({
         placeholder={placeholder}
         maxLength={maxLength}
         id={id}
+        {...rest}
       />
       {errorMessage && <p className="text-sm  text-pink-500">{errorMessage}</p>}
     </div>
@@ -28,7 +30,7 @@ export const NumberInput = ({
 };
 
 NumberInput.propTypes = {
-  register: PropTypes.func,
+  register: PropTypes.object,
   label: PropTypes.string,
   errorMessage: PropTypes.string,
   placeholder: PropTypes.string,

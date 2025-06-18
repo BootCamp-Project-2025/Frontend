@@ -58,7 +58,7 @@ export default function CertificationForm({
       <TextInput
         id="name"
         maxLength={50}
-        label="Certification Name"
+        label={"Certification Name"}
         placeholder="Certification name"
         errorMessage={errors.name?.message}
         register={register("name", {
@@ -70,7 +70,7 @@ export default function CertificationForm({
       <div className="flex flex-col lg:flex-row gap-3 w-full">
         <TextInput
           id="institution"
-          label="Institution"
+          label={"Institution"}
           placeholder="Institution"
           errorMessage={errors.institution?.message}
           maxLength={50}
@@ -84,7 +84,7 @@ export default function CertificationForm({
           id="year"
           name="year"
           type="number"
-          label="Year"
+          label={"Year"}
           errorMessage={errors.year?.message}
           register={register("year", {
             required: "Year is required",
@@ -98,9 +98,8 @@ export default function CertificationForm({
       </div>
 
       <div className="flex justify-around gap-3 w-full mt-4">
-        {id && onDelete && (
+        {onDelete && (
           <Button
-            styleType="callToAction"
             color="danger"
             variant="bordered"
             onClick={deleteRecord}
