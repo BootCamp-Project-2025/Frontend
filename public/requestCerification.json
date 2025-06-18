@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "React Fundamentals",
+    "institution": "Frontend Masters",
+    "year": 2020
+  },
+  {
+    "id": "2",
+    "name": "Advanced Java",
+    "institution": "Oracle Academy",
+    "year": 2019
+  },
+  {
+    "id": "3",
+    "name": "Docker for Developers",
+    "institution": "Udemy",
+    "year": 2021
+  }
+]

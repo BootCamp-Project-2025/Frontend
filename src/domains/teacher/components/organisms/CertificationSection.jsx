@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import CertificationCard from "../molecules/CertificationCard";
 import { Button } from "../../../../shared/components/atoms/Button";
-import { useState } from "react";
 import usePopup from "../../../../shared/hooks/usePopup";
 import CertificationForm from "../molecules/CertificationForm";
 import { Icon } from "../../../../shared/components/atoms/Icon";
@@ -9,24 +8,44 @@ import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
 export default function CertificationSection() {
-  // TODO: Replace with actual data fetching logic
-  const [certifications, setCertifications] = useState([
-    { id: "1", name: "Certification 1", institution: "ABC", year: 2015 },
-    { id: "2", name: "Certification 2", institution: "DEF", year: 2015 },
-    { id: "3", name: "Certification 3", institution: "GHI", year: 2015 },
-  ]);
-
+  const [recordList, setRecordList] = useState([]);
   const { openPopup, closePopup } = usePopup();
 
-  const handleOpenNewCertificationPopup = (certification) => {
+  useEffect(() => {
+    fetch("/requestCertifications.json")
+      .then((res) => res.json())
+      .then((data) => setRecordList(data))
+      .catch((err) => console.error("Error loading data:", err));
+  }, []);
+
+  const handleOpenPopup = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Certification Form",
+        children: (
+          <CertificationForm onSubmit={addCard} closePopup={closePopup} />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
+  const handleOpenEditPopup = (certification) => {
     openPopup(
       PopupFormLayout,
       {
         title: "Certification Form",
         children: (
           <CertificationForm
-            onSubmit={onAddCertification}
-            certification={certification}
+            id={certification.id}
+            name={certification.name}
+            institution={certification.institution}
+            year={certification.year}
+            onSubmit={updateCard}
+            onDelete={removeCard}
+            closePopup={closePopup}
           />
         ),
         onClose: closePopup,
@@ -35,68 +54,42 @@ export default function CertificationSection() {
     );
   };
 
-  const handleOpenEditCertificationPopup = (certification) => {
-    openPopup(
-      PopupFormLayout,
-      {
-        title: "Certification Form",
-        children: (
-          <CertificationForm
-            onSubmit={onEditCertification}
-            onDelete={onDeleteCertification}
-            certification={certification}
-          />
-        ),
-        onClose: closePopup,
-      },
-      true
-    );
-  };
-
-  const onEditCertification = (certification) => {
-    //TODO: Here update certification logic
-    setCertifications((prevCertifications) =>
-      prevCertifications.map((c) =>
-        c.id === certification.id ? certification : c
-      )
-    );
-  };
-
-  const onAddCertification = (certification) => {
-    //TODO: Here add certification logic
-    setCertifications((prevCertifications) => [
-      ...prevCertifications,
-      {
-        id: Math.random().toString(36).substr(2, 9),
-        ...certification,
-      },
+  const addCard = (certification) => {
+    setRecordList((prev) => [
+      ...prev,
+      { ...certification, id: crypto.randomUUID() },
     ]);
+    closePopup();
   };
 
-  const onDeleteCertification = (certificationId) => {
-    // TODO: Here delete certification logic
-    setCertifications((prevCertifications) =>
-      prevCertifications.filter((c) => c.id !== certificationId)
+  const updateCard = (certification) => {
+    setRecordList((prev) =>
+      prev.map((c) => (c.id === certification.id ? certification : c))
     );
+    closePopup();
+  };
+
+  const removeCard = (certificationId) => {
+    setRecordList((prev) => prev.filter((c) => c.id !== certificationId));
+    closePopup();
   };
 
   return (
     <ProfileSection title="Certifications">
       <div className="flex flex-col gap-4">
-        {certifications &&
-          certifications.map((certification, index) => (
-            <CertificationCard
-              key={index}
-              certification={certification}
-              onEdit={() => handleOpenEditCertificationPopup(certification)}
-            />
-          ))}
+        {recordList.map((cert) => (
+          <CertificationCard
+            key={cert.id}
+            certification={cert}
+            onEdit={() => handleOpenEditPopup(cert)}
+          />
+        ))}
       </div>
       <div>
         <Button
           classname="self-start text-white font-medium"
           styleType="addBtn"
-          onClick={() => handleOpenNewCertificationPopup()}
+          onClick={handleOpenPopup}
         >
           <Icon icon="add" className="w-4 h-4" />
           Add Certification
@@ -105,13 +98,3 @@ export default function CertificationSection() {
     </ProfileSection>
   );
 }
-
-CertificationSection.propTypes = {
-  certifications: PropTypes.arrayOf(
-    PropTypes.shape({
-      year: PropTypes.number.isRequired,
-      name: PropTypes.string,
-      acreditedBy: PropTypes.string,
-    })
-  ).isRequired,
-};
