@@ -26,9 +26,9 @@ export const DialogContainer = ({
     >
       <div
         className="bg-white rounded-md relative p-4 flex flex-col"
-        // onDoubleClick={(e) => {
-        //   e.stopPropagation();
-        // }}
+        onDoubleClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div>
           <Title>Title</Title>

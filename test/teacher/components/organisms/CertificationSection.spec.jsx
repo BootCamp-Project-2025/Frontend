@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import CertificationList from "../../../../src/domains/teacher/components/organisms/CertificationList";
 import * as usePopupModule from "../../../../src/shared/hooks/usePopup";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { act } from "react-dom/test-utils";
+import CertificationSection from "../../../../src/domains/teacher/components/organisms/CertificationSection";
 
 vi.mock(
   "../../../../src/domains/teacher/components/molecules/CertificationCard",
@@ -28,7 +28,7 @@ vi.mock(
   })
 );
 
-describe("CertificationList", () => {
+describe("CertificationSection", () => {
   let openPopupMock, closePopupMock;
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe("CertificationList", () => {
   });
 
   it("renders the list of certifications", () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     expect(screen.getByText("Certifications")).toBeInTheDocument();
     expect(screen.getAllByTestId("cert-card")).toHaveLength(3);
     expect(screen.getByText("Certification 1")).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe("CertificationList", () => {
   });
 
   it("opens add certification popup when Add Certification button is clicked", async () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     await waitFor(() =>
       fireEvent.click(screen.getByText(/Add Certification/i))
     );
@@ -70,7 +70,7 @@ describe("CertificationList", () => {
   });
 
   it("opens edit certification popup when Edit is clicked", async () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     await waitFor(() => fireEvent.click(screen.getAllByText("Edit")[0]));
     expect(openPopupMock).toHaveBeenCalledWith(
       expect.any(Function),
@@ -85,7 +85,7 @@ describe("CertificationList", () => {
   });
 
   it("adds a new certification when onAddCertification is called", async () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     fireEvent.click(screen.getByText(/Add Certification/i));
     const onSubmit = openPopupMock.mock.calls[0][1].onSubmit;
     await act(async () => {
@@ -96,7 +96,7 @@ describe("CertificationList", () => {
   });
 
   it("edits a certification when onEditCertification is called", async () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     fireEvent.click(screen.getAllByText("Edit")[0]);
     const onSubmit = openPopupMock.mock.calls[0][1].onSubmit;
     await act(async () => {
@@ -112,7 +112,7 @@ describe("CertificationList", () => {
   });
 
   it("deletes a certification when onDeleteCertification is called", async () => {
-    render(<CertificationList />);
+    render(<CertificationSection />);
     fireEvent.click(screen.getAllByText("Edit")[0]);
     const onDelete = openPopupMock.mock.calls[0][1].onDelete;
     await act(async () => {

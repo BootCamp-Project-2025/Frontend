@@ -36,7 +36,7 @@ export const EducationSection = () => {
     openPopup(
       PopupFormLayout,
       {
-        title: "Experience Form",
+        title: "Education Form",
         children: (
           <EducationForm
             id={information.id}

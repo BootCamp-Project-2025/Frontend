@@ -20,13 +20,14 @@ describe("CertificationForm", () => {
     expect(screen.getByRole("button", { name: /Save/i })).toBeInTheDocument();
   });
 
-  it("calls closePopup when close button is clicked", async () => {
+  // The close button is no longer part of the form.
+  /* it("calls closePopup when close button is clicked", async () => {
     render(<CertificationForm {...defaultProps} />);
     const closeBtn = screen.getByRole("button", { name: /Close form/i });
     await waitFor(() => fireEvent.click(closeBtn));
     expect(defaultProps.closePopup).toHaveBeenCalled();
   });
-
+ */
   it("shows validation errors when submitting empty form", async () => {
     render(<CertificationForm {...defaultProps} />);
     await waitFor(() =>

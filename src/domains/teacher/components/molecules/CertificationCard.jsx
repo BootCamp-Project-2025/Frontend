@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Card } from "../../../../shared/components/atoms/Card";
 import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
@@ -15,7 +14,9 @@ export default function CertificationCard({ certification, onEdit }) {
   return (
     <Card filled>
       <InfoCardLayout
-        icon={<Icon icon={"certification"} className="w-8 h-8 mt-1" />}
+        icon={
+          <span className="material-symbols-outlined">workspace_premium</span>
+        }
         title={`${certification.name} - ${certification.year}`}
         body={
           <div>

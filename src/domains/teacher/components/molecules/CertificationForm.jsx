@@ -14,7 +14,13 @@ export default function CertificationForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: certification?.name ?? "",
+      institution: certification?.institution ?? "",
+      year: certification?.year ?? "",
+    },
+  });
 
   const onSubmitCertificationForm = (data) => {
     if (onSubmit) {
@@ -38,20 +44,17 @@ export default function CertificationForm({
         label={"Certification Name"}
         placeholder={"Certification name"}
         errorMessage={errors.name ? errors.name.message : ""}
-        register={
-          ("name",
-          {
-            required: "Certification name is required",
-            minLength: {
-              value: 2,
-              message: "Minimum length is 2 characters",
-            },
-            maxLength: {
-              value: 100,
-              message: "Maximum length is 100 characters",
-            },
-          })
-        }
+        register={register("name", {
+          required: "Certification name is required",
+          minLength: {
+            value: 2,
+            message: "Minimum length is 2 characters",
+          },
+          maxLength: {
+            value: 100,
+            message: "Maximum length is 100 characters",
+          },
+        })}
       ></TextInput>
       <div className="flex flex-col lg:flex-row gap-3 w-full">
         <TextInput
