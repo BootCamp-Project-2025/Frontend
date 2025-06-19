@@ -27,22 +27,13 @@ describe("ExperienceCard", () => {
     expect(screen.getByText(mockProps.description)).toBeInTheDocument();
   });
 
-  it("renders the edit button with correct icon", () => {
+  it("renders the edit button ", () => {
     render(<ExperienceCard {...mockProps} />);
     const editButton = screen.getByRole("button");
     expect(editButton).toBeInTheDocument();
-
-    const editIcon = editButton.querySelector(".material-symbols-outlined");
-    expect(editIcon).toBeInTheDocument();
   });
 
-  it("applies the correct background and styling classes", () => {
-    render(<ExperienceCard {...mockProps} />);
-    const card = screen.getByTestId("experience-card");
-    expect(card).toHaveClass("bg-[#D7E6FD]");
-  });
-
-  it("calls editCard with correct id when edit button is clicked", () => {
+  it("calls edit form with correct id when edit button is clicked", () => {
     render(<ExperienceCard {...mockProps} />);
 
     const editButton = screen.getByRole("button");

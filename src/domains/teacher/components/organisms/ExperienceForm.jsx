@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { MonthInput } from "../../../../shared/components/molecules/MonthInput";
 import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaInput";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 export const ExperienceForm = ({
   id = "",
@@ -85,9 +86,6 @@ export const ExperienceForm = ({
       })}
       className="flex flex-col gap-2 items-start"
     >
-      <h1 className="text-center w-full text-2xl font-semibold text-blue-500">
-        Experience Form
-      </h1>
       <TextInput
         register={register("jobPosition", {
           required: "This field is required",
@@ -169,40 +167,27 @@ export const ExperienceForm = ({
         rows={5}
       ></TextAreaInput>
 
-      <div className="flex flex-row justify-center w-full mt-2 gap-4">
+      <div className="flex flex-row justify-center w-full mt-4 gap-4">
         {id != "" && (
-          <button
-            type="button"
+          <Button
             disabled={isSubmitting || isDeleting}
-            className="text-base w-35 px-7 py-1.5 bg-pink-500 hover:bg-pink-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
-            style={{
-              background: isDeleting || isSubmitting ? "gray" : "",
-              cursor: isDeleting || isSubmitting ? "default" : "",
-            }}
+            color="danger"
+            variant="bordered"
             onClick={() => {
               deleteRecordDB(id);
             }}
+            isSpinning={isDeleting}
           >
-            {isDeleting && (
-              <div className="w-4 h-4 min-w-4 border-2 rounded-full border-gray-200 border-r-transparent animate-spin"></div>
-            )}
-            <p>Delete</p>
-          </button>
+            Delete
+          </Button>
         )}
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting || isDeleting}
-          className="text-base w-35 px-7 py-1.5 bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer  text-white flex gap-1.5 justify-center items-center"
-          style={{
-            background: isDeleting || isSubmitting ? "gray" : "",
-            cursor: isDeleting || isSubmitting ? "default" : "",
-          }}
+          isSpinning={isSubmitting}
         >
-          {isSubmitting && (
-            <div className="w-4 h-4 min-w-4 border-2 rounded-full border-gray-200 border-r-transparent animate-spin"></div>
-          )}
-          <p>Save</p>
-        </button>
+          Save
+        </Button>
       </div>
     </form>
   );

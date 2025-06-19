@@ -1,126 +1,132 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
-import Input from "../atoms/Input";
-import Icon from "../atoms/Icon";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { NumberInput } from "../../../../shared/components/molecules/NumberInput";
+import { useState } from "react";
 
 export default function CertificationForm({
-  closePopup,
-  certification,
+  id = "",
+  name = "",
+  institution = "",
+  year = "",
   onSubmit,
   onDelete,
+  closePopup,
 }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      name,
+      institution,
+      year,
+    },
+  });
 
-  const onSubmitCertificationForm = (data) => {
-    if (onSubmit) {
-      onSubmit(data);
-    } else {
-      console.error("onAddCertification function is not provided");
-    }
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const saveNewRecord = async (data) => {
+    await delay(500);
+    onSubmit({ ...data, id: crypto.randomUUID() });
+    closePopup();
+  };
+
+  const updateRecord = async (data) => {
+    await delay(500);
+    onSubmit({ ...data, id });
+    closePopup();
+  };
+
+  const deleteRecord = async () => {
+    setIsDeleting(true);
+    await delay(500);
+    onDelete(id);
+    setIsDeleting(false);
     closePopup();
   };
 
   return (
-    <>
-      <div className="relative w-full flex justify-center items-center">
-        <h3 className="font-bold text-blue-500 text-xl">Certification Form</h3>
-        <button
-          aria-label="Close form"
-          className="w-6 h-6 rounded-full bg-gray-300 absolute right-0 flex justify-center items-center hover:bg-gray-400 transition-colors duration-200"
-          onClick={closePopup}
-        >
-          <Icon icon="close" className="w-3 h-3" />
-        </button>
-      </div>
-      <form
-        className="w-[80vw]  lg:w-[30vw] p-3 gap-3 flex flex-col"
-        onSubmit={handleSubmit(onSubmitCertificationForm)}
-      >
-        <input defaultValue={certification?.id} hidden {...register("id")} />
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          label="Certification Name"
-          error={errors.name ? errors.name.message : ""}
-          defaultValue={certification?.name || ""}
-          {...register("name", {
-            required: "Certification name is required",
-            minLength: {
-              value: 2,
-              message: "Minimum length is 2 characters",
-            },
-            maxLength: {
-              value: 100,
-              message: "Maximum length is 100 characters",
+    <form
+      className="p-3 gap-3 flex flex-col"
+      onSubmit={handleSubmit(id ? updateRecord : saveNewRecord)}
+    >
+      <TextInput
+        id="name"
+        maxLength={50}
+        label={"Certification Name"}
+        placeholder="Certification name"
+        errorMessage={errors.name?.message}
+        register={register("name", {
+          required: "Certification name is required",
+          minLength: { value: 2, message: "Minimum 2 characters" },
+          maxLength: { value: 100, message: "Maximum 100 characters" },
+        })}
+      />
+      <div className="flex flex-col lg:flex-row gap-3 w-full">
+        <TextInput
+          id="institution"
+          label={"Institution"}
+          placeholder="Institution"
+          errorMessage={errors.institution?.message}
+          maxLength={50}
+          register={register("institution", {
+            required: "Institution is required",
+            minLength: { value: 2, message: "Minimum 2 characters" },
+            maxLength: { value: 50, message: "Maximum 50 characters" },
+          })}
+        />
+        <NumberInput
+          id="year"
+          name="year"
+          type="number"
+          label={"Year"}
+          errorMessage={errors.year?.message}
+          register={register("year", {
+            required: "Year is required",
+            min: { value: 1900, message: "Year must be after 1900" },
+            max: {
+              value: new Date().getFullYear(),
+              message: "Year cannot be in the future",
             },
           })}
         />
-        <div className="flex flex-col lg:flex-row gap-3 w-full">
-          <Input
-            id="institution"
-            name="institution"
-            type="text"
-            label="Institution"
-            error={errors.institution ? errors.institution.message : ""}
-            defaultValue={certification?.institution || ""}
-            {...register("institution", {
-              required: "Institution is required",
-              minLength: {
-                value: 2,
-                message: "Minimum length is 2 characters",
-              },
-              maxLength: {
-                value: 50,
-                message: "Maximum length is 50 characters",
-              },
-            })}
-          />
-          <Input
-            id="year"
-            name="year"
-            type="number"
-            label="Year"
-            error={errors.year ? errors.year.message : ""}
-            defaultValue={certification?.year || ""}
-            {...register("year", {
-              required: "Year is required",
-              min: { value: 1900, message: "Year must be after 1900" },
-              max: {
-                value: new Date().getFullYear(),
-                message: `Year cannot be in the future`,
-              },
-            })}
-          />
-        </div>
-        <div className="flex justify-around gap-3 w-full">
-          {onDelete && certification ? (
-            <Button
-              styleType="callToAction"
-              type="button"
-              color="pink"
-              onClick={() => onDelete(certification.id)}
-            >
-              Delete
-            </Button>
-          ) : null}
-          <Button styleType="callToAction" type="submit">
-            Save
+      </div>
+
+      <div className="flex justify-around gap-3 w-full mt-4">
+        {onDelete && (
+          <Button
+            color="danger"
+            variant="bordered"
+            onClick={deleteRecord}
+            disabled={isSubmitting || isDeleting}
+            isSpinning={isDeleting}
+          >
+            Delete
           </Button>
-        </div>
-      </form>
-    </>
+        )}
+        <Button
+          type="submit"
+          disabled={isSubmitting || isDeleting}
+          isSpinning={isSubmitting}
+        >
+          Save
+        </Button>
+      </div>
+    </form>
   );
 }
 
 CertificationForm.propTypes = {
-  closePopup: PropTypes.func.isRequired,
-  certification: PropTypes.object,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  institution: PropTypes.string,
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
+  closePopup: PropTypes.func.isRequired,
 };

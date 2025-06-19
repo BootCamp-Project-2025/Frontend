@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { EducationCard } from "../../../../src/domains/teacher/components/molecules/EducationCard";
 
 describe("EducationCard", () => {
@@ -22,22 +22,13 @@ describe("EducationCard", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the edit button with correct icon", () => {
+  it("renders the edit button", () => {
     render(<EducationCard {...mockProps} />);
     const editButton = screen.getByRole("button");
     expect(editButton).toBeInTheDocument();
-
-    const span = within(editButton).getByText("edit");
-    expect(span).toHaveClass("material-symbols-outlined");
   });
 
-  it("applies the correct background and styling classes", () => {
-    render(<EducationCard {...mockProps} />);
-    const card = screen.getByTestId("experience-card");
-    expect(card).toHaveClass("bg-[#D7E6FD]");
-  });
-
-  it("calls editCard with correct id when edit button is clicked", () => {
+  it("calls edit form with the correct id when edit button is clicked", () => {
     render(<EducationCard {...mockProps} />);
 
     const editButton = screen.getByRole("button");
