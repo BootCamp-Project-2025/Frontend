@@ -30,7 +30,7 @@ function TeacherSkills() {
       openPopup(
         PopupFormLayout,
         {
-          title: "Education Form",
+          title: "Skill Form",
           children: (
             <TeacherSkillPopup
               skillObject={skill}
@@ -47,7 +47,7 @@ function TeacherSkills() {
       openPopup(
         PopupFormLayout,
         {
-          title: "Education Form",
+          title: "Skill Form",
           children: (
             <TeacherSkillPopup closePopup={closePopup} addSkill={addSkill} />
           ),
@@ -60,7 +60,7 @@ function TeacherSkills() {
 
   return (
     <>
-      <ProfileSection title={"Education"}>
+      <ProfileSection title={"Skill"}>
         {data.map((skill, index) => (
           <TeacherSkillRow
             key={index}

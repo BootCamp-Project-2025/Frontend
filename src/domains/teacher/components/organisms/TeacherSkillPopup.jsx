@@ -78,18 +78,16 @@ function TeacherSkillPopup({
         <SelectSkillLabeled onChange={changeLevel} value={newLevel} />
       </div>
       <div className="flex flex-row justify-center w-full mt-2 gap-4">
-        {!newSkillRef.current && (
-          <Button
-            disabled={isSubmitting}
-            color="danger"
-            variant="bordered"
-            onClick={() => {
-              deleteSkill();
-            }}
-          >
-            Delete
-          </Button>
-        )}
+        <Button
+          disabled={isSubmitting}
+          color="default"
+          onClick={() => {
+            closePopup();
+          }}
+        >
+          cancel
+        </Button>
+
         <Button type="submit" disabled={isSubmitting} isSpinning={isSubmitting}>
           Save
         </Button>

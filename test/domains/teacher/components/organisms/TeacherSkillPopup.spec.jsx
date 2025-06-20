@@ -6,12 +6,11 @@ describe("TeacherSkillPopup Component", () => {
   const defaultProps = {
     closePopup: () => console.log("close"),
     addSkill: () => console.log("addSkill"),
-    skill: { skill: "", level: "Beginner" },
+    skill: { skill: "react", level: "Beginner" },
   };
   it("renders teacher skill popup correctly", () => {
     render(<TeacherSkillPopup {...defaultProps} />);
-    expect(screen.getByText("Skill Form")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /delete/i })).toBeInTheDocument();
+    expect(screen.getByText("skill")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /save/i })).toBeInTheDocument();
   });
 });
