@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { EducationCard } from "../molecules/EducationCard";
-import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
 import { EducationForm } from "./EducationForm";
 import { Button } from "../../../../shared/components/atoms/Button";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
 export const EducationSection = () => {
-  const [formVisible, setFormVisible] = useState(false);
   const [recordList, setRecordList] = useState([]);
   const [cardSelected, setCardSelected] = useState(null);
 
@@ -17,8 +18,45 @@ export const EducationSection = () => {
       .catch((err) => console.error("Error loading  data:", err));
   }, []);
 
+  const { openPopup, closePopup } = usePopup();
+
+  const handleOpenPopup = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Education Form",
+        children: <EducationForm addCard={addCard} />,
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
+  const handleOpenEditPopup = (information) => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Education Form",
+        children: (
+          <EducationForm
+            id={information.id}
+            university={information.university}
+            career={information.career}
+            startDate={information.startDate}
+            endDate={information.endDate}
+            updateCard={updateCard}
+            removeCard={removeCard}
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
   const addCard = (record) => {
     setRecordList((prev) => [...prev, record]);
+    closePopup();
   };
 
   const updateCard = (record) => {
@@ -30,73 +68,45 @@ export const EducationSection = () => {
         return element;
       })
     );
+    closePopup();
   };
 
   const editCard = (cardId) => {
     const record = recordList.find((e) => e.id == cardId);
     if (record) {
       setCardSelected(record);
-      setFormVisible(true);
+      handleOpenEditPopup(record);
     }
   };
 
   const removeCard = (cardId) => {
     setRecordList((prev) => prev.filter((e) => e.id !== cardId));
-  };
-
-  const closeForm = () => {
-    setFormVisible(false);
-    setCardSelected(null);
+    closePopup();
   };
 
   return (
     <>
-      <div className="p-4">
-        <ProfileSection title={"Education"}>
-          <>
-            {recordList.map((data) => (
-              <EducationCard
-                key={data.id}
-                id={data.id}
-                university={data.university}
-                career={data.career}
-                startDate={data.startDate}
-                endDate={data.endDate}
-                editCard={editCard}
-              />
-            ))}
-            <div>
-              <Button
-                styleType="addBtn"
-                classname="text-white fill-white"
-                onClick={() => setFormVisible(true)}
-              >
-                <span className="material-symbols-outlined">add</span>
-                <p>Add Education</p>
-              </Button>
-            </div>
-          </>
-        </ProfileSection>
-      </div>
-
-      <DialogContainer
-        isOpen={formVisible}
-        onClose={() => {
-          closeForm();
-        }}
-      >
-        <div className="px-7 py-7 flex flex-col max-h-[85vh] max-w-[90vw]  w-200 overflow-y-auto">
-          {formVisible && (
-            <EducationForm
-              addCard={addCard}
-              closeForm={closeForm}
-              updateCard={updateCard}
-              removeCard={removeCard}
-              {...cardSelected}
+      <ProfileSection title={"Education"}>
+        <>
+          {recordList.map((data) => (
+            <EducationCard
+              key={data.id}
+              id={data.id}
+              university={data.university}
+              career={data.career}
+              startDate={data.startDate}
+              endDate={data.endDate}
+              editCard={editCard}
             />
-          )}
-        </div>
-      </DialogContainer>
+          ))}
+          <div>
+            <Button onClick={handleOpenPopup}>
+              <span className="material-symbols-outlined">add</span>
+              Add Education
+            </Button>
+          </div>
+        </>
+      </ProfileSection>
     </>
   );
 };

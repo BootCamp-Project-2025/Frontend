@@ -1,9 +1,13 @@
-import "./atoms.css";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { AboutMeForm } from "./AboutMeForm";
+import { Button } from "../../../../shared/components/atoms/Button";
+import { ProfileSection } from "../molecules/ProfileSection";
+import { useState } from "react";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import { Icon } from "../../../../shared/components/atoms/Icon";
 
-export default function AboutMeSectionText() {
-  return (
-    <p className="about-me-content-text font-normal">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nulla
+const mockInformation = `
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nulla
       ipsa dignissimos quod amet asperiores! Nobis, aliquam quaerat voluptas
       fugit maxime distinctio, a error maiores aperiam assumenda repellat
       accusantium quibusdam! Itaque odio natus exercitationem illum autem
@@ -20,6 +24,35 @@ export default function AboutMeSectionText() {
       voluptatibus quidem necessitatibus dolorum blanditiis! Soluta itaque harum
       accusamus voluptatibus sunt aspernatur corporis earum, neque aperiam a
       quas ut magnam ex iusto.
-    </p>
+`;
+
+export default function AboutMeSection() {
+  // eslint-disable-next-line no-unused-vars
+  const [information, setInformation] = useState(mockInformation);
+
+  const { openPopup, closePopup } = usePopup();
+
+  const handleOpenPopup = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "About me Form",
+        children: <AboutMeForm />,
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
+  return (
+    <ProfileSection title="About me">
+      <p className="about-me-content-text font-normal">{information}</p>
+      <div>
+        <Button onClick={handleOpenPopup}>
+          <Icon icon="edit" />
+          Edit About me
+        </Button>
+      </div>
+    </ProfileSection>
   );
 }

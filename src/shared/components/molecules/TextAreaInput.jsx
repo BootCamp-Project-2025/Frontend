@@ -8,6 +8,7 @@ export const TextAreaInput = ({
   id = undefined,
   rows = 1,
   maxLength = undefined,
+  ...rest
 }) => {
   return (
     <div className="flex flex-col gap-1.5 w-full">
@@ -23,6 +24,7 @@ export const TextAreaInput = ({
         rows={rows}
         placeholder={placeholder}
         id={id}
+        {...rest}
       ></textarea>
       {errorMessage && <p className="text-sm  text-pink-500">{errorMessage}</p>}
     </div>

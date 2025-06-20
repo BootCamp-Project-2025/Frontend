@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
-import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
 import { ExperienceForm } from "./ExperienceForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { ExperienceCard } from "../molecules/ExperienceCard";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
 export const ExperienceSection = () => {
-  const [formVisible, setFormVisible] = useState(false);
   const [recordList, setRecordList] = useState([]);
   const [cardSelected, setCardSelected] = useState(null);
 
@@ -17,8 +18,47 @@ export const ExperienceSection = () => {
       .catch((err) => console.error("Error loading  data:", err));
   }, []);
 
+  const { openPopup, closePopup } = usePopup();
+
+  const handleOpenPopup = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Experience Form",
+        children: <ExperienceForm addCard={addCard} />,
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
+  const handleOpenEditPopup = (information) => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Experience Form",
+        children: (
+          <ExperienceForm
+            id={information.id}
+            jobPosition={information.jobPosition}
+            employer={information.employer}
+            country={information.country}
+            description={information.description}
+            startDate={information.startDate}
+            endDate={information.endDate}
+            updateCard={updateCard}
+            removeCard={removeCard}
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
   const addCard = (record) => {
     setRecordList((prev) => [...prev, record]);
+    closePopup();
   };
 
   const updateCard = (record) => {
@@ -30,75 +70,47 @@ export const ExperienceSection = () => {
         return element;
       })
     );
+    closePopup();
   };
 
   const editCard = (cardId) => {
     const record = recordList.find((e) => e.id == cardId);
     if (record) {
       setCardSelected(record);
-      setFormVisible(true);
+      handleOpenEditPopup(record);
     }
   };
 
   const removeCard = (cardId) => {
     setRecordList((prev) => prev.filter((e) => e.id !== cardId));
-  };
-
-  const closeForm = () => {
-    setFormVisible(false);
-    setCardSelected(null);
+    closePopup();
   };
 
   return (
     <>
-      <div className="p-4">
-        <ProfileSection title={"Experience"}>
-          <>
-            {recordList.map((exp) => (
-              <ExperienceCard
-                key={exp.id}
-                id={exp.id}
-                jobPosition={exp.jobPosition}
-                employer={exp.employer}
-                country={exp.country}
-                startDate={exp.startDate}
-                endDate={exp.endDate}
-                description={exp.description}
-                editCard={editCard}
-              />
-            ))}
-            <div>
-              <Button
-                styleType="addBtn"
-                classname="text-white fill-white"
-                onClick={() => setFormVisible(true)}
-              >
-                <span className="material-symbols-outlined">add</span>
-                <p>Add Experience</p>
-              </Button>
-            </div>
-          </>
-        </ProfileSection>
-      </div>
-
-      <DialogContainer
-        isOpen={formVisible}
-        onClose={() => {
-          closeForm();
-        }}
-      >
-        <div className="px-7 py-7 flex flex-col max-h-[85vh] max-w-[90vw]  w-200 overflow-y-auto">
-          {formVisible && (
-            <ExperienceForm
-              addCard={addCard}
-              closeForm={closeForm}
-              updateCard={updateCard}
-              removeCard={removeCard}
-              {...cardSelected}
+      <ProfileSection title={"Experience"}>
+        <>
+          {recordList.map((exp) => (
+            <ExperienceCard
+              key={exp.id}
+              id={exp.id}
+              jobPosition={exp.jobPosition}
+              employer={exp.employer}
+              country={exp.country}
+              startDate={exp.startDate}
+              endDate={exp.endDate}
+              description={exp.description}
+              editCard={editCard}
             />
-          )}
-        </div>
-      </DialogContainer>
+          ))}
+          <div>
+            <Button onClick={handleOpenPopup}>
+              <span className="material-symbols-outlined">add</span>
+              Add Experience
+            </Button>
+          </div>
+        </>
+      </ProfileSection>
     </>
   );
 };
