@@ -28,17 +28,6 @@ function TeacherSkillPopup({
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async function deleteSkill() {
-    await delay(1000);
-    // Placeholder for delete functionality with API
-    if (newSkillRef.current) {
-      closePopup();
-      return;
-    }
-    console.log("Delete skill functionality not implemented yet.");
-    closePopup();
-  }
-
   const changeLevel = (e) => {
     setLevel(e.target.value);
   };
