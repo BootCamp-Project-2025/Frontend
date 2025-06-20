@@ -6,7 +6,7 @@ const textStyle = {
 
 function Label({ children }) {
   return (
-    <p className="mb-1 font-sans" style={textStyle}>
+    <p className="text-gray-600  font-semibold text-lg" style={textStyle}>
       {children}
     </p>
   );

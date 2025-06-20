@@ -26,6 +26,7 @@ export default function Router() {
               <EducationSection />
               <ExperienceSection />
               <CertificationsList />
+              <TeacherSkills />
             </div>
           }
         />

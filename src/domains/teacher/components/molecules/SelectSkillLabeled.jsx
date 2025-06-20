@@ -4,7 +4,7 @@ import SkillSelect from "../atoms/SkillSelect";
 
 function SelectSkillLabeled({ onChange, value, className = "" }) {
   return (
-    <div className={`w-fit ${className}`}>
+    <div className={`flex flex-col gap-1.5 w-full ${className}`}>
       <Label>Proficiency</Label>
       <SkillSelect onChange={onChange} value={value} />
     </div>

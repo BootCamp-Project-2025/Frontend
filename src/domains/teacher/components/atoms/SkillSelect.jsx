@@ -4,7 +4,7 @@ function SkillSelect({ onChange, value }) {
   return (
     <select
       onChange={onChange}
-      className="border text-gray-600 p-1 rounded-md outline-none font-sans w-40"
+      className="bg-white py-2 px-2.5 rounded-md outline-1 focus:outline-2 text-base outline-gray-300 focus:outline-blue-500"
       type="select"
       value={value}
     >

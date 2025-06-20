@@ -4,63 +4,78 @@ import TeacherSkillRow from "../molecules/TeacherSkillRow";
 import TeacherSkillPopup from "./TeacherSkillPopup";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { useState } from "react";
+import { ProfileSection } from "../molecules/ProfileSection";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
-function TeacherSkills({ className = "", style = {} }) {
+function TeacherSkills() {
   const { openPopup, closePopup } = usePopup();
   //load data from API
   const [data, setData] = useState([
-    { skill: "react", level: "Intermediate" },
-    { skill: "react", level: "begginer" },
+    { skill: "React", level: "Intermediate" },
+    { skill: "React", level: "begginer" },
   ]);
 
-  const addSkill = (skill, newSkill) => {
-    {
-      if (newSkill) {
-        setData([...data, skill]);
-      } else {
-        console.log(skill, "edit skill functionality not implemented yet.");
-      }
+  function addSkill(skill, newSkill, id) {
+    if (newSkill) {
+      data.push(skill);
+      setData([...data]);
+    } else {
+      data[id] = skill;
+      setData([...data]);
     }
-  };
+  }
 
-  function handleSkill(skill) {
-    console.log(skill);
-    if (skill) {
-      //popups require API integration for create,update and delete
-      openPopup(() =>
-        TeacherSkillPopup({
-          closePopup: closePopup,
-          addSkill: addSkill,
-          skill: skill,
-        })
+  function handleSkill(skill, id) {
+    if (skill !== undefined) {
+      openPopup(
+        PopupFormLayout,
+        {
+          title: "Education Form",
+          children: (
+            <TeacherSkillPopup
+              skillObject={skill}
+              closePopup={closePopup}
+              addSkill={addSkill}
+              id={id}
+            />
+          ),
+          onClose: closePopup,
+        },
+        true
       );
     } else {
-      openPopup(() =>
-        TeacherSkillPopup({ closePopup: closePopup, addSkill: addSkill })
+      openPopup(
+        PopupFormLayout,
+        {
+          title: "Education Form",
+          children: (
+            <TeacherSkillPopup closePopup={closePopup} addSkill={addSkill} />
+          ),
+          onClose: closePopup,
+        },
+        true
       );
     }
   }
 
   return (
     <>
-      <div
-        className={`border-blue-500 min-w-fit  p-4 ${className} `}
-        style={{ borderRadius: "14px", borderWidth: "1px", ...style }}
-      >
-        <p className="text-blue-500 font-bold">Skills</p>
+      <ProfileSection title={"Education"}>
         {data.map((skill, index) => (
           <TeacherSkillRow
             key={index}
             level={skill.level}
             skill={skill.skill}
-            onclick={() => handleSkill(skill)}
+            onclick={() => handleSkill(skill, index)}
+            id={index}
           />
         ))}
-
-        <Button onClick={handleSkill} styleType="callToAction">
-          + Add Skill
-        </Button>
-      </div>
+        <div>
+          <Button onClick={() => handleSkill(undefined)}>
+            <span className="material-symbols-outlined">add</span> Add Skill
+          </Button>
+        </div>
+      </ProfileSection>
     </>
   );
 }
