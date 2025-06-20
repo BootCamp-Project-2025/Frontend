@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
+import TeacherSkills from "./domains/teacher/components/organisms/TeacherSkills";
 import { ExperienceSection } from "./domains/teacher/components/organisms/ExperienceSection";
 import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
 import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSection";
@@ -25,6 +26,7 @@ export default function Router() {
               <EducationSection />
               <ExperienceSection />
               <CertificationsList />
+              <TeacherSkills />
             </div>
           }
         />
