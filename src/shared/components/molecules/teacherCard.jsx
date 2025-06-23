@@ -14,7 +14,7 @@ export const TeacherCard = ({
 }) => {
   return (
     <Card
-      className="border-gray-300 flex flex-col hover:cursor-pointer hover:border-primary-500 gap-2.5  hover:bg-primary-50  "
+      className="border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 gap-2.5  hover:bg-primary-50  "
       bordered
       borderWidth="thin"
       radius="small"

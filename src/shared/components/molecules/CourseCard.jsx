@@ -13,7 +13,7 @@ export const CourseCard = ({
 }) => {
   return (
     <Card
-      className="border-gray-300 flex flex-col hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 gap-1.5"
+      className="border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 gap-1.5"
       bordered
       borderWidth="thin"
       radius="small"

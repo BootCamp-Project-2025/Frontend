@@ -10,6 +10,7 @@ import CertificationsList from "./domains/teacher/components/organisms/Certifica
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import { Header } from "./shared/components/molecules/Header.jsx";
+import { Footer } from "./shared/components/molecules/Footer.jsx";
 
 export default function Router() {
   return (
@@ -34,6 +35,7 @@ export default function Router() {
         />
         <Route path="button-gallery" element={<ButtonGallery />} />
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   );
 }

@@ -11,7 +11,7 @@ export const CategoryCard = ({
   return (
     <>
       <Card
-        className="border-gray-300 flex flex-col gap-2 hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 w-[13.6875rem] min-w-[9.8125rem] "
+        className="border-gray-300 bg-white flex flex-col gap-2 hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 w-[13.6875rem] min-w-[9.8125rem] "
         bordered
         borderWidth="thin"
         radius="small"

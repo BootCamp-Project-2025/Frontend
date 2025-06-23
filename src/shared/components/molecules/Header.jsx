@@ -3,7 +3,7 @@ import { Button } from "../atoms/Button";
 import { HeaderOption } from "../atoms/HeaderOption";
 export const Header = () => {
   return (
-    <header className="flex items-center justify-center h-[5.625rem] border-gray-300 shadow-md">
+    <header className="flex items-center justify-center h-[5.625rem] border-gray-300 shadow-md bg-white">
       <div className="flex justify-between items-center  w-[90%] ">
         <img src={LTCrowgLogo} alt="Logo LTCrowd" className="h-[2.2rem]" />
         <div className="flex w-full justify-center gap-10  ">

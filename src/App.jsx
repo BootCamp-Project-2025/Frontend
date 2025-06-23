@@ -26,7 +26,6 @@ function App() {
           </Title>
           <TeacherCardList></TeacherCardList>
         </div>
-
         <p>Hello world</p>
         <div className="flex flex-col">
           <Link to="./courses" className="text-blue-700 ">
