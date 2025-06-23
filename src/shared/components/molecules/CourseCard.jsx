@@ -2,6 +2,8 @@ import { Card } from "../atoms/Card";
 import PropTypes from "prop-types";
 
 export const CourseCard = ({
+  // eslint-disable-next-line no-unused-vars
+  id = "",
   imageURL,
   name = "Course name",
   description = "Description course",
@@ -11,7 +13,7 @@ export const CourseCard = ({
 }) => {
   return (
     <Card
-      className="border-gray-300 flex flex-col hover:cursor-pointer hover:border-primary-500 gap-1.5"
+      className="border-gray-300 flex flex-col hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 gap-1.5"
       bordered
       borderWidth="thin"
       radius="small"
@@ -52,6 +54,7 @@ export const CourseCard = ({
 };
 
 CourseCard.propTypes = {
+  id: PropTypes.string,
   imageURL: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,

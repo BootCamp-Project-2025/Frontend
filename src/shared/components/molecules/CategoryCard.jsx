@@ -2,6 +2,8 @@ import { Card } from "../atoms/Card";
 import PropTypes from "prop-types";
 
 export const CategoryCard = ({
+  // eslint-disable-next-line no-unused-vars
+  id = "",
   imageURL = "/defaultImage1.png",
   category = "Category",
   ...props
@@ -9,7 +11,7 @@ export const CategoryCard = ({
   return (
     <>
       <Card
-        className="border-gray-300 flex flex-col gap-2 hover:cursor-pointer hover:border-primary-500  w-[13.6875rem] min-w-[9.8125rem] "
+        className="border-gray-300 flex flex-col gap-2 hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 w-[13.6875rem] min-w-[9.8125rem] "
         bordered
         borderWidth="thin"
         radius="small"
@@ -30,6 +32,7 @@ export const CategoryCard = ({
 };
 
 CategoryCard.propTypes = {
+  id: PropTypes.string,
   imageURL: PropTypes.string,
   category: PropTypes.string,
 };

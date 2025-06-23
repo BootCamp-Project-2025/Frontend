@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { CategoryCardsList } from "./shared/components/organisms/CategoryCardsList";
 import { CourseCardList } from "./shared/components/organisms/CourseCardList";
 import { Title } from "./shared/components/atoms/Title";
+import { TeacherCardList } from "./shared/components/organisms/teacherCardList";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Title className="text-gray-900" size="lg">
           Most rated teachers
         </Title>
+        <TeacherCardList></TeacherCardList>
       </div>
 
       <p>Hello world</p>

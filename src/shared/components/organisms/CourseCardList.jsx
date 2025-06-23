@@ -13,7 +13,7 @@ export const CourseCardList = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(19.75rem,1fr))] gap-x-4 gap-y-12">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-x-4 gap-y-12">
       {courses.map((course) => {
         return (
           <CourseCard

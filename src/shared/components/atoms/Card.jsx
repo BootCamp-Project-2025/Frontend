@@ -50,6 +50,22 @@ const paddings = {
   xl: "p-8",
 };
 
+const paddingsX = {
+  none: "px-0",
+  sm: "px-2",
+  md: "px-4",
+  lg: "px-6",
+  xl: "px-8",
+};
+
+const paddingsY = {
+  none: "py-0",
+  sm: "py-2",
+  md: "py-4",
+  lg: "py-6",
+  xl: "py-8",
+};
+
 export function Card({
   children,
   bordered = false,
@@ -58,6 +74,8 @@ export function Card({
   radius = "medium",
   borderWidth = "medium",
   padding = "md",
+  paddingX = "",
+  paddingY = "",
   shadow = "sm",
   className = "",
   ...rest
@@ -65,11 +83,13 @@ export function Card({
   return (
     <div
       className={clsx(
-        paddings[padding],
+        paddingX == "" && paddingY == "" && paddings[padding],
         shadows[shadow],
         borderRadius[radius],
         bordered && borderWidths[borderWidth],
         bordered && borderColors[color],
+        paddingsX[paddingX],
+        paddingsY[paddingY],
         filled && filledBackgrounds[color],
         className
       )}
@@ -95,6 +115,8 @@ Card.propTypes = {
   radius: PropTypes.oneOf(["none", "small", "medium", "large", "full"]),
   borderWidth: PropTypes.oneOf(["thin", "medium", "thick"]),
   padding: PropTypes.oneOf(["none", "sm", "md", "lg", "xl"]),
+  paddingX: PropTypes.oneOf(["none", "sm", "md", "lg", "xl"]),
+  paddingY: PropTypes.oneOf(["none", "sm", "md", "lg", "xl"]),
   shadow: PropTypes.oneOf(["none", "sm", "md", "lg", "xl", "custom"]),
   className: PropTypes.string,
 };
