@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "imageURL": "/defaultImage1.png",
+    "category": "Tecnología"
+  },
+  {
+    "id": 2,
+    "imageURL": "/defaultImage2.png",
+    "category": "Negocios"
+  },
+  {
+    "id": 3,
+    "imageURL": "/defaultImage3.png",
+    "category": "Diseño"
+  },
+  {
+    "id": 4,
+    "imageURL": "/defaultImage1.png",
+    "category": "Cocina"
+  },
+  {
+    "id": 5,
+    "imageURL": "/defaultImage2.png",
+    "category": "Idiomas"
+  },
+  {
+    "id": 6,
+    "imageURL": "/defaultImage3.png",
+    "category": "Arte"
+  },
+  {
+    "id": 7,
+    "imageURL": "/defaultImage1.png",
+    "category": "Música"
+  },
+  {
+    "id": 8,
+    "imageURL": "/defaultImage2.png",
+    "category": "Marketing"
+  },
+  {
+    "id": 9,
+    "imageURL": "/defaultImage3.png",
+    "category": "Finanzas"
+  },
+  {
+    "id": 10,
+    "imageURL": "/defaultImage1.png",
+    "category": "Fitness"
+  },
+  {
+    "id": 11,
+    "imageURL": "/defaultImage2.png",
+    "category": "Fotografía"
+  },
+  {
+    "id": 12,
+    "imageURL": "/defaultImage3.png",
+    "category": "Psicología"
+  },
+  {
+    "id": 13,
+    "imageURL": "/defaultImage1.png",
+    "category": "Programación"
+  },
+  {
+    "id": 14,
+    "imageURL": "/defaultImage2.png",
+    "category": "Ciencias"
+  },
+  {
+    "id": 15,
+    "imageURL": "/defaultImage3.png",
+    "category": "Emprendimiento"
+  }
+]

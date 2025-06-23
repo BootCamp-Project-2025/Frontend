@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom";
 import { CategoryCardsList } from "./shared/components/organisms/CategoryCardsList";
+import { CourseCardList } from "./shared/components/organisms/CourseCardList";
+import { Title } from "./shared/components/atoms/Title";
 
 function App() {
   return (
     <>
-      <CategoryCardsList></CategoryCardsList>
+      <div className="flex flex-col gap-12">
+        <Title className="text-gray-900" size="lg">
+          Categories
+        </Title>
+        <CategoryCardsList></CategoryCardsList>
+
+        <Title className="text-gray-900" size="lg">
+          Popular Courses
+        </Title>
+        <CourseCardList></CourseCardList>
+
+        <Title className="text-gray-900" size="lg">
+          Most rated teachers
+        </Title>
+      </div>
 
       <p>Hello world</p>
       <div className="flex flex-col">

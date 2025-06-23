@@ -11,7 +11,7 @@ export function InfoCardLayout({
 }) {
   return (
     <div className="flex flex-row gap-2.5 justify-between">
-      <div className="w- min-w-6 ">{icon}</div>
+      {icon && <div className="w- min-w-6 ">{icon}</div>}
       <div className="w-full justify-start">
         <Title size="lg" color="default">
           {title}

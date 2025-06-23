@@ -2,21 +2,24 @@ import { Card } from "../atoms/Card";
 import PropTypes from "prop-types";
 
 export const CategoryCard = ({
-  imageURL = "/defaultCategoryImage.png",
+  imageURL = "/defaultImage1.png",
   category = "Category",
   ...props
 }) => {
   return (
     <>
       <Card
+        className="border-gray-300 flex flex-col gap-2 hover:cursor-pointer hover:border-primary-500  w-[13.6875rem] min-w-[9.8125rem] "
+        bordered
+        borderWidth="thin"
         radius="small"
         color="secondary"
-        className="flex flex-col shrink-0 px-[0.5rem] py-[0.5rem] border-[1px] w-[9.81rem] h-[8.225rem] sm:w-[13.68rem] sm:h-[9.81rem] border-[#D9D9D9] gap-[0.875rem] hover:cursor-pointer transition hover:bg-gray-100"
-        style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}
+        shadow="custom"
+        padding="sm"
         {...props}
       >
-        <div className="overflow-hidden rounded-lg flex justify-center items-center flex-1 bg-gray-300 text-xs">
-          <img src={imageURL} alt="Course Image" className="h-full w-full" />
+        <div className="overflow-hidden rounded-sm flex justify-center items-center aspect-[1/0.6] bg-gray-300 text-xs">
+          <img src={imageURL} alt="Category Image" className="h-full w-full" />
         </div>
         <p className="text-sm text-center text-gray-900 line-clamp-1 font-medium">
           {category}

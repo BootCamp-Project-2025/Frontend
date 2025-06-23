@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const baseStyle = `px-8 py-7`;
-
 const borderRadius = {
   none: "rounded-none",
   small: "rounded-lg",
@@ -20,13 +18,36 @@ const filledBackgrounds = {
   default: "bg-[color:var(--color-default-50)]",
 };
 
-const borderStyles = {
-  primary: "border-2 border-[color:var(--color-primary-500)]",
-  secondary: "border-2 border-[color:var(--color-secondary-500)]",
-  success: "border-2 border-[color:var(--color-success-500)]",
-  danger: "border-2 border-[color:var(--color-danger-500)]",
-  warning: "border-2 border-[color:var(--color-warning-500)]",
-  default: "border-2 border-[color:var(--color-default-500)]",
+const borderColors = {
+  primary: "border-[color:var(--color-primary-500)]",
+  secondary: "border-[color:var(--color-secondary-500)]",
+  success: "border-[color:var(--color-success-500)]",
+  danger: "border-[color:var(--color-danger-500)]",
+  warning: "border-[color:var(--color-warning-500)]",
+  default: "border-[color:var(--color-default-500)]",
+};
+
+const borderWidths = {
+  thin: "border",
+  medium: "border-2",
+  thick: "border-4",
+};
+
+const shadows = {
+  none: "shadow-none",
+  sm: "shadow-sm",
+  md: "shadow-md",
+  lg: "shadow-lg",
+  xl: "shadow-xl",
+  custom: "shadow-[0px_4px_4px_rgba(0,0,0,0.25)]",
+};
+
+const paddings = {
+  none: "p-0",
+  sm: "p-2",
+  md: "p-4",
+  lg: "p-6",
+  xl: "p-8",
 };
 
 export function Card({
@@ -35,17 +56,21 @@ export function Card({
   filled = false,
   color = "primary",
   radius = "medium",
+  borderWidth = "medium",
+  padding = "md",
+  shadow = "sm",
   className = "",
   ...rest
 }) {
   return (
     <div
       className={clsx(
-        "p-4 shadow-sm",
-        baseStyle,
+        paddings[padding],
+        shadows[shadow],
         borderRadius[radius],
+        bordered && borderWidths[borderWidth],
+        bordered && borderColors[color],
         filled && filledBackgrounds[color],
-        bordered && borderStyles[color],
         className
       )}
       {...rest}
@@ -68,5 +93,8 @@ Card.propTypes = {
     "default",
   ]),
   radius: PropTypes.oneOf(["none", "small", "medium", "large", "full"]),
+  borderWidth: PropTypes.oneOf(["thin", "medium", "thick"]),
+  padding: PropTypes.oneOf(["none", "sm", "md", "lg", "xl"]),
+  shadow: PropTypes.oneOf(["none", "sm", "md", "lg", "xl", "custom"]),
   className: PropTypes.string,
 };

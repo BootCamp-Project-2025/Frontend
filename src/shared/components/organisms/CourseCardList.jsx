@@ -1,0 +1,31 @@
+import { useState } from "react";
+import { CourseCard } from "../molecules/CourseCard";
+import { useEffect } from "react";
+
+export const CourseCardList = () => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetch("/requestPopularCourses.json")
+      .then((res) => res.json())
+      .then((data) => setCourses(data))
+      .catch((err) => console.error("Error loading  data:", err));
+  }, []);
+
+  return (
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(19.75rem,1fr))] gap-x-4 gap-y-12">
+      {courses.map((course) => {
+        return (
+          <CourseCard
+            key={course.id}
+            author={course.author}
+            description={course.description}
+            imageURL={course.imageURL}
+            name={course.name}
+            rating={course.rating}
+          ></CourseCard>
+        );
+      })}
+    </div>
+  );
+};
