@@ -3,45 +3,49 @@ import { CategoryCardsList } from "./shared/components/organisms/CategoryCardsLi
 import { CourseCardList } from "./shared/components/organisms/CourseCardList";
 import { Title } from "./shared/components/atoms/Title";
 import { TeacherCardList } from "./shared/components/organisms/teacherCardList";
+import { PageBanner } from "./shared/components/organisms/pageBanner";
 
 function App() {
   return (
     <>
-      <div className="flex flex-col gap-12">
-        <Title className="text-gray-900" size="lg">
-          Categories
-        </Title>
-        <CategoryCardsList></CategoryCardsList>
+      <PageBanner></PageBanner>
+      <main>
+        <div className="flex flex-col gap-12">
+          <Title className="text-gray-900" size="lg">
+            Categories
+          </Title>
+          <CategoryCardsList></CategoryCardsList>
 
-        <Title className="text-gray-900" size="lg">
-          Popular Courses
-        </Title>
-        <CourseCardList></CourseCardList>
+          <Title className="text-gray-900" size="lg">
+            Popular Courses
+          </Title>
+          <CourseCardList></CourseCardList>
 
-        <Title className="text-gray-900" size="lg">
-          Most rated teachers
-        </Title>
-        <TeacherCardList></TeacherCardList>
-      </div>
+          <Title className="text-gray-900" size="lg">
+            Most rated teachers
+          </Title>
+          <TeacherCardList></TeacherCardList>
+        </div>
 
-      <p>Hello world</p>
-      <div className="flex flex-col">
-        <Link to="./courses" className="text-blue-700 ">
-          courses
-        </Link>
-        <Link to="./health-check" className="text-blue-700 ">
-          health-check
-        </Link>
-        <Link to="./course-select" className="text-blue-700 ">
-          course-select
-        </Link>
-        <Link to="./teacher-profile" className="text-blue-700 ">
-          teacher-profile
-        </Link>
-        <Link to="./button-gallery" className="text-blue-700 ">
-          button-gallery
-        </Link>
-      </div>
+        <p>Hello world</p>
+        <div className="flex flex-col">
+          <Link to="./courses" className="text-blue-700 ">
+            courses
+          </Link>
+          <Link to="./health-check" className="text-blue-700 ">
+            health-check
+          </Link>
+          <Link to="./course-select" className="text-blue-700 ">
+            course-select
+          </Link>
+          <Link to="./teacher-profile" className="text-blue-700 ">
+            teacher-profile
+          </Link>
+          <Link to="./button-gallery" className="text-blue-700 ">
+            button-gallery
+          </Link>
+        </div>
+      </main>
     </>
   );
 }
