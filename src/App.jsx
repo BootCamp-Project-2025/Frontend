@@ -22,7 +22,7 @@ function App() {
           <CourseCardList></CourseCardList>
 
           <Title className="text-gray-900" size="lg">
-            Most rated teachers
+            Most Rated Teachers
           </Title>
           <TeacherCardList></TeacherCardList>
         </div>

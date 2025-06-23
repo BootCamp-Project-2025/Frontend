@@ -51,7 +51,7 @@ export const Footer = () => {
           </Accordion>
         </div>
         <div className="py-3 border-t border-primary-500">
-          <p className="text-xs">© LTCrowd - 2025 All rights deserved</p>
+          <p className="text-xs">© LTCrowd - 2025 All rights reserved</p>
         </div>
       </div>
     </footer>
