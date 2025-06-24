@@ -8,7 +8,6 @@ import { LanguageForm } from "./LanguageForm";
 
 export const LanguageSection = () => {
   const [languageList, setLanguageList] = useState([]);
-  const [selected, setSelected] = useState(null);
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ export const LanguageSection = () => {
   };
 
   const handleAdd = () => {
-    setSelected(null);
     openPopup(
       PopupFormLayout,
       {
@@ -47,7 +45,6 @@ export const LanguageSection = () => {
   };
 
   const handleEdit = (lang) => {
-    setSelected(lang);
     openPopup(
       PopupFormLayout,
       {
