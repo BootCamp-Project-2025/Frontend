@@ -9,6 +9,7 @@ import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSectio
 import CertificationsList from "./domains/teacher/components/organisms/CertificationSection.jsx";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
+import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 
 export default function Router() {
   return (
@@ -32,6 +33,7 @@ export default function Router() {
         />
 
         <Route path="button-gallery" element={<ButtonGallery />} />
+        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
       </Routes>
     </BrowserRouter>
   );
