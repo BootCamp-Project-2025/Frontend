@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 export const LanguageForm = ({
   id = "",
@@ -17,24 +18,27 @@ export const LanguageForm = ({
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-  } = useForm({
-    defaultValues: { name, proficiency },
-  });
+  } = useForm({ defaultValues: { name, proficiency } });
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+  const [newLevel, setLevel] = useState(proficiency);
+  const changeLevel = (e) => {
+    setLevel(e.target.value);
+  };
+  // Save handler
   const onSave = async (data) => {
+    await delay(500);
     if (id) {
-      await delay(500);
       updateLanguage({ ...data, id });
     } else {
-      await delay(500);
       addLanguage({ ...data, id: crypto.randomUUID() });
     }
     closeForm();
   };
 
+  // Delete handler
   const onDelete = async () => {
     setIsDeleting(true);
     await delay(500);
@@ -45,52 +49,49 @@ export const LanguageForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSave)} className="flex flex-col gap-4">
-      <h2 className="text-2xl font-semibold text-blue-500 text-center">
-        {id ? "Edit Language" : "Add Language"}
-      </h2>
-
       <TextInput
         id="name"
         label="Language"
         placeholder="e.g. Spanish"
         register={register("name", { required: "Required" })}
         errorMessage={errors.name?.message}
+        maxLength={50}
       />
 
-      <div className="flex flex-col w-full">
-        <label className="font-medium">Proficiency</label>
-        <SelectInput
-          id="proficiency"
-          register={register("proficiency", { required: "Required" })}
-          label={"Language"}
-          options={[
-            { value: "basic", label: "Basic" },
-            { value: "conversational", label: "Conversational" },
-            { value: "fluent", label: "Fluent" },
-            { value: "native", label: "Native" },
-          ]}
-          errorMessage={errors.proficiency?.message}
-        />
-      </div>
+      <SelectInput
+        id="proficiency"
+        label="Proficiency"
+        value={newLevel}
+        onChange={changeLevel}
+        register={register("proficiency", { required: "Required" })}
+        options={[
+          { value: "Basic", label: "Basic" },
+          { value: "Conversational", label: "Conversational" },
+          { value: "Fluent", label: "Fluent" },
+          { value: "Native", label: "Native" },
+        ]}
+        errorMessage={errors.proficiency?.message}
+      />
 
       <div className="flex justify-end gap-3 mt-4">
         {id && (
-          <button
-            type="button"
+          <Button
+            color="danger"
+            variant="bordered"
             onClick={onDelete}
+            isSpinning={isDeleting}
             disabled={isDeleting || isSubmitting}
-            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
           >
-            {isDeleting ? "Deleting…" : "Delete"}
-          </button>
+            Delete
+          </Button>
         )}
-        <button
+        <Button
           type="submit"
+          isSpinning={isSubmitting}
           disabled={isSubmitting || isDeleting}
-          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
         >
-          {isSubmitting ? "Saving…" : "Save"}
-        </button>
+          Save
+        </Button>
       </div>
     </form>
   );

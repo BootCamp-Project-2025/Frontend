@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+// src/shared/components/sections/LanguageSection.jsx
+import React, { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
-import { DialogContainer } from "../../../../shared/components/atoms/DialogContainer";
-import { LanguageForm } from "./LanguageForm";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { LanguageCard } from "../molecules/LanguageCard";
+import { LanguageForm } from "./LanguageForm";
 
 export const LanguageSection = () => {
-  const [formVisible, setFormVisible] = useState(false);
   const [languageList, setLanguageList] = useState([]);
   const [selected, setSelected] = useState(null);
+  const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
     fetch("/requestLanguages.json")
@@ -17,71 +19,76 @@ export const LanguageSection = () => {
       .catch((err) => console.error("Error loading languages:", err));
   }, []);
 
-  const addLanguage = (lang) => setLanguageList((prev) => [...prev, lang]);
-  const updateLanguage = (lang) =>
-    setLanguageList((prev) => prev.map((l) => (l.id === lang.id ? lang : l)));
-  const removeLanguage = (id) =>
-    setLanguageList((prev) => prev.filter((l) => l.id !== id));
+  const addLanguage = (lang) => {
+    setLanguageList((prev) => [...prev, lang]);
+    closePopup();
+  };
 
-  const openNew = () => {
-    setSelected(null);
-    setFormVisible(true);
+  const updateLanguage = (lang) => {
+    setLanguageList((prev) => prev.map((l) => (l.id === lang.id ? lang : l)));
+    closePopup();
   };
-  const openEdit = (id) => {
-    const lang = languageList.find((l) => l.id === id);
-    if (lang) {
-      setSelected(lang);
-      setFormVisible(true);
-    }
+
+  const removeLanguage = (id) => {
+    setLanguageList((prev) => prev.filter((l) => l.id !== id));
+    closePopup();
   };
-  const closeForm = () => {
+
+  const handleAdd = () => {
     setSelected(null);
-    setFormVisible(false);
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Add Language",
+        children: <LanguageForm addLanguage={addLanguage} />,
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+
+  const handleEdit = (lang) => {
+    setSelected(lang);
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Edit Language",
+        children: (
+          <LanguageForm
+            id={lang.id}
+            name={lang.name}
+            proficiency={lang.proficiency}
+            updateLanguage={updateLanguage}
+            removeLanguage={removeLanguage}
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
   };
 
   return (
     <>
-      <div className="p-4">
-        <ProfileSection title="Languages">
-          <>
-            <div className="space-y-2">
-              {languageList.map((l) => (
-                <LanguageCard
-                  key={l.id}
-                  id={l.id}
-                  name={l.name}
-                  proficiency={l.proficiency}
-                  editCard={openEdit}
-                />
-              ))}
-            </div>
-            <div className="mt-4">
-              <Button
-                styleType="addBtn"
-                classname="text-white fill-white"
-                onClick={openNew}
-              >
-                <span className="material-symbols-outlined">add</span>
-                <p>Add Language</p>
-              </Button>
-            </div>
-          </>
-        </ProfileSection>
-      </div>
-
-      <DialogContainer isOpen={formVisible} onClose={closeForm}>
-        <div className="p-6 max-h-[85vh] max-w-[90vw] w-80 overflow-y-auto">
-          {formVisible && (
-            <LanguageForm
-              {...(selected || {})}
-              addLanguage={addLanguage}
-              updateLanguage={updateLanguage}
-              removeLanguage={removeLanguage}
-              closeForm={closeForm}
+      <ProfileSection title="Languages">
+        <div className="space-y-2">
+          {languageList.map((l) => (
+            <LanguageCard
+              key={l.id}
+              id={l.id}
+              name={l.name}
+              proficiency={l.proficiency}
+              editCard={() => handleEdit(l)}
             />
-          )}
+          ))}
         </div>
-      </DialogContainer>
+        <div className="mt-4">
+          <Button variant="bordered" onClick={handleAdd}>
+            <span className="material-symbols-outlined">add</span>
+            <span>Add Language</span>
+          </Button>
+        </div>
+      </ProfileSection>
     </>
   );
 };

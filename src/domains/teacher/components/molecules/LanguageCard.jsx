@@ -1,24 +1,23 @@
 import PropTypes from "prop-types";
-import { Button } from "../../../../shared/components/atoms/Button";
+import { Card } from "../../../../shared/components/atoms/Card";
+import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
-export const LanguageCard = ({ id, name, proficiency, editCard }) => (
-  <div
-    className="bg-[#D7E6FD] p-4 rounded-lg flex items-center justify-between"
-    data-testid="language-card"
-  >
-    <div className="flex flex-col">
-      <p className="font-semibold text-gray-800">{name}</p>
-      <p className="text-gray-600">{proficiency}</p>
-    </div>
-    <Button
-      styleType="editBtn"
-      classname="text-white"
-      onClick={() => editCard(id)}
-    >
-      <span className="material-symbols-outlined">edit</span>
-    </Button>
-  </div>
-);
+export const LanguageCard = ({ id, name, proficiency, editCard }) => {
+  return (
+    <Card filled data-testid="language-card">
+      <InfoCardLayout
+        icon={<span className="material-symbols-outlined">language</span>}
+        title={name}
+        body={
+          <p className="text-gray-600">
+            {proficiency.charAt(0).toUpperCase() + proficiency.slice(1)}
+          </p>
+        }
+        onClickButton={() => editCard(id)}
+      />
+    </Card>
+  );
+};
 
 LanguageCard.propTypes = {
   id: PropTypes.string.isRequired,
