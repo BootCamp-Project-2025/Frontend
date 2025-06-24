@@ -100,7 +100,11 @@ export const EducationSection = () => {
             />
           ))}
           <div>
-            <Button onClick={handleOpenPopup}>
+            <Button
+              onClick={handleOpenPopup}
+              variant="ghost"
+              className={"border border-[color:var(--color-primary-600)]"}
+            >
               <span className="material-symbols-outlined">add</span>
               Add Education
             </Button>

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
-function TeacherSkills() {
+function SkillSection() {
   const { openPopup, closePopup } = usePopup();
   //load data from API
   const [data, setData] = useState([
@@ -71,7 +71,11 @@ function TeacherSkills() {
           />
         ))}
         <div>
-          <Button onClick={() => handleSkill(undefined)}>
+          <Button
+            onClick={() => handleSkill(undefined)}
+            variant="ghost"
+            className={"border border-[color:var(--color-prymary-600)]"}
+          >
             <span className="material-symbols-outlined">add</span> Add Skill
           </Button>
         </div>
@@ -80,9 +84,9 @@ function TeacherSkills() {
   );
 }
 
-export default TeacherSkills;
+export default SkillSection;
 
-TeacherSkills.propTypes = {
+SkillSection.propTypes = {
   className: propTypes.string,
   style: propTypes.object,
 };

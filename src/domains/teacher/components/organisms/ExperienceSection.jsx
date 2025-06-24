@@ -104,7 +104,11 @@ export const ExperienceSection = () => {
             />
           ))}
           <div>
-            <Button onClick={handleOpenPopup}>
+            <Button
+              onClick={handleOpenPopup}
+              variant="ghost"
+              className={"border border-[color:var(--color-prymary-600)]"}
+            >
               <span className="material-symbols-outlined">add</span>
               Add Experience
             </Button>

@@ -3,7 +3,6 @@ import CertificationCard from "../molecules/CertificationCard";
 import { Button } from "../../../../shared/components/atoms/Button";
 import usePopup from "../../../../shared/hooks/usePopup";
 import CertificationForm from "../molecules/CertificationForm";
-import { Icon } from "../../../../shared/components/atoms/Icon";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 
@@ -105,8 +104,12 @@ export default function CertificationSection() {
         ))}
       </div>
       <div>
-        <Button onClick={handleOpenPopup}>
-          <Icon icon="add" className="w-4 h-4" />
+        <Button
+          onClick={handleOpenPopup}
+          variant="ghost"
+          className={"border border-[color:var(--color-primary-600)]"}
+        >
+          <span className="material-symbols-outlined">add</span>
           Add Certification
         </Button>
       </div>

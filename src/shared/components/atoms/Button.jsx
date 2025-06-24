@@ -126,7 +126,7 @@ export function Button({
   color = "primary",
   disabled = false,
   size = "md",
-  radius = "large",
+  radius = "small",
   variant = "solid",
   square = false,
   isSpinning = false,
