@@ -34,6 +34,8 @@ export const SelectInput = ({
 SelectInput.propTypes = {
   id: PropTypes.string,
   register: PropTypes.func,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   options: PropTypes.array,
   label: PropTypes.string,
