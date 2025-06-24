@@ -1,10 +1,10 @@
-//import { learningAPI } from "../axios/AxiosCourseConnection";
+import { learningAPI } from "../axios/AxiosCourseConnection";
 
 export async function getCourseList() {
   try {
-    //const response = await learningAPI.get("/courses");
-    //return response.data;
-    const data = [
+    const response = await learningAPI.get("/courses");
+    return response.data;
+    /* const data = [
       {
         id: "uuid-1",
         name: "Intro to AI",
@@ -23,7 +23,7 @@ export async function getCourseList() {
         modulesCount: 5,
         imgSrc: "",
       },
-    ];
+    ]; */
     return data;
   } catch (error) {
     console.error("Error fetching course list:", error);
