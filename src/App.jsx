@@ -20,6 +20,9 @@ function App() {
         <Link to="./button-gallery" className="text-blue-700 ">
           button-gallery
         </Link>
+        <Link to="./static-course" className="text-blue-700 ">
+          static course
+        </Link>
       </div>
     </>
   );
