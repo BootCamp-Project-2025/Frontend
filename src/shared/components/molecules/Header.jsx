@@ -38,9 +38,27 @@ export const Header = () => {
         </Button>
         {menuOpen && (
           <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center gap-4 py-4 md:hidden z-50">
-            <HeaderOption to={"/"}> Home</HeaderOption>
-            <HeaderOption to={"/courses"}> Courses</HeaderOption>
-            <HeaderOption to={"/teachers"}> Teachers</HeaderOption>
+            <div className="flex flex-col w-[90%] gap-4">
+              <HeaderOption className="w-full" to={"/"}>
+                Home
+              </HeaderOption>
+              <HeaderOption className="w-full" to={"/courses"}>
+                Courses
+              </HeaderOption>
+              <HeaderOption className="w-full" to={"/teachers"}>
+                Teachers
+              </HeaderOption>
+
+              <Button className="w-full text-nowrap flex justify-center">
+                Sign In
+              </Button>
+              <Button
+                color="secondary"
+                className="w-full text-nowrap flex justify-center"
+              >
+                Sing up
+              </Button>
+            </div>
           </div>
         )}
       </div>

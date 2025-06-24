@@ -18,22 +18,39 @@ export default function Router() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="courses" element={<CourseCardList />} />
+        <Route
+          path="courses"
+          element={
+            <main>
+              <CourseCardList />
+            </main>
+          }
+        />
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
         <Route
           path="teacher-profile"
           element={
-            <div className="px-8 flex flex-col gap-4">
-              <AboutMeSection />
-              <EducationSection />
-              <ExperienceSection />
-              <CertificationsList />
-              <TeacherSkills />
-            </div>
+            <main>
+              <div className="px-8 flex flex-col gap-4">
+                <AboutMeSection />
+                <EducationSection />
+                <ExperienceSection />
+                <CertificationsList />
+                <TeacherSkills />
+              </div>
+            </main>
           }
         />
         <Route path="button-gallery" element={<ButtonGallery />} />
+        <Route
+          path="*"
+          element={
+            <main>
+              <h1>Page not Found</h1>
+            </main>
+          }
+        />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>
