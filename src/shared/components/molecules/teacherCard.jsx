@@ -10,11 +10,12 @@ export const TeacherCard = ({
   rating = "0.0",
   description = "Description",
   skills = ["Ability 1", "Ability 1"],
+  className = "",
   ...props
 }) => {
   return (
     <Card
-      className="border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 gap-2.5  hover:bg-primary-50  "
+      className={`border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 gap-2.5  hover:bg-primary-50  ${className}`}
       bordered
       borderWidth="thin"
       radius="small"
@@ -64,4 +65,5 @@ TeacherCard.propTypes = {
   rating: PropTypes.string,
   description: PropTypes.string,
   skills: PropTypes.array,
+  className: PropTypes.string,
 };

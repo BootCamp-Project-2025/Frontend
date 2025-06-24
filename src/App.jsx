@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import { CategoryCardsList } from "./shared/components/organisms/CategoryCardsList";
 import { CourseCardList } from "./shared/components/organisms/CourseCardList";
 import { Title } from "./shared/components/atoms/Title";
 import { TeacherCardList } from "./shared/components/organisms/teacherCardList";
-import { PageBanner } from "./shared/components/organisms/pageBanner";
+import { PageBanner } from "./shared/components/molecules/PageBanner";
 
 function App() {
   return (
@@ -25,24 +24,6 @@ function App() {
             Most Rated Teachers
           </Title>
           <TeacherCardList></TeacherCardList>
-        </div>
-        <p>Hello world</p>
-        <div className="flex flex-col">
-          <Link to="./courses" className="text-blue-700 ">
-            courses
-          </Link>
-          <Link to="./health-check" className="text-blue-700 ">
-            health-check
-          </Link>
-          <Link to="./course-select" className="text-blue-700 ">
-            course-select
-          </Link>
-          <Link to="./teacher-profile" className="text-blue-700 ">
-            teacher-profile
-          </Link>
-          <Link to="./button-gallery" className="text-blue-700 ">
-            button-gallery
-          </Link>
         </div>
       </main>
     </>

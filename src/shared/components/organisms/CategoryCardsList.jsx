@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CategoryCard } from "../molecules/CategoryCard";
+import { Slider } from "../atoms/Slider";
 export const CategoryCardsList = () => {
   const [categories, setCategories] = useState([]);
 
@@ -10,7 +11,7 @@ export const CategoryCardsList = () => {
       .catch((err) => console.error("Error loading  data:", err));
   }, []);
   return (
-    <div className="flex gap-5 overflow-scroll p-4">
+    <Slider>
       {categories.map((category) => {
         return (
           <CategoryCard
@@ -20,6 +21,6 @@ export const CategoryCardsList = () => {
           ></CategoryCard>
         );
       })}
-    </div>
+    </Slider>
   );
 };

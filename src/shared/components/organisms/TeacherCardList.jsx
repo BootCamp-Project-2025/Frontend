@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TeacherCard } from "../molecules/teacherCard";
+import { Slider } from "../atoms/Slider";
 
 export const TeacherCardList = () => {
   const [teachers, setTeachers] = useState([]);
@@ -12,7 +13,7 @@ export const TeacherCardList = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(19rem,1fr))] gap-x-4 gap-y-4">
+    <Slider>
       {teachers.map((teacher) => {
         return (
           <TeacherCard
@@ -23,9 +24,10 @@ export const TeacherCardList = () => {
             description={teacher.description}
             rating={teacher.rating}
             skills={teacher.skills}
+            className="min-w-[15rem] sm:min-w-[25rem]"
           ></TeacherCard>
         );
       })}
-    </div>
+    </Slider>
   );
 };

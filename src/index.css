@@ -85,4 +85,5 @@ main {
   max-width: 90rem;
   padding: 2.4rem 2rem;
   margin: auto;
+  min-height: 100vh;
 }
