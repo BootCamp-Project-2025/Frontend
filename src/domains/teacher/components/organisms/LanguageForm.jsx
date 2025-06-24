@@ -73,7 +73,7 @@ export const LanguageForm = ({
         errorMessage={errors.proficiency?.message}
       />
 
-      <div className="flex justify-end gap-3 mt-4">
+      <div className="flex justify-center gap-3 mt-4">
         {id && (
           <Button
             color="danger"
