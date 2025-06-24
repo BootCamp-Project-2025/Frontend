@@ -4,6 +4,7 @@ import CourseCardList from "./domains/course/components/organisms/CourseCardList
 import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
+import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import Layout from "./shared/Layout.jsx";
 
@@ -19,6 +20,7 @@ export default function Router() {
           <Route path="teacher-profile" element={<TeacherProfile />} />
 
           <Route path="button-gallery" element={<ButtonGallery />} />
+          <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         </Routes>
       </Layout>
     </BrowserRouter>
