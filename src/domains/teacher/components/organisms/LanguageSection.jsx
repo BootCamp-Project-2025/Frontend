@@ -1,4 +1,3 @@
-// src/shared/components/sections/LanguageSection.jsx
 import React, { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import usePopup from "../../../../shared/hooks/usePopup";
