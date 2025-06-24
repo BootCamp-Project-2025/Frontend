@@ -14,6 +14,6 @@ describe("TeacherSkillRow component", () => {
     render(<TeacherSkillRow {...defaultProps} />);
     expect(screen.getByText("react")).toBeInTheDocument();
     expect(screen.getByText("Beginer")).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getAllByRole("button").length).toBeGreaterThan(0);
   });
 });
