@@ -4,7 +4,7 @@
     "imageURL": "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg?_gl=1*awej30*_ga*MjA1NTI2MDU2OC4xNzUwNjUzODE3*_ga_8JE65Q40S6*czE3NTA2NTM4MTckbzEkZzAkdDE3NTA2NTM4MTckajYwJGwwJGgw",
     "name": "Laura Gómez",
     "rating": "4.5",
-    "description": "Laura es una docente apasionada con más de 10 años de experiencia en enseñanza de tecnologías web. Su enfoque combina teoría con práctica, y se esfuerza por motivar a sus estudiantes a desarrollar pensamiento lógico y habilidades técnicas aplicables.",
+    "description": "Laura is a passionate teacher with over 10 years of experience in web technologies education. Her approach combines theory and practice, and she strives to motivate her students to develop logical thinking and applicable technical skills.",
     "skills": ["HTML", "CSS", "JavaScript"]
   },
   {
@@ -12,117 +12,63 @@
     "imageURL": "https://wallpapers.com/images/featured-full/fotos-de-perfil-xj8jigxkai9jag4g.jpg",
     "name": "Carlos Méndez",
     "rating": "4.8",
-    "description": "Carlos ha dedicado su carrera a la enseñanza de matemáticas en niveles intermedios y avanzados. Es conocido por su capacidad de explicar conceptos complejos de manera simple y por su compromiso con el aprendizaje progresivo.",
-    "skills": ["Álgebra", "Geometría", "Cálculo"]
+    "description": "Carlos has dedicated his career to teaching intermediate and advanced mathematics. He is known for his ability to explain complex concepts in a simple way and his commitment to progressive learning.",
+    "skills": ["Algebra", "Geometry", "Calculus"]
   },
   {
     "id": 3,
     "imageURL": "https://wallpapers.com/images/high/profile-picture-ga69ja3uuwn63i5i.webp",
     "name": "Ana Torres",
     "rating": "4.7",
-    "description": "Ana se especializa en ciencias naturales y ha trabajado con estudiantes de secundaria por más de 8 años. Su método didáctico se basa en la observación, la experimentación y el aprendizaje basado en proyectos reales.",
-    "skills": ["Biología", "Ecología"]
+    "description": "Ana specializes in natural sciences and has worked with high school students for over 8 years. Her teaching method is based on observation, experimentation, and project-based learning.",
+    "skills": ["Biology", "Ecology"]
   },
   {
     "id": 4,
     "imageURL": "http://edit.org/img/blog/uwj-1024-plantilla-perfil-tiktok-foto-editable-online.webp",
     "name": "Miguel Ángel Pérez",
     "rating": "4.0",
-    "description": "Miguel Ángel es un apasionado de la historia universal. Su objetivo es ayudar a los estudiantes a entender el presente a través del análisis de eventos del pasado, utilizando mapas, documentales y discusiones en clase.",
-    "skills": ["Historia mundial", "Geopolítica"]
+    "description": "Miguel Ángel is passionate about world history. His goal is to help students understand the present through the analysis of past events, using maps, documentaries, and class discussions.",
+    "skills": ["World History", "Geopolitics"]
   },
   {
     "id": 5,
     "imageURL": "https://wallpapers.com/images/high/profile-picture-6txaeeaywjdmuu28.webp",
     "name": "Valentina Ruiz",
     "rating": "4.6",
-    "description": "Valentina combina sus conocimientos de arte con la pedagogía contemporánea. Cree firmemente que la creatividad debe estimularse desde edades tempranas y ha desarrollado programas innovadores de arte visual y expresión creativa.",
-    "skills": ["Dibujo", "Diseño gráfico", "Creatividad"]
+    "description": "Valentina combines her art knowledge with contemporary pedagogy. She firmly believes that creativity should be encouraged from an early age and has developed innovative programs in visual arts and creative expression.",
+    "skills": ["Drawing", "Graphic Design", "Creativity"]
   },
   {
     "id": 6,
     "imageURL": "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg?_gl=1*awej30*_ga*MjA1NTI2MDU2OC4xNzUwNjUzODE3*_ga_8JE65Q40S6*czE3NTA2NTM4MTckbzEkZzAkdDE3NTA2NTM4MTckajYwJGwwJGgw",
     "name": "Fernando Delgado",
     "rating": "4.1",
-    "description": "Fernando ha trabajado en diversas instituciones como profesor de física. Le apasiona despertar la curiosidad científica en los jóvenes y ayudarles a comprender cómo funciona el mundo que los rodea.",
-    "skills": ["Física", "Mecánica", "Electromagnetismo"]
+    "description": "Fernando has worked in various institutions as a physics teacher. He is passionate about sparking scientific curiosity in young people and helping them understand how the world around them works.",
+    "skills": ["Physics", "Mechanics", "Electromagnetism"]
   },
   {
     "id": 7,
     "imageURL": "https://wallpapers.com/images/featured-full/fotos-de-perfil-xj8jigxkai9jag4g.jpg",
     "name": "Sofía Herrera",
     "rating": "4.3",
-    "description": "Sofía es profesora de inglés con certificaciones internacionales. Ha enseñado en academias bilingües y se enfoca en desarrollar habilidades comunicativas orales y escritas de manera natural.",
-    "skills": ["Inglés", "Pronunciación", "Gramática"]
+    "description": "Sofía is an English teacher with international certifications. She has taught in bilingual academies and focuses on developing oral and written communication skills naturally.",
+    "skills": ["English", "Pronunciation", "Grammar"]
   },
   {
     "id": 8,
     "imageURL": "https://wallpapers.com/images/high/profile-picture-ga69ja3uuwn63i5i.webp",
     "name": "Daniela Pacheco",
     "rating": "4.9",
-    "description": "Daniela se especializa en programación y desarrollo backend. Además de enseñar, ha trabajado como desarrolladora en startups tecnológicas, lo que le permite compartir experiencias reales con sus alumnos.",
-    "skills": ["Node.js", "Bases de datos", "API REST"]
+    "description": "Daniela specializes in programming and backend development. In addition to teaching, she has worked as a developer in tech startups, allowing her to share real-world experiences with her students.",
+    "skills": ["Node.js", "Databases", "REST API"]
   },
   {
     "id": 9,
     "imageURL": "http://edit.org/img/blog/uwj-1024-plantilla-perfil-tiktok-foto-editable-online.webp",
     "name": "José Ramírez",
     "rating": "3.9",
-    "description": "José ha formado parte de equipos educativos enfocados en la educación física y la salud. Promueve un estilo de vida activo y enseña técnicas de entrenamiento, nutrición y bienestar general.",
-    "skills": ["Educación física", "Entrenamiento", "Salud"]
-  },
-  {
-    "id": 10,
-    "imageURL": "https://wallpapers.com/images/high/profile-picture-6txaeeaywjdmuu28.webp",
-    "name": "Elena Vargas",
-    "rating": "4.4",
-    "description": "Elena tiene formación en psicología y se desempeña como docente en el área de desarrollo personal. Su enfoque pedagógico pone énfasis en la inteligencia emocional y el trabajo en equipo.",
-    "skills": ["Psicología", "Comunicación", "Empatía"]
-  },
-  {
-    "id": 11,
-    "imageURL": "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg?_gl=1*awej30*_ga*MjA1NTI2MDU2OC4xNzUwNjUzODE3*_ga_8JE65Q40S6*czE3NTA2NTM4MTckbzEkZzAkdDE3NTA2NTM4MTckajYwJGwwJGgw",
-    "name": "Andrés Salinas",
-    "rating": "4.0",
-    "description": "Andrés trabaja como profesor de economía y finanzas personales. Sus clases se enfocan en brindar herramientas prácticas para la vida financiera cotidiana y el emprendimiento responsable.",
-    "skills": ["Finanzas", "Economía", "Emprendimiento"]
-  },
-  {
-    "id": 12,
-    "imageURL": "https://wallpapers.com/images/featured-full/fotos-de-perfil-xj8jigxkai9jag4g.jpg",
-    "name": "Camila Navarro",
-    "rating": "4.7",
-    "description": "Camila tiene una gran pasión por la literatura latinoamericana. Promueve la lectura crítica y el análisis literario a través de obras clásicas y contemporáneas, despertando el gusto por la lectura.",
-    "skills": ["Literatura", "Análisis textual"]
-  },
-  {
-    "id": 13,
-    "imageURL": "https://wallpapers.com/images/high/profile-picture-ga69ja3uuwn63i5i.webp",
-    "name": "Ignacio Rojas",
-    "rating": "3.8",
-    "description": "Ignacio enseña ciencias sociales con un enfoque centrado en la participación ciudadana y el análisis de problemas sociales contemporáneos. Fomenta debates y pensamiento crítico en sus clases.",
-    "skills": [
-      "Ciencias sociales",
-      "Ciudadanía",
-      "Debate",
-      "Ciencias sociales",
-      "Ciudadanía"
-    ]
-  },
-  {
-    "id": 14,
-    "imageURL": "http://edit.org/img/blog/uwj-1024-plantilla-perfil-tiktok-foto-editable-online.webp",
-    "name": "Mariana López",
-    "rating": "4.2",
-    "description": "Mariana trabaja como profesora de robótica educativa en escuelas técnicas. Ha liderado equipos en competencias nacionales y enseña a niños y jóvenes a programar usando kits tecnológicos.",
-    "skills": ["Robótica", "Arduino", "Scratch", "Arduino", "Scratch"]
-  },
-  {
-    "id": 15,
-    "imageURL": "https://wallpapers.com/images/high/profile-picture-6txaeeaywjdmuu28.webp",
-    "name": "Ricardo Fernández",
-    "rating": "4.6",
-    "description": "Ricardo tiene experiencia en seguridad informática y redes. Su estilo de enseñanza combina teoría con ejercicios prácticos orientados a la resolución de problemas en entornos reales.",
-    "skills": ["Redes", "Ciberseguridad", "Linux"]
+    "description": "José has been part of educational teams focused on physical education and health. He promotes an active lifestyle and teaches training techniques, nutrition, and overall well-being.",
+    "skills": ["Physical Education", "Training", "Health"]
   }
 ]

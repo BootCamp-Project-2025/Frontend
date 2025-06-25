@@ -2,80 +2,80 @@
   {
     "id": 1,
     "imageURL": "/defaultImage3.png",
-    "name": "Introducción a React",
-    "description": "Aprende los fundamentos de React, incluyendo JSX, componentes y estado.",
+    "name": "Introduction to React",
+    "description": "Learn the fundamentals of React, including JSX, components, and state.",
     "rating": 4.7,
     "author": "Laura Gómez"
   },
   {
     "id": 2,
     "imageURL": "/defaultImage2.png",
-    "name": "JavaScript Avanzado",
-    "description": "Profundiza en closures, asincronía, módulos y patrones de diseño.",
+    "name": "Advanced JavaScript",
+    "description": "Dive deep into closures, async programming, modules, and design patterns.",
     "rating": 4.8,
     "author": "Carlos Ramírez"
   },
   {
     "id": 3,
     "imageURL": "/defaultImage1.png",
-    "name": "Diseño UX/UI",
-    "description": "Curso completo de diseño centrado en el usuario, accesibilidad y wireframing.",
+    "name": "UX/UI Design",
+    "description": "Comprehensive course on user-centered design, accessibility, and wireframing.",
     "rating": 4.6,
     "author": "UX Academy"
   },
   {
     "id": 4,
     "imageURL": "/defaultImage2.png",
-    "name": "Node.js para Principiantes",
-    "description": "Crea servidores con Express y trabaja con bases de datos MongoDB.Crea servidores con Express y trabaja con bases de datos MongoDB.",
+    "name": "Node.js for Beginners",
+    "description": "Create servers with Express and work with MongoDB databases.",
     "rating": 4.5,
     "author": "José Martínez"
   },
   {
     "id": 5,
     "imageURL": "/defaultImage1.png",
-    "name": "Curso de Git y GitHub",
-    "description": "Control de versiones desde cero hasta flujos avanzados de trabajo colaborativo.",
+    "name": "Git and GitHub Course",
+    "description": "Version control from scratch to advanced collaborative workflows.",
     "rating": 4.9,
     "author": "Tech School"
   },
   {
     "id": 6,
     "imageURL": "/defaultImage3.png",
-    "name": "Fundamentos de Python",
-    "description": "Ideal para quienes se inician en la programación con ejemplos prácticos.Ideal para quienes se inician en la programación con ejemplos prácticos.",
+    "name": "Python Fundamentals",
+    "description": "Ideal for beginners with hands-on programming examples.",
     "rating": 4.4,
     "author": "Sofía Herrera"
   },
   {
     "id": 7,
     "imageURL": "/defaultImage1.png",
-    "name": "SQL y Bases de Datos Relacionales",
-    "description": "Consulta, modelado de datos y normalización en PostgreSQL y MySQL.",
+    "name": "SQL and Relational Databases",
+    "description": "Querying, data modeling, and normalization in PostgreSQL and MySQL.",
     "rating": 4.3,
     "author": "Andrés Salazar"
   },
   {
     "id": 8,
     "imageURL": "/defaultImage3.png",
-    "name": "Curso de TypeScript",
-    "description": "Mejora tu código JavaScript con tipado estático y herramientas modernas.",
+    "name": "TypeScript Course",
+    "description": "Improve your JavaScript code with static typing and modern tools.",
     "rating": 4.6,
     "author": "Dev Pro Team"
   },
   {
     "id": 9,
     "imageURL": "/defaultImage1.png",
-    "name": "HTML y CSS desde Cero",
-    "description": "Construye sitios web responsivos con fundamentos sólidos de maquetación.",
+    "name": "HTML and CSS from Scratch",
+    "description": "Build responsive websites with solid layout foundations.",
     "rating": 4.5,
     "author": "Camila Duarte"
   },
   {
     "id": 10,
     "imageURL": "/defaultImage2.png",
-    "name": "Curso Fullstack MERN",
-    "description": "Desarrolla una app completa con MongoDB, Express, React y Node.",
+    "name": "Fullstack MERN Course",
+    "description": "Build a complete app with MongoDB, Express, React, and Node.",
     "rating": 4.9,
     "author": "Ignacio Fernández"
   },
@@ -83,56 +83,16 @@
     "id": 11,
     "imageURL": "/defaultImage2.png",
     "name": "React 101",
-    "description": "Aprende los fundamentos de React.",
+    "description": "Learn the basics of React.",
     "rating": 4.5,
     "author": "Juan Pérez"
   },
   {
     "id": 12,
     "imageURL": "/defaultImage3.png",
-    "name": "Curso completo de desarrollo web con React, Node.js, MongoDB y más en profundidad que jamás imaginaste",
-    "description": "Explora todo el stack MERN con prácticas reales y teoría sólida. Incluye proyectos, exámenes, tareas, y soporte en vivo.",
+    "name": "Complete Web Development Course with React, Node.js, MongoDB, and More in Unimaginable Depth",
+    "description": "Explore the entire MERN stack with real-world practices and solid theory. Includes projects, exams, assignments, and live support.",
     "rating": 5,
     "author": "María L. Sánchez"
-  },
-  {
-    "id": 13,
-    "imageURL": "/defaultImage2.png",
-    "name": "AI",
-    "description": "",
-    "rating": 3.2,
-    "author": "Anónimo"
-  },
-  {
-    "id": 14,
-    "imageURL": "/defaultImage1.png",
-    "name": "",
-    "description": "Descripción extremadamente larga para comprobar cómo reacciona el componente cuando se excede el espacio habitual para este tipo de texto. Debe haber un límite o truncamiento visual.",
-    "rating": 0,
-    "author": ""
-  },
-  {
-    "id": 15,
-    "imageURL": "/defaultImage3.png",
-    "name": "Diseño UX",
-    "description": "Curso",
-    "rating": 2.5,
-    "author": "UXLab"
-  },
-  {
-    "id": 16,
-    "imageURL": "sin url",
-    "name": "Data Science Essentials",
-    "description": "Todo lo que necesitas para empezar con análisis de datos.",
-    "rating": 4.9,
-    "author": "Dr. John Doe"
-  },
-  {
-    "id": 17,
-    "imageURL": "/defaultImage2.png",
-    "name": "A",
-    "description": "B",
-    "rating": 1.0,
-    "author": "X"
   }
 ]

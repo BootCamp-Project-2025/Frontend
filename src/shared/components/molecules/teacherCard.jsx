@@ -5,7 +5,7 @@ import { Card } from "../atoms/Card";
 export const TeacherCard = ({
   // eslint-disable-next-line no-unused-vars
   id,
-  imageURL = "https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg?_gl=1*awej30*_ga*MjA1NTI2MDU2OC4xNzUwNjUzODE3*_ga_8JE65Q40S6*czE3NTA2NTM4MTckbzEkZzAkdDE3NTA2NTM4MTckajYwJGwwJGgw",
+  imageURL = "",
   name = "Teacher name",
   rating = "0.0",
   description = "Description",

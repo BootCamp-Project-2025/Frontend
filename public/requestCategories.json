@@ -2,37 +2,37 @@
   {
     "id": 1,
     "imageURL": "/defaultImage1.png",
-    "category": "Tecnología"
+    "category": "Technology"
   },
   {
     "id": 2,
     "imageURL": "/defaultImage2.png",
-    "category": "Negocios"
+    "category": "Business"
   },
   {
     "id": 3,
     "imageURL": "/defaultImage3.png",
-    "category": "Diseño"
+    "category": "Design"
   },
   {
     "id": 4,
     "imageURL": "/defaultImage1.png",
-    "category": "Cocina"
+    "category": "Cooking"
   },
   {
     "id": 5,
     "imageURL": "/defaultImage2.png",
-    "category": "Idiomas"
+    "category": "Languages"
   },
   {
     "id": 6,
     "imageURL": "/defaultImage3.png",
-    "category": "Arte"
+    "category": "Art"
   },
   {
     "id": 7,
     "imageURL": "/defaultImage1.png",
-    "category": "Música"
+    "category": "Music"
   },
   {
     "id": 8,
@@ -42,7 +42,7 @@
   {
     "id": 9,
     "imageURL": "/defaultImage3.png",
-    "category": "Finanzas"
+    "category": "Finance"
   },
   {
     "id": 10,
@@ -52,26 +52,26 @@
   {
     "id": 11,
     "imageURL": "/defaultImage2.png",
-    "category": "Fotografía"
+    "category": "Photography"
   },
   {
     "id": 12,
     "imageURL": "/defaultImage3.png",
-    "category": "Psicología"
+    "category": "Psychology"
   },
   {
     "id": 13,
     "imageURL": "/defaultImage1.png",
-    "category": "Programación"
+    "category": "Programming"
   },
   {
     "id": 14,
     "imageURL": "/defaultImage2.png",
-    "category": "Ciencias"
+    "category": "Sciences"
   },
   {
     "id": 15,
     "imageURL": "/defaultImage3.png",
-    "category": "Emprendimiento"
+    "category": "Entrepreneurship"
   }
 ]

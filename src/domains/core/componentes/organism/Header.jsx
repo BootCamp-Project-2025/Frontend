@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Button } from "../../../../shared/components/atoms/Button";
-import { OptionsDropDown } from "./OptionsDropDown";
-import { HeaderOptions } from "./HeaderOptions";
-import { HeaderButtons } from "./HeaderButtons";
-import { AvatarMenuDropDown } from "./AvatarMenuDropDown";
 import { NavBarLogo } from "../atoms/NavBarLogo";
+import { HeaderButtons } from "../molecules/HeaderButtons";
+import { AvatarMenuDropDown } from "../molecules/AvatarMenuDropDown";
+import { OptionsDropDown } from "../molecules/OptionsDropDown";
+import { HeaderOptions } from "../molecules/HeaderOptions";
+import { Button } from "../../../../shared/components/atoms/Button";
+
 export const Header = () => {
   const defaultUser = {
     userName: "Jose Medina",

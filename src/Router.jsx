@@ -1,17 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
-import TeacherSkills from "./domains/teacher/components/organisms/TeacherSkills";
-import { ExperienceSection } from "./domains/teacher/components/organisms/ExperienceSection";
-import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
-import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSection";
-import CertificationsList from "./domains/teacher/components/organisms/CertificationSection.jsx";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
-import { Header } from "./domains/core/componentes/molecules/Header.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
+import { Header } from "./domains/core/componentes/organism/Header.jsx";
+import { TeacherProfile } from "./domains/teacher/components/pages/teacherProfile.jsx";
 
 export default function Router() {
   return (
@@ -20,7 +16,24 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
-          path="courses"
+          path="/courses"
+          element={
+            <main>
+              <p>courses section</p>
+            </main>
+          }
+        />
+        <Route
+          path="/teachers"
+          element={
+            <main>
+              <p>teachers section</p>
+            </main>
+          }
+        />
+
+        <Route
+          path="/teacher/courses"
           element={
             <main>
               <CourseCardList />
@@ -29,23 +42,10 @@ export default function Router() {
         />
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
-        <Route
-          path="teacher-profile"
-          element={
-            <main>
-              <div className="px-8 flex flex-col gap-4">
-                <AboutMeSection />
-                <EducationSection />
-                <ExperienceSection />
-                <CertificationsList />
-                <TeacherSkills />
-              </div>
-            </main>
-          }
-        />
+        <Route path="teacher-profile" element={<TeacherProfile />} />
         <Route path="button-gallery" element={<ButtonGallery />} />
-
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+
         <Route
           path="*"
           element={
