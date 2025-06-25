@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LTCrowgLogo from "../../../assets/LTCrowdLogo.svg";
-import { Button } from "../atoms/Button";
+import LTCrowgLogo from "../../../../assets/LTCrowdLogo.svg";
+import { Button } from "../../../../shared/components/atoms/Button";
 import { HeaderOption } from "../atoms/HeaderOption";
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

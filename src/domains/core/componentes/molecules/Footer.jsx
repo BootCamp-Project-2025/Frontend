@@ -1,5 +1,5 @@
-import { Accordion } from "../atoms/Accordion";
-import LTCrowgLogo from "../../../assets/LTCrowdLogo.svg";
+import { Accordion } from "../../../../shared/components/atoms/Accordion";
+import LTCrowgLogo from "../../../../assets/LTCrowdLogo.svg";
 import { ItemFooter } from "../atoms/ItemFooter";
 
 export const Footer = () => {

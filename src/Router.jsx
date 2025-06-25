@@ -9,15 +9,17 @@ import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSectio
 import CertificationsList from "./domains/teacher/components/organisms/CertificationSection.jsx";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
-import { Header } from "./shared/components/molecules/Header.jsx";
-import { Footer } from "./shared/components/molecules/Footer.jsx";
+import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
+import { Header } from "./domains/core/componentes/molecules/Header.jsx";
+import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Header></Header>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="courses"
           element={
@@ -43,6 +45,8 @@ export default function Router() {
           }
         />
         <Route path="button-gallery" element={<ButtonGallery />} />
+
+        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route
           path="*"
           element={

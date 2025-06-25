@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { CategoryCard } from "../molecules/CategoryCard";
-import { Slider } from "../atoms/Slider";
+import { Slider } from "../../../../shared/components/atoms/Slider";
+import { CategoryCard } from "../../../../shared/components/molecules/CategoryCard";
 export const CategoryCardsList = () => {
   const [categories, setCategories] = useState([]);
 

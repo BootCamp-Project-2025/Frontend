@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CourseCard } from "../molecules/CourseCard";
 import { useEffect } from "react";
+import { CourseCard } from "../../../../shared/components/molecules/CourseCard";
 
 export const CourseCardList = () => {
   const [courses, setCourses] = useState([]);

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { TeacherCard } from "../molecules/teacherCard";
-import { Slider } from "../atoms/Slider";
-
+import { Slider } from "../../../../shared/components/atoms/Slider";
+import { TeacherCard } from "../../../../shared/components/molecules/teacherCard";
 export const TeacherCardList = () => {
   const [teachers, setTeachers] = useState([]);
 
