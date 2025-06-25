@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { TeacherCard } from "../../../../../src/shared/components/molecules/TeacherCard";
+import { TeacherCard } from "../../../../src/shared/components/atoms/TeacherCard";
 
 describe("TeacherCard component", () => {
   it("renders name, image, rating, description and skills", () => {
