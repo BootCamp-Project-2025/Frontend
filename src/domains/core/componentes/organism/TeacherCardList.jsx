@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Slider } from "../../../../shared/components/atoms/Slider";
 import { TeacherCard } from "../../../../shared/components/molecules/TeacherCard";
+
 export const TeacherCardList = () => {
   const [teachers, setTeachers] = useState([]);
 
