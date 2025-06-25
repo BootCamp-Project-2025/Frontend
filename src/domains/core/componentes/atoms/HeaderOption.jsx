@@ -5,7 +5,7 @@ export const HeaderOption = ({ to, children, className = "" }) => {
   const lotation = useLocation();
   return (
     <Link
-      className={`text-xl font-[700] hover:text-primary-500 ${className}`}
+      className={`text-center text-xl font-[700] hover:text-primary-500 ${className}`}
       style={{ color: lotation.pathname === to ? "var(--color-blue-500)" : "" }}
       to={to}
     >
