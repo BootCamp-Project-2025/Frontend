@@ -14,21 +14,21 @@ export const BecomeTeacherDialog = ({
 
   const steps = [
     {
-      title: "Complete your Teacher profile",
+      title: "Complete your teacher profile",
       description:
-        "Add the relevant information to become a teacher in LTCrowd:About me, Education, Certifications, Languages, etc.",
+        "Add the necessary information to become a teacher on LTCrowd: About Me, Education, Certifications, Languages, and more.",
       icon: "business_center",
     },
     {
       title: "Create your courses",
       description:
-        "Start to create each course that you want, it doesn’t matter the type or topic, only choose the one that appeals to you the most.",
+        "Start creating any course you want, the type or topic doesn’t matter. Just choose the one that inspires you the most.",
       icon: "school",
     },
     {
-      title: "Stands out among all",
+      title: "Stand out among all",
       description:
-        "Create quality content at your courses to to stand out and receive more student traffic!",
+        "Create quality content in your courses to stand out and receive more student traffic!",
       icon: "workspace_premium",
     },
   ];
@@ -36,8 +36,8 @@ export const BecomeTeacherDialog = ({
   return (
     <div className="text-gray-900 p-8 w-full">
       <p className="text-2xl font-semibold">
-        Starting to create your Teacher Profile, teaching a lot of students and
-        set more education quality
+        Start creating your teacher profile, teach many students, and raise the
+        quality of education.
       </p>
 
       {steps.map((step, index) => {
@@ -68,7 +68,7 @@ export const BecomeTeacherDialog = ({
           onChange={handleCheckboxChange}
         />
         <label htmlFor="checkBoxConditions">
-          I accept the terms & conditions to become a teacher on the LTCrowd
+          I accept the terms and conditions to become a teacher on the LTCrowd
           platform.
         </label>
       </div>

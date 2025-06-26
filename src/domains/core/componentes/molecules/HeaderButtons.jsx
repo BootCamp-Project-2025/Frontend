@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { useLocation } from "react-router-dom";
 
 export const HeaderButtons = ({
   user,
@@ -8,11 +9,15 @@ export const HeaderButtons = ({
   signUp = () => {},
   becomeTeacher = () => {},
   switchToTeacher = () => {},
+  switchToStudent = () => {},
 }) => {
+  const location = useLocation();
+  const isTeacherRoute = location.pathname.startsWith("/teacher/");
+
   if (user) {
     return (
       <>
-        {!user.isTeacher && (
+        {!user.isTeacher && !isTeacherRoute && (
           <Button
             className="text-nowrap text-sm flex justify-center"
             onClick={becomeTeacher}
@@ -21,7 +26,16 @@ export const HeaderButtons = ({
           </Button>
         )}
 
-        {user.isTeacher && (
+        {isTeacherRoute && (
+          <Button
+            className="text-nowrap text-sm flex justify-center"
+            onClick={switchToStudent}
+          >
+            Switch to Student
+          </Button>
+        )}
+
+        {user.isTeacher && !isTeacherRoute && (
           <Button
             className="text-nowrap text-sm flex justify-center"
             onClick={switchToTeacher}
@@ -60,4 +74,5 @@ HeaderButtons.propTypes = {
   signUp: PropTypes.func,
   becomeTeacher: PropTypes.func,
   switchToTeacher: PropTypes.func,
+  switchToStudent: PropTypes.func,
 };

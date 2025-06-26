@@ -40,6 +40,16 @@ export default function Router() {
             </main>
           }
         />
+
+        <Route
+          path="/teacher/profile"
+          element={
+            <main>
+              <TeacherProfile />
+            </main>
+          }
+        />
+
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
         <Route path="teacher-profile" element={<TeacherProfile />} />

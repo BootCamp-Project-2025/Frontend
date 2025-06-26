@@ -15,7 +15,7 @@ export const Header = () => {
   const defaultUser = {
     userName: "Jose Medina",
     avatarURL:
-      "https://wallpapers.com/images/featured-full/fotos-de-perfil-xj8jigxkai9jag4g.jpg",
+      "https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg",
     userEmail: "jose.medina@gmail.com",
     isTeacher: false,
   };
@@ -41,20 +41,28 @@ export const Header = () => {
   const acceptBecomeTeacher = () => {
     setUser({ ...defaultUser, isTeacher: true });
     closePopup();
-    navigate("./teacher-profile");
+    navigate("./teacher/profile");
   };
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [user, setUser] = useState(null);
   const signIn = () => setUser({ ...defaultUser });
   const signUp = () => {};
-  const logOut = () => setUser(null);
+  const logOut = () => {
+    navigate("./");
+    setUser(null);
+  };
 
   const becomeTeacher = () => {
     handleOpenPopup();
   };
 
-  const switchToTeacher = () => {};
+  const switchToTeacher = () => {
+    navigate("./teacher/profile");
+  };
+  const switchToStudent = () => {
+    navigate("./");
+  };
 
   return (
     <header className="flex items-center justify-center h-[5.625rem] border-gray-300 shadow-md bg-white sticky top-0 z-10">
@@ -72,6 +80,7 @@ export const Header = () => {
             signIn={signIn}
             signUp={signUp}
             switchToTeacher={switchToTeacher}
+            switchToStudent={switchToStudent}
           ></HeaderButtons>
 
           {user && (
