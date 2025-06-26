@@ -1,7 +1,7 @@
 import { describe, expect, vi, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import StaticCourseHomePageForm from "../../../../../src/domains/course/components/organisms/StaticCourseHomePageForm";
-import { UseGet } from "../../../../../src/domains/course/api/useGet";
+import { UseGet } from "../../../../../src/domains/course/api/UseGet";
 
 const CourseData = {
   id: "adad9f6e-b2f8-46bc-b089-12a0511dec3f",
@@ -16,8 +16,8 @@ const CourseData = {
   requirements: "None1",
 };
 
-vi.mock("../../../../../src/domains/course/api/useGet", () => ({
-  UseGet: vi.fn(), // create a mock function
+vi.mock("../../../../../src/domains/course/api/UseGet", () => ({
+  UseGet: vi.fn(),
 }));
 
 describe("test for static course home page", async () => {

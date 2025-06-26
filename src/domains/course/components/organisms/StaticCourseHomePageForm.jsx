@@ -6,8 +6,8 @@ import ImageCourseForm from "./ImageCourseForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
 import DropdownSection from "./DropdownSection";
-import { UseGet } from "../../api/useGet";
-import { UsePut } from "../../api/usePut";
+import { UseGet } from "../../api/UseGet";
+import { UsePut } from "../../api/UsePut";
 import {
   ToastProvider,
   useToastContext,
