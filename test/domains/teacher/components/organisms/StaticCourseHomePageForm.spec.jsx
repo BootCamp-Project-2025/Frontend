@@ -20,6 +20,18 @@ vi.mock("../../../../../src/domains/course/api/UseGet", () => ({
   UseGet: vi.fn(),
 }));
 
+const searchParams = { get: vi.fn() };
+
+searchParams.get.mockReturnValue("");
+
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useSearchParams: () => [searchParams],
+  };
+});
+
 describe("test for static course home page", async () => {
   it("exist", () => {
     expect(StaticCourseHomePageForm).toBeDefined();
