@@ -14,7 +14,7 @@ import {
 } from "../../../../shared/contexts/ToastContext";
 
 export default function StaticCourseHomePageForm() {
-  const { data, loading, error } = UseGet(
+  const { responseData, loading, error } = UseGet(
     "courses",
     "adad9f6e-b2f8-46bc-b089-12a0511dec3f"
   );
@@ -31,7 +31,7 @@ export default function StaticCourseHomePageForm() {
 
   if (error) return <>data couldnt be loadedd</>;
 
-  const course = data.data;
+  const course = responseData.data;
 
   setValue("name", course.name);
   setValue("description", course.description);

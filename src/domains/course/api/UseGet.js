@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { baseAPI } from "../axios/AxiosConnection";
 
 export const UseGet = (path, id = "") => {
-  const [data, setData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [status, setStatus] = useState(null);
@@ -11,11 +11,11 @@ export const UseGet = (path, id = "") => {
     const get = async () => {
       try {
         const response = await baseAPI.get(path + "/" + id);
-        setData(response.data);
+        setResponseData(response.data);
         setStatus(response.statusCode);
       } catch (err) {
         setError(true);
-        setData(null);
+        setResponseData(null);
         setStatus(err.status);
       } finally {
         setLoading(false);
@@ -25,5 +25,5 @@ export const UseGet = (path, id = "") => {
     get();
   }, [path, id]);
 
-  return { data, loading, error, status };
+  return { responseData, loading, error, status };
 };
