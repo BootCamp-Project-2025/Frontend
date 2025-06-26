@@ -5,6 +5,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import ImageCourseForm from "./ImageCourseForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
+import DropdownSection from "./DropdownSection";
 
 export default function StaticCourseHomePageForm() {
   const {
@@ -62,6 +63,7 @@ export default function StaticCourseHomePageForm() {
         </SmallAnotation>
       </section>
       <p className="text-gray-600 font-semibold text-lg ">Basic information:</p>
+      <DropdownSection />
       <p className="text-gray-600 font-semibold text-lg ">Image of course:</p>
       <ImageCourseForm />
       <Button
