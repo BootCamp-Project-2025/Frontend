@@ -3,9 +3,9 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ExperienceForm } from "../../../../src/domains/teacher/components/organisms/ExperienceForm";
 
-vi.stubGlobal("crypto", {
-  randomUUID: () => "mocked-uuid-1234",
-});
+vi.mock("uuid", () => ({
+  v4: () => "mocked-uuid-1234",
+}));
 
 describe("ExperienceForm", () => {
   const mockAddCard = vi.fn();

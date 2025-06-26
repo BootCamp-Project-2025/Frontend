@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { MonthInput } from "../../../../shared/components/molecules/MonthInput";
 import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaInput";
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "../../../../shared/components/atoms/Button";
 
 export const ExperienceForm = ({
@@ -37,20 +38,16 @@ export const ExperienceForm = ({
 
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
   const saveNewRecordDB = async (data) => {
-    await delay(1000);
     // create logic to save new record at database
     // db should give as a record's id
     // create logic to manage errors
-    let newId = crypto.randomUUID();
+    let newId = uuidv4();
     addCard({ ...data, id: newId });
     closeForm();
   };
 
   const updateRecordDB = async (data) => {
-    await delay(1000);
     // create logic to updata record at database
     // create logic to manage errors
     updateCard(data);
@@ -58,7 +55,6 @@ export const ExperienceForm = ({
 
   const deleteRecordDB = async (id) => {
     setIsDeleting(true);
-    await delay(1000);
     // create logic to delete record at database
     // create logic to manage errors
     removeCard(id);
