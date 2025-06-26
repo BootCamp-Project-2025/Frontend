@@ -48,7 +48,7 @@ function TeacherSkillPopup({
     <form
       className="flex flex-col gap-2 items-center"
       onSubmit={handleSubmit(async (skill) => {
-        saveSkill(skill);
+        await saveSkill(skill);
       })}
     >
       <div className="flex flex-row gap-7">
