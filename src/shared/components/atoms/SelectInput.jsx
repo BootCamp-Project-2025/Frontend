@@ -7,6 +7,7 @@ export const SelectInput = ({
   onChange = () => {},
   label,
   options,
+  placeHolder = "Select proficiency",
   errorMessage,
 }) => (
   <div className="flex flex-col">
@@ -20,7 +21,7 @@ export const SelectInput = ({
       onChange={onChange}
       className="mt-1 p-2 border rounded"
     >
-      <option value="">Select proficiency</option>
+      <option value="">{placeHolder}</option>
       {options.map((o) => (
         <option key={o.value} value={o.value}>
           {o.label}
@@ -38,5 +39,6 @@ SelectInput.propTypes = {
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   options: PropTypes.array,
+  placeHolder: PropTypes.string,
   label: PropTypes.string,
 };
