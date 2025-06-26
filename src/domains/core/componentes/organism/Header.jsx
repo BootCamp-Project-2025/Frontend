@@ -124,6 +124,7 @@ export const Header = () => {
                   signIn={signIn}
                   signUp={signUp}
                   switchToTeacher={switchToTeacher}
+                  switchToStudent={switchToStudent}
                 ></HeaderButtons>
                 {user && (
                   <OptionsDropDown
