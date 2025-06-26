@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import PropTypes from "prop-types";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
+import CourseFormModal from "../../../teacher/components/organisms/CourseFormModal";
 
 function SearchAndCreateBar({
   courses,
@@ -16,6 +18,7 @@ function SearchAndCreateBar({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [field, setField] = useState("name");
+  const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
     const filtered = courses.filter((c) =>
@@ -23,6 +26,18 @@ function SearchAndCreateBar({
     );
     onFiltered(filtered);
   }, [searchTerm, field, courses, onFiltered]);
+
+  const handleNewCourse = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "What type of course do you want to create?",
+        children: <CourseFormModal closePopup={closePopup} />,
+        onClose: closePopup,
+      },
+      true
+    );
+  };
 
   return (
     <div className="flex flex-row justify-between items-center">
@@ -41,11 +56,15 @@ function SearchAndCreateBar({
         />
       </div>
 
-      <Button onClick={onCreate}>
-        <NavLink to="/course-select" end className="flex items-center gap-1">
-          <span className="material-symbols-outlined">add</span>
-          New Course
-        </NavLink>
+      <Button
+        onClick={handleNewCourse}
+        color="primary"
+        variant="solid"
+        size="md"
+        radius="medium"
+      >
+        <span className="material-symbols-outlined">add</span>
+        New Course
       </Button>
     </div>
   );
