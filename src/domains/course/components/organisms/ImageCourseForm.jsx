@@ -1,7 +1,20 @@
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { useState } from "react";
 
 export default function ImageCourseForm() {
+  const [image, setImage] = useState("/images/EmptyImage.svg");
+
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className="flex gap-4">
       <div
@@ -11,8 +24,8 @@ export default function ImageCourseForm() {
         <img
           className="mx-auto my-auto"
           style={{ width: 100, height: 100 }}
-          src="/images/EmptyImage.svg"
-          alt=""
+          src={image}
+          alt="upload image"
         />
       </div>
       <div>
@@ -24,10 +37,27 @@ export default function ImageCourseForm() {
         <div className="flex gap-4 py-2">
           <div className="grow-1">
             <TextInput placeholder="Upload file" />
+            <input
+              type="file"
+              accept="image/*"
+              id="upload"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
           </div>
           <div>
-            <Button radius="small" variant="bordered" className="w-fit">
-              <span className="material-symbols-outlined">add</span> save image
+            <Button radius="small" variant="bordered" className="w-fit px-0 ">
+              <input
+                className="hidden"
+                type="file"
+                accept="image/*"
+                id="image"
+                onChange={handleImageChange}
+              />
+              <label className="m-0 flex" htmlFor="image">
+                <span className="material-symbols-outlined">add</span>
+                <span>save image</span>
+              </label>
             </Button>
           </div>
         </div>

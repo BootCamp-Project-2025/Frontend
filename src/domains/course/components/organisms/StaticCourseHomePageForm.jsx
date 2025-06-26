@@ -14,10 +14,8 @@ import {
 } from "../../../../shared/contexts/ToastContext";
 
 export default function StaticCourseHomePageForm() {
-  const { responseData, loading, error } = UseGet(
-    "courses",
-    "adad9f6e-b2f8-46bc-b089-12a0511dec3f"
-  );
+  const id = "ee22e7f7-b06c-4399-b21f-7a94c2132929";
+  const { responseData, loading, error } = UseGet("courses", id);
   const {
     register,
     handleSubmit,
@@ -36,13 +34,11 @@ export default function StaticCourseHomePageForm() {
   setValue("name", course.name);
   setValue("description", course.description);
 
-  const updateCourse = (data) => {
+  const updateCourse = async (data) => {
     course.name = data.name;
     course.description = data.description;
-    console.log(course);
-    UsePut("courses", "adad9f6e-b2f8-46bc-b089-12a0511dec3f", course).then(
-      showToast("success")
-    );
+    const { responseData, error } = await UsePut("courses", id, course);
+    showToast(responseData.message, error ? "error" : "success");
   };
   return (
     <ToastProvider>

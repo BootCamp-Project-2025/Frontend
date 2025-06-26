@@ -164,6 +164,7 @@ export function Dropdown({
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
+        type="button"
         disabled={disabled}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         className={clsx(
