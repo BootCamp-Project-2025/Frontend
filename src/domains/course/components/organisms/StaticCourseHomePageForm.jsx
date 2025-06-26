@@ -16,7 +16,6 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export default function StaticCourseHomePageForm() {
-  const id = "ee22e7f7-b06c-4399-b21f-7a94c2132929";
   const [searchParams] = useSearchParams();
   const { responseData, loading, error } = UseGet(
     "courses",
