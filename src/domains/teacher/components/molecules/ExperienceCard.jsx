@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { Button } from "../../../../shared/components/atoms/Button";
+import { Card } from "../../../../shared/components/atoms/Card";
+import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
 export const ExperienceCard = ({
   id,
@@ -12,38 +13,30 @@ export const ExperienceCard = ({
   editCard,
 }) => {
   return (
-    <div className=" bg-[#D7E6FD] p-4 rounded-lg" data-testid="experience-card">
-      <div className="flex flex-row gap-2.5">
-        <div className="w- min-w-6 ">
+    <Card filled data-testid="experience-card">
+      <InfoCardLayout
+        icon={
           <span className="material-symbols-outlined">business_center</span>
-        </div>
-        <div className="flex flex-col gap-1 w-full overflow-hidden">
-          <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
-            <p className=" text-xl">{jobPosition} </p>
-            <p className=" text-base">
-              {startDate} - {endDate}
+        }
+        title={jobPosition}
+        body={
+          <div className="flex flex-col gap-1 w-full">
+            <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
+              <p className="text-nowrap text-base">
+                {startDate} - {endDate}
+              </p>
+            </div>
+            <p className="text-lg text-gray-500">
+              {employer}, {country}
             </p>
+            <p className="text-lg text-gray-500 line-clamp-3">{description}</p>
           </div>
-          <p className="text-lg text-gray-500">
-            {employer}, {country}
-          </p>
-          <p className="text-lg text-gray-500 line-clamp-3 overflow-ellipsis">
-            {description}
-          </p>
-        </div>
-        <div>
-          <Button
-            styleType="editBtn"
-            classname="editButton"
-            onClick={() => {
-              editCard(id);
-            }}
-          >
-            <span className="material-symbols-outlined">edit</span>
-          </Button>
-        </div>
-      </div>
-    </div>
+        }
+        onClickButton={() => {
+          editCard(id);
+        }}
+      />
+    </Card>
   );
 };
 

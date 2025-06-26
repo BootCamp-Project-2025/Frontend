@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
+import { Card } from "../../../../shared/components/atoms/Card";
+import { Title } from "../../../../shared/components/atoms/Title";
 
 export const ProfileSection = ({ title, children }) => {
   return (
-    <div className="p-4 border-1 border-blue-500 rounded-lg flex flex-col gap-2.5">
-      <p className="text-2xl font-bold text-blue-500 ">{title}</p>
-      {children}
-    </div>
+    <Card bordered>
+      <Title size="xl">{title}</Title>
+      <div className="flex flex-col w-full mt-4 gap-4">{children}</div>
+    </Card>
   );
 };
 

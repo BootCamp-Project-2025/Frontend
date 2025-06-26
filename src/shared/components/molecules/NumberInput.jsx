@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const TextInput = ({
+export const NumberInput = ({
   register = null,
   label = "",
   errorMessage = undefined,
@@ -16,7 +16,7 @@ export const TextInput = ({
       </label>
       <input
         {...register}
-        type="text"
+        type="number"
         className={`bg-white py-1.5 px-2.5 rounded-md outline-1 focus:outline-2 text-base ${errorMessage ? "outline-pink-500 focus:outline-pink-500" : "outline-gray-300 focus:outline-blue-500"}`}
         spellCheck="false"
         placeholder={placeholder}
@@ -29,8 +29,8 @@ export const TextInput = ({
   );
 };
 
-TextInput.propTypes = {
-  register: PropTypes.func,
+NumberInput.propTypes = {
+  register: PropTypes.object,
   label: PropTypes.string,
   errorMessage: PropTypes.string,
   placeholder: PropTypes.string,
