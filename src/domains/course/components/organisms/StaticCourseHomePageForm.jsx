@@ -12,6 +12,7 @@ import {
   ToastProvider,
   useToastContext,
 } from "../../../../shared/contexts/ToastContext";
+import { useEffect } from "react";
 
 export default function StaticCourseHomePageForm() {
   const id = "ee22e7f7-b06c-4399-b21f-7a94c2132929";
@@ -25,14 +26,18 @@ export default function StaticCourseHomePageForm() {
 
   const { showToast } = useToastContext();
 
+  useEffect(() => {
+    if (responseData) {
+      setValue("name", responseData.data.name ?? "");
+      setValue("description", responseData.data.description ?? "");
+    }
+  }, [responseData, setValue]);
+
   if (loading) return <>loading</>;
 
   if (error) return <>data couldnt be loadedd</>;
 
   const course = responseData.data;
-
-  setValue("name", course.name);
-  setValue("description", course.description);
 
   const updateCourse = async (data) => {
     course.name = data.name;
