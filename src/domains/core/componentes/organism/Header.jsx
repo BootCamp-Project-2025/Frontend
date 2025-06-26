@@ -5,6 +5,9 @@ import { AvatarMenuDropDown } from "../molecules/AvatarMenuDropDown";
 import { OptionsDropDown } from "../molecules/OptionsDropDown";
 import { HeaderOptions } from "../molecules/HeaderOptions";
 import { Button } from "../../../../shared/components/atoms/Button";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
+import { BecomeTeacherDialog } from "../molecules/BecomeTeacherDialog";
 
 export const Header = () => {
   const defaultUser = {
@@ -14,13 +17,40 @@ export const Header = () => {
     userEmail: "jose.medina@gmail.com",
     isTeacher: false,
   };
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
 
+  const { openPopup, closePopup } = usePopup();
+
+  const handleOpenPopup = () => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "",
+        children: (
+          <BecomeTeacherDialog
+            onCancel={closePopup}
+            onContinue={acceptBecomeTeacher}
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  };
+  const acceptBecomeTeacher = () => {
+    setUser({ ...defaultUser, isTeacher: true });
+    closePopup();
+  };
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [user, setUser] = useState(null);
   const signIn = () => setUser({ ...defaultUser });
   const signUp = () => {};
   const logOut = () => setUser(null);
-  const becomeTeacher = () => setUser({ ...defaultUser, isTeacher: true });
+
+  const becomeTeacher = () => {
+    handleOpenPopup();
+  };
+
   const switchToTeacher = () => {};
 
   return (
