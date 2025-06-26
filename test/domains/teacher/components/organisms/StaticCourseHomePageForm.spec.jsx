@@ -26,7 +26,7 @@ describe("test for static course home page", async () => {
   });
   it("renders correctry", () => {
     const response = {
-      data: { data: CourseData },
+      responseData: { data: CourseData },
       loading: false,
       error: false,
       status: 200,
