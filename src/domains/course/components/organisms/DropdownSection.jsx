@@ -1,15 +1,32 @@
+import PropTypes from "prop-types";
 import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 import "./DropdownSection.css";
 
-export default function DropdownSection() {
-  const options = [
+export default function DropdownSection({ course }) {
+  const languages = [
     { label: "English", value: "1" },
     { label: "Spanish", value: "2" },
     { label: "French", value: "3" },
   ];
+  const categories = [
+    { label: "Math", value: "1" },
+    { label: "Biology", value: "2" },
+    { label: "History", value: "3" },
+  ];
+  const subCategories = [
+    { label: "tech", value: "1" },
+    { label: "modern", value: "2" },
+    { label: "retro", value: "3" },
+  ];
 
-  const handleSelect = (option) => {
-    console.log("Selected:", option);
+  const handleSubCategory = (option) => {
+    course.subCategory = option.label;
+  };
+  const handleLanguage = (option) => {
+    course.language = option.label;
+  };
+  const handleCategory = (option) => {
+    course.category = option.label;
   };
   return (
     <section
@@ -17,29 +34,32 @@ export default function DropdownSection() {
       className="flex justify-between dropdownSection"
     >
       <Dropdown
+        label="select a language"
         variant="bordered"
         radius="small"
-        options={options}
-        onSelect={handleSelect}
+        options={languages}
+        onSelect={handleLanguage}
       >
-        Default
+        1
       </Dropdown>
       <Dropdown
+        label="select a category"
         variant="bordered"
         radius="small"
-        options={options}
-        onSelect={handleSelect}
-      >
-        Default
-      </Dropdown>
+        options={categories}
+        onSelect={handleCategory}
+      ></Dropdown>
       <Dropdown
+        label="select a sub category"
         variant="bordered"
         radius="small"
-        options={options}
-        onSelect={handleSelect}
-      >
-        Default
-      </Dropdown>
+        options={subCategories}
+        onSelect={handleSubCategory}
+      ></Dropdown>
     </section>
   );
 }
+
+DropdownSection.propTypes = {
+  course: PropTypes.object,
+};

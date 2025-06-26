@@ -6,21 +6,39 @@ import ImageCourseForm from "./ImageCourseForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
 import DropdownSection from "./DropdownSection";
+import { UseGet } from "../../api/useGet";
+import { UsePut } from "../../api/usePut";
 
 export default function StaticCourseHomePageForm() {
+  const { data, loading, error } = UseGet(
+    "courses",
+    "adad9f6e-b2f8-46bc-b089-12a0511dec3f"
+  );
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
   } = useForm();
 
-  const updateCourse = async (data) => {
-    console.log(data);
-  };
+  if (loading) return <>loading</>;
 
+  if (error) return <>data couldnt be loadedd</>;
+
+  const course = data.data;
+
+  setValue("name", course.name);
+  setValue("description", course.description);
+
+  const updateCourse = async (data) => {
+    course.name = data.name;
+    course.description = data.description;
+    console.log(course);
+    UsePut("courses", "adad9f6e-b2f8-46bc-b089-12a0511dec3f", course);
+  };
   return (
     <form
-      onSubmit={handleSubmit(updateCourse)}
+      onSubmit={handleSubmit(async (data) => await updateCourse(data))}
       style={{ padding: "0 15vw" }}
       className="flex flex-col gap-4"
     >
@@ -33,7 +51,7 @@ export default function StaticCourseHomePageForm() {
           placeholder={"Web programming basic course"}
           errorMessage={errors.name?.message}
           register={register("name", {
-            required: "Certification name is required",
+            required: "Course name is required",
             minLength: { value: 1, message: "Minimum 2 characters" },
             maxLength: { value: 100, message: "Maximum 100 characters" },
           })}
@@ -52,7 +70,7 @@ export default function StaticCourseHomePageForm() {
           }
           errorMessage={errors.description?.message}
           register={register("description", {
-            required: "Certification name is required",
+            required: "Course name is required",
             minLength: { value: 1, message: "Minimum 2 characters" },
             maxLength: { value: 100, message: "Maximum 100 characters" },
           })}
@@ -63,7 +81,7 @@ export default function StaticCourseHomePageForm() {
         </SmallAnotation>
       </section>
       <p className="text-gray-600 font-semibold text-lg ">Basic information:</p>
-      <DropdownSection />
+      <DropdownSection course={course} />
       <p className="text-gray-600 font-semibold text-lg ">Image of course:</p>
       <ImageCourseForm />
       <Button
