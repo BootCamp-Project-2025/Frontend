@@ -8,8 +8,10 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
 import { BecomeTeacherDialog } from "../molecules/BecomeTeacherDialog";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
   const defaultUser = {
     userName: "Jose Medina",
     avatarURL:
@@ -39,6 +41,7 @@ export const Header = () => {
   const acceptBecomeTeacher = () => {
     setUser({ ...defaultUser, isTeacher: true });
     closePopup();
+    navigate("./teacher-profile");
   };
   const [menuOpen, setMenuOpen] = useState(false);
 
