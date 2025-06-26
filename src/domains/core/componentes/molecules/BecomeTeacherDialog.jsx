@@ -17,16 +17,19 @@ export const BecomeTeacherDialog = ({
       title: "Complete your Teacher profile",
       description:
         "Add the relevant information to become a teacher in LTCrowd:About me, Education, Certifications, Languages, etc.",
+      icon: "business_center",
     },
     {
       title: "Create your courses",
       description:
         "Start to create each course that you want, it doesn’t matter the type or topic, only choose the one that appeals to you the most.",
+      icon: "school",
     },
     {
       title: "Stands out among all",
       description:
         "Create quality content at your courses to to stand out and receive more student traffic!",
+      icon: "workspace_premium",
     },
   ];
 
@@ -38,17 +41,16 @@ export const BecomeTeacherDialog = ({
       </p>
 
       {steps.map((step, index) => {
-        const icons = ["business_center", "school", "workspace_premium"];
         return (
           <div key={index} className="border-b py-5 flex items-center gap-9">
             <p className="p-2.5 text-2xl w-12 h-12 min-w-12 min-h-12 text-center border rounded-full font-bold">
-              {index}
+              {index + 1}
             </p>
             <span
               className="material-symbols-outlined"
               style={{ fontSize: "3rem" }}
             >
-              {icons[index]}
+              {step.icon}
             </span>
             <div>
               <p className="text-base font-bold">{step.title}</p>
