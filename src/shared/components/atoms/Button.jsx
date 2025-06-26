@@ -131,6 +131,7 @@ export function Button({
   square = false,
   isSpinning = false,
   className,
+  contentClassName,
   ...rest
 }) {
   return (
@@ -150,7 +151,12 @@ export function Button({
       )}
       {...rest}
     >
-      <div className="flex flex-row gap-2 items-center justify-between">
+      <div
+        className={clsx(
+          "flex flex-row gap-2 items-center justify-between",
+          contentClassName
+        )}
+      >
         {isSpinning ? (
           <div className="w-4 h-4 min-w-4 border-2 rounded-full border-gray-200 border-r-transparent animate-spin"></div>
         ) : null}
@@ -172,4 +178,5 @@ Button.propTypes = {
   square: PropTypes.bool,
   isSpinning: PropTypes.bool,
   className: PropTypes.string,
+  contentClassName: PropTypes.string,
 };
