@@ -17,7 +17,7 @@ export default function CourseFormModal({ closePopup }) {
   };
 
   return (
-    <div className=" lg:p-6 p-2 bg-white rounded-2xl mx-auto lg:w-[50vw] w-[80vw]">
+    <div className="lg:p-2 p-2 bg-white mx-auto lg:w-[50vw] w-[80vw]">
       {courseType ? (
         <CourseForm onSubmit={onSubmit} />
       ) : (

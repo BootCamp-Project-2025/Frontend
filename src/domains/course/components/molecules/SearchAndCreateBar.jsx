@@ -5,7 +5,7 @@ import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import PropTypes from "prop-types";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
-import CourseFormModal from "../../../teacher/components/organisms/CourseFormModal";
+import CourseTypeSelection from "../../../teacher/components/molecules/CourseTypeSelection";
 
 function SearchAndCreateBar({
   courses,
@@ -32,7 +32,7 @@ function SearchAndCreateBar({
       PopupFormLayout,
       {
         title: "What type of course do you want to create?",
-        children: <CourseFormModal closePopup={closePopup} />,
+        children: <CourseTypeSelection closePopupType={closePopup} />,
         onClose: closePopup,
       },
       true
