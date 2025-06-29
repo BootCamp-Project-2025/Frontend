@@ -6,6 +6,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import { ExperienceCard } from "../molecules/ExperienceCard";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import DeleteCardPopup from "../atoms/DeleteCardPopup";
 
 export const ExperienceSection = () => {
   const [recordList, setRecordList] = useState([]);
@@ -47,11 +48,19 @@ export const ExperienceSection = () => {
             startDate={information.startDate}
             endDate={information.endDate}
             updateCard={updateCard}
-            removeCard={removeCard}
+            closeForm={closePopup}
           />
         ),
         onClose: closePopup,
       },
+      true
+    );
+  };
+
+  const handleOpenDeletePopup = (information) => {
+    openPopup(
+      DeleteCardPopup,
+      { deleteAction: deleteCard, id: information.id, closePopup },
       true
     );
   };
@@ -81,7 +90,7 @@ export const ExperienceSection = () => {
     }
   };
 
-  const removeCard = (cardId) => {
+  const deleteCard = (cardId) => {
     setRecordList((prev) => prev.filter((e) => e.id !== cardId));
     closePopup();
   };
@@ -101,6 +110,7 @@ export const ExperienceSection = () => {
               endDate={exp.endDate}
               description={exp.description}
               editCard={editCard}
+              deleteCard={handleOpenDeletePopup}
             />
           ))}
           <div>

@@ -9,6 +9,7 @@ export const EducationCard = ({
   startDate,
   endDate,
   editCard,
+  deleteCard,
 }) => {
   return (
     <Card filled data-testid="experience-card">
@@ -23,9 +24,10 @@ export const EducationCard = ({
             </p>
           </div>
         }
-        onClickButton={() => {
+        onClickEdit={() => {
           editCard(id);
         }}
+        onClickDelete={() => deleteCard({ id })}
       />
     </Card>
   );
@@ -38,4 +40,5 @@ EducationCard.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   editCard: PropTypes.func,
+  deleteCard: PropTypes.func,
 };

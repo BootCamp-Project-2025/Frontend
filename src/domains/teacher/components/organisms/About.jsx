@@ -1,16 +1,16 @@
-import { Icon } from "./Icon";
+import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
-import { Title } from "./Title";
+import { Title } from "../../../../shared/components/atoms/Title";
 import { useState } from "react";
-import usePopup from "../../hooks/usePopup";
-import { PopupFormLayout } from "../../../domains/teacher/components/atoms/PopupFormLayout";
-import { AboutMeForm } from "../../../domains/teacher/components/organisms/AboutMeForm";
-import { Button } from "./Button";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import { AboutMeForm } from "./AboutMeForm";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 const mockInformation = `
 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nulla
       ipsa dignissimos quod amet asperiores! Nobis, aliquam quaerat voluptas
-      fugit maxime distinctio, a error maiores aperiam assumenda repellat
+      fugit maxime distinctio, a aperiam assumenda repellat
       accusantium quibusdam! Itaque odio natus exercitationem illum autem
       aspernatur vel qui laudantium quasi incidunt possimus repudiandae quisquam
       quaerat aperiam eos eaque et ipsum adipisci laboriosam labore.
@@ -27,7 +27,13 @@ const About = () => {
       PopupFormLayout,
       {
         title: "About me Form",
-        children: <AboutMeForm />,
+        children: (
+          <AboutMeForm
+            text={information}
+            setText={setInformation}
+            closePopup={closePopup}
+          />
+        ),
         onClose: closePopup,
       },
       true

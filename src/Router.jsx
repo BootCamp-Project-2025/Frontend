@@ -17,7 +17,7 @@ export default function Router() {
           <Route path="courses" element={<CourseCardList />} />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
-          <Route path="teacher-profile" element={<TeacherProfile />} />
+          <Route path="teacher/profile" element={<TeacherProfile />} />
 
           <Route path="button-gallery" element={<ButtonGallery />} />
           <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />

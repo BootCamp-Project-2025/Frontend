@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import About from "../../../shared/components/atoms/About";
 import ProfileTitle from "../../../shared/components/atoms/ProfileTitle";
 import ProfileInfo from "../components/molecules/ProfileInfo";
 import { EducationSection } from "../components/organisms/EducationSection";
 import { ExperienceSection } from "../components/organisms/ExperienceSection";
 import CertificationSection from "../components/organisms/CertificationSection";
 import SkillSection from "../components/organisms/SkillSection";
+import About from "../components/organisms/About";
 
 const TeacherProfile = () => {
   return (

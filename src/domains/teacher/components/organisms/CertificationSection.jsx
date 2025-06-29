@@ -5,6 +5,7 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import CertificationForm from "../molecules/CertificationForm";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import DeleteCardPopup from "../atoms/DeleteCardPopup";
 
 export default function CertificationSection() {
   const [recordList, setRecordList] = useState([
@@ -20,12 +21,6 @@ export default function CertificationSection() {
       institution: "Oracle Academy",
       year: 2019,
     },
-    // {
-    //   id: "3",
-    //   name: "Docker for Developers",
-    //   institution: "Udemy",
-    //   year: 2021,
-    // },
   ]);
   const { openPopup, closePopup } = usePopup();
 
@@ -42,7 +37,7 @@ export default function CertificationSection() {
       {
         title: "Certification Form",
         children: (
-          <CertificationForm onSubmit={addCard} closePopup={closePopup} />
+          <CertificationForm addCard={addCard} closePopup={closePopup} />
         ),
         onClose: closePopup,
       },
@@ -61,13 +56,20 @@ export default function CertificationSection() {
             name={certification.name}
             institution={certification.institution}
             year={certification.year}
-            onSubmit={updateCard}
-            onDelete={removeCard}
+            updateCard={updateCard}
             closePopup={closePopup}
           />
         ),
         onClose: closePopup,
       },
+      true
+    );
+  };
+
+  const handleOpenDeletePopup = (information) => {
+    openPopup(
+      DeleteCardPopup,
+      { deleteAction: deleteCard, id: information.id, closePopup },
       true
     );
   };
@@ -80,14 +82,23 @@ export default function CertificationSection() {
     closePopup();
   };
 
-  const updateCard = (certification) => {
+  const editCard = (certificationId) => {
+    const record = recordList.find((e) => e.id == certificationId);
+    handleOpenEditPopup(record);
+  };
+  const updateCard = (record) => {
     setRecordList((prev) =>
-      prev.map((c) => (c.id === certification.id ? certification : c))
+      prev.map((element) => {
+        if (element.id == record.id) {
+          return record;
+        }
+        return element;
+      })
     );
     closePopup();
   };
 
-  const removeCard = (certificationId) => {
+  const deleteCard = (certificationId) => {
     setRecordList((prev) => prev.filter((c) => c.id !== certificationId));
     closePopup();
   };
@@ -99,7 +110,8 @@ export default function CertificationSection() {
           <CertificationCard
             key={cert.id}
             certification={cert}
-            onEdit={(selected) => handleOpenEditPopup(selected)}
+            editCard={() => editCard(cert.id)}
+            deleteCard={() => handleOpenDeletePopup(cert)}
           />
         ))}
       </div>

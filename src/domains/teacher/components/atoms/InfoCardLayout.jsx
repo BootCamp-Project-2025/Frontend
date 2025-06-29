@@ -7,7 +7,8 @@ export function InfoCardLayout({
   icon,
   title,
   body,
-  onClickButton = () => {},
+  onClickEdit = () => {},
+  onClickDelete = () => {},
 }) {
   return (
     <div className="flex flex-row gap-2.5 justify-between">
@@ -24,7 +25,7 @@ export function InfoCardLayout({
           radius="full"
           square
           size="sm"
-          onClick={onClickButton}
+          onClick={onClickEdit}
         >
           <Icon icon={"edit"} />
         </Button>
@@ -33,7 +34,7 @@ export function InfoCardLayout({
           radius="full"
           square
           size="sm"
-          onClick={onClickButton}
+          onClick={onClickDelete}
         >
           <Icon icon={"delete"} />
         </Button>
@@ -46,5 +47,6 @@ InfoCardLayout.propTypes = {
   icon: React.ReactNode,
   title: React.ReactNode,
   body: React.ReactNode,
-  onClickButton: PropTypes.func,
+  onClickEdit: PropTypes.func,
+  onClickDelete: PropTypes.func,
 };
