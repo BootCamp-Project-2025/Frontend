@@ -1,15 +1,59 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { Card } from "../../../../shared/components/atoms/Card";
-import { NavLink } from "react-router-dom";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
+import CourseForm from "../../../teacher/components/molecules/CourseForm";
+import { ConfirmDeleteCourse } from "./ConfirmDeleteCourse";
+import { useUpdateCourse } from "../../../course/customHooks/UseUpdateCourse";
+import { useDeleteCourse } from "../../customHooks/UseDeleteCourse";
 
 function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
+  const { openPopup, closePopup } = usePopup();
+  const { update, isUpdating, error } = useUpdateCourse();
+  const [showDialog, setShowDialog] = useState(false);
+  const { remove } = useDeleteCourse();
+
+  function editCourse() {
+    console.log(`deleted course ${courseId}`);
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Edit the information",
+        children: (
+          <CourseForm
+            closePopup={closePopup}
+            defaultValues={{
+              name: courseName,
+              description: courseDescription,
+            }}
+            onSubmit={(data) => update(courseId, data)} // tú defines esta función
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  }
+
   function deleteCourse() {
     console.log(`deleted course ${courseId}`);
+    setShowDialog(true);
   }
+
+  const handleDelete = async () => {
+    await remove(courseId);
+    setShowDialog(false);
+    // tal vez refrescar lista aquí
+  };
+
   return (
-    <Card className="flex flex-row space-x-4 gap-10" radius="none">
+    <Card
+      className="flex flex-row space-x-4 gap-10 justify-between"
+      radius="none"
+    >
       <div className="flex flex-row">
         <img
           style={{ width: "12rem", height: "10rem" }}
@@ -29,15 +73,20 @@ function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
           variant="bordered"
           className="w-20"
           contentClassName="justify-center"
+          onClick={editCourse}
         >
-          <NavLink to={`/course/${courseId}`} end>
-            Edit
-          </NavLink>
+          Edit
         </Button>
         <Button onClick={deleteCourse} color="danger" variant="bordered">
           Delete
         </Button>
       </div>
+      <ConfirmDeleteCourse
+        isOpen={showDialog}
+        onClose={() => setShowDialog(false)}
+        onConfirm={handleDelete}
+        courseName={courseName}
+      />
     </Card>
   );
 }

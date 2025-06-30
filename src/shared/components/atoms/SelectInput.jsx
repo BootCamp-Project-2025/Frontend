@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import clsx from "clsx"; // Si no tienes clsx puedes usar interpolación normal
 
 export const SelectInput = ({
   id,
@@ -9,6 +10,7 @@ export const SelectInput = ({
   options,
   placeHolder = "Select proficiency",
   errorMessage,
+  className = "",
 }) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="font-medium">
@@ -19,7 +21,7 @@ export const SelectInput = ({
       {...register}
       value={value}
       onChange={onChange}
-      className="mt-1 p-2 border rounded"
+      className={clsx("mt-1 p-2 border rounded", className)}
     >
       <option value="">{placeHolder}</option>
       {options.map((o) => (
@@ -41,4 +43,5 @@ SelectInput.propTypes = {
   options: PropTypes.array,
   placeHolder: PropTypes.string,
   label: PropTypes.string,
+  className: PropTypes.string,
 };

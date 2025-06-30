@@ -53,6 +53,7 @@ function SearchAndCreateBar({
           onChange={(e) => setField(e.target.value)}
           options={filterFieldOptions}
           placeHolder="Filter by"
+          className="border-[color:var(--color-primary-500)] text-[color:var(--color-primary-500)]"
         />
       </div>
 

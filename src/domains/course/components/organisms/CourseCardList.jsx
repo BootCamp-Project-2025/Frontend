@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useGetCourseList } from "../../customHooks/UseGetCourseList";
 import SearchAndCreateBar from "../molecules/SearchAndCreateBar";
 import { useState } from "react";
+import { Title } from "../../../../shared/components/atoms/Title";
 
 function CourseCardList({ style = {}, className = "" }) {
   const data = useGetCourseList();
@@ -13,6 +14,9 @@ function CourseCardList({ style = {}, className = "" }) {
       style={style}
       className={`m-auto w-2/3 flex flex-col gap-3 ${className}`}
     >
+      <Title className="border-b-1" color="default">
+        Course Section
+      </Title>
       <SearchAndCreateBar
         courses={data}
         onFiltered={setCourseFiltered}

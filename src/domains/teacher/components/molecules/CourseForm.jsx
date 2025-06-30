@@ -1,17 +1,41 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { useCreateCourse } from "../../../course/customHooks/UseCreateCourse";
 
-export default function CourseForm({ closePopup, type }) {
+export default function CourseForm({
+  closePopup,
+  type = "static",
+  defaultValues = {},
+  onSubmit: externalSubmit,
+}) {
+  const { create, isCreating, error } = useCreateCourse();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: defaultValues.name || "",
+      description: defaultValues.description || "",
+    },
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    //Implement post logic here
+  const onSubmit = async (data) => {
+    try {
+      if (externalSubmit) {
+        await externalSubmit(data);
+      } else if (type === "static") {
+        const newCourse = await create({
+          ...data,
+          imgSrc: "/new-course.png",
+        });
+        console.log("Created:", newCourse);
+      }
+    } catch (err) {
+      alert("Failed to create course");
+    }
+
     closePopup();
   };
 
@@ -62,6 +86,7 @@ export default function CourseForm({ closePopup, type }) {
             color="default"
             className={"w-24"}
             contentClassName="justify-center"
+            onClick={closePopup}
           >
             Cancel
           </Button>
@@ -77,3 +102,13 @@ export default function CourseForm({ closePopup, type }) {
     </div>
   );
 }
+
+CourseForm.propTypes = {
+  closePopup: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  defaultValues: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func,
+};
