@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
@@ -8,6 +7,7 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
 import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import { TeacherProfile } from "./domains/teacher/components/pages/TeacherProfile.jsx";
+import { TeacherCourseSection } from "./domains/course/components/pages/TeacherCourseSection.jsx";
 
 export default function Router() {
   return (
@@ -36,19 +36,14 @@ export default function Router() {
           path="/teacher/courses"
           element={
             <main>
-              <CourseCardList />
+              <TeacherCourseSection />
             </main>
           }
         />
 
-        <Route
-          path="/teacher/profile"
-          element={
-            <main>
-              <TeacherProfile />
-            </main>
-          }
-        />
+        <Route path="/teacher/profile" element={<TeacherProfile />} />
+
+        <Route path="/teacher/courses" element={<TeacherCourseSection />} />
 
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
