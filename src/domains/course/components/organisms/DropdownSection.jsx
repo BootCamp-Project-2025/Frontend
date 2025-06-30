@@ -1,24 +1,17 @@
 import PropTypes from "prop-types";
 import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 import "./DropdownSection.css";
+import {
+  educationCategories,
+  educationSubCategories,
+  languages,
+} from "../../utils/CourseSelectData";
+import { useState } from "react";
 
 export default function DropdownSection({ course }) {
-  const languages = [
-    { label: "English", value: "1" },
-    { label: "Spanish", value: "2" },
-    { label: "French", value: "3" },
-  ];
-  const categories = [
-    { label: "Math", value: "1" },
-    { label: "Biology", value: "2" },
-    { label: "History", value: "3" },
-  ];
-  const subCategories = [
-    { label: "tech", value: "1" },
-    { label: "modern", value: "2" },
-    { label: "retro", value: "3" },
-  ];
-
+  const [subCategory, setSubCategory] = useState(
+    educationSubCategories[course.category]
+  );
   const handleSubCategory = (option) => {
     course.subCategory = option.label;
   };
@@ -27,6 +20,7 @@ export default function DropdownSection({ course }) {
   };
   const handleCategory = (option) => {
     course.category = option.label;
+    setSubCategory(educationSubCategories[option.label]);
   };
   return (
     <section
@@ -44,7 +38,7 @@ export default function DropdownSection({ course }) {
         label={course.category !== "" ? course.category : "select a category"}
         variant="bordered"
         radius="small"
-        options={categories}
+        options={educationCategories}
         onSelect={handleCategory}
       ></Dropdown>
       <Dropdown
@@ -56,7 +50,7 @@ export default function DropdownSection({ course }) {
         }
         variant="bordered"
         radius="small"
-        options={subCategories}
+        options={subCategory}
         onSelect={handleSubCategory}
       ></Dropdown>
     </section>

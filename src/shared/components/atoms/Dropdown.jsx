@@ -201,7 +201,7 @@ export function Dropdown({
 
       <ul
         className={clsx(
-          "absolute z-10 mt-2 w-full shadow-md bg-white",
+          "absolute max-h-40 overflow-y-auto z-10 mt-2 w-full shadow-md bg-white",
           "transition-all duration-200 ease-out transform origin-top",
           isOpen
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
