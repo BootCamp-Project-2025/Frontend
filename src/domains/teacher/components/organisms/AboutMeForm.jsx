@@ -1,17 +1,20 @@
 import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaInput";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-export function AboutMeForm() {
-  const [description, setDescription] = useState();
+export function AboutMeForm({ text, setText, closePopup }) {
+  const [description, setDescription] = useState(text);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = () => {
     if (!description) setErrors([...errors, "This field is required"]);
+    setText(description);
+    closePopup();
   };
 
   const handleDelete = () => {
-    setDescription("");
+    closePopup();
   };
 
   const handleOnChange = (e) => {
@@ -38,8 +41,8 @@ export function AboutMeForm() {
             />
           </div>
           <div className="flex justify-around mt-4">
-            <Button onClick={handleDelete} color="danger" variant="bordered">
-              Delete
+            <Button onClick={handleDelete} color="default" variant="bordered">
+              Cancel
             </Button>
             <Button onClick={handleSubmit}>Save</Button>
           </div>
@@ -48,3 +51,9 @@ export function AboutMeForm() {
     </div>
   );
 }
+
+AboutMeForm.propTypes = {
+  text: PropTypes.string,
+  setText: PropTypes.func,
+  closePopup: PropTypes.func,
+};

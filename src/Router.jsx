@@ -7,7 +7,7 @@ import DropdownSelectGallery from "./shared/components/templates/DropdownSelectG
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
 import { Header } from "./domains/core/componentes/organism/Header.jsx";
-import { TeacherProfile } from "./domains/teacher/components/pages/TeacherProfile.jsx";
+import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 
 export default function Router() {
   return (
@@ -49,7 +49,6 @@ export default function Router() {
             </main>
           }
         />
-
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
         <Route path="teacher-profile" element={<TeacherProfile />} />

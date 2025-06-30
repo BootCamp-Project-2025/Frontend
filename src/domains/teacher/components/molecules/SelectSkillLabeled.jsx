@@ -14,7 +14,7 @@ function SelectSkillLabeled({ onChange, value, className = "" }) {
 export default SelectSkillLabeled;
 
 SelectSkillLabeled.propTypes = {
-  value: propTypes.object.isRequired,
+  value: propTypes.isRequired,
   className: propTypes.string,
   onChange: propTypes.func.isRequired,
 };
