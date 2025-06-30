@@ -35,8 +35,6 @@ export const ExperienceForm = ({
     },
   });
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
   const saveNewRecordDB = async (data) => {
     // create logic to save new record at database
     // db should give as a record's id

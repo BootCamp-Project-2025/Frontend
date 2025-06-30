@@ -30,8 +30,6 @@ export const EducationForm = ({
     },
   });
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
   const saveNewRecordDB = async (data) => {
     // create logic to save new record at database
     // db should give as a record's id
@@ -46,16 +44,7 @@ export const EducationForm = ({
     // create logic to manage errors
     updateCard(data);
   };
-  /* 
-  const deleteRecordDB = async (id) => {
-    setIsDeleting(true);
-    // create logic to delete record at database
-    // create logic to manage errors
-    removeCard(id);
-    setIsDeleting(false);
-    closeForm();
-  };
- */
+
   const getMaxMonth = () => {
     const today = new Date();
     const year = today.getFullYear();
