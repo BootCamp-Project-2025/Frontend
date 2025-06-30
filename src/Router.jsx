@@ -10,6 +10,7 @@ import CertificationsList from "./domains/teacher/components/organisms/Certifica
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
 
 export default function Router() {
   return (
@@ -34,6 +35,7 @@ export default function Router() {
 
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
       </Routes>
     </BrowserRouter>
   );
