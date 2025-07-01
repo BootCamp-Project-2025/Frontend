@@ -10,9 +10,16 @@ import { ConfirmDeleteCourse } from "./ConfirmDeleteCourse";
 import { useUpdateCourse } from "../../../course/customHooks/UseUpdateCourse";
 import { useDeleteCourse } from "../../customHooks/UseDeleteCourse";
 
-function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
+function CourseCard({
+  courseId,
+  courseName,
+  courseDescription,
+  courseImage,
+  onEditClick,
+  onDeleteClick,
+}) {
   const { openPopup, closePopup } = usePopup();
-  const { update, isUpdating, error } = useUpdateCourse();
+  const { update } = useUpdateCourse();
   const [showDialog, setShowDialog] = useState(false);
   const { remove } = useDeleteCourse();
 
@@ -29,7 +36,11 @@ function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
               name: courseName,
               description: courseDescription,
             }}
-            onSubmit={(data) => update(courseId, data)} // tú defines esta función
+            onSubmit={async (data) => {
+              await update(courseId, data);
+              closePopup();
+              onEditClick?.({ id: courseId, ...data });
+            }}
           />
         ),
         onClose: closePopup,
@@ -46,7 +57,7 @@ function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
   const handleDelete = async () => {
     await remove(courseId);
     setShowDialog(false);
-    // tal vez refrescar lista aquí
+    onDeleteClick?.(courseId);
   };
 
   return (
@@ -77,7 +88,7 @@ function CourseCard({ courseId, courseName, courseDescription, courseImage }) {
         >
           Edit
         </Button>
-        <Button onClick={deleteCourse} color="danger" variant="bordered">
+        <Button onClick={deleteCourse} color="default" variant="bordered">
           Delete
         </Button>
       </div>

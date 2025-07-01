@@ -3,6 +3,7 @@ import { Card } from "../../../../shared/components/atoms/Card";
 export function WarningMessage() {
   return (
     <Card
+      data-testid="card"
       filled
       color="warning"
       radius="small"

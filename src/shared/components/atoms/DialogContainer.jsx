@@ -32,7 +32,7 @@ export const DialogContainer = ({
         }}
       >
         <div>
-          <Title>{title}</Title>
+          <Title color="default">{title}</Title>
         </div>
         {children}
         <Button
