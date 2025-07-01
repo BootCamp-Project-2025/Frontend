@@ -20,6 +20,9 @@ function App() {
         <Link to="./button-gallery" className="text-blue-700 ">
           button-gallery
         </Link>
+        <Link to="./file-upload" className="text-blue-700 ">
+          file-upload
+        </Link>
       </div>
     </>
   );
