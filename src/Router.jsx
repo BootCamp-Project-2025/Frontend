@@ -7,7 +7,7 @@ import DropdownSelectGallery from "./shared/components/templates/DropdownSelectG
 import { Dashboard } from "./shared/components/templates/Dashboard.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
-import { MainLayout } from "./MainLayout";
+import App from "./App.jsx";
 
 export default function Router() {
   return (
@@ -40,7 +40,7 @@ export default function Router() {
           <Route path="/dashboard/chats" element={<main>Chats</main>} />
         </Route>
 
-        <Route element={<MainLayout />}>
+        <Route element={<App />}>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/courses"
