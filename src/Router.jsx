@@ -8,6 +8,7 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
 import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import { TeacherProfile } from "./domains/teacher/components/pages/TeacherProfile.jsx";
+import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus.jsx";
 
 export default function Router() {
   return (
@@ -55,6 +56,7 @@ export default function Router() {
         <Route path="teacher-profile" element={<TeacherProfile />} />
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="course-syllabus" element={<CourseSyllabus />} />
 
         <Route
           path="*"
