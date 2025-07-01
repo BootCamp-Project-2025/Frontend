@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Icon } from "../atoms/Icon";
 import { Title } from "../atoms/Title";
