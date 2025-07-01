@@ -35,9 +35,9 @@ const FileUploadExample = () => {
           guidelines="Accepted formats: PDF, DOC, DOCX, XLS, XLSX, TXT. Maximum size: 10MB."
           fileType="document"
           onFileUpload={(file) => console.log("Document uploaded:", file)}
-          buttonColor="secondary"
-          buttonVariant="bordered"
-          buttonSize="lg"
+          buttonColor="primary"
+          buttonVariant="solid"
+          buttonSize="md"
           maxFileSize={10 * 1024 * 1024}
         />
       </div>
@@ -51,9 +51,9 @@ const FileUploadExample = () => {
           guidelines="Square images work best. Max 2MB."
           fileType="image"
           onFileUpload={(file) => console.log("Profile pic uploaded:", file)}
-          buttonColor="success"
-          buttonVariant="faded"
-          buttonSize="sm"
+          buttonColor="primary"
+          buttonVariant="solid"
+          buttonSize="md"
           maxFileSize={2 * 1024 * 1024}
           className="border border-blue-200 rounded-lg p-4"
           customValidation={(file) => {

@@ -205,6 +205,7 @@ export const FileUpload = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        preview={preview}
       />
     </>
   );
