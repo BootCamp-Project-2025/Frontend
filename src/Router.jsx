@@ -10,11 +10,13 @@ import CertificationsList from "./domains/teacher/components/organisms/Certifica
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import { Dashboard } from "./shared/components/templates/Dashboard.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="/" element={<App />} />
         <Route path="courses" element={<CourseCardList />} />
         <Route path="health-check" element={<HealthCheck />} />

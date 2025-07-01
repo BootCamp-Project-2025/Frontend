@@ -2,6 +2,14 @@ import CertificationIcon from "../../../assets/certification.svg?react";
 import EditIcon from "../../../assets/edit.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
+import LogoutIcon from "../../../assets/logout.svg?react";
+import MenuIcon from "../../../assets/menu.svg?react";
+import HomeIcon from "../../../assets/home.svg?react";
+import MessageIcon from "../../../assets/message.svg?react";
+import UserIcon from "../../../assets/user.svg?react";
+import CourseIcon from "../../../assets/course.svg?react";
+import DashboardIcon from "../../../assets/dashboard.svg?react";
+import TeacherIcon from "../../../assets/teacher.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -9,6 +17,14 @@ const icons = {
   edit: EditIcon,
   add: AddIcon,
   close: CloseIcon,
+  logout: LogoutIcon,
+  menu: MenuIcon,
+  home: HomeIcon,
+  message: MessageIcon,
+  user: UserIcon,
+  course: CourseIcon,
+  dashboard: DashboardIcon,
+  teacher: TeacherIcon,
 };
 
 export function Icon({ icon, className }) {
