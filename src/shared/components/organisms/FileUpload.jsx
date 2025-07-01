@@ -109,46 +109,102 @@ export const FileUpload = ({
     setError("");
   };
 
+  const handleUploadClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleInputClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const getPlaceholderText = () => {
+    if (fileType === "image") {
+      return "Select an Image";
+    }
+    return "Select a Document";
+  };
+
   return (
     <>
       <div className={`w-full ${className}`}>
-        {/* File Upload Area */}
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            {/* Left side - Icon and text */}
-            <div className="flex items-center space-x-4">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg flex items-center justify-center">
-                  {fileType === "image" ? (
-                    <Image size={32} className="text-gray-400" />
-                  ) : (
-                    <FileText size={32} className="text-gray-400" />
-                  )}
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="text-sm sm:text-base font-medium text-gray-900 mb-1">
-                  {label}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-2">
-                  {description}
-                </p>
-                <p className="text-xs text-gray-500">{guidelines}</p>
+        {/* Main Upload Container */}
+        <div
+          className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
+            isDragOver
+              ? "border-blue-400 bg-blue-50"
+              : "border-gray-300 bg-white"
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Left side - Preview/Icon Area */}
+            <div className="flex-shrink-0">
+              <div className="w-full lg:w-64 h-48 border border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-2 bg-gray-200 rounded-lg flex items-center justify-center">
+                      {fileType === "image" ? (
+                        <Image size={32} className="text-gray-400" />
+                      ) : (
+                        <FileText size={32} className="text-gray-400" />
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Right side - Upload button */}
-            <div className="flex-shrink-0">
-              <Button
-                color={buttonColor}
-                variant={buttonVariant}
-                size={buttonSize}
-                onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto"
-              >
-                Upload File
-              </Button>
+            {/* Right side - Content and Controls */}
+            <div className="flex-1 flex flex-col justify-center">
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  {label}
+                </h3>
+                <p className="text-sm text-gray-600 mb-2">{description}</p>
+                <p className="text-xs text-gray-500">{guidelines}</p>
+              </div>
+
+              {/* File Input and Upload Button */}
+              <div className="flex gap-3">
+                <div className="flex-1">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={selectedFile ? selectedFile.name : ""}
+                      placeholder={getPlaceholderText()}
+                      readOnly
+                      className="w-full bg-white py-2 px-3 rounded-md border border-gray-300 outline-1 focus:outline-2 focus:outline-blue-500 text-sm cursor-pointer"
+                      onClick={handleInputClick}
+                    />
+                    {selectedFile && (
+                      <button
+                        onClick={removeFile}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        <X size={16} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <Button
+                  color={buttonColor}
+                  variant={buttonVariant}
+                  size={buttonSize}
+                  onClick={handleUploadClick}
+                  className="flex-shrink-0"
+                >
+                  Upload File
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -160,20 +216,18 @@ export const FileUpload = ({
           </div>
         )}
 
-        {/* File preview */}
+        {/* File info when selected */}
         {selectedFile && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    className="w-12 h-12 object-cover rounded"
-                  />
-                ) : (
-                  <FileText size={24} className="text-gray-400" />
-                )}
+                <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
+                  {fileType === "image" ? (
+                    <Image size={16} className="text-gray-500" />
+                  ) : (
+                    <FileText size={16} className="text-gray-500" />
+                  )}
+                </div>
                 <div>
                   <p className="text-sm font-medium text-gray-900">
                     {selectedFile.name}
@@ -183,13 +237,6 @@ export const FileUpload = ({
                   </p>
                 </div>
               </div>
-
-              <button
-                onClick={removeFile}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X size={20} />
-              </button>
             </div>
           </div>
         )}
