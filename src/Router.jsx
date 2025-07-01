@@ -1,42 +1,72 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
 import CourseCardList from "./domains/course/components/organisms/CourseCardList.jsx";
 import HealthCheck from "./domains/core/HealthCheck";
-import TeacherSkills from "./domains/teacher/components/organisms/TeacherSkills";
-import { ExperienceSection } from "./domains/teacher/components/organisms/ExperienceSection";
-import { EducationSection } from "./domains/teacher/components/organisms/EducationSection";
-import AboutMeSection from "./domains/teacher/components/organisms/AboutMeSection";
-import CertificationsList from "./domains/teacher/components/organisms/CertificationSection.jsx";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
+import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
+import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
+import { Header } from "./domains/core/componentes/organism/Header.jsx";
+import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
+      <Header></Header>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="courses" element={<CourseCardList />} />
-        <Route path="health-check" element={<HealthCheck />} />
-        <Route path="course-select" element={<CourseTypeSelection />} />
+        <Route path="/" element={<HomePage />} />
         <Route
-          path="teacher-profile"
+          path="/courses"
           element={
-            <div className="px-8 flex flex-col gap-4">
-              <AboutMeSection />
-              <EducationSection />
-              <ExperienceSection />
-              <CertificationsList />
-              <TeacherSkills />
-            </div>
+            <main>
+              <p>courses section</p>
+            </main>
+          }
+        />
+        <Route
+          path="/teachers"
+          element={
+            <main>
+              <p>teachers section</p>
+            </main>
           }
         />
 
+        <Route
+          path="/teacher/courses"
+          element={
+            <main>
+              <CourseCardList />
+            </main>
+          }
+        />
+
+        <Route
+          path="/teacher/profile"
+          element={
+            <main>
+              <TeacherProfile />
+            </main>
+          }
+        />
+        <Route path="health-check" element={<HealthCheck />} />
+        <Route path="course-select" element={<CourseTypeSelection />} />
+        <Route path="teacher-profile" element={<TeacherProfile />} />
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
+
+        <Route
+          path="*"
+          element={
+            <main>
+              <h1>Page not Found</h1>
+            </main>
+          }
+        />
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   );
 }

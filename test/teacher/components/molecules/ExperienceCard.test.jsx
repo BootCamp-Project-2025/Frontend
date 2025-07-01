@@ -29,14 +29,15 @@ describe("ExperienceCard", () => {
 
   it("renders the edit button ", () => {
     render(<ExperienceCard {...mockProps} />);
-    const editButton = screen.getByRole("button");
-    expect(editButton).toBeInTheDocument();
+    const buttons = screen.getAllByRole("button");
+    expect(buttons.length).toBe(2);
   });
 
   it("calls edit form with correct id when edit button is clicked", () => {
     render(<ExperienceCard {...mockProps} />);
 
-    const editButton = screen.getByRole("button");
+    const buttons = screen.getAllByRole("button");
+    const editButton = buttons[0];
     fireEvent.click(editButton);
 
     expect(mockProps.editCard).toHaveBeenCalledWith("123");

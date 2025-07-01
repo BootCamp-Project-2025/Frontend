@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "imageURL": "/defaultImage3.png",
+    "name": "Introduction to React",
+    "description": "Learn the fundamentals of React, including JSX, components, and state.",
+    "rating": 4.7,
+    "author": "Laura Gómez"
+  },
+  {
+    "id": 2,
+    "imageURL": "/defaultImage2.png",
+    "name": "Advanced JavaScript",
+    "description": "Dive deep into closures, async programming, modules, and design patterns.",
+    "rating": 4.8,
+    "author": "Carlos Ramírez"
+  },
+  {
+    "id": 3,
+    "imageURL": "/defaultImage1.png",
+    "name": "UX/UI Design",
+    "description": "Comprehensive course on user-centered design, accessibility, and wireframing.",
+    "rating": 4.6,
+    "author": "UX Academy"
+  },
+  {
+    "id": 4,
+    "imageURL": "/defaultImage2.png",
+    "name": "Node.js for Beginners",
+    "description": "Create servers with Express and work with MongoDB databases.",
+    "rating": 4.5,
+    "author": "José Martínez"
+  },
+  {
+    "id": 5,
+    "imageURL": "/defaultImage1.png",
+    "name": "Git and GitHub Course",
+    "description": "Version control from scratch to advanced collaborative workflows.",
+    "rating": 4.9,
+    "author": "Tech School"
+  },
+  {
+    "id": 6,
+    "imageURL": "/defaultImage3.png",
+    "name": "Python Fundamentals",
+    "description": "Ideal for beginners with hands-on programming examples.",
+    "rating": 4.4,
+    "author": "Sofía Herrera"
+  },
+  {
+    "id": 7,
+    "imageURL": "/defaultImage1.png",
+    "name": "SQL and Relational Databases",
+    "description": "Querying, data modeling, and normalization in PostgreSQL and MySQL.",
+    "rating": 4.3,
+    "author": "Andrés Salazar"
+  },
+  {
+    "id": 8,
+    "imageURL": "/defaultImage3.png",
+    "name": "TypeScript Course",
+    "description": "Improve your JavaScript code with static typing and modern tools.",
+    "rating": 4.6,
+    "author": "Dev Pro Team"
+  },
+  {
+    "id": 9,
+    "imageURL": "/defaultImage1.png",
+    "name": "HTML and CSS from Scratch",
+    "description": "Build responsive websites with solid layout foundations.",
+    "rating": 4.5,
+    "author": "Camila Duarte"
+  },
+  {
+    "id": 10,
+    "imageURL": "/defaultImage2.png",
+    "name": "Fullstack MERN Course",
+    "description": "Build a complete app with MongoDB, Express, React, and Node.",
+    "rating": 4.9,
+    "author": "Ignacio Fernández"
+  },
+  {
+    "id": 11,
+    "imageURL": "/defaultImage2.png",
+    "name": "React 101",
+    "description": "Learn the basics of React.",
+    "rating": 4.5,
+    "author": "Juan Pérez"
+  },
+  {
+    "id": 12,
+    "imageURL": "/defaultImage3.png",
+    "name": "Complete Web Development Course with React, Node.js, MongoDB, and More in Unimaginable Depth",
+    "description": "Explore the entire MERN stack with real-world practices and solid theory. Includes projects, exams, assignments, and live support.",
+    "rating": 5,
+    "author": "María L. Sánchez"
+  }
+]

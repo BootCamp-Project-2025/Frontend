@@ -80,3 +80,10 @@
 body {
   font-family: "Albert Sans";
 }
+
+main {
+  max-width: 90rem;
+  padding: 1rem 2rem;
+  margin: auto;
+  min-height: 100vh;
+}
