@@ -23,16 +23,4 @@ describe("Sidebar organism", () => {
     fireEvent.click(buttons[0]);
     expect(screen.getByText("Home")).toBeInTheDocument();
   });
-
-  it("shows course submenu when course is clicked", () => {
-    render(
-      <MemoryRouter>
-        <Sidebar />
-      </MemoryRouter>
-    );
-    const buttons = screen.getAllByRole("button");
-    fireEvent.click(buttons[0]);
-    fireEvent.click(screen.getByText("My courses"));
-    expect(screen.getByText("Home page")).toBeInTheDocument();
-  });
 });

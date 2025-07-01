@@ -3,9 +3,12 @@ import { Outlet } from "react-router-dom";
 
 export const Dashboard = () => {
   return (
-    <main>
+    <main
+      className="flex direccion-row"
+      style={{ maxWidth: "100%", padding: "0" }}
+    >
       <Sidebar />
-      <section>
+      <section className="flex w-full">
         <Outlet />
       </section>
     </main>

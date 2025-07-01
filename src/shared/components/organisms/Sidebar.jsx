@@ -1,21 +1,34 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../atoms/Icon";
 import { Title } from "../atoms/Title";
 import { Button } from "../atoms/Button";
-import { NavLink, Link } from "react-router-dom";
+import {
+  NavLink,
+  Link,
+  useParams,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 
 export const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [courseOpen, setCourseOpen] = useState(false);
 
+  const location = useLocation();
+  const { courseId } = useParams();
+  const [searchParams] = useSearchParams();
+  const courseName = searchParams.get("name");
+
+  useEffect(() => {
+    const isCourseRoute =
+      location.pathname.includes("homePage") ||
+      location.pathname.includes("syllabus");
+    setCourseOpen(isCourseRoute);
+  }, [location.pathname, courseId]);
+
   const handleClick = (open) => {
     setIsOpen(open);
-  };
-
-  const handleCoruses = () => {
-    setCourseOpen(true);
-    setIsOpen(true);
   };
 
   const handleOpenAndCourse = () => {
@@ -26,7 +39,7 @@ export const Sidebar = () => {
   return (
     <aside
       className={`bg-white h-screen shadow-md border-r border-gray-300 flex flex-col justify-between transition-all duration-300 ${
-        isOpen ? "w-64" : "w-16"
+        isOpen ? "w-64 min-w-64" : "w-16 min-w-16"
       }`}
     >
       <div>
@@ -108,7 +121,7 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="teacherProfile"
+              to="teacher"
               onClick={handleOpenAndCourse}
             >
               <Icon icon={"teacher"}></Icon>
@@ -120,10 +133,14 @@ export const Sidebar = () => {
             </NavLink>
           </li>
           <li className={`${!isOpen ? "flex justify-center" : ""}`}>
-            <button
-              onClick={handleCoruses}
-              className={`flex items-center ${!isOpen ? "flex justify-center" : ""} py-2 px-4 w-full cursor-pointer 
-              hover:bg-gray-100 text-sm transition ${courseOpen ? "bg-gray-100" : ""}`}
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
+                  : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
+              }
+              to="courses"
+              onClick={handleOpenAndCourse}
             >
               <Icon icon={"course"}></Icon>
               {isOpen && (
@@ -131,18 +148,27 @@ export const Sidebar = () => {
                   My courses
                 </Title>
               )}
-            </button>
+            </NavLink>
             {isOpen && courseOpen ? (
               <div className="bg-gray-100">
+                <div className="p-2 ml-3">
+                  <Title
+                    size="ms"
+                    color="default"
+                    className={"line-clamp-2 cursor-default"}
+                  >
+                    {courseName ? courseName : "New course"}
+                  </Title>
+                </div>
                 <NavLink
                   className={({ isActive }) =>
                     isActive
-                      ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-blue-100 text-sm transition`
+                      ? `py-2 px-4 w-full bg-blue-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-blue-100 text-sm transition`
                       : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-blue-100 text-sm transition`
                   }
-                  to="courses/home"
+                  to={`${courseId ? `courses/${courseId}/homePage?name=${courseName}` : "courses/homePage"}`}
                 >
-                  <Title size={"ms"} color={"default"} className={"ml-3"}>
+                  <Title size={"ms"} color={"default"} className={"ml-5"}>
                     Home page
                   </Title>
                 </NavLink>
@@ -152,9 +178,9 @@ export const Sidebar = () => {
                       ? `py-2 px-4 w-full bg-blue-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-blue-100 text-sm transition`
                       : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-blue-100 text-sm transition`
                   }
-                  to="courses/syllabus"
+                  to={`${courseId ? `courses/${courseId}/syllabus?name=${courseName}` : "courses/syllabus"}`}
                 >
-                  <Title size={"ms"} color={"default"} className={"ml-3"}>
+                  <Title size={"ms"} color={"default"} className={"ml-5"}>
                     Syllabus
                   </Title>
                 </NavLink>
@@ -168,7 +194,7 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="ligas/listar"
+              to="chats"
               onClick={handleOpenAndCourse}
             >
               <Icon icon={"message"}></Icon>
