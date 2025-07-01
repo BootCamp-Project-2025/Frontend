@@ -101,12 +101,26 @@ export const UploadModal = ({
           }}
           onClick={handleFileInputClick}
         >
-          {isImage && preview ? (
-            <img
-              src={preview}
-              alt="Preview"
-              className="mx-auto mb-2 max-h-40 object-contain rounded"
-            />
+          {localFile ? (
+            isImage && preview ? (
+              <img
+                src={preview}
+                alt="Preview"
+                className="mx-auto mb-2 max-h-40 object-contain rounded"
+              />
+            ) : (
+              <div className="text-left mb-2 text-sm text-gray-700">
+                <p>
+                  <strong>File:</strong> {localFile.name}
+                </p>
+                <p>
+                  <strong>Type:</strong> {localFile.type || "Unknown"}
+                </p>
+                <p>
+                  <strong>Size:</strong> {(localFile.size / 1024).toFixed(2)} KB
+                </p>
+              </div>
+            )
           ) : (
             <div className="flex items-center justify-center gap-2 mb-2">
               <IconComponent size={32} className="text-gray-400" />
