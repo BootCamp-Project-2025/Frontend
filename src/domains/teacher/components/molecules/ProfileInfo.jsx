@@ -15,7 +15,6 @@ const mockUser = {
 };
 
 const ProfileInfo = () => {
-  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(mockUser);
 
   const { openPopup, closePopup } = usePopup();

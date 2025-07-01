@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { EducationCard } from "../molecules/EducationCard";

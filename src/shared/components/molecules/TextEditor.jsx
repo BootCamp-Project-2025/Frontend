@@ -3,7 +3,7 @@ import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 
 import FroalaEditorComponent from "react-froala-wysiwyg";
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 export function TextEditor({ value, onChange = () => {} }) {
   return (
@@ -82,3 +82,8 @@ export function TextEditor({ value, onChange = () => {} }) {
     </div>
   );
 }
+
+TextEditor.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+};
