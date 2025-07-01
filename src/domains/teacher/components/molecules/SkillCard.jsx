@@ -3,28 +3,33 @@ import { Card } from "../../../../shared/components/atoms/Card";
 import { InfoCardLayout } from "../atoms/InfoCardLayout";
 import { Title } from "../../../../shared/components/atoms/Title";
 
-function TeacherSkillRow({ skill, level, onclick }) {
+function SkillCard({ id, skill, level, editCard, deleteCard }) {
   return (
     <Card filled data-testid="skill-card">
       <InfoCardLayout
         body={
-          <div className="flex justify-between pr-16 w-full">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-end w-full">
             <Title size="lg" color="default">
               {skill}
             </Title>
-            <p className="self-end">{level}</p>
+            <p>{level}</p>
           </div>
         }
-        onClickButton={onclick}
+        onClickEdit={() => {
+          editCard(id);
+        }}
+        onClickDelete={() => deleteCard({ id })}
       />
     </Card>
   );
 }
 
-export default TeacherSkillRow;
+export default SkillCard;
 
-TeacherSkillRow.propTypes = {
+SkillCard.propTypes = {
+  id: propTypes.string,
   skill: propTypes.string,
   level: propTypes.string,
-  onclick: propTypes.func,
+  editCard: propTypes.func,
+  deleteCard: propTypes.func,
 };

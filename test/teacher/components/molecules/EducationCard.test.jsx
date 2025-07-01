@@ -14,7 +14,6 @@ describe("EducationCard", () => {
 
   it("renders all provided props correctly", () => {
     render(<EducationCard {...mockProps} />);
-
     expect(screen.getByText(mockProps.university)).toBeInTheDocument();
     expect(screen.getByText(mockProps.career)).toBeInTheDocument();
     expect(
@@ -24,14 +23,15 @@ describe("EducationCard", () => {
 
   it("renders the edit button", () => {
     render(<EducationCard {...mockProps} />);
-    const editButton = screen.getByRole("button");
-    expect(editButton).toBeInTheDocument();
+    const buttons = screen.getAllByRole("button");
+    expect(buttons.length).toBeGreaterThan(0);
   });
 
   it("calls edit form with the correct id when edit button is clicked", () => {
     render(<EducationCard {...mockProps} />);
 
-    const editButton = screen.getByRole("button");
+    const buttons = screen.getAllByRole("button");
+    const editButton = buttons[0];
     fireEvent.click(editButton);
 
     expect(mockProps.editCard).toHaveBeenCalledWith("123");

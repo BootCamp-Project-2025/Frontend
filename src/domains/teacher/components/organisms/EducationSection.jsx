@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { EducationCard } from "../molecules/EducationCard";
@@ -6,10 +5,11 @@ import { EducationForm } from "./EducationForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import DeleteCardPopup from "../atoms/DeleteCardPopup";
 
 export const EducationSection = () => {
   const [recordList, setRecordList] = useState([]);
-  const [cardSelected, setCardSelected] = useState(null);
+  //const [cardSelected, setCardSelected] = useState(null);
 
   useEffect(() => {
     fetch("/requestEducation.json")
@@ -45,11 +45,19 @@ export const EducationSection = () => {
             startDate={information.startDate}
             endDate={information.endDate}
             updateCard={updateCard}
-            removeCard={removeCard}
+            closeForm={closePopup}
           />
         ),
         onClose: closePopup,
       },
+      true
+    );
+  };
+
+  const handleOpenDeletePopup = (information) => {
+    openPopup(
+      DeleteCardPopup,
+      { deleteAction: deleteCard, id: information.id, closePopup },
       true
     );
   };
@@ -74,12 +82,11 @@ export const EducationSection = () => {
   const editCard = (cardId) => {
     const record = recordList.find((e) => e.id == cardId);
     if (record) {
-      setCardSelected(record);
       handleOpenEditPopup(record);
     }
   };
 
-  const removeCard = (cardId) => {
+  const deleteCard = (cardId) => {
     setRecordList((prev) => prev.filter((e) => e.id !== cardId));
     closePopup();
   };
@@ -97,10 +104,15 @@ export const EducationSection = () => {
               startDate={data.startDate}
               endDate={data.endDate}
               editCard={editCard}
+              deleteCard={handleOpenDeletePopup}
             />
           ))}
           <div>
-            <Button onClick={handleOpenPopup}>
+            <Button
+              onClick={handleOpenPopup}
+              variant="ghost"
+              className={"border border-[color:var(--color-primary-600)]"}
+            >
               <span className="material-symbols-outlined">add</span>
               Add Education
             </Button>

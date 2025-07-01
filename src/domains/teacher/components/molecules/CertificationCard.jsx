@@ -4,7 +4,8 @@ import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
 export default function CertificationCard({
   certification,
-  onEdit = () => {},
+  editCard = () => {},
+  deleteCard = () => {},
 }) {
   return (
     <Card filled>
@@ -19,7 +20,10 @@ export default function CertificationCard({
             <p className="text-gray-500 text-base">{certification.year}</p>
           </div>
         }
-        onClickButton={() => onEdit(certification)}
+        onClickEdit={() => {
+          editCard(certification.id);
+        }}
+        onClickDelete={() => deleteCard(certification.id)}
       />
     </Card>
   );
@@ -32,5 +36,6 @@ CertificationCard.propTypes = {
     institution: PropTypes.string,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }).isRequired,
-  onEdit: PropTypes.func,
+  editCard: PropTypes.func,
+  deleteCard: PropTypes.func,
 };
