@@ -13,8 +13,8 @@ import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
-import TrashCanIcon from "../../../assets/close.svg?react";
-import VectorPointerIcon from "../../../assets/close.svg?react";
+import TrashCanIcon from "../../../assets/trashCan.svg?react";
+import VectorPointerIcon from "../../../assets/vectorPointer.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
