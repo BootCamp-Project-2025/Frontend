@@ -2,6 +2,8 @@ import CertificationIcon from "../../../assets/certification.svg?react";
 import EditIcon from "../../../assets/edit.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
+import EmailIcon from "../../../assets/email.svg?react";
+import DeleteIcon from "../../../assets/delete.svg?react";
 import LogoutIcon from "../../../assets/logout.svg?react";
 import MenuIcon from "../../../assets/menu.svg?react";
 import HomeIcon from "../../../assets/home.svg?react";
@@ -17,6 +19,8 @@ const icons = {
   edit: EditIcon,
   add: AddIcon,
   close: CloseIcon,
+  email: EmailIcon,
+  delete: DeleteIcon,
   logout: LogoutIcon,
   menu: MenuIcon,
   home: HomeIcon,

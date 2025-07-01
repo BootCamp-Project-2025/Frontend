@@ -9,8 +9,10 @@ export function PopupFormLayout({ children, onClose = () => {}, title }) {
       className="bg-white rounded-md relative p-2 flex flex-col"
       style={{ width: "600px", height: "auto" }}
     >
-      <div className="mb-4">
-        <Title className="justify-self-center">{title}</Title>
+      <div className="mb-4 pt-6">
+        <Title className="justify-self-center" color="default">
+          {title}
+        </Title>
       </div>
       <Button
         aria-label="Close form"
@@ -18,7 +20,7 @@ export function PopupFormLayout({ children, onClose = () => {}, title }) {
         radius="full"
         onClick={onClose}
         square
-        className={"absolute top-1 right-1"}
+        className={"absolute top-1 right-1 bg-[color:var(--color-default-300)]"}
       >
         <Icon icon="close" className="w-3 h-3" />
       </Button>

@@ -1,22 +1,23 @@
-import propTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import SelectSkillLabeled from "../molecules/SelectSkillLabeled";
 import PropTypes from "prop-types";
 
-function TeacherSkillPopup({
-  closePopup,
-  addSkill,
+export const SkillForm = ({
+  id = "",
   skillObject = { skill: "", level: "Beginner" },
-  id,
-}) {
+  updateCard = () => {},
+  addCard = () => {},
+  closePopup = () => {},
+}) => {
   const { skill, level } = skillObject;
+
   const {
     register,
-    formState: { errors, isSubmitting },
     handleSubmit,
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       skill,
@@ -24,32 +25,30 @@ function TeacherSkillPopup({
   });
 
   const [newLevel, setLevel] = useState(level);
-  const newSkillRef = useRef(skill === "");
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const changeLevel = (e) => {
-    setLevel(e.target.value);
+  const saveSkill = async (data) => {
+    await delay(1000);
+    const payload = { skill: data.skill, level: newLevel };
+
+    if (id === "") {
+      addCard({ ...payload, id: crypto.randomUUID() });
+    } else {
+      updateCard({ ...payload, id });
+    }
+
+    closePopup();
   };
 
-  async function saveSkill(skill) {
-    const data = { skill: skill.skill, level: newLevel };
-    console.log(data);
-    await delay(1000);
-    addSkill(data);
-    if (newSkillRef.current) {
-      addSkill(data, true);
-    } else {
-      addSkill(data, false, id);
-    }
-    closePopup();
-  }
+  const changeLevel = (value) => {
+    setLevel(value);
+  };
+
   return (
     <form
+      onSubmit={handleSubmit(saveSkill)}
       className="flex flex-col gap-2 items-center"
-      onSubmit={handleSubmit(async (skill) => {
-        saveSkill(skill);
-      })}
     >
       <div className="flex flex-row gap-7">
         <TextInput
@@ -59,22 +58,18 @@ function TeacherSkillPopup({
             maxLength: { value: 50, message: "Maximum 50 letters" },
           })}
           maxLength={50}
-          label={"skill"}
-          placeholder={"skill name"}
+          label={"Skill"}
+          placeholder={"Skill name"}
           errorMessage={errors?.skill?.message}
           id={"skill"}
         />
-        <SelectSkillLabeled onChange={changeLevel} value={newLevel} />
+
+        <SelectSkillLabeled value={newLevel} onChange={changeLevel} />
       </div>
+
       <div className="flex flex-row justify-center w-full mt-2 gap-4">
-        <Button
-          disabled={isSubmitting}
-          color="default"
-          onClick={() => {
-            closePopup();
-          }}
-        >
-          cancel
+        <Button color="default" variant="bordered" onClick={closePopup}>
+          Cancel
         </Button>
 
         <Button type="submit" disabled={isSubmitting} isSpinning={isSubmitting}>
@@ -83,13 +78,15 @@ function TeacherSkillPopup({
       </div>
     </form>
   );
-}
+};
 
-export default TeacherSkillPopup;
-
-TeacherSkillPopup.propTypes = {
-  id: PropTypes.number.isRequired,
-  closePopup: propTypes.func.isRequired,
-  addSkill: propTypes.func.isRequired,
-  skillObject: propTypes.object.isRequired,
+SkillForm.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  skillObject: PropTypes.shape({
+    skill: PropTypes.string,
+    level: PropTypes.string,
+  }),
+  updateCard: PropTypes.func,
+  closePopup: PropTypes.func,
+  addCard: PropTypes.func,
 };
