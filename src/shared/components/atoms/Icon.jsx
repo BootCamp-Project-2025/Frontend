@@ -3,8 +3,8 @@ import EditIcon from "../../../assets/edit.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
 import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
-import TrashCanIcon from "../../../assets/close.svg?react";
-import VectorPointerIcon from "../../../assets/close.svg?react";
+import TrashCanIcon from "../../../assets/trashCan.svg?react";
+import VectorPointerIcon from "../../../assets/vectorPointer.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
