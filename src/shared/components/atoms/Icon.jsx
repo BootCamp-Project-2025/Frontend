@@ -2,6 +2,9 @@ import CertificationIcon from "../../../assets/certification.svg?react";
 import EditIcon from "../../../assets/edit.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
+import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
+import TrashCanIcon from "../../../assets/close.svg?react";
+import VectorPointerIcon from "../../../assets/close.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -9,6 +12,9 @@ const icons = {
   edit: EditIcon,
   add: AddIcon,
   close: CloseIcon,
+  syllabusAlert: SyllabusAlertIcon,
+  trashCan: TrashCanIcon,
+  vectorPointer: VectorPointerIcon,
 };
 
 export function Icon({ icon, className }) {
