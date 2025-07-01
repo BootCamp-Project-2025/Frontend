@@ -14,7 +14,6 @@ function SearchAndCreateBar({
     { value: "name", label: "Name" },
     { value: "description", label: "Description" },
   ],
-  onCreate,
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [field, setField] = useState("name");
@@ -90,8 +89,6 @@ SearchAndCreateBar.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
-
-  onCreate: PropTypes.func.isRequired,
 };
 
 SearchAndCreateBar.defaultProps = {

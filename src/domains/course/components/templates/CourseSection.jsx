@@ -7,9 +7,8 @@ function CourseSection({ teacherProfileCompleted = true }) {
   return (
     <div className="flex flex-col items-center space-y-6">
       <Title
-        size="xl"
         color="default"
-        className="border-b border-b-[color:var(--color-default-500)] w-full"
+        className="border-b border-b-[color:var(--color-default-500)] w-4/5"
       >
         {"Courses Section"}
       </Title>

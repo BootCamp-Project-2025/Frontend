@@ -14,15 +14,12 @@ function CourseCardList({ style = {}, className = "" }) {
       style={style}
       className={`m-auto w-2/3 flex flex-col gap-3 ${className}`}
     >
-      <Title className="border-b-1" color="default">
-        Course Section
-      </Title>
       <SearchAndCreateBar
         courses={data}
         onFiltered={setCourseFiltered}
         onCreate={() => console.log("we will create")}
       />
-      {data.map((course, id) => (
+      {courseFiltered.map((course, id) => (
         <CourseCard
           key={id}
           courseId={course.id}
