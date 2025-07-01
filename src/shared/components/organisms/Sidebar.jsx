@@ -85,8 +85,9 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to=""
+              to="/dashboard"
               onClick={handleOpenAndCourse}
+              end
             >
               <Icon icon={"dashboard"}></Icon>
               {isOpen && (
