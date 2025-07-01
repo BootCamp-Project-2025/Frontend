@@ -4,10 +4,13 @@ import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
 import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
+import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
+import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 
 export default function Router() {
   return (
@@ -54,6 +57,7 @@ export default function Router() {
         <Route path="teacher-profile" element={<TeacherProfile />} />
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
           path="*"
@@ -63,6 +67,8 @@ export default function Router() {
             </main>
           }
         />
+        <Route path="card-showcase" element={<CardShowcase />} />
+        <Route path="title-showcase" element={<TitleShowcase />} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>
