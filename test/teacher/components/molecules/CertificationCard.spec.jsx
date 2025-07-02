@@ -17,22 +17,26 @@ describe("CertificationCard", () => {
 
   it("renders the edit button", () => {
     render(<CertificationCard certification={certification} />);
-    const button = screen.getByRole("button");
-    expect(button).toBeInTheDocument();
+    const buttons = screen.getAllByRole("button");
+    expect(buttons.length).toBeGreaterThan(0);
   });
 
-  it("calls onEdit with certification when edit button is clicked", async () => {
-    const onEdit = vi.fn();
-    render(<CertificationCard certification={certification} onEdit={onEdit} />);
-    const button = screen.getByRole("button");
-    await waitFor(() => fireEvent.click(button));
-    expect(onEdit).toHaveBeenCalledWith(certification);
+  it("calls editCard with certification when edit button is clicked", async () => {
+    const editCard = vi.fn();
+    render(
+      <CertificationCard certification={certification} editCard={editCard} />
+    );
+    const buttons = screen.getAllByRole("button");
+    const editButton = buttons[0];
+    await waitFor(() => fireEvent.click(editButton));
+    expect(editCard).toHaveBeenCalledWith(certification.id);
   });
 
-  it("does not throw if onEdit is not provided", async () => {
+  it("does not throw if editCard is not provided", async () => {
     render(<CertificationCard certification={certification} />);
-    const button = screen.getByRole("button");
-    await waitFor(() => fireEvent.click(button));
-    expect(true).toBe(true); // Confirm no error is thrown
+    const buttons = screen.getAllByRole("button");
+    const editButton = buttons[0];
+    await waitFor(() => fireEvent.click(editButton));
+    expect(true).toBe(true);
   });
 });

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { MonthInput } from "../../../../shared/components/molecules/MonthInput";
 import { v4 as uuidv4 } from "uuid";
@@ -15,7 +15,6 @@ export const EducationForm = ({
   addCard = () => {},
   closeForm = () => {},
   updateCard = () => {},
-  removeCard = () => {},
 }) => {
   const {
     register,
@@ -31,8 +30,6 @@ export const EducationForm = ({
     },
   });
 
-  const [isDeleting, setIsDeleting] = useState(false);
-
   const saveNewRecordDB = async (data) => {
     // create logic to save new record at database
     // db should give as a record's id
@@ -46,15 +43,6 @@ export const EducationForm = ({
     // create logic to updata record at database
     // create logic to manage errors
     updateCard(data);
-  };
-
-  const deleteRecordDB = async (id) => {
-    setIsDeleting(true);
-    // create logic to delete record at database
-    // create logic to manage errors
-    removeCard(id);
-    setIsDeleting(false);
-    closeForm();
   };
 
   const getMaxMonth = () => {
@@ -134,24 +122,11 @@ export const EducationForm = ({
       </div>
 
       <div className="flex flex-row justify-center w-full mt-2 gap-4">
-        {id != "" && (
-          <Button
-            disabled={isSubmitting || isDeleting}
-            color="danger"
-            variant="bordered"
-            onClick={() => {
-              deleteRecordDB(id);
-            }}
-            isSpinning={isDeleting}
-          >
-            Delete
-          </Button>
-        )}
-        <Button
-          type="submit"
-          disabled={isSubmitting || isDeleting}
-          isSpinning={isSubmitting}
-        >
+        <Button color="default" variant="bordered" onClick={closeForm}>
+          Cancel
+        </Button>
+
+        <Button type="submit" disabled={isSubmitting} isSpinning={isSubmitting}>
           Save
         </Button>
       </div>
@@ -168,5 +143,4 @@ EducationForm.propTypes = {
   addCard: PropTypes.func,
   closeForm: PropTypes.func,
   updateCard: PropTypes.func,
-  removeCard: PropTypes.func,
 };
