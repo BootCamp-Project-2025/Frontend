@@ -18,6 +18,7 @@ import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
 import TrashCanIcon from "../../../assets/trashCan.svg?react";
 import VectorUpIcon from "../../../assets/vectorPointer.svg?react";
 import VectorDownIcon from "../../../assets/vectorDown.svg?react";
+import SaveIcon from "../../../assets/save.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -25,6 +26,7 @@ const icons = {
   edit: EditIcon,
   editBlack: EditBlackIcon,
   add: AddIcon,
+  save: SaveIcon,
   plus: PlusIcon,
   close: CloseIcon,
   email: EmailIcon,
