@@ -4,6 +4,7 @@ import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
 import { Dashboard } from "./shared/components/templates/Dashboard.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
@@ -84,6 +85,7 @@ export default function Router() {
           <Route path="teacher-profile" element={<TeacherProfile />} />
           <Route path="button-gallery" element={<ButtonGallery />} />
           <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+          <Route path="file-upload" element={<FileUploadExample />} />
           <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
           <Route
