@@ -6,6 +6,7 @@ import { ExperienceSection } from "../components/organisms/ExperienceSection";
 import CertificationSection from "../components/organisms/CertificationSection";
 import SkillSection from "../components/organisms/SkillSection";
 import About from "../components/organisms/About";
+import { LanguageSection } from "../components/organisms/LanguageSection";
 
 const TeacherProfile = () => {
   return (
@@ -46,6 +47,7 @@ const TeacherProfile = () => {
         <ExperienceSection />
         <CertificationSection />
         <SkillSection />
+        <LanguageSection />
       </div>
     </main>
   );
