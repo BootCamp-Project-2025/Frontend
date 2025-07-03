@@ -85,6 +85,5 @@ LanguageForm.propTypes = {
   proficiency: PropTypes.string,
   addLanguage: PropTypes.func,
   updateLanguage: PropTypes.func,
-  removeLanguage: PropTypes.func,
   closeForm: PropTypes.func,
 };

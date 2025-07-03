@@ -31,4 +31,5 @@ LanguageCard.propTypes = {
   name: PropTypes.string.isRequired,
   proficiency: PropTypes.string.isRequired,
   editCard: PropTypes.func.isRequired,
+  deleteCard: PropTypes.func.isRequired,
 };
