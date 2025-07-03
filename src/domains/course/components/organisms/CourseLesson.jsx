@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import ExpansionWrapper from "../molecules/ExpansionWrapper";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import LessonContentGroup from "./LessonContentGroup";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
+import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
+import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
 
 export default function CourseLesson({ modulePosition, lessonPosition }) {
   const buttons = [
-    { text: "Description", onClick: () => console.log("Description") },
     { text: "Video Content", onClick: () => console.log("Video Content") },
     { text: "Resources", onClick: () => console.log("Resources") },
   ];
@@ -40,7 +40,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     });
   }
   return (
-    <ExpansionWrapper
+    <SyllabusExpansionWrapper
       save={saveLesson}
       saveTitle={saveTitle}
       erase={eraseLesson}
@@ -50,6 +50,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
       sectionTitle={`Lesson ${lessonPosition + 1}`}
       title={lesson.title}
     >
+      <TextEditor />
       <ButtonSection buttonProps={buttons} />
       {modulesContext.modules[modulePosition].lessons[
         lessonPosition
@@ -62,7 +63,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
           title={lesson}
         />
       ))}
-    </ExpansionWrapper>
+    </SyllabusExpansionWrapper>
   );
 }
 

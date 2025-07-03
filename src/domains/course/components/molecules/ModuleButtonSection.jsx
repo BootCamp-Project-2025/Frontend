@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default function ButtonSection({ buttonProps, ...props }) {
   return (
-    <div className="flex justify-center gap-4" {...props}>
+    <div className="flex justify-center gap-4 mt-2" {...props}>
       {buttonProps.map((buttonData, id) => (
         <Button
           key={id}
