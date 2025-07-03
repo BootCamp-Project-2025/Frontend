@@ -4,6 +4,7 @@ import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
@@ -59,6 +60,7 @@ export default function Router() {
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="course-syllabus" element={<CourseSyllabus />} />
+        <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
