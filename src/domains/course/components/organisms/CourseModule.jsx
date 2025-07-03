@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import ExpansionWrapper from "../molecules/ExpansionWrapper";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import CourseLesson from "./CourseLesson";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
+import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
 
 export default function CourseModule({ modulePosition, ...props }) {
   const modulesContext = useContext(ModulesContext);
@@ -50,12 +50,13 @@ export default function CourseModule({ modulePosition, ...props }) {
   }
 
   return (
-    <ExpansionWrapper
+    <SyllabusExpansionWrapper
       save={saveModule}
       saveTitle={saveTitle}
       erase={eraseModule}
-      className="mt-10"
+      className="mt-10 mx-20"
       enableSave={module.edited ?? false}
+      newSection={module.new ?? false}
       {...props}
       sectionTitle={`Module ${modulePosition + 1}`}
       title={module.title}
@@ -68,7 +69,7 @@ export default function CourseModule({ modulePosition, ...props }) {
           modulePosition={modulePosition}
         />
       ))}
-    </ExpansionWrapper>
+    </SyllabusExpansionWrapper>
   );
 }
 
