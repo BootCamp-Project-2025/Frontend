@@ -11,7 +11,6 @@ export const LanguageForm = ({
   proficiency = "",
   addLanguage = () => {},
   updateLanguage = () => {},
-  removeLanguage = () => {},
   closeForm = () => {},
 }) => {
   const {
@@ -20,14 +19,13 @@ export const LanguageForm = ({
     handleSubmit,
   } = useForm({ defaultValues: { name, proficiency } });
 
-  const [isDeleting, setIsDeleting] = useState(false);
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const [newLevel, setLevel] = useState(proficiency);
   const changeLevel = (e) => {
     setLevel(e.target.value);
   };
-  // Save handler
+
   const onSave = async (data) => {
     await delay(500);
     if (id) {
@@ -35,15 +33,6 @@ export const LanguageForm = ({
     } else {
       addLanguage({ ...data, id: crypto.randomUUID() });
     }
-    closeForm();
-  };
-
-  // Delete handler
-  const onDelete = async () => {
-    setIsDeleting(true);
-    await delay(500);
-    removeLanguage(id);
-    setIsDeleting(false);
     closeForm();
   };
 
@@ -74,22 +63,15 @@ export const LanguageForm = ({
       />
 
       <div className="flex justify-center gap-3 mt-4">
-        {id && (
-          <Button
-            color="danger"
-            variant="bordered"
-            onClick={onDelete}
-            isSpinning={isDeleting}
-            disabled={isDeleting || isSubmitting}
-          >
-            Delete
-          </Button>
-        )}
         <Button
-          type="submit"
-          isSpinning={isSubmitting}
-          disabled={isSubmitting || isDeleting}
+          color="default"
+          variant="bordered"
+          onClick={closeForm}
+          disabled={isSubmitting}
         >
+          Close
+        </Button>
+        <Button type="submit" isSpinning={isSubmitting} disabled={isSubmitting}>
           Save
         </Button>
       </div>

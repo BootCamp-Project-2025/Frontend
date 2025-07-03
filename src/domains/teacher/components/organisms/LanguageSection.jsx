@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
+import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { LanguageCard } from "../molecules/LanguageCard";
 import { LanguageForm } from "./LanguageForm";
@@ -32,6 +33,14 @@ export const LanguageSection = () => {
     closePopup();
   };
 
+  const handleOpenDeletePopup = (lang) => {
+    openPopup(
+      DeleteCardPopup,
+      { deleteAction: removeLanguage, id: lang.id, closePopup },
+      true
+    );
+  };
+
   const handleAdd = () => {
     openPopup(
       PopupFormLayout,
@@ -45,6 +54,7 @@ export const LanguageSection = () => {
   };
 
   const handleEdit = (lang) => {
+    console.log("edit button", lang);
     openPopup(
       PopupFormLayout,
       {
@@ -75,6 +85,7 @@ export const LanguageSection = () => {
               name={l.name}
               proficiency={l.proficiency}
               editCard={() => handleEdit(l)}
+              deleteCard={handleOpenDeletePopup}
             />
           ))}
         </div>

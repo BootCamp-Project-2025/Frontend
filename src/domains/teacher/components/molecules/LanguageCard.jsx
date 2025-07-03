@@ -2,7 +2,13 @@ import PropTypes from "prop-types";
 import { Card } from "../../../../shared/components/atoms/Card";
 import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
-export const LanguageCard = ({ id, name, proficiency, editCard }) => {
+export const LanguageCard = ({
+  id,
+  name,
+  proficiency,
+  editCard,
+  deleteCard,
+}) => {
   return (
     <Card filled data-testid="language-card">
       <InfoCardLayout
@@ -13,7 +19,8 @@ export const LanguageCard = ({ id, name, proficiency, editCard }) => {
             {proficiency.charAt(0).toUpperCase() + proficiency.slice(1)}
           </p>
         }
-        onClickButton={() => editCard(id)}
+        onClickEdit={() => editCard(id)}
+        onClickDelete={() => deleteCard({ id })}
       />
     </Card>
   );
