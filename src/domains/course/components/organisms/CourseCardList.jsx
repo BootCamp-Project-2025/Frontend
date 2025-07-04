@@ -35,12 +35,7 @@ function CourseCardList({ style = {}, className = "" }) {
       PopupFormLayout,
       {
         title: "What type of course do you want to create?",
-        children: (
-          <CourseTypeSelection
-            closePopupType={closePopup}
-            addCourse={addNewCourse}
-          />
-        ),
+        children: <CourseTypeSelection addCourse={addNewCourse} />,
         onClose: closePopup,
       },
       true

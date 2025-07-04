@@ -118,4 +118,5 @@ CourseForm.propTypes = {
     description: PropTypes.string,
   }),
   onSubmit: PropTypes.func,
+  addCourse: PropTypes.func,
 };

@@ -5,7 +5,6 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Button } from "../../../../shared/components/atoms/Button";
 
 function CourseCard({
-  courseId,
   courseName,
   courseDescription,
   courseImage,
@@ -52,7 +51,6 @@ function CourseCard({
 }
 
 CourseCard.propTypes = {
-  courseId: PropTypes.string.isRequired,
   courseName: PropTypes.string.isRequired,
   courseDescription: PropTypes.string.isRequired,
   courseImage: PropTypes.string.isRequired,
