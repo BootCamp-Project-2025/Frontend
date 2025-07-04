@@ -6,6 +6,7 @@ import CertificationForm from "../molecules/CertificationForm";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
+import { getRequest } from "../../../../shared/api/getRequest";
 
 export default function CertificationSection() {
   const [recordList, setRecordList] = useState([
@@ -25,10 +26,7 @@ export default function CertificationSection() {
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    // fetch("/requestCertifications.json")
-    //   .then((res) => res.json())
-    //   .then((data) => setRecordList(data))
-    //   .catch((err) => console.error("Error loading data:", err));
+    //const response = getRequest("/")
   }, []);
 
   const handleOpenPopup = () => {
