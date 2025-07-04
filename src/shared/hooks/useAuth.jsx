@@ -10,7 +10,7 @@ import {
 import PropTypes from "prop-types";
 import Keycloak from "keycloak-js";
 import { syncUser } from "../api/AuthApi";
-import { setAuthToken } from "../axios/axiosInstance";
+import { setAuthToken } from "../api/axios/AxiosConnection";
 
 const AuthContext = createContext(null);
 
@@ -121,11 +121,15 @@ export function AuthProvider({ children }) {
     }, 60000);
   }, []);
 
-  const updateSessionRoles = useCallback(async (roles) => {
+  const updateSessionRoles = useCallback(async (roles, route) => {
     const keycloak = keycloakRef.current;
     if (!keycloak) return;
     try {
-      await keycloak.updateToken(-1);
+      await keycloak.logout();
+      await keycloak.login({
+        prompt: "none",
+        redirectUri: window.location.origin + route,
+      });
       const user = await syncUser();
       dispatch({
         type: "LOGIN_SUCCESS",

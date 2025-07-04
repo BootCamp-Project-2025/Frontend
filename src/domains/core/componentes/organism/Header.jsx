@@ -44,7 +44,7 @@ export const Header = () => {
   const acceptBecomeTeacher = async () => {
     closePopup();
     await updateRoles("FREELANCER");
-    await updateSessionRoles(["FREELANCER"]);
+    await updateSessionRoles(["FREELANCER"], "/teacher/profile");
     navigate("/teacher/profile");
   };
   const [menuOpen, setMenuOpen] = useState(false);
