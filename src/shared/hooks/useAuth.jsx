@@ -70,13 +70,8 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
-  const handleLogin = useCallback((callback) => {
-    keycloakRef.current?.login().then(() => {
-      if (callback) {
-        console.log("Login successful");
-        callback();
-      }
-    });
+  const handleLogin = useCallback(() => {
+    keycloakRef.current?.login();
   }, []);
 
   const handleLogout = useCallback(() => {
