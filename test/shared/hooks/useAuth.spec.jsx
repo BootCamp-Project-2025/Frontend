@@ -1,6 +1,7 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
-import { AuthProvider, useAuth } from "../../../src/shared/hooks/useAuth";
+import { useAuth } from "../../../src/shared/hooks/useAuth";
+import { AuthProvider } from "../../../src/shared/providers/AuthProvider.jsx";
 
 let mockKeycloak;
 

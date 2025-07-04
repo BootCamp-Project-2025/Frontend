@@ -6,7 +6,7 @@ import { PopupProvider } from "./shared/contexts/PopupContext.jsx";
 import PopupRoot from "./shared/components/atoms/Popup";
 import { ToastProvider } from "./shared/contexts/ToastContext.jsx";
 import "material-symbols";
-import { AuthProvider } from "./shared/hooks/useAuth.jsx";
+import { AuthProvider } from "./shared/providers/AuthProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
