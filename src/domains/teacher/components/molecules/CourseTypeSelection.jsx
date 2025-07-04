@@ -4,14 +4,20 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
 import CourseForm from "./CourseForm";
 
-export default function CourseTypeSelection({ closePopupType }) {
+export default function CourseTypeSelection({ closePopupType, addCourse }) {
   const { openPopup, closePopup } = usePopup();
   const handleSetCourseType = (type) => {
     openPopup(
       PopupFormLayout,
       {
         title: "Fill this information",
-        children: <CourseForm closePopup={closePopup} type={type} />,
+        children: (
+          <CourseForm
+            closePopup={closePopup}
+            type={type}
+            addCourse={addCourse}
+          />
+        ),
         onClose: closePopup,
       },
       true
@@ -102,4 +108,5 @@ export default function CourseTypeSelection({ closePopupType }) {
 
 CourseTypeSelection.propTypes = {
   closePopup: PropTypes.func.isRequired,
+  addCourse: PropTypes.func.isRequired,
 };

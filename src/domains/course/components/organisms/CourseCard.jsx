@@ -1,14 +1,8 @@
+import React from "react";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { Button } from "../../../../shared/components/atoms/Button";
-import { Title } from "../../../../shared/components/atoms/Title";
 import { Card } from "../../../../shared/components/atoms/Card";
-import usePopup from "../../../../shared/hooks/usePopup";
-import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
-import CourseForm from "../../../teacher/components/molecules/CourseForm";
-import { ConfirmDeleteCourse } from "./ConfirmDeleteCourse";
-import { useUpdateCourse } from "../../../course/customHooks/UseUpdateCourse";
-import { useDeleteCourse } from "../../customHooks/UseDeleteCourse";
+import { Title } from "../../../../shared/components/atoms/Title";
+import { Button } from "../../../../shared/components/atoms/Button";
 
 function CourseCard({
   courseId,
@@ -18,97 +12,52 @@ function CourseCard({
   onEditClick,
   onDeleteClick,
 }) {
-  const { openPopup, closePopup } = usePopup();
-  const { update } = useUpdateCourse();
-  const [showDialog, setShowDialog] = useState(false);
-  const { remove } = useDeleteCourse();
-
-  function editCourse() {
-    console.log(`deleted course ${courseId}`);
-    openPopup(
-      PopupFormLayout,
-      {
-        title: "Edit the information",
-        children: (
-          <CourseForm
-            closePopup={closePopup}
-            defaultValues={{
-              name: courseName,
-              description: courseDescription,
-            }}
-            onSubmit={async (data) => {
-              await update(courseId, data);
-              closePopup();
-              onEditClick?.({ id: courseId, ...data });
-            }}
-          />
-        ),
-        onClose: closePopup,
-      },
-      true
-    );
-  }
-
-  function deleteCourse() {
-    console.log(`deleted course ${courseId}`);
-    setShowDialog(true);
-  }
-
-  const handleDelete = async () => {
-    await remove(courseId);
-    setShowDialog(false);
-    onDeleteClick?.(courseId);
-  };
-
   return (
-    <Card
-      className="flex flex-row space-x-4 gap-10 justify-between"
-      radius="none"
-    >
-      <div className="flex flex-row">
+    <Card radius="none" className="p-4 flex items-center justify-between gap-4">
+      <div className="flex items-start gap-4">
         <img
-          style={{ width: "12rem", height: "10rem" }}
           src={courseImage}
-          alt="course image"
+          alt={`${courseName} image`}
+          className="w-48 h-32 object-cover"
         />
-        <div className="mx-auto">
-          <Title color="secondary" className="px-2 py-1">
+        <div>
+          <Title color="default" size="md" className="mb-1">
             {courseName}
           </Title>
-          <p className="px-2 py-1">{courseDescription}</p>
+          <p className="text-sm text-gray-600">{courseDescription}</p>
         </div>
       </div>
 
-      <div className="justify-center flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <Button
           variant="bordered"
-          className="w-20"
-          contentClassName="justify-center"
-          onClick={editCourse}
+          className="w-24 py-2"
+          onClick={onEditClick}
+          contentClassName={"justify-center"}
         >
           Edit
         </Button>
-        <Button onClick={deleteCourse} color="default" variant="bordered">
+        <Button
+          variant="bordered"
+          color="default"
+          className="w-24 py-2"
+          onClick={onDeleteClick}
+          contentClassName={"justify-center"}
+        >
           Delete
         </Button>
       </div>
-      <ConfirmDeleteCourse
-        isOpen={showDialog}
-        onClose={() => setShowDialog(false)}
-        onConfirm={handleDelete}
-        courseName={courseName}
-      />
     </Card>
   );
 }
-export default CourseCard;
 
 CourseCard.propTypes = {
-  courseName: PropTypes.string,
-  courseId: PropTypes.string,
-  onDeleteClick: PropTypes.func,
+  courseId: PropTypes.string.isRequired,
+  courseName: PropTypes.string.isRequired,
+  courseDescription: PropTypes.string.isRequired,
+  courseImage: PropTypes.string.isRequired,
   onEditClick: PropTypes.func,
-  courseImage: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.object,
+  onDeleteClick: PropTypes.func,
 };
+
+export default CourseCard;

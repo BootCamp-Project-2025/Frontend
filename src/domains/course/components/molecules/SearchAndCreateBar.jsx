@@ -1,76 +1,75 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import PropTypes from "prop-types";
-import usePopup from "../../../../shared/hooks/usePopup";
-import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
-import CourseTypeSelection from "../../../teacher/components/molecules/CourseTypeSelection";
 
-function SearchAndCreateBar({
-  courses,
-  onFiltered,
-  filterFieldOptions = [
-    { value: "name", label: "Name" },
-    { value: "description", label: "Description" },
-  ],
-}) {
+function SearchAndCreateBar({ courses, onFiltered, onCreateCourse }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [field, setField] = useState("name");
-  const { openPopup, closePopup } = usePopup();
+  const [sortOrder, setSortOrder] = useState("asc");
 
-  useEffect(() => {
+  const applyFilterAndSort = (term, order) => {
     const filtered = courses.filter((c) =>
-      String(c[field]).toLowerCase().includes(searchTerm.toLowerCase())
+      c.name.toLowerCase().includes(term.toLowerCase())
     );
-    onFiltered(filtered);
-  }, [searchTerm, field, courses, onFiltered]);
-
-  const handleNewCourse = () => {
-    openPopup(
-      PopupFormLayout,
-      {
-        title: "What type of course do you want to create?",
-        children: <CourseTypeSelection closePopupType={closePopup} />,
-        onClose: closePopup,
-      },
-      true
-    );
+    const sorted = [...filtered].sort((a, b) => {
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
+      if (aName < bName) return order === "asc" ? -1 : 1;
+      if (aName > bName) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+    onFiltered(sorted);
   };
 
+  const handleSearch = () => {
+    applyFilterAndSort(searchTerm, sortOrder);
+  };
+
+  const handleSort = (order) => {
+    setSortOrder(order);
+    applyFilterAndSort(searchTerm, order);
+  };
+
+  const sortOptions = [
+    { value: "asc", label: "A → Z" },
+    { value: "desc", label: "Z → A" },
+  ];
+
   return (
-    <div className="flex flex-row justify-between items-center">
-      <div className="flex flex-row gap-2 items-center">
+    <div className="flex justify-between items-center">
+      <div className="flex items-center gap-2">
         <TextInput
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder={`Search by ${field}…`}
+          placeholder="Search courses…"
+          className="flex-1 border border-gray-300 px-3 py-1.5 text-sm rounded-md"
         />
-
+        <Button variant="ghost" onClick={handleSearch} className="p-2">
+          <span className="material-symbols-outlined">search</span>
+        </Button>
         <SelectInput
-          value={field}
-          onChange={(e) => setField(e.target.value)}
-          options={filterFieldOptions}
-          placeHolder="Filter by"
-          className="border-[color:var(--color-primary-500)] text-[color:var(--color-primary-500)]"
+          value={sortOrder}
+          onChange={(e) => handleSort(e.target.value)}
+          options={sortOptions}
+          placeHolder="Sort"
+          className="w-32"
         />
       </div>
 
       <Button
-        onClick={handleNewCourse}
+        onClick={onCreateCourse}
         color="primary"
         variant="solid"
         size="md"
         radius="medium"
       >
         <span className="material-symbols-outlined">add</span>
-        New Course
+        <span>New Course</span>
       </Button>
     </div>
   );
 }
-
-export default SearchAndCreateBar;
 
 SearchAndCreateBar.propTypes = {
   courses: PropTypes.arrayOf(
@@ -80,20 +79,8 @@ SearchAndCreateBar.propTypes = {
       description: PropTypes.string,
     })
   ).isRequired,
-
   onFiltered: PropTypes.func.isRequired,
-
-  filterFieldOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ),
+  onCreateCourse: PropTypes.func.isRequired,
 };
 
-SearchAndCreateBar.defaultProps = {
-  filterFieldOptions: [
-    { value: "name", label: "Name" },
-    { value: "description", label: "Description" },
-  ],
-};
+export default SearchAndCreateBar;

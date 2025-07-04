@@ -8,8 +8,9 @@ export default function CourseForm({
   type = "static",
   defaultValues = {},
   onSubmit: externalSubmit,
+  addCourse,
 }) {
-  const { create, isCreating, error } = useCreateCourse();
+  const { create, isCreating, error: submitError } = useCreateCourse();
   const {
     register,
     handleSubmit,
@@ -26,80 +27,86 @@ export default function CourseForm({
       if (externalSubmit) {
         await externalSubmit(data);
       } else if (type === "static") {
-        const newCourse = await create({
-          ...data,
-          imgSrc: "/new-course.png",
-        });
-        console.log("Created:", newCourse);
+        const created = await create({ ...data, imgSrc: "/new-course.png" });
+        addCourse(created);
       }
-    } catch (err) {
-      alert("Failed to create course");
+      closePopup();
+    } catch {
+      // Error handled below
     }
-
-    closePopup();
   };
 
   return (
-    <div className="flex flex-col gap-5 w-96">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 w-full"
-      >
-        <div className="flex flex-row gap-2 w-full">
-          <label htmlFor="name" className="text-gray-600 font-medium w-auto">
-            Name of the course:
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full p-4 flex flex-col gap-6"
+    >
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-4">
+          <label htmlFor="name" className="w-32 font-medium text-gray-700">
+            Course Name:
           </label>
           <input
             id="name"
-            name="name"
-            type="text"
-            {...register("name", { required: true })}
-            className={`border  ${errors.name ? "border-red-500" : " border-gray-300 focus:border-blue-400"} rounded-lg px-2 py-1 w-full transition outline-0`}
+            {...register("name", { required: "Course name is required" })}
+            className={`flex-1 border rounded-lg px-3 py-2 transition outline-none focus:ring-2 focus:ring-blue-400 ${
+              errors.name ? "border-red-500" : "border-gray-300"
+            }`}
           />
-          {errors.name && (
-            <span className="text-red-500 text-sm">This field is required</span>
-          )}
         </div>
+        {errors.name && (
+          <span className="ml-32 text-red-500 text-sm">
+            {errors.name.message}
+          </span>
+        )}
+      </div>
 
-        <div className="flex flex-row gap-2 w-full justify-between">
+      <div className="flex flex-col gap-1">
+        <div className="flex items-start gap-4">
           <label
             htmlFor="description"
-            className="text-gray-600 font-medium w-auto"
+            className="w-32 font-medium text-gray-700 pt-2"
           >
-            Add a description:
+            Description:
           </label>
           <textarea
             id="description"
-            name="description"
             rows={4}
-            {...register("description", { required: true })}
-            className={`border  ${errors.description ? "border-red-500" : " border-gray-300 focus:border-blue-400"} rounded-lg px-2 py-1 max-w-96 transition outline-0`}
+            {...register("description", {
+              required: "Description is required",
+            })}
+            className={`flex-1 border rounded-lg px-3 py-2 transition outline-none focus:ring-2 focus:ring-blue-400 ${
+              errors.description ? "border-red-500" : "border-gray-300"
+            }`}
           />
-          {errors.description && (
-            <span className="text-red-500 text-sm">This field is required</span>
-          )}
         </div>
+        {errors.description && (
+          <span className="ml-32 text-red-500 text-sm">
+            {errors.description.message}
+          </span>
+        )}
+      </div>
 
-        <div className="justify-center flex flex-row gap-3">
-          <Button
-            variant="bordered"
-            color="default"
-            className={"w-24"}
-            contentClassName="justify-center"
-            onClick={closePopup}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            className="w-24"
-            contentClassName="justify-center"
-          >
-            Save
-          </Button>
-        </div>
-      </form>
-    </div>
+      {submitError && (
+        <p className="text-red-500 text-sm">
+          {submitError.message || "Failed to save course."}
+        </p>
+      )}
+
+      <div className="flex justify-center gap-3 mt-4">
+        <Button
+          variant="bordered"
+          color="default"
+          onClick={closePopup}
+          className="px-4 py-2"
+        >
+          Cancel
+        </Button>
+        <Button type="submit" disabled={isCreating} className="px-4 py-2">
+          {isCreating ? "Saving..." : "Save"}
+        </Button>
+      </div>
+    </form>
   );
 }
 
