@@ -4,6 +4,7 @@ import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
+import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
@@ -11,6 +12,7 @@ import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import ProtectedRoute from "./shared/guards/ProtectedRoute.jsx";
 
 export default function Router() {
   return (
@@ -39,7 +41,9 @@ export default function Router() {
           path="/teacher/courses"
           element={
             <main>
-              <CourseCardList />
+              <ProtectedRoute requiredRole={"FREELANCER"}>
+                <CourseCardList />
+              </ProtectedRoute>
             </main>
           }
         />
@@ -48,15 +52,25 @@ export default function Router() {
           path="/teacher/profile"
           element={
             <main>
-              <TeacherProfile />
+              <ProtectedRoute requiredRole={"FREELANCER"}>
+                <TeacherProfile />
+              </ProtectedRoute>
             </main>
           }
         />
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
-        <Route path="teacher-profile" element={<TeacherProfile />} />
+        <Route
+          path="teacher-profile"
+          element={
+            <ProtectedRoute requiredRole={"FREELANCER"}>
+              <TeacherProfile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="button-gallery" element={<ButtonGallery />} />
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
