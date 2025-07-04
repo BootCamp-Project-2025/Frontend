@@ -3,7 +3,7 @@ import { learningAPI } from "../axios/AxiosCourseConnection";
 export async function getCourseList() {
   try {
     const response = await learningAPI.get("/courses");
-    return response.data;
+    return response.data.data;
     /* const data = [
       {
         id: "uuid-1",
@@ -33,7 +33,7 @@ export async function getCourseList() {
 export async function createCourse(courseData) {
   try {
     const response = await learningAPI.post("/courses", courseData);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error("Error creating course:", error);
     throw error;
@@ -43,7 +43,7 @@ export async function createCourse(courseData) {
 export async function updateCourse(courseId, courseData) {
   try {
     const response = await learningAPI.put(`/courses/${courseId}`, courseData);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error(`Error updating course with ID ${courseId}:`, error);
     throw error;
