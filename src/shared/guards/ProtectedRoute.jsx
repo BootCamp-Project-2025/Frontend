@@ -1,6 +1,7 @@
-import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import PropTypes from "prop-types";
+import RequiredLogin from "../components/templates/RequiredLogin";
+import BecomeTeacherPrompt from "../components/templates/BecomeTeacher";
 
 function Loader() {
   return (
@@ -18,11 +19,11 @@ export default function ProtectedRoute({ children, requiredRole }) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/required-login" replace />;
+    return <RequiredLogin />;
   }
 
   if (requiredRole && !roles.includes(requiredRole)) {
-    return <Navigate to="/become-teacher" replace />;
+    return <BecomeTeacherPrompt />;
   }
 
   return children;
