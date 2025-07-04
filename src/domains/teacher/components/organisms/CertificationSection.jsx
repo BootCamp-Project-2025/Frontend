@@ -6,7 +6,6 @@ import CertificationForm from "../molecules/CertificationForm";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
-import { getRequest } from "../../../../shared/api/getRequest";
 
 export default function CertificationSection() {
   const [recordList, setRecordList] = useState([
