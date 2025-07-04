@@ -9,7 +9,6 @@ vi.mock("keycloak-js", () => {
     default: vi.fn(() => {
       mockKeycloak = {
         init: vi.fn().mockImplementation(() => {
-          // Simula que luego de init se llama onAuthSuccess
           setTimeout(() => {
             if (mockKeycloak.onAuthSuccess) {
               mockKeycloak.onAuthSuccess();
@@ -118,12 +117,10 @@ describe("AuthProvider", () => {
       </AuthProvider>
     );
 
-    // Esperamos a que cargue inicialmente
     await waitFor(() =>
       expect(screen.getByTestId("user").textContent).toBe("test@example.com")
     );
 
-    // Simula nuevos roles
     await updateSessionRolesFn(["CLIENT", "FREELANCER"], "/dashboard");
 
     expect(mockKeycloak.logout).toHaveBeenCalled();
