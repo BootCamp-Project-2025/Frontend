@@ -1,13 +1,13 @@
-import axiosInstance from "../axios/axiosInstance";
+import { baseAPI } from "./axios/AxiosConnection";
 
 export const syncUser = async () => {
-  const response = await axiosInstance.post("/auth/sync");
+  const response = await baseAPI.post("/auth/sync");
 
   return response.data.data;
 };
 
 export const updateRoles = async (role) => {
-  const response = await axiosInstance.put("/auth/roles", { role });
+  const response = await baseAPI.put("/auth/roles", { role });
 
   return response.data.data;
 };
