@@ -4,12 +4,12 @@ import { RatingStars } from "../../../../shared/components/molecules/RatingStars
 
 export const CourseBannerInfo = ({ rating = 0, raters = 0, students = 0 }) => {
   return (
-    <div className="flex flex-row gap-2 text-lg font-light">
+    <div className="flex flex-row gap-2 text-lg font-light flex-wrap">
       <RatingStars rating={rating}></RatingStars>
-      <Link className="text-primary-600 border-b border-primary-600">
+      <Link className="text-primary-600 border-b border-primary-600 text-nowrap">
         {`(${raters} Ratings)`}
       </Link>
-      <p>{`${students} Student${students === 1 ? "" : "s"}`}</p>
+      <p className="text-nowrap">{`${students} Student${students === 1 ? "" : "s"}`}</p>
     </div>
   );
 };

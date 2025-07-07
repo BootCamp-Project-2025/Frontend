@@ -1,0 +1,13 @@
+{
+  "title": "Mastering React: From Beginner to Advanced",
+  "teacher": "Jonas Schmedtmann",
+  "teacherId": "u123456",
+  "language": "English",
+  "category": "Web Development",
+  "subCategory": "Frontend",
+  "courseImage": "/defaultImage3.png",
+  "raters": 1274,
+  "students": 21589,
+  "rating": 4.8,
+  "description": "React continues to be one of the most in-demand skills in 2024. This course is your complete guide to learning React from scratch and mastering advanced topics. You'll build powerful, interactive UIs using modern tools like hooks, context, and React Router. With a strong focus on hands-on projects and real-world scenarios, you'll gain the confidence to create full-stack applications and stand out in job interviews. Whether you're a beginner or looking to level up your frontend skills, this course is the perfect place to start."
+}

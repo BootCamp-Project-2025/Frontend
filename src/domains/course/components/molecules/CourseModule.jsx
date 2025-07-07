@@ -24,11 +24,11 @@ export const CourseModule = ({
               >
                 <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
               </svg>
-              <div className="flex w-full ">
-                <p className="w-full text-xl text-gray-600 font-bold text-start">
+              <div className="flex w-full gap-1 items-center ">
+                <p className="w-full text-lg sm:text-xl text-gray-600 font-bold text-start">
                   {titleModule}
                 </p>
-                <p className=" text-lg text-gray-400 font-light text-nowrap">
+                <p className=" text-base sm:text-lg text-gray-400 font-light text-nowrap">
                   {lessons.length} lessons
                 </p>
               </div>
