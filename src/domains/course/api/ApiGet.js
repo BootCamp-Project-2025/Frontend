@@ -1,11 +1,11 @@
 import { learningAPI } from "../axios/AxiosCourseConnection";
 
-export const ApiGet = async (path, body) => {
+export const ApiGet = async (path) => {
   let error = false;
   let status;
   let responseData = null;
   try {
-    const response = await learningAPI.get(path, body);
+    const response = await learningAPI.get(path);
     status = response.statusCode;
     responseData = response.data;
     status = response.status;
