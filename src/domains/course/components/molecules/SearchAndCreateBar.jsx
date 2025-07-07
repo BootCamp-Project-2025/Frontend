@@ -42,6 +42,12 @@ function SearchAndCreateBar({ courses, onFiltered, onCreateCourse }) {
         <TextInput
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSearch();
+            }
+          }}
           placeholder="Search courses…"
           className="flex-1 border border-gray-300 px-3 py-1.5 text-sm rounded-md"
         />

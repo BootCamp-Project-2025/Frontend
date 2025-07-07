@@ -32,7 +32,7 @@ export default function CourseForm({
       }
       closePopup();
     } catch {
-      // Error handled below
+      console.log(errors);
     }
   };
 
@@ -74,6 +74,9 @@ export default function CourseForm({
             rows={4}
             {...register("description", {
               required: "Description is required",
+              validate: (value) =>
+                value.split("\n").length <= 3 ||
+                "Description must be 3 lines or less",
             })}
             className={`flex-1 border rounded-lg px-3 py-2 transition outline-none focus:ring-2 focus:ring-blue-400 ${
               errors.description ? "border-red-500" : "border-gray-300"
@@ -89,7 +92,7 @@ export default function CourseForm({
 
       {submitError && (
         <p className="text-red-500 text-sm">
-          {submitError.message || "Failed to save course."}
+          {submitError.response.data.message || "Failed to save course."}
         </p>
       )}
 
