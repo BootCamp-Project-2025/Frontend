@@ -6,16 +6,18 @@ import { ModulesContext } from "../../customHooks/ModuleContext";
 import SyllabusInfo from "../molecules/SyllabusInfo";
 import CourseModule from "./CourseModule";
 import { moduleReducer } from "../../utils/ModuleReducer";
+import { ApiGet } from "../../api/ApiGet";
 
 export default function CourseSyllabus() {
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
+      const { responseData } = await ApiGet(
+        "courses/253c3ed5-53ba-4d61-95b5-6dfca64e724d/modules"
+      );
+      console.log(responseData);
       dispatch({
         type: "SET",
-        payload: [
-          { id: 1, title: "introduction", lessons: [] },
-          { id: 4, title: "final thoughts", lessons: [] },
-        ],
+        payload: responseData.data,
       });
     };
     loadData();
@@ -36,7 +38,7 @@ export default function CourseSyllabus() {
         <SyllabusInfo className="self-center" />
 
         {modules.map((module, id) => (
-          <>
+          <div key={`add-module-${id}`}>
             <Button
               onClick={() => addModule(id)}
               radius="small"
@@ -48,11 +50,13 @@ export default function CourseSyllabus() {
                 <p className="mx-auto">add module</p>
               </div>
             </Button>
-            <CourseModule key={id} title={module.title} modulePosition={id} />
-          </>
+            <CourseModule title={module.title} modulePosition={id} />
+          </div>
         ))}
         <Button
-          onClick={() => addModule(modules.length)}
+          onClick={() =>
+            dispatch({ type: "ADD_MODULE", postion: modules.length })
+          }
           radius="small"
           className={"w-40 my-4 text-center self-start"}
           variant="bordered"
