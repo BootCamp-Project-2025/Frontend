@@ -3,6 +3,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useEffect, useRef, useState } from "react";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
 
 export default function SyllabusExpansionWrapper({
   saveTitle,
@@ -19,11 +20,24 @@ export default function SyllabusExpansionWrapper({
 }) {
   const [displayChild, setDisplayChild] = useState(true);
   const [editTitle, setEditTitle] = useState(false);
+  const [error, setError] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   }, [editTitle]);
+
+  function validateTitle(e) {
+    if (e.target.value.length > 20) {
+      setError("Title cannot exceed 20 characters");
+      return false;
+    } else if (e.target.value.length < 5) {
+      setError("Title cannot be less than 5 characters");
+      return false;
+    }
+    setError("");
+    return true;
+  }
 
   function enableEdit() {
     if (!editTitle) {
@@ -39,12 +53,17 @@ export default function SyllabusExpansionWrapper({
       >
         <div className="flex items-center gap-4">
           <Title color="black">{`${sectionTitle}:`}</Title>
-          <input
-            ref={inputRef}
-            id={sectionTitle}
-            type="text"
-            className={`min-w-8 overflow-ellipsis max-w-min focus:outline-none mx-0 px-3 ${editTitle ? "" : "hidden"}`}
-          />
+          <div className={`${editTitle ? "" : "hidden"}`}>
+            <TextInput
+              ref={inputRef}
+              id={sectionTitle}
+              type="text"
+              className={`min-w-8 overflow-ellipsis max-w-min focus:outline-none mx-0 px-3`}
+              errorMessage={error}
+              onChange={validateTitle}
+            />
+          </div>
+
           <span
             className={`ml-4 font-medium mx-1 ${editTitle ? "hidden" : ""}`}
           >
@@ -57,6 +76,7 @@ export default function SyllabusExpansionWrapper({
           {editTitle ? (
             <Button
               onClick={() => {
+                if (error) return;
                 saveTitle(inputRef.current.value);
                 enableEdit();
               }}
