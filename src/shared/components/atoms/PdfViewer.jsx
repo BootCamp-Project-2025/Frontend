@@ -12,6 +12,6 @@ export default function PdfViewer({ url }) {
   );
 }
 
-PdfUploader.propTypes = {
-  url: PropTypes.string,
+PdfViewer.propTypes = {
+  url: PropTypes.string.isRequired,
 };
