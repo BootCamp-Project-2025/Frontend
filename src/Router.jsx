@@ -28,6 +28,14 @@ export default function Router() {
           }
         />
         <Route
+          path="/courses/:idCourse"
+          element={
+            <main>
+              <p>courses id</p>
+            </main>
+          }
+        />
+        <Route
           path="/teachers"
           element={
             <main>
