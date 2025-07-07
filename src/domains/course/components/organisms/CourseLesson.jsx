@@ -1,18 +1,40 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import LessonContentGroup from "./LessonContentGroup";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
 import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
 import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
+import usePopup from "../../../../shared/hooks/usePopup";
+import EraseConfirmation from "../molecules/EraseConfirmation";
+import { UploadModal } from "../../../../shared/components/molecules/UploadModal";
+import { ApiPost } from "../../api/ApiPost";
 
 export default function CourseLesson({ modulePosition, lessonPosition }) {
-  const buttons = [
-    { text: "Video Content", onClick: () => console.log("Video Content") },
-    { text: "Resources", onClick: () => console.log("Resources") },
-  ];
+  const [modalOpen, setModalOpen] = useState(false);
   const modulesContext = useContext(ModulesContext);
   const lesson = modulesContext.modules[modulePosition].lessons[lessonPosition];
+  const { openPopup, closePopup } = usePopup();
+
+  const buttons = [
+    { text: "Video Content", onClick: () => console.log("Video Content") },
+    { text: "Resources", onClick: () => setModalOpen(true) },
+  ];
+
+  function eraseConfirmationPopUp() {
+    openPopup(
+      EraseConfirmation,
+      {
+        onDelete: eraseLesson,
+        closePopup: closePopup,
+      },
+      false
+    );
+  }
+
+  const handleFileUpload = (file) => {
+    addResource(file.name, "https://youtube.com", lesson.resources.length);
+  };
 
   function saveTitle(newTitle) {
     modulesContext.dispatch({
@@ -23,46 +45,73 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     });
   }
 
-  function saveLesson() {
+  function addResource(name, link, resourcePosition) {
     modulesContext.dispatch({
-      type: "SAVE_LESSON",
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
-      lesson: lesson,
+      type: "ADD_RESOURCE",
+      name: name,
+      resourcePosition: resourcePosition,
+      link: link,
     });
+  }
+
+  function eraseResource(resourcePosition) {
+    modulesContext.dispatch({
+      modulePosition: modulePosition,
+      lessonPosition: lessonPosition,
+      resourcePosition: resourcePosition,
+      type: "DELETE_RESOURCE",
+    });
+  }
+
+  async function saveLesson() {
+    const response = await ApiPost(
+      `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
+      lesson
+    );
+    if (!response.error)
+      modulesContext.dispatch({
+        modulePosition: modulePosition,
+        lessonPosition: lesson.position,
+        type: "SAVE_LESSON",
+      });
+    console.log(response);
   }
 
   function eraseLesson() {
     modulesContext.dispatch({
       modulePosition: modulePosition,
+      lessonPosition: lesson.position,
       type: "DELETE_LESSON",
-      id: lesson.id,
     });
   }
+
   return (
     <SyllabusExpansionWrapper
       save={saveLesson}
       saveTitle={saveTitle}
-      erase={eraseLesson}
+      erase={eraseConfirmationPopUp}
       className="border-b-1 border-gray-400 mx-10"
       borderTitle={false}
-      enableSave={lesson.edited ?? false}
+      enableSave={lesson.edited === true}
+      newSection={lesson.new === true}
       sectionTitle={`Lesson ${lessonPosition + 1}`}
       title={lesson.title}
     >
       <TextEditor />
+      <UploadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onFileSelect={handleFileUpload}
+        isDragOver={false}
+      />
       <ButtonSection buttonProps={buttons} />
-      {modulesContext.modules[modulePosition].lessons[
-        lessonPosition
-      ].resources.map((lesson, id) => (
-        <LessonContentGroup
-          key={id}
-          position={modulePosition}
-          lessonPosition={lessonPosition}
-          resource={id}
-          title={lesson}
-        />
-      ))}
+      <LessonContentGroup
+        eraseResource={eraseResource}
+        resources={lesson.resources}
+        title={"Resources:"}
+      />
     </SyllabusExpansionWrapper>
   );
 }

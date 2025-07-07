@@ -4,33 +4,42 @@ import CourseLesson from "./CourseLesson";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
 import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
+import usePopup from "../../../../shared/hooks/usePopup";
+import EraseConfirmation from "../molecules/EraseConfirmation";
 
 export default function CourseModule({ modulePosition, ...props }) {
   const modulesContext = useContext(ModulesContext);
-
   const module = modulesContext.modules[modulePosition];
-
+  const { openPopup, closePopup } = usePopup();
   const buttons = [
     {
       text: "Lesson",
-      onClick: () => addLesson(modulePosition, module.lessons.length),
+      onClick: () =>
+        modulesContext.dispatch({
+          type: "ADD_LESSON",
+          modulePosition: modulePosition,
+          lessonPosition: module.lessons.length,
+        }),
     },
     { text: "Quiz", onClick: () => console.log("Quiz") },
     { text: "Assignment", onClick: () => console.log("Assignment") },
   ];
 
-  function addLesson(modulePosition, lessonPosition) {
-    modulesContext.dispatch({
-      type: "ADD_LESSON",
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
-    });
+  function eraseConfirmationPopUp() {
+    openPopup(
+      EraseConfirmation,
+      {
+        onDelete: eraseModule,
+        closePopup: closePopup,
+      },
+      false
+    );
   }
 
   function eraseModule() {
     modulesContext.dispatch({
       type: "DELETE_MODULE",
-      id: module.id,
+      modulePosition: module.position,
     });
   }
 
@@ -43,17 +52,14 @@ export default function CourseModule({ modulePosition, ...props }) {
   }
 
   function saveModule() {
-    modulesContext.dispatch({
-      type: "SAVE_MODULE",
-      module: module,
-    });
+    console.log(module);
   }
 
   return (
     <SyllabusExpansionWrapper
       save={saveModule}
       saveTitle={saveTitle}
-      erase={eraseModule}
+      erase={eraseConfirmationPopUp}
       className="mt-10 mx-20"
       enableSave={module.edited ?? false}
       newSection={module.new ?? false}
@@ -62,7 +68,7 @@ export default function CourseModule({ modulePosition, ...props }) {
       title={module.title}
     >
       <ButtonSection buttonProps={buttons} />
-      {module.lessons.map((lesson, id) => (
+      {module.lessons.map((_, id) => (
         <CourseLesson
           key={id}
           lessonPosition={id}
