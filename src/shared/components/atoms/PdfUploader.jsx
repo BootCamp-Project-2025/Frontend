@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from "react";
 import { useUploader } from "../../hooks/useUploader";
 
 export default function PdfUploader({ onUpload }) {
