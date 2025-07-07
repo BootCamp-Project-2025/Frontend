@@ -33,7 +33,8 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
   }
 
   const handleFileUpload = (file) => {
-    addResource(file.name, "https://youtube.com", lesson.resources.length);
+    console.log(file);
+    addResource(file.name, file.name, lesson.resources.length);
   };
 
   function saveTitle(newTitle) {
@@ -45,14 +46,14 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     });
   }
 
-  function addResource(name, link, resourcePosition) {
+  function addResource(name, url, resourcePosition) {
     modulesContext.dispatch({
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
       type: "ADD_RESOURCE",
       name: name,
       resourcePosition: resourcePosition,
-      link: link,
+      url: url,
     });
   }
 
@@ -74,9 +75,9 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
       modulesContext.dispatch({
         modulePosition: modulePosition,
         lessonPosition: lesson.position,
+        id: response.data.id,
         type: "SAVE_LESSON",
       });
-    console.log(response);
   }
 
   function eraseLesson() {
