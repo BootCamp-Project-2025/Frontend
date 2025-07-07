@@ -12,6 +12,7 @@ import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 
 export default function Router() {
   return (
@@ -27,14 +28,7 @@ export default function Router() {
             </main>
           }
         />
-        <Route
-          path="/courses/:idCourse"
-          element={
-            <main>
-              <p>courses id</p>
-            </main>
-          }
-        />
+        <Route path="/courses/:idCourse" element={<CourseDetails />} />
         <Route
           path="/teachers"
           element={
