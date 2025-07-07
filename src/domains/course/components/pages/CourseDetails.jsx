@@ -72,11 +72,9 @@ export const CourseDetails = () => {
           {reviews.map((r, idx) => (
             <CourseReview key={idx} {...r} />
           ))}
-          <div className="flex justify-end">
-            <Button variant="ghost" className="flex items-center font-bold">
-              Show more
-            </Button>
-          </div>
+          <Button variant="bordered" className="flex justify-center font-bold">
+            Show more reviews
+          </Button>
         </div>
       </div>
     </>
