@@ -6,6 +6,8 @@ import { ModulesContext } from "../../customHooks/ModuleContext";
 import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
+import { ApiDelete } from "../../api/ApiDelete";
+import { ApiPost } from "../../api/ApiPost";
 
 export default function CourseModule({ modulePosition, ...props }) {
   const modulesContext = useContext(ModulesContext);
@@ -36,11 +38,27 @@ export default function CourseModule({ modulePosition, ...props }) {
     );
   }
 
-  function eraseModule() {
+  async function eraseModule() {
+    const { error } = await ApiDelete(`courses/modules/${module.id}`);
+    if (error) return;
     modulesContext.dispatch({
       type: "DELETE_MODULE",
       modulePosition: module.position,
     });
+  }
+
+  async function saveModule() {
+    const response = await ApiPost(
+      `courses/${module.courseId}/modules`,
+      module
+    );
+    console.log(response);
+    if (!response.error)
+      modulesContext.dispatch({
+        modulePosition: modulePosition,
+        type: "SAVE_MODULE",
+        id: response.data.id,
+      });
   }
 
   function saveTitle(newTitle) {
@@ -49,10 +67,6 @@ export default function CourseModule({ modulePosition, ...props }) {
       modulePosition: modulePosition,
       title: newTitle,
     });
-  }
-
-  function saveModule() {
-    console.log(module);
   }
 
   return (

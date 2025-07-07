@@ -7,14 +7,15 @@ import SyllabusInfo from "../molecules/SyllabusInfo";
 import CourseModule from "./CourseModule";
 import { moduleReducer } from "../../utils/ModuleReducer";
 import { ApiGet } from "../../api/ApiGet";
+import { useSearchParams } from "react-router-dom";
 
 export default function CourseSyllabus() {
+  const [searchParams] = useSearchParams();
   useEffect(() => {
     const loadData = async () => {
       const { responseData } = await ApiGet(
-        "courses/253c3ed5-53ba-4d61-95b5-6dfca64e724d/modules"
+        `courses/${searchParams.get("course")}/modules`
       );
-      console.log(responseData);
       dispatch({
         type: "SET",
         payload: responseData.data,
@@ -26,7 +27,11 @@ export default function CourseSyllabus() {
   const [modules, dispatch] = useReducer(moduleReducer, []);
 
   function addModule(position) {
-    dispatch({ type: "ADD_MODULE", postion: position });
+    dispatch({
+      type: "ADD_MODULE",
+      postion: position,
+      courseId: searchParams.get("course"),
+    });
   }
 
   return (
@@ -47,23 +52,21 @@ export default function CourseSyllabus() {
             >
               <div className="flex w-full items-center">
                 <Icon icon={"plus"} />
-                <p className="mx-auto">add module</p>
+                <p className="mx-auto">Add module</p>
               </div>
             </Button>
             <CourseModule title={module.title} modulePosition={id} />
           </div>
         ))}
         <Button
-          onClick={() =>
-            dispatch({ type: "ADD_MODULE", postion: modules.length })
-          }
+          onClick={() => addModule(modules.length)}
           radius="small"
           className={"w-40 my-4 text-center self-start"}
           variant="bordered"
         >
           <div className="flex w-full items-center">
             <Icon icon={"plus"} />
-            <p className="mx-auto">add module</p>
+            <p className="mx-auto">Add module</p>
           </div>
         </Button>
         <Button radius="small" className={"self-center w-40 my-4 text-center"}>
