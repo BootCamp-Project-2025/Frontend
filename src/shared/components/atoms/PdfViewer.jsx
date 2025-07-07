@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function PdfViewer({ url }) {
   return (
     <iframe
@@ -9,3 +11,7 @@ export default function PdfViewer({ url }) {
     />
   );
 }
+
+PdfUploader.propTypes = {
+  url: PropTypes.string,
+};
