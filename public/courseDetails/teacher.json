@@ -4,5 +4,6 @@
   "courses": 10,
   "rating": 4.9,
   "students": 86280,
-  "avatarURL": "https://randomuser.me/api/portraits/men/7.jpg"
+  "avatarURL": "https://randomuser.me/api/portraits/men/7.jpg",
+  "teacherId": "u123456"
 }

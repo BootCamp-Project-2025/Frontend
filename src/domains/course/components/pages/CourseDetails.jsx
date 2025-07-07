@@ -20,7 +20,7 @@ export const CourseDetails = () => {
   };
 
   const getBannerAndDescription = () =>
-    fetchJSON("/courseDetails/banner-description.json");
+    fetchJSON("/courseDetails/basicInformation.json");
 
   const getCourseModules = () => fetchJSON("/courseDetails/modules.json");
 
@@ -59,13 +59,13 @@ export const CourseDetails = () => {
         {teacher && (
           <>
             <Title size="lg" color="secondary">
-              Instructor
+              Teacher
             </Title>
             <CourseDetailTeacher {...teacher} />
           </>
         )}
 
-        <Title size="lg" color="secondary">
+        <Title size="lg" color="secondary" id="reviewsSection">
           Reviews
         </Title>
         <div className="flex flex-col gap-4">

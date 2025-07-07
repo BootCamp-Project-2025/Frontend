@@ -10,9 +10,9 @@ export const CourseBannerCategory = ({
       <Link className=" font-bold">{category}</Link>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        height="12px"
+        height="0.75rem"
         viewBox="0 -960 960 960"
-        width="12px"
+        width="0.75rem"
         fill="currentColor"
       >
         <path d="M321-48 218-151l329-329-329-329 103-103 432 432L321-48Z" />
