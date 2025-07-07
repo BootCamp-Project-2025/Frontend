@@ -75,7 +75,7 @@ export default function SyllabusExpansionWrapper({
           <Button
             onClick={save}
             color="secondary"
-            className={`px-5 bg-blue-500 ${enableSave ? "" : "hidden"}`}
+            className={`px-5 bg-blue-500 ${enableSave || newSection ? "" : "hidden"}`}
           >
             <Icon className={`fill-white w-4 h-4`} icon={"save"} />
           </Button>
