@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { useId } from "react";
 
-const Star = ({ fill = 0 }) => {
+const Star = ({ fill = 0, startSize = "1.25rem" }) => {
   const gradientId = `starGradient-${useId()}`;
 
   return (
     <svg
-      height="20px"
-      width="20px"
+      height={startSize}
+      width={startSize}
       viewBox="0 -960 960 960"
       className="inline-block mx-0.5"
     >
@@ -27,23 +27,30 @@ const Star = ({ fill = 0 }) => {
 
 Star.propTypes = {
   fill: PropTypes.number,
+  startSize: PropTypes.string,
 };
 
-export const RatingStars = ({ rating = 0 }) => {
+export const RatingStars = ({
+  rating = 0,
+  startSize = "1.25rem",
+  numberText = true,
+}) => {
   const totalStars = 5;
 
   const safeRating = Math.min(Math.max(rating, 0), totalStars);
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-lg font-bold text-[#FFD82B]">
-        {safeRating.toFixed(1)}
-      </span>
+      {numberText == true && (
+        <span className="text-lg font-bold text-[#FFD82B]">
+          {safeRating.toFixed(1)}
+        </span>
+      )}
 
       <div className="flex">
         {Array.from({ length: totalStars }, (_, i) => {
           const fill = Math.max(0, Math.min(1, safeRating - i));
-          return <Star key={i} fill={fill} />;
+          return <Star key={i} fill={fill} startSize={startSize} />;
         })}
       </div>
     </div>
@@ -52,4 +59,6 @@ export const RatingStars = ({ rating = 0 }) => {
 
 RatingStars.propTypes = {
   rating: PropTypes.number,
+  startSize: PropTypes.string,
+  numberText: PropTypes.bool,
 };
