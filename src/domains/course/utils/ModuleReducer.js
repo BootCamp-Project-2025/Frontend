@@ -5,7 +5,7 @@ export const moduleReducer = (state, action) => {
       newState.splice(action.postion, 0, {
         title: "new module",
         lessons: [],
-        id: Math.floor(Math.random() * 1000000),
+        position: action.postion,
         new: true,
       });
       return newState;
@@ -15,10 +15,34 @@ export const moduleReducer = (state, action) => {
       newState[action.modulePosition].lessons[action.lessonPosition] = {
         title: "new lesson",
         resources: [],
-        videos: [],
-        id: Math.floor(Math.random() * 1000000),
+        videoUrls: [],
+        position: action.lessonPosition,
+        description: "",
         new: true,
       };
+      return newState;
+    }
+    case "ADD_RESOURCE": {
+      const newState = [...state];
+      newState[action.modulePosition].lessons[action.lessonPosition].resources[
+        action.resourcePosition
+      ] = {
+        name: action.name,
+        link: action.link,
+      };
+      return newState;
+    }
+    case "DELETE_RESOURCE": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      const resources = [...lesson.resources];
+      resources.splice(action.resourcePosition, 1);
+      lesson.resources = resources;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
       return newState;
     }
     case "EDIT_MODULE_TITLE": {
@@ -37,27 +61,33 @@ export const moduleReducer = (state, action) => {
     }
     case "SET":
       return action.payload;
-    case "SAVE_MODULE": {
+    case "DELETE_MODULE": {
       const newState = [...state];
-      action.module.edited = false;
-      console.log("Saving module:", action.module);
+      return newState.filter(
+        (module) => module.position !== action.modulePosition
+      );
+    }
+    case "DELETE_LESSON": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      module.lessons = lessons.filter(
+        (lesson) => lesson.position !== action.lessonPosition
+      );
+      newState[action.modulePosition] = module;
       return newState;
     }
     case "SAVE_LESSON": {
       const newState = [...state];
-      state[action.modulePosition].lessons[action.lessonPosition].edited =
-        false;
-      console.log("Saving lesson:", action.lesson);
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      lesson.edited = false;
+      lesson.new = false;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
       return newState;
-    }
-    case "DELETE_MODULE":
-      return state.filter((module) => module.id !== action.id);
-    case "DELETE_LESSON": {
-      const newState = [...state];
-      newState[action.modulePosition].lessons = state[
-        action.modulePosition
-      ].lessons.filter((lesson) => lesson.id !== action.id);
-      return [...state];
     }
     default:
       return state;
