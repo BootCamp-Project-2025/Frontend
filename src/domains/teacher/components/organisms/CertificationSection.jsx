@@ -25,10 +25,7 @@ export default function CertificationSection() {
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    // fetch("/requestCertifications.json")
-    //   .then((res) => res.json())
-    //   .then((data) => setRecordList(data))
-    //   .catch((err) => console.error("Error loading data:", err));
+    //const response = getRequest("/")
   }, []);
 
   const handleOpenPopup = () => {

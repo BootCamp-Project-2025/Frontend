@@ -11,6 +11,14 @@ import VectorDownIcon from "../../../assets/vectorDown.svg?react";
 import SaveIcon from "../../../assets/save.svg?react";
 import EmailIcon from "../../../assets/email.svg?react";
 import DeleteIcon from "../../../assets/delete.svg?react";
+import LogoutIcon from "../../../assets/logout.svg?react";
+import MenuIcon from "../../../assets/menu.svg?react";
+import HomeIcon from "../../../assets/home.svg?react";
+import MessageIcon from "../../../assets/message.svg?react";
+import UserIcon from "../../../assets/user.svg?react";
+import CourseIcon from "../../../assets/course.svg?react";
+import DashboardIcon from "../../../assets/dashboard.svg?react";
+import TeacherIcon from "../../../assets/teacher.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -27,6 +35,14 @@ const icons = {
   vectorDown: VectorDownIcon,
   email: EmailIcon,
   delete: DeleteIcon,
+  logout: LogoutIcon,
+  menu: MenuIcon,
+  home: HomeIcon,
+  message: MessageIcon,
+  user: UserIcon,
+  course: CourseIcon,
+  dashboard: DashboardIcon,
+  teacher: TeacherIcon,
 };
 
 export function Icon({ icon, className }) {
