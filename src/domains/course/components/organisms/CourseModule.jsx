@@ -3,7 +3,7 @@ import ButtonSection from "../molecules/ModuleButtonSection";
 import CourseLesson from "./CourseLesson";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
-import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
+import SyllabusExpansionWrapper from "./SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
 import { ApiDelete } from "../../api/ApiDelete";
@@ -57,7 +57,7 @@ export default function CourseModule({ modulePosition, ...props }) {
         `courses/${searchParams.get("course")}/modules`,
         module
       );
-    if (module.edited)
+    else if (module.edited)
       response = await ApiPut(`courses/modules/${module.id}`, module);
     if (!response.error)
       modulesContext.dispatch({
@@ -77,10 +77,10 @@ export default function CourseModule({ modulePosition, ...props }) {
 
   function checkRepeatTitle(tittle) {
     if (
-      modulesContext.modules.filter((module) => module.title === tittle)
-        .length > 0
+      modulesContext.modules.filter(
+        (mod) => mod.title === tittle && mod.position !== module.position
+      ).length > 0
     ) {
-      console.error("Module title already exists");
       return true;
     }
     return false;
