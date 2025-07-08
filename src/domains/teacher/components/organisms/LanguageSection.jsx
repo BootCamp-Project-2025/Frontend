@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileSection } from "../molecules/ProfileSection";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
@@ -6,55 +6,36 @@ import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { LanguageCard } from "../molecules/LanguageCard";
 import { LanguageForm } from "./LanguageForm";
+import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 
 export const LanguageSection = () => {
-  const [languageList, setLanguageList] = useState([]);
+  const [recordList, setRecordList] = useState([]);
+  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    fetch("/requestLanguages.json")
-      .then((res) => res.json())
-      .then((data) => setLanguageList(data))
-      .catch((err) => console.error("Error loading languages:", err));
+    fetchFreelancerData({
+      method: getFreelancerResource,
+      args: [freelancerId, "languages"],
+      setState: setRecordList,
+    });
   }, []);
 
-  const addLanguage = (lang) => {
-    setLanguageList((prev) => [...prev, lang]);
-    closePopup();
-  };
-
-  const updateLanguage = (lang) => {
-    setLanguageList((prev) => prev.map((l) => (l.id === lang.id ? lang : l)));
-    closePopup();
-  };
-
-  const removeLanguage = (id) => {
-    setLanguageList((prev) => prev.filter((l) => l.id !== id));
-    closePopup();
-  };
-
-  const handleOpenDeletePopup = (lang) => {
-    openPopup(
-      DeleteCardPopup,
-      { deleteAction: removeLanguage, id: lang.id, closePopup },
-      true
-    );
-  };
-
-  const handleAdd = () => {
+  const handleOpenPopup = () => {
     openPopup(
       PopupFormLayout,
       {
         title: "Add Language",
-        children: <LanguageForm addLanguage={addLanguage} />,
+        children: <LanguageForm addCard={addCard} />,
         onClose: closePopup,
       },
       true
     );
   };
 
-  const handleEdit = (lang) => {
-    console.log("edit button", lang);
+  const handleEditPopup = (lang) => {
     openPopup(
       PopupFormLayout,
       {
@@ -63,9 +44,9 @@ export const LanguageSection = () => {
           <LanguageForm
             id={lang.id}
             name={lang.name}
-            proficiency={lang.proficiency}
-            updateLanguage={updateLanguage}
-            removeLanguage={removeLanguage}
+            level={lang.level}
+            updateCard={updateCard}
+            closeForm={closePopup}
           />
         ),
         onClose: closePopup,
@@ -74,28 +55,52 @@ export const LanguageSection = () => {
     );
   };
 
+  const handleOpenDeletePopup = (lang) => {
+    openPopup(
+      DeleteCardPopup,
+      { deleteAction: deleteCard, id: lang.id, closePopup },
+      true
+    );
+  };
+
+  const editCard = (cardId) => {
+    const lang = recordList.find((l) => l.id === cardId);
+    if (lang) handleEditPopup(lang);
+  };
+
+  const { addCard, updateCard, deleteCard } = useFreelancerResources({
+    freelancerId,
+    resourceType: "languages",
+    recordList: recordList,
+    setRecordList: setRecordList,
+    closePopup,
+    openEditPopup: handleEditPopup,
+  });
+
   return (
-    <>
-      <ProfileSection title="Languages">
-        <div className="space-y-2">
-          {languageList.map((l) => (
-            <LanguageCard
-              key={l.id}
-              id={l.id}
-              name={l.name}
-              proficiency={l.proficiency}
-              editCard={() => handleEdit(l)}
-              deleteCard={handleOpenDeletePopup}
-            />
-          ))}
-        </div>
-        <div className="mt-4">
-          <Button variant="bordered" onClick={handleAdd}>
-            <span className="material-symbols-outlined">add</span>
-            <span>Add Language</span>
-          </Button>
-        </div>
-      </ProfileSection>
-    </>
+    <ProfileSection title="Languages">
+      <div className="space-y-2">
+        {recordList.map((lang) => (
+          <LanguageCard
+            key={lang.id}
+            id={lang.id}
+            name={lang.name}
+            level={lang.level}
+            editCard={editCard}
+            deleteCard={() => handleOpenDeletePopup(lang)}
+          />
+        ))}
+      </div>
+      <div className="mt-4">
+        <Button
+          variant="ghost"
+          onClick={handleOpenPopup}
+          className="border border-[color:var(--color-primary-600)]"
+        >
+          <span className="material-symbols-outlined">add</span>
+          <span>Add Language</span>
+        </Button>
+      </div>
+    </ProfileSection>
   );
 };

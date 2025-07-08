@@ -21,8 +21,6 @@ export const EducationSection = () => {
       method: getFreelancerResource,
       args: [freelancerId, "educations"],
       setState: setRecordList,
-      onSuccess: (data) => console.log("Educations recibidos:", data),
-      onError: (err) => console.error("Falló el fetch:", err),
     });
   }, []);
 

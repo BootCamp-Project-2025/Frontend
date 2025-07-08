@@ -23,8 +23,6 @@ export const ExperienceSection = () => {
       method: getFreelancerResource,
       args: [freelancerId, "experiences"],
       setState: setRecordList,
-      onSuccess: (data) => console.log("Experiences received:", data),
-      onError: (err) => console.error("Fetch failed:", err),
     });
   }, []);
 

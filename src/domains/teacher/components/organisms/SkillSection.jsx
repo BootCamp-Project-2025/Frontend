@@ -27,8 +27,6 @@ export default function SkillSection() {
             level: skill.level,
           }))
         ),
-      onSuccess: (data) => console.log("Skills received:", data),
-      onError: (err) => console.error("Fetch failed:", err),
     });
   }, []);
 
