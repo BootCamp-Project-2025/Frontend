@@ -12,7 +12,6 @@ import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import App from "./App.jsx";
-import ProtectedRoute from "./shared/guards/ProtectedRoute.jsx";
 
 export default function Router() {
   return (
