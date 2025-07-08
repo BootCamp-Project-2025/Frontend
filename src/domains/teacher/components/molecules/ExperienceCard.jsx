@@ -4,7 +4,7 @@ import { InfoCardLayout } from "../atoms/InfoCardLayout";
 
 export const ExperienceCard = ({
   id,
-  jobPosition,
+  position,
   employer,
   country,
   startDate,
@@ -19,7 +19,7 @@ export const ExperienceCard = ({
         icon={
           <span className="material-symbols-outlined">business_center</span>
         }
-        title={jobPosition}
+        title={position}
         body={
           <div className="flex flex-col gap-1 w-full">
             <div className="flex flex-row flex-wrap text-md font-semibold text-gray-800 gap-1.5 justify-between  items-center">
@@ -44,7 +44,7 @@ export const ExperienceCard = ({
 
 ExperienceCard.propTypes = {
   id: PropTypes.string,
-  jobPosition: PropTypes.string,
+  position: PropTypes.string,
   employer: PropTypes.string,
   country: PropTypes.string,
   startDate: PropTypes.string,

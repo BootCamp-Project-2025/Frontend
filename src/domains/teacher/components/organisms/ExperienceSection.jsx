@@ -7,19 +7,26 @@ import { ExperienceCard } from "../molecules/ExperienceCard";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
+import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import { formatDate } from "../../../../shared/utils/formatDate";
 
 export const ExperienceSection = () => {
   const [recordList, setRecordList] = useState([]);
-  const [cardSelected, setCardSelected] = useState(null);
-
-  useEffect(() => {
-    fetch("/requestExperience.json")
-      .then((res) => res.json())
-      .then((data) => setRecordList(data))
-      .catch((err) => console.error("Error loading  data:", err));
-  }, []);
+  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
 
   const { openPopup, closePopup } = usePopup();
+
+  useEffect(() => {
+    fetchFreelancerData({
+      method: getFreelancerResource,
+      args: [freelancerId, "experiences"],
+      setState: setRecordList,
+      onSuccess: (data) => console.log("Experiences received:", data),
+      onError: (err) => console.error("Fetch failed:", err),
+    });
+  }, []);
 
   const handleOpenPopup = () => {
     openPopup(
@@ -41,7 +48,7 @@ export const ExperienceSection = () => {
         children: (
           <ExperienceForm
             id={information.id}
-            jobPosition={information.jobPosition}
+            position={information.position}
             employer={information.employer}
             country={information.country}
             description={information.description}
@@ -65,66 +72,55 @@ export const ExperienceSection = () => {
     );
   };
 
-  const addCard = (record) => {
-    setRecordList((prev) => [...prev, record]);
-    closePopup();
-  };
-
-  const updateCard = (record) => {
-    setRecordList((prev) =>
-      prev.map((element) => {
-        if (element.id == record.id) {
-          return record;
-        }
-        return element;
-      })
-    );
-    closePopup();
-  };
-
   const editCard = (cardId) => {
-    const record = recordList.find((e) => e.id == cardId);
+    const record = recordList.find((e) => e.id === cardId);
     if (record) {
-      setCardSelected(record);
       handleOpenEditPopup(record);
     }
   };
 
-  const deleteCard = (cardId) => {
-    setRecordList((prev) => prev.filter((e) => e.id !== cardId));
-    closePopup();
-  };
+  const { deleteCard, addCard, updateCard } = useFreelancerResources({
+    freelancerId,
+    resourceType: "experiences",
+    recordList,
+    setRecordList,
+    closePopup,
+    openEditPopup: handleOpenEditPopup,
+  });
 
   return (
-    <>
-      <ProfileSection title={"Experience"}>
-        <>
-          {recordList.map((exp) => (
+    <ProfileSection title={"Experience"}>
+      <>
+        {recordList.map((exp) => {
+          const startDate = formatDate(exp.startDate);
+          const endDate = formatDate(exp.endDate);
+
+          return (
             <ExperienceCard
               key={exp.id}
               id={exp.id}
-              jobPosition={exp.jobPosition}
+              position={exp.position}
               employer={exp.employer}
               country={exp.country}
-              startDate={exp.startDate}
-              endDate={exp.endDate}
+              startDate={startDate}
+              endDate={endDate}
               description={exp.description}
               editCard={editCard}
               deleteCard={handleOpenDeletePopup}
             />
-          ))}
-          <div>
-            <Button
-              onClick={handleOpenPopup}
-              variant="ghost"
-              className={"border border-[color:var(--color-prymary-600)]"}
-            >
-              <span className="material-symbols-outlined">add</span>
-              Add Experience
-            </Button>
-          </div>
-        </>
-      </ProfileSection>
-    </>
+          );
+        })}
+        <div>
+          <Button
+            onClick={handleOpenPopup}
+            variant="ghost"
+            className={"border border-[color:var(--color-primary-600)]"}
+          >
+            <span className="material-symbols-outlined">add</span>
+            Add Experience
+          </Button>
+        </div>
+      </>
+    </ProfileSection>
   );
 };

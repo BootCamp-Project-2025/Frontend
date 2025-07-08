@@ -7,19 +7,25 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
+import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
+import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import { formatDate } from "../../../../shared/utils/formatDate";
 
 export const EducationSection = () => {
   const [recordList, setRecordList] = useState([]);
-  //const [cardSelected, setCardSelected] = useState(null);
-
-  useEffect(() => {
-    fetch("/requestEducation.json")
-      .then((res) => res.json())
-      .then((data) => setRecordList(data))
-      .catch((err) => console.error("Error loading  data:", err));
-  }, []);
+  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
 
   const { openPopup, closePopup } = usePopup();
+  useEffect(() => {
+    fetchFreelancerData({
+      method: getFreelancerResource,
+      args: [freelancerId, "educations"],
+      setState: setRecordList,
+      onSuccess: (data) => console.log("Educations recibidos:", data),
+      onError: (err) => console.error("Falló el fetch:", err),
+    });
+  }, []);
 
   const handleOpenPopup = () => {
     openPopup(
@@ -44,7 +50,7 @@ export const EducationSection = () => {
             university={information.university}
             career={information.career}
             startDate={information.startDate}
-            endDate={information.endDate}
+            finishDate={information.finishDate}
             updateCard={updateCard}
             closeForm={closePopup}
           />
@@ -63,23 +69,6 @@ export const EducationSection = () => {
     );
   };
 
-  const addCard = (record) => {
-    setRecordList((prev) => [...prev, record]);
-    closePopup();
-  };
-
-  const updateCard = (record) => {
-    setRecordList((prev) =>
-      prev.map((element) => {
-        if (element.id == record.id) {
-          return record;
-        }
-        return element;
-      })
-    );
-    closePopup();
-  };
-
   const editCard = (cardId) => {
     const record = recordList.find((e) => e.id == cardId);
     if (record) {
@@ -87,27 +76,35 @@ export const EducationSection = () => {
     }
   };
 
-  const deleteCard = (cardId) => {
-    setRecordList((prev) => prev.filter((e) => e.id !== cardId));
-    closePopup();
-  };
+  const { deleteCard, addCard, updateCard } = useFreelancerResources({
+    freelancerId,
+    resourceType: "educations",
+    recordList,
+    setRecordList,
+    closePopup,
+    openEditPopup: handleOpenEditPopup,
+  });
 
   return (
     <>
       <ProfileSection title={"Education"}>
         <>
-          {recordList.map((data) => (
-            <EducationCard
-              key={data.id}
-              id={data.id}
-              university={data.university}
-              career={data.career}
-              startDate={data.startDate}
-              endDate={data.endDate}
-              editCard={editCard}
-              deleteCard={handleOpenDeletePopup}
-            />
-          ))}
+          {recordList.map((data, index) => {
+            const startDate = formatDate(data.startDate);
+            const finishDate = formatDate(data.finishDate);
+            return (
+              <EducationCard
+                key={index}
+                id={data.id}
+                university={data.university}
+                career={data.career}
+                startDate={startDate}
+                finishDate={finishDate}
+                editCard={editCard}
+                deleteCard={handleOpenDeletePopup}
+              />
+            );
+          })}
           <div>
             <Button
               onClick={handleOpenPopup}

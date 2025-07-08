@@ -8,10 +8,9 @@ function SkillSelect({ onChange, value }) {
       type="select"
       value={value}
     >
-      <option value="Beginner">Beginner</option>
-      <option value="Intermediate">Intermediate</option>
-      <option value="Advanced">Advanced</option>
-      <option value="Expert">Expert</option>
+      <option value="beginner">Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
     </select>
   );
 }
