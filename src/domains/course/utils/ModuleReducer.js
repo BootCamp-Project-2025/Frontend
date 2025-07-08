@@ -3,33 +3,59 @@ export const moduleReducer = (state, action) => {
     case "ADD_MODULE": {
       const newState = [...state];
       newState.splice(action.postion, 0, {
-        title: "new module",
+        title: `new module ${action.postion + 1}`,
         lessons: [],
-        position: action.postion,
+        position: calculateNewPosition(newState, action.postion),
         new: true,
+        courseId: action.courseId,
       });
       return newState;
     }
     case "ADD_LESSON": {
       const newState = [...state];
-      newState[action.modulePosition].lessons[action.lessonPosition] = {
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      lessons.push({
         title: "new lesson",
         resources: [],
         videoUrls: [],
-        position: action.lessonPosition,
+        position: lessons.length,
         description: "",
         new: true,
-      };
+      });
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
       return newState;
     }
     case "ADD_RESOURCE": {
       const newState = [...state];
-      newState[action.modulePosition].lessons[action.lessonPosition].resources[
-        action.resourcePosition
-      ] = {
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      const resources = [...lesson.resources];
+      lesson.edited = true;
+      resources.push({
         name: action.name,
-        link: action.link,
-      };
+        url: action.url,
+      });
+      lesson.resources = resources;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
+      return newState;
+    }
+    case "ADD_VIDEO": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      const videoUrls = [...lesson.videoUrls];
+      lesson.edited = true;
+      videoUrls.push(action.url);
+      lesson.videoUrls = videoUrls;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
       return newState;
     }
     case "DELETE_RESOURCE": {
@@ -39,7 +65,23 @@ export const moduleReducer = (state, action) => {
       const lesson = { ...lessons[action.lessonPosition] };
       const resources = [...lesson.resources];
       resources.splice(action.resourcePosition, 1);
-      lesson.resources = resources;
+      lesson.edited = true;
+      lesson.resources = resources.filter(
+        (resource) => resource.name !== action.name
+      );
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
+      return newState;
+    }
+    case "DELETE_VIDEO": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      const videoUrls = [...lesson.videoUrls];
+      lesson.edited = true;
+      lesson.videoUrls = videoUrls.filter((url) => url !== action.url);
       lessons[action.lessonPosition] = lesson;
       module.lessons = lessons;
       newState[action.modulePosition] = module;
@@ -47,16 +89,21 @@ export const moduleReducer = (state, action) => {
     }
     case "EDIT_MODULE_TITLE": {
       const newState = [...state];
+      if (newState[action.modulePosition].title !== action.title)
+        newState[action.modulePosition].edited = true;
       newState[action.modulePosition].title = action.title;
-      newState[action.modulePosition].edited = true;
       return newState;
     }
     case "EDIT_LESSON_TITLE": {
       const newState = [...state];
-      newState[action.modulePosition].lessons[action.lessonPosition].title =
-        action.title;
-      newState[action.modulePosition].lessons[action.lessonPosition].edited =
-        true;
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      if (lesson.title !== action.title) lesson.edited = true;
+      lesson.title = action.title;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
       return newState;
     }
     case "SET":
@@ -84,8 +131,18 @@ export const moduleReducer = (state, action) => {
       const lesson = { ...lessons[action.lessonPosition] };
       lesson.edited = false;
       lesson.new = false;
+      lesson.id = action.id;
       lessons[action.lessonPosition] = lesson;
       module.lessons = lessons;
+      newState[action.modulePosition] = module;
+      return newState;
+    }
+    case "SAVE_MODULE": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      module.edited = false;
+      module.new = false;
+      module.id = action.id;
       newState[action.modulePosition] = module;
       return newState;
     }
@@ -93,3 +150,13 @@ export const moduleReducer = (state, action) => {
       return state;
   }
 };
+
+function calculateNewPosition(modules, position) {
+  if (modules[position] === undefined) {
+    return modules.length + 1;
+  }
+
+  const a = modules[position - 1]?.position ?? 0;
+  const b = modules[position].position;
+  return (a + b) / 2;
+}

@@ -17,9 +17,8 @@ export default function LessonContentGroup({
           <LessonContentRow
             eraseResource={eraseResource}
             key={id}
-            name={resource.name}
-            link={resource.link}
-            resourcePosition={id}
+            name={resource.name ?? resource}
+            url={resource.url ?? resource}
           />
         ))}
       </div>
