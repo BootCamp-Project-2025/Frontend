@@ -72,7 +72,10 @@ export default function SyllabusExpansionWrapper({
         {...props}
       >
         <div className="flex items-center gap-4">
-          <Title color="black">{`${sectionTitle}:`}</Title>
+          <Title
+            className="hidden md:block"
+            color="black"
+          >{`${sectionTitle}:`}</Title>
           <div className={`${editTitle ? "" : "hidden"}`}>
             <TextInput
               ref={inputRef}

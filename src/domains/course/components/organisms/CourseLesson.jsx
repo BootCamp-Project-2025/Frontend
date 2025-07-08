@@ -22,6 +22,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
   const inputRef = useRef(lesson.description);
   const inputOriginalRef = useRef(lesson.description);
   const { openPopup, closePopup } = usePopup();
+  lesson.description = inputRef.current;
 
   const buttons = [
     { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
@@ -138,8 +139,12 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
 
   async function saveLesson() {
     let response;
+    if (modulesContext.modules[modulePosition].new === true) {
+      alert("Error: module needs to be saved before lesson");
+      return;
+    }
     if (!validateDescription()) return;
-    if (lesson.new === true && descriptionEdited)
+    if (lesson.new === true)
       response = await ApiPost(
         `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
         { ...lesson, description: inputRef.current }
