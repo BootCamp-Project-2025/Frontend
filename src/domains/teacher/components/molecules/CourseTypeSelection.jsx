@@ -1,27 +1,41 @@
 import PropTypes from "prop-types";
-import { Title } from "../../../../shared/components/atoms/Title";
+import { Button } from "../../../../shared/components/atoms/Button";
+import usePopup from "../../../../shared/hooks/usePopup";
+import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
+import CourseForm from "./CourseForm";
 
-CourseTypeSelection.propTypes = {
-  setCourseType: PropTypes.func.isRequired,
-};
+export default function CourseTypeSelection({ addCourse }) {
+  const { openPopup, closePopup } = usePopup();
+  const handleSetCourseType = (type) => {
+    openPopup(
+      PopupFormLayout,
+      {
+        title: "Fill this information",
+        children: (
+          <CourseForm
+            closePopup={closePopup}
+            type={type}
+            addCourse={addCourse}
+          />
+        ),
+        onClose: closePopup,
+      },
+      true
+    );
+  };
 
-export default function CourseTypeSelection({ setCourseType }) {
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <Title className="text-center">
-        First of all, what type of course do you want to create?
-      </Title>
-
-      <section className="flex flex-col md:flex-row gap-6">
-        <article className="w-full md:w-1/2 min-h-[200px] border border-gray-300 rounded-xl flex items-center justify-center p-4 bg-white shadow-sm hover:shadow-md transition-shadow">
-          <button
-            type="button"
-            className="flex flex-col items-center justify-center space-y-2 w-full h-full focus:outline-none"
-            onClick={() => setCourseType("static")}
-          >
+    <div className="flex flex-col gap-6 w-full justify-center">
+      <section className="flex flex-col md:flex-row gap-6 justify-center">
+        <Button
+          variant="bordered"
+          color="default"
+          radius="none"
+          onClick={() => handleSetCourseType("static")}
+        >
+          <div className="flex flex-col items-center space-y-2">
             <svg
-              width="36"
-              height="31"
+              className="w-10 h-10"
               viewBox="0 0 36 31"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -31,21 +45,21 @@ export default function CourseTypeSelection({ setCourseType }) {
                 fill="#3B82F6"
               />
             </svg>
-            <span className="text-blue-500 text-lg md:text-xl font-semibold">
+            <span className="text-lg md:text-xl text-[color:var(--color-primary-500)] font-normal">
               Static Course
             </span>
-          </button>
-        </article>
+          </div>
+        </Button>
 
-        <article className="w-full md:w-1/2 min-h-[200px] border border-gray-300 rounded-xl flex items-center justify-center p-4 bg-white shadow-sm hover:shadow-md transition-shadow">
-          <button
-            type="button"
-            className="flex flex-col items-center justify-center space-y-2 w-full h-full focus:outline-none"
-            onClick={() => setCourseType("p2p")}
-          >
+        <Button
+          variant="bordered"
+          color="default"
+          radius="none"
+          onClick={() => handleSetCourseType("p2p")}
+        >
+          <div className="flex flex-col items-center space-y-2">
             <svg
-              width="31"
-              height="31"
+              className="w-10 h-10"
               viewBox="0 0 31 31"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -78,17 +92,20 @@ export default function CourseTypeSelection({ setCourseType }) {
               </g>
               <defs>
                 <clipPath id="clip0_248_417">
-                  <rect width="31" height="31" fill="white" />
+                  <rect width="40" height="40" fill="white" />
                 </clipPath>
               </defs>
             </svg>
-
-            <span className="text-blue-500 text-lg md:text-xl font-semibold">
+            <span className="text-lg md:text-xl text-[color:var(--color-primary-500)] font-normal">
               P2P Course
             </span>
-          </button>
-        </article>
+          </div>
+        </Button>
       </section>
     </div>
   );
 }
+
+CourseTypeSelection.propTypes = {
+  addCourse: PropTypes.func.isRequired,
+};

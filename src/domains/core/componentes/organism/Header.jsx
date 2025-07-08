@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavBarLogo } from "../atoms/NavBarLogo";
 import { HeaderButtons } from "../molecules/HeaderButtons";
 import { AvatarMenuDropDown } from "../molecules/AvatarMenuDropDown";
@@ -9,17 +9,20 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../../../teacher/components/atoms/PopupFormLayout";
 import { BecomeTeacherDialog } from "../molecules/BecomeTeacherDialog";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../shared/hooks/useAuth";
+import { updateRoles } from "../../../../shared/api/AuthApi";
 
 export const Header = () => {
-  const navigate = useNavigate();
-  const defaultUser = {
-    userName: "Jose Medina",
-    avatarURL:
-      "https://www.elitesingles.co.uk/wp-content/uploads/sites/59/2019/11/2b_en_articleslide_sm2-350x264.jpg",
-    userEmail: "jose.medina@gmail.com",
-    isTeacher: false,
-  };
+  const {
+    handleLogin,
+    handleLogout,
+    user: authUser,
+    isAuthenticated,
+    handleSignUp,
+    updateSessionRoles,
+  } = useAuth();
 
+  const navigate = useNavigate();
   const { openPopup, closePopup } = usePopup();
 
   const handleOpenPopup = () => {
@@ -38,19 +41,22 @@ export const Header = () => {
       true
     );
   };
-  const acceptBecomeTeacher = () => {
-    setUser({ ...defaultUser, isTeacher: true });
+  const acceptBecomeTeacher = async () => {
     closePopup();
-    navigate("./teacher/profile");
+    await updateRoles("FREELANCER");
+    await updateSessionRoles(["FREELANCER"], "/teacher/profile");
+    navigate("/teacher/profile");
   };
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [user, setUser] = useState(null);
-  const signIn = () => setUser({ ...defaultUser });
-  const signUp = () => {};
+  const signIn = () => handleLogin();
+  const signUp = () => {
+    handleSignUp();
+  };
   const logOut = () => {
     navigate("./");
-    setUser(null);
+    handleLogout();
   };
 
   const becomeTeacher = () => {
@@ -58,11 +64,15 @@ export const Header = () => {
   };
 
   const switchToTeacher = () => {
-    navigate("./teacher/profile");
+    navigate("/teacher/profile");
   };
   const switchToStudent = () => {
-    navigate("./");
+    navigate("/");
   };
+
+  useEffect(() => {
+    setUser(authUser);
+  }, [authUser]);
 
   return (
     <header className="flex items-center justify-center h-[5.625rem] border-gray-300 shadow-md bg-white sticky top-0 z-10">
@@ -83,7 +93,7 @@ export const Header = () => {
             switchToStudent={switchToStudent}
           ></HeaderButtons>
 
-          {user && (
+          {isAuthenticated && user && (
             <AvatarMenuDropDown
               className="hidden md:flex h-[2.6rem]"
               userName={user?.userName}
