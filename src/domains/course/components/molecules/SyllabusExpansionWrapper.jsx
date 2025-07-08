@@ -9,6 +9,7 @@ export default function SyllabusExpansionWrapper({
   saveTitle,
   save,
   erase,
+  checkRepeatTitle,
   enableSave = false,
   newSection = false,
   borderTitle = true,
@@ -28,6 +29,10 @@ export default function SyllabusExpansionWrapper({
   }, [editTitle]);
 
   function validateTitle(e) {
+    if (checkRepeatTitle(e.target.value)) {
+      setError("Title already exists");
+      return false;
+    }
     if (e.target.value.length > 20) {
       setError("Title cannot exceed 20 characters");
       return false;
@@ -134,6 +139,7 @@ SyllabusExpansionWrapper.propTypes = {
   children: PropTypes.element,
   save: PropTypes.func,
   saveTitle: PropTypes.func,
+  checkRepeatTitle: PropTypes.func,
   erase: PropTypes.func,
   borderTitle: PropTypes.bool,
   enableSave: PropTypes.bool,

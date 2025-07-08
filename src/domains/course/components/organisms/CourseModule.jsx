@@ -52,7 +52,6 @@ export default function CourseModule({ modulePosition, ...props }) {
 
   async function saveModule() {
     let response;
-    console.log(module);
     if (module.new)
       response = await ApiPost(
         `courses/${searchParams.get("course")}/modules`,
@@ -76,11 +75,23 @@ export default function CourseModule({ modulePosition, ...props }) {
     });
   }
 
+  function checkRepeatTitle(tittle) {
+    if (
+      modulesContext.modules.filter((module) => module.title === tittle)
+        .length > 0
+    ) {
+      console.error("Module title already exists");
+      return true;
+    }
+    return false;
+  }
+
   return (
     <SyllabusExpansionWrapper
       save={saveModule}
       saveTitle={saveTitle}
       erase={eraseConfirmationPopUp}
+      checkRepeatTitle={checkRepeatTitle}
       className="mt-10 mx-20"
       enableSave={module.edited ?? false}
       newSection={module.new ?? false}
