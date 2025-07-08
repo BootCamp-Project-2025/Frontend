@@ -20,7 +20,12 @@ export default function SyllabusExpansionWrapper({
   ...props
 }) {
   const [displayChild, setDisplayChild] = useState(true);
-  const [editTitle, setEditTitle] = useState(false);
+  const [editTitle, setEditTitle] = useState(() => title === "");
+
+  useEffect(() => {
+    setEditTitle(title === "");
+  }, [title]);
+
   const [error, setError] = useState("");
   const inputRef = useRef(null);
 
@@ -29,14 +34,15 @@ export default function SyllabusExpansionWrapper({
   }, [editTitle]);
 
   function validateTitle(e) {
-    if (checkRepeatTitle(e.target.value)) {
+    const title = e.target?.value ?? e;
+    if (checkRepeatTitle(title)) {
       setError("Title already exists");
       return false;
     }
-    if (e.target.value.length > 20) {
+    if (title.length > 20) {
       setError("Title cannot exceed 20 characters");
       return false;
-    } else if (e.target.value.length < 5) {
+    } else if (title.length < 5) {
       setError("Title cannot be less than 5 characters");
       return false;
     }
@@ -50,6 +56,15 @@ export default function SyllabusExpansionWrapper({
     }
     setEditTitle(!editTitle);
   }
+
+  function saveHandle() {
+    if (editTitle) {
+      setError("you need to save the title");
+      return;
+    }
+    save();
+  }
+
   return (
     <div className={`py-2 ${className}`}>
       <div
@@ -81,7 +96,7 @@ export default function SyllabusExpansionWrapper({
           {editTitle ? (
             <Button
               onClick={() => {
-                if (error) return;
+                if (!validateTitle(inputRef.current.value)) return;
                 saveTitle(inputRef.current.value);
                 enableEdit();
               }}
@@ -98,7 +113,7 @@ export default function SyllabusExpansionWrapper({
         </div>
         <div>
           <Button
-            onClick={save}
+            onClick={saveHandle}
             color="secondary"
             className={`px-5 bg-blue-500 ${enableSave || newSection ? "" : "hidden"}`}
           >

@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import LessonContentGroup from "./LessonContentGroup";
 import PropTypes from "prop-types";
 import { ModulesContext } from "../../customHooks/ModuleContext";
 import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
-import SyllabusExpansionWrapper from "../molecules/SyllabusExpansionWrapper";
+import SyllabusExpansionWrapper from "./SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
 import { UploadModal } from "../../../../shared/components/molecules/UploadModal";
@@ -14,9 +14,13 @@ import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
 
 export default function CourseLesson({ modulePosition, lessonPosition }) {
-  const [modalOpen, setModalOpen] = useState(false);
   const modulesContext = useContext(ModulesContext);
+  const [descriptionEdited, setDescriptionEdited] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
   const lesson = modulesContext.modules[modulePosition].lessons[lessonPosition];
+  const [modalOpen, setModalOpen] = useState(false);
+  const inputRef = useRef(lesson.description);
+  const inputOriginalRef = useRef(lesson.description);
   const { openPopup, closePopup } = usePopup();
 
   const buttons = [
@@ -47,11 +51,21 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
   }
 
   const handleFileUpload = (file) => {
-    console.log(file);
+    if (
+      lesson.resources.filter((savedFile) => savedFile.name === file.name)
+        .length > 0
+    ) {
+      alert("Error: file name repeated, it will not be saved");
+      return;
+    }
     addResource(file.name, file.name, lesson.resources.length);
   };
 
   function saveVideo(url) {
+    if (lesson.videoUrls.filter((savedUrl) => savedUrl === url).length > 0) {
+      alert("Error: video url repeated, it will not be saved");
+      return;
+    }
     modulesContext.dispatch({
       type: "ADD_VIDEO",
       modulePosition: modulePosition,
@@ -98,17 +112,42 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     });
   }
 
+  function checkRepeatTitle(tittle) {
+    if (
+      modulesContext.modules[modulePosition].lessons.filter(
+        (less) => less.title === tittle && less.position !== lesson.position
+      ).length > 0
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function validateDescription() {
+    if (inputRef.current.length < 30) {
+      setDescriptionError("description is to short");
+      return false;
+    }
+    if (inputRef.current.length > 1000) {
+      setDescriptionError("description is to long");
+      return false;
+    }
+    setDescriptionError("");
+    return true;
+  }
+
   async function saveLesson() {
     let response;
-    if (lesson.new === true)
+    if (!validateDescription()) return;
+    if (lesson.new === true && descriptionEdited)
       response = await ApiPost(
         `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
-        lesson
+        { ...lesson, description: inputRef.current }
       );
     else
       response = await ApiPut(
         `courses/modules/${modulesContext.modules[modulePosition].id}/lessons/${lesson.id}`,
-        lesson
+        { ...lesson, description: inputRef.current }
       );
     if (!response.error)
       modulesContext.dispatch({
@@ -117,11 +156,11 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
         id: response.data.id,
         type: "SAVE_LESSON",
       });
+    setDescriptionEdited(false);
   }
 
   async function eraseLesson() {
     const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
-    console.log(error);
     if (error) return;
     modulesContext.dispatch({
       modulePosition: modulePosition,
@@ -133,16 +172,28 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
   return (
     <SyllabusExpansionWrapper
       save={saveLesson}
+      checkRepeatTitle={checkRepeatTitle}
       saveTitle={saveTitle}
       erase={eraseConfirmationPopUp}
       className="border-b-1 border-gray-400 mx-10"
       borderTitle={false}
-      enableSave={lesson.edited === true}
+      enableSave={lesson.edited === true || descriptionEdited}
       newSection={lesson.new === true}
-      sectionTitle={`Lesson ${lessonPosition + 1}`}
+      sectionTitle={`Lesson ${lesson.position + 1}`}
       title={lesson.title}
     >
-      <TextEditor />
+      <TextEditor
+        value={inputRef.current}
+        onChange={(e) => {
+          if (inputOriginalRef.current === e) {
+            return;
+          }
+          inputRef.current = e;
+          setDescriptionEdited(true);
+          validateDescription();
+        }}
+      />
+      <span className="text-pink-500">{descriptionError}</span>
       <UploadModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

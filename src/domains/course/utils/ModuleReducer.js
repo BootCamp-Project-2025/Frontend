@@ -3,7 +3,7 @@ export const moduleReducer = (state, action) => {
     case "ADD_MODULE": {
       const newState = [...state];
       newState.splice(action.postion, 0, {
-        title: `new module ${action.postion + 1}`,
+        title: "",
         lessons: [],
         position: calculateNewPosition(newState, action.postion),
         new: true,
@@ -16,7 +16,7 @@ export const moduleReducer = (state, action) => {
       const module = { ...newState[action.modulePosition] };
       const lessons = [...module.lessons];
       lessons.push({
-        title: "new lesson",
+        title: "",
         resources: [],
         videoUrls: [],
         position: lessons.length,
