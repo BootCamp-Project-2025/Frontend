@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { Title } from "./Title";
 import { Icon } from "./Icon";
 export const DialogContainer = ({
+  title = "",
   isOpen = true,
   onClose = () => {},
   children,
@@ -31,7 +32,7 @@ export const DialogContainer = ({
         }}
       >
         <div>
-          <Title>Title</Title>
+          <Title color="default">{title}</Title>
         </div>
         {children}
         <Button
@@ -50,6 +51,7 @@ export const DialogContainer = ({
 };
 
 DialogContainer.propTypes = {
+  title: PropTypes.string,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   children: PropTypes.element,

@@ -17,7 +17,6 @@ Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nulla
 `;
 
 const About = () => {
-  // eslint-disable-next-line no-unused-vars
   const [information, setInformation] = useState(mockInformation);
 
   const { openPopup, closePopup } = usePopup();
