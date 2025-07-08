@@ -40,7 +40,7 @@ export default function CourseSyllabus() {
         <Title className="border-b-1 my-3" color="black">
           Syllabus
         </Title>
-        <SyllabusInfo className="self-center" />
+        <SyllabusInfo className="self-center hidden md:flex" />
 
         {modules.map((module, id) => (
           <div key={`add-module-${id}`}>

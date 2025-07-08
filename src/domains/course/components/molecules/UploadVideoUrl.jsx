@@ -7,7 +7,10 @@ import { useRef } from "react";
 export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
   const inputRef = useRef(null);
   return (
-    <div className={`flex flex-col text-center gap-6 p-2`} {...props}>
+    <div
+      className={`flex flex-col w-64 md:w-xl text-center gap-6 p-4`}
+      {...props}
+    >
       <Title color="black">Upload video url</Title>
       <TextInput ref={inputRef} placeholder="video url" />
       <div className="flex justify-center gap-8 mt-2">

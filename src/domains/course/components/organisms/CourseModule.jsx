@@ -55,10 +55,14 @@ export default function CourseModule({ modulePosition, ...props }) {
     if (module.new)
       response = await ApiPost(
         `courses/${searchParams.get("course")}/modules`,
-        module
+        { title: module.title, position: module.position }
       );
     else if (module.edited)
-      response = await ApiPut(`courses/modules/${module.id}`, module);
+      response = await ApiPut(`courses/modules/${module.id}`, {
+        id: module.id,
+        title: module.title,
+        position: module.position,
+      });
     if (!response.error)
       modulesContext.dispatch({
         modulePosition: modulePosition,
