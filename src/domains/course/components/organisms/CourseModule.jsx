@@ -8,10 +8,13 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
 import { ApiDelete } from "../../api/ApiDelete";
 import { ApiPost } from "../../api/ApiPost";
+import { ApiPut } from "../../api/ApiPut";
+import { useSearchParams } from "react-router-dom";
 
 export default function CourseModule({ modulePosition, ...props }) {
   const modulesContext = useContext(ModulesContext);
   const module = modulesContext.modules[modulePosition];
+  const [searchParams] = useSearchParams();
   const { openPopup, closePopup } = usePopup();
   const buttons = [
     {
@@ -48,11 +51,15 @@ export default function CourseModule({ modulePosition, ...props }) {
   }
 
   async function saveModule() {
-    const response = await ApiPost(
-      `courses/${module.courseId}/modules`,
-      module
-    );
-    console.log(response);
+    let response;
+    console.log(module);
+    if (module.new)
+      response = await ApiPost(
+        `courses/${searchParams.get("course")}/modules`,
+        module
+      );
+    if (module.edited)
+      response = await ApiPut(`courses/modules/${module.id}`, module);
     if (!response.error)
       modulesContext.dispatch({
         modulePosition: modulePosition,

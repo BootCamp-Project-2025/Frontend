@@ -4,19 +4,18 @@ import PropTypes from "prop-types";
 
 export default function LessonContentRow({
   eraseResource,
-  resourcePosition,
   name,
-  link,
+  url,
   className,
   ...props
 }) {
   return (
     <div className={`${className} flex justify-between mt-2`} {...props}>
-      <a href={link} className="text-blue-500">
+      <a href={url} className="text-blue-500">
         {name}
       </a>
       <Button
-        onClick={() => eraseResource(resourcePosition)}
+        onClick={() => eraseResource(name)}
         variant="light"
         color="secondary"
         className={`px-5 `}
@@ -31,6 +30,6 @@ LessonContentRow.propTypes = {
   name: PropTypes.string,
   eraseResource: PropTypes.func,
   resourcePosition: PropTypes.number,
-  link: PropTypes.string,
+  url: PropTypes.string,
   className: PropTypes.string,
 };

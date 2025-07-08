@@ -9,6 +9,9 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
 import { UploadModal } from "../../../../shared/components/molecules/UploadModal";
 import { ApiPost } from "../../api/ApiPost";
+import { ApiDelete } from "../../api/ApiDelete";
+import UploadVideoUrl from "../molecules/UploadVideoUrl";
+import { ApiPut } from "../../api/ApiPut";
 
 export default function CourseLesson({ modulePosition, lessonPosition }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,7 +20,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
   const { openPopup, closePopup } = usePopup();
 
   const buttons = [
-    { text: "Video Content", onClick: () => console.log("Video Content") },
+    { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
     { text: "Resources", onClick: () => setModalOpen(true) },
   ];
 
@@ -32,10 +35,30 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     );
   }
 
+  function uploadVideoUrlPopUp() {
+    openPopup(
+      UploadVideoUrl,
+      {
+        saveVideo: saveVideo,
+        closePopup: closePopup,
+      },
+      false
+    );
+  }
+
   const handleFileUpload = (file) => {
     console.log(file);
     addResource(file.name, file.name, lesson.resources.length);
   };
+
+  function saveVideo(url) {
+    modulesContext.dispatch({
+      type: "ADD_VIDEO",
+      modulePosition: modulePosition,
+      lessonPosition: lessonPosition,
+      url: url,
+    });
+  }
 
   function saveTitle(newTitle) {
     modulesContext.dispatch({
@@ -57,20 +80,36 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
     });
   }
 
-  function eraseResource(resourcePosition) {
+  async function eraseResource(name) {
     modulesContext.dispatch({
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
-      resourcePosition: resourcePosition,
+      name: name,
       type: "DELETE_RESOURCE",
     });
   }
 
+  async function eraseVideo(url) {
+    modulesContext.dispatch({
+      modulePosition: modulePosition,
+      lessonPosition: lessonPosition,
+      url: url,
+      type: "DELETE_VIDEO",
+    });
+  }
+
   async function saveLesson() {
-    const response = await ApiPost(
-      `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
-      lesson
-    );
+    let response;
+    if (lesson.new === true)
+      response = await ApiPost(
+        `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
+        lesson
+      );
+    else
+      response = await ApiPut(
+        `courses/modules/${modulesContext.modules[modulePosition].id}/lessons/${lesson.id}`,
+        lesson
+      );
     if (!response.error)
       modulesContext.dispatch({
         modulePosition: modulePosition,
@@ -80,7 +119,10 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
       });
   }
 
-  function eraseLesson() {
+  async function eraseLesson() {
+    const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
+    console.log(error);
+    if (error) return;
     modulesContext.dispatch({
       modulePosition: modulePosition,
       lessonPosition: lesson.position,
@@ -108,6 +150,11 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
         isDragOver={false}
       />
       <ButtonSection buttonProps={buttons} />
+      <LessonContentGroup
+        eraseResource={eraseVideo}
+        resources={lesson.videoUrls}
+        title={"Videos:"}
+      />
       <LessonContentGroup
         eraseResource={eraseResource}
         resources={lesson.resources}
