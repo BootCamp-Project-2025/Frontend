@@ -1,0 +1,13 @@
+version = 1
+
+test_patterns = ["test/**"]
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = [
+    "nodejs",
+    "vitest"
+  ]
