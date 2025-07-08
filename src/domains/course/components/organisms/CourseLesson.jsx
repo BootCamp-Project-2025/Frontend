@@ -13,7 +13,11 @@ import { ApiDelete } from "../../api/ApiDelete";
 import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
 
-export default function CourseLesson({ modulePosition, lessonPosition }) {
+export default function CourseLesson({
+  modulePosition,
+  lessonPosition,
+  ...props
+}) {
   const modulesContext = useContext(ModulesContext);
   const [descriptionEdited, setDescriptionEdited] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
@@ -176,6 +180,7 @@ export default function CourseLesson({ modulePosition, lessonPosition }) {
 
   return (
     <SyllabusExpansionWrapper
+      {...props}
       save={saveLesson}
       checkRepeatTitle={checkRepeatTitle}
       saveTitle={saveTitle}

@@ -34,6 +34,27 @@ export default function CourseSyllabus() {
     });
   }
 
+  function publish() {
+    for (let i = 0; i < modules.length; i++) {
+      const module = modules[i];
+      if (module.edited === true || module.new === true) {
+        alert("there are modules without saving");
+        document.getElementById(`module-${i}`).scrollIntoView();
+        window.scrollBy({ top: -100 });
+        return;
+      }
+      for (let j = 0; j < module.lessons.length; j++) {
+        const lesson = module.lessons[j];
+        if (lesson.edited === true || lesson.new === true) {
+          alert("there are lessons without saving");
+          document.getElementById(`module-${i}-lesson-${j}`).scrollIntoView();
+          window.scrollBy({ top: -100 });
+          return;
+        }
+      }
+    }
+  }
+
   return (
     <ModulesContext.Provider value={{ modules, dispatch }}>
       <div className="flex flex-col mx-5">
@@ -55,7 +76,12 @@ export default function CourseSyllabus() {
                 <p className="mx-auto">Add module</p>
               </div>
             </Button>
-            <CourseModule title={module.title} modulePosition={id} />
+            <CourseModule
+              id={`module-${id}`}
+              key={`module-${id}`}
+              title={module.title}
+              modulePosition={id}
+            />
           </div>
         ))}
         <Button
@@ -69,8 +95,12 @@ export default function CourseSyllabus() {
             <p className="mx-auto">Add module</p>
           </div>
         </Button>
-        <Button radius="small" className={"self-center w-40 my-4 text-center"}>
-          <p className="w-full">Save all</p>
+        <Button
+          onClick={publish}
+          radius="small"
+          className={"self-center w-40 my-4 text-center"}
+        >
+          <p className="w-full">Publish</p>
         </Button>
       </div>
     </ModulesContext.Provider>
