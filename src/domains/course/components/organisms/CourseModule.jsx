@@ -106,7 +106,8 @@ export default function CourseModule({ modulePosition, ...props }) {
       <ButtonSection buttonProps={buttons} />
       {module.lessons.map((_, id) => (
         <CourseLesson
-          key={id}
+          id={`module-${modulePosition}-lesson-${id}`}
+          key={`module-${modulePosition}-lesson-${id}`}
           lessonPosition={id}
           modulePosition={modulePosition}
         />
