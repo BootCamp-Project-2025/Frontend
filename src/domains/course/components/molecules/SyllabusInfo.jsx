@@ -7,7 +7,7 @@ export default function SyllabusInfo({ className = "", ...props }) {
       className={`${className} flex border-1 gap-4 mx-80 py-3 px-6 rounded-lg`}
       {...props}
     >
-      <Icon className={"h-12 self-center"} icon="syllabusAlert" />
+      <Icon className={"w-100 self-center"} icon="syllabusAlert" />
       <p className="">
         Here will be a text to guide the teacher, for example:
         <br />
