@@ -1,24 +1,20 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
-export const CourseBannerCreatedBy = ({
-  teacher = "teacherName",
-  teacherId,
-}) => {
+export const CourseDetailsCreatedBy = ({ teacher = "teacherName" }) => {
   return (
     <div className="flex flex-row gap-1">
       <p>Created By </p>
-      <Link
+      <a
         className="text-primary-600 border-b border-primary-600"
-        to={teacherId ? `/teachers/${teacherId}` : "#"}
+        href="#teacherSection"
       >
         {teacher}
-      </Link>
+      </a>
     </div>
   );
 };
 
-CourseBannerCreatedBy.propTypes = {
+CourseDetailsCreatedBy.propTypes = {
   teacher: PropTypes.string,
   teacherId: PropTypes.string,
 };

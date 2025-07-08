@@ -13,7 +13,7 @@ const Star = ({ fill = 0, startSize = "1.25rem" }) => {
     >
       <defs>
         <linearGradient id={gradientId} x1="0%" x2="100%" y1="0%" y2="0%">
-          <stop offset={`${fill * 100}%`} stopColor="#FFD82B" />
+          <stop offset={`${fill * 100}%`} stopColor="#e2b904" />
           <stop offset={`${fill * 100}%`} stopColor="#e3e3e3" />
         </linearGradient>
       </defs>
@@ -42,7 +42,7 @@ export const RatingStars = ({
   return (
     <div className="flex items-center space-x-2">
       {numberText == true && (
-        <span className="text-lg font-bold text-[#FFD82B]">
+        <span className="text-lg font-bold text-[#e2b904]">
           {safeRating.toFixed(1)}
         </span>
       )}

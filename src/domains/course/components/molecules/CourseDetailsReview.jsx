@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { ExpandableText } from "../../../../shared/components/molecules/ExpandableText";
 import { RatingStars } from "../../../../shared/components/molecules/RatingStars";
 
-export const CourseReview = ({
+export const CourseDetailsReview = ({
   avatarURL = "avatar url",
   name = "Name reviewer",
   rating = "0",
@@ -32,7 +32,7 @@ export const CourseReview = ({
   );
 };
 
-CourseReview.propTypes = {
+CourseDetailsReview.propTypes = {
   avatarURL: PropTypes.string,
   name: PropTypes.string,
   rating: PropTypes.number,

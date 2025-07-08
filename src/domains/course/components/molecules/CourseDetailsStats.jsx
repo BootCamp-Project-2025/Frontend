@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
 import { RatingStars } from "../../../../shared/components/molecules/RatingStars";
 
-export const CourseBannerInfo = ({ rating = 0, raters = 0, students = 0 }) => {
+export const CourseDetailsStats = ({
+  rating = 0,
+  raters = 0,
+  students = 0,
+}) => {
   return (
     <div className="flex flex-row gap-2 text-lg font-light flex-wrap">
       <RatingStars rating={rating}></RatingStars>
@@ -17,7 +21,7 @@ export const CourseBannerInfo = ({ rating = 0, raters = 0, students = 0 }) => {
   );
 };
 
-CourseBannerInfo.propTypes = {
+CourseDetailsStats.propTypes = {
   rating: PropTypes.number,
   raters: PropTypes.number,
   students: PropTypes.number,

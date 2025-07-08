@@ -4,6 +4,11 @@ import AddIcon from "../../../assets/add.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
 import EmailIcon from "../../../assets/email.svg?react";
 import DeleteIcon from "../../../assets/delete.svg?react";
+import ArrowForward from "../../../assets/arrowForward.svg?react";
+import Language from "../../../assets/language.svg?react";
+import Star from "../../../assets/star.svg?react";
+import Group from "../../../assets/group.svg?react";
+import LiveTv from "../../../assets/liveTv.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -13,6 +18,11 @@ const icons = {
   close: CloseIcon,
   email: EmailIcon,
   delete: DeleteIcon,
+  arrowForward: ArrowForward,
+  language: Language,
+  star: Star,
+  group: Group,
+  liveTv: LiveTv,
 };
 
 export function Icon({ icon, className }) {

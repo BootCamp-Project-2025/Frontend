@@ -1,7 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Icon } from "../../../../shared/components/atoms/Icon";
 
-export const CourseModule = ({
+export const CourseDetailsModule = ({
   titleModule = "title accordion",
   lessons = [],
 }) => {
@@ -15,15 +16,10 @@ export const CourseModule = ({
             className="w-full flex cursor-pointer bg-gray-100  hover:bg-gray-200  py-5 px-5 border-b border-gray-500 "
           >
             <div className=" w-full flex items-center gap-2 ">
-              <svg
-                className={`transition-all duration-100 text-gray-600 ${isOpen ? "" : "rotate-180"} `}
-                height="1.5rem"
-                viewBox="0 -960 960 960"
-                width="1.5rem"
-                fill="currentColor"
-              >
-                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-              </svg>
+              <Icon
+                icon={"arrowForward"}
+                className={`h-[1rem] w-[1rem] transition-all duration-100 text-gray-600 ${isOpen ? "rotate-[90deg]" : ""} `}
+              ></Icon>
               <div className="flex w-full gap-1 items-center ">
                 <p className="w-full text-lg sm:text-xl text-gray-600 font-bold text-start">
                   {titleModule}
@@ -51,7 +47,7 @@ export const CourseModule = ({
   );
 };
 
-CourseModule.propTypes = {
+CourseDetailsModule.propTypes = {
   titleModule: PropTypes.string,
   lessons: PropTypes.array,
   children: PropTypes.element,
