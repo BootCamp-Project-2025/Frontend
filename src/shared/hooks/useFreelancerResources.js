@@ -23,7 +23,7 @@ export const useFreelancerResources = ({
       showToast(`${singularize(resourceType)} added successfully`, "success");
       closePopup();
     } else {
-      showToast(`error adding ${singularize(resourceType)}`, "error");
+      showToast(`error adding a ${singularize(resourceType)}`, "error");
       console.error(`Error when try to add ${resourceType}:`, response.error);
     }
   };
@@ -45,7 +45,10 @@ export const useFreelancerResources = ({
       closePopup();
     } else {
       showToast(`error updating ${singularize(resourceType)}`, "error");
-      console.error(`Error when update ${resourceType}:`, response.error);
+      console.error(
+        `Error occurred while updating the ${resourceType}:`,
+        response.error
+      );
     }
   };
 
@@ -61,7 +64,7 @@ export const useFreelancerResources = ({
       closePopup();
     } else {
       showToast(`error deleting ${singularize(resourceType)}`, "error");
-      console.error(`Error at delete ${resourceType}:`, response.error);
+      console.error(`Failed to delete the ${resourceType}:`, response.error);
     }
   };
 

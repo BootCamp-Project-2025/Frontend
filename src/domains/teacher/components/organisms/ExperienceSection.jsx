@@ -11,10 +11,10 @@ import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelance
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import { formatDate } from "../../../../shared/utils/formatDate";
+import PropTypes from "prop-types";
 
-export const ExperienceSection = () => {
+export const ExperienceSection = ({ freelancerId }) => {
   const [recordList, setRecordList] = useState([]);
-  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
 
   const { openPopup, closePopup } = usePopup();
 
@@ -121,4 +121,7 @@ export const ExperienceSection = () => {
       </>
     </ProfileSection>
   );
+};
+ExperienceSection.propTypes = {
+  freelancerId: PropTypes.string,
 };

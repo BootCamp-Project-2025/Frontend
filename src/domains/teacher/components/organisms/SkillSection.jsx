@@ -9,10 +9,11 @@ import { SkillForm } from "./SkillForm";
 import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import PropTypes from "prop-types";
 
-export default function SkillSection() {
+export default function SkillSection({ freelancerId }) {
   const [recordList, setRecordList] = useState([]);
-  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
+
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
@@ -116,3 +117,7 @@ export default function SkillSection() {
     </ProfileSection>
   );
 }
+
+SkillSection.propTypes = {
+  freelancerId: PropTypes.string,
+};

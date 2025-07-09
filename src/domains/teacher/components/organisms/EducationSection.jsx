@@ -10,10 +10,10 @@ import { getFreelancerResource } from "../../../../shared/api/freelancers/getFre
 import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import { formatDate } from "../../../../shared/utils/formatDate";
+import PropTypes from "prop-types";
 
-export const EducationSection = () => {
+export const EducationSection = ({ freelancerId }) => {
   const [recordList, setRecordList] = useState([]);
-  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
 
   const { openPopup, closePopup } = usePopup();
   useEffect(() => {
@@ -116,4 +116,7 @@ export const EducationSection = () => {
       </ProfileSection>
     </>
   );
+};
+EducationSection.propTypes = {
+  freelancerId: PropTypes.string,
 };

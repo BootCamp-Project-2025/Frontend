@@ -9,10 +9,9 @@ import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
-
-export default function CertificationSection() {
+import PropTypes from "prop-types";
+export default function CertificationSection({ freelancerId }) {
   const [recordList, setRecordList] = useState([]);
-  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
 
   const { openPopup, closePopup } = usePopup();
 
@@ -113,3 +112,7 @@ export default function CertificationSection() {
     </ProfileSection>
   );
 }
+
+CertificationSection.propTypes = {
+  freelancerId: PropTypes.string,
+};

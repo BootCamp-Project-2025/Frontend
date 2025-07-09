@@ -9,10 +9,11 @@ import { LanguageForm } from "./LanguageForm";
 import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import PropTypes from "prop-types";
 
-export const LanguageSection = () => {
+export const LanguageSection = ({ freelancerId }) => {
   const [recordList, setRecordList] = useState([]);
-  const freelancerId = "7fde67b2-baa9-441a-9e98-bab6214967d3";
+
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
@@ -103,4 +104,7 @@ export const LanguageSection = () => {
       </div>
     </ProfileSection>
   );
+};
+LanguageSection.propTypes = {
+  freelancerId: PropTypes.string,
 };
