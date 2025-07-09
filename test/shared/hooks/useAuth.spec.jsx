@@ -102,36 +102,65 @@ describe("AuthProvider", () => {
     );
   });
 
-  it("updates session roles and updates user", async () => {
+  describe("AuthProvider updateSessionRoles", () => {
     let updateSessionRolesFn;
 
-    const Component = () => {
+    const Consumer = () => {
       const { user, updateSessionRoles } = useAuth();
       updateSessionRolesFn = updateSessionRoles;
-
       return <span data-testid="user">{user?.email || "No user"}</span>;
     };
 
-    render(
-      <AuthProvider>
-        <Component />
-      </AuthProvider>
-    );
-
-    await waitFor(() =>
-      expect(screen.getByTestId("user").textContent).toBe("test@example.com")
-    );
-
-    await updateSessionRolesFn(["CLIENT", "FREELANCER"], "/dashboard");
-
-    expect(mockKeycloak.logout).toHaveBeenCalled();
-    expect(mockKeycloak.login).toHaveBeenCalledWith({
-      prompt: "none",
-      redirectUri: window.location.origin + "/dashboard",
+    beforeEach(() => {
+      mockKeycloak = null;
+      vi.clearAllMocks();
     });
 
-    await waitFor(() =>
-      expect(screen.getByTestId("user").textContent).toBe("test@example.com")
-    );
+    it("calls updateToken and updates user/roles", async () => {
+      render(
+        <AuthProvider>
+          <Consumer />
+        </AuthProvider>
+      );
+
+      await waitFor(() =>
+        expect(screen.getByTestId("user").textContent).toBe("test@example.com")
+      );
+
+      // Change roles and tokenParsed before updating session roles
+      mockKeycloak.tokenParsed = { realm_access: { roles: ["FREELANCER"] } };
+      mockKeycloak.token = "new-token";
+      mockKeycloak.updateToken.mockImplementation(() => Promise.resolve(true));
+
+      await updateSessionRolesFn();
+
+      await waitFor(() =>
+        expect(screen.getByTestId("user").textContent).toBe("test@example.com")
+      );
+      expect(mockKeycloak.updateToken).toHaveBeenCalledWith(-1);
+    });
+
+    it("handles updateToken failure gracefully", async () => {
+      render(
+        <AuthProvider>
+          <Consumer />
+        </AuthProvider>
+      );
+
+      await waitFor(() =>
+        expect(screen.getByTestId("user").textContent).toBe("test@example.com")
+      );
+
+      mockKeycloak.updateToken.mockImplementation(() =>
+        Promise.reject(new Error("fail"))
+      );
+
+      await updateSessionRolesFn();
+
+      // Should still show user, but error is logged
+      await waitFor(() =>
+        expect(screen.getByTestId("user").textContent).toBe("test@example.com")
+      );
+    });
   });
 });
