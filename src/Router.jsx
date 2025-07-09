@@ -3,6 +3,7 @@ import CourseCardList from "./domains/course/components/organisms/CourseCardList
 import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
+import StaticCourseHomePageForm from "./domains/course/components/organisms/StaticCourseHomePageForm.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
@@ -24,14 +25,14 @@ export default function Router() {
             path="/dashboard/teacher"
             element={<main>Teacher profile</main>}
           />
-          <Route path="/dashboard/courses" element={<main>Course list</main>} />
+          <Route path="/dashboard/courses" element={<CourseCardList />} />
           <Route
             path="/dashboard/courses/homePage"
             element={<main>Creta home page</main>}
           />
           <Route
             path="/dashboard/courses/:courseId/homePage"
-            element={<main>Edit home page</main>}
+            element={<StaticCourseHomePageForm />}
           />
           <Route
             path="/dashboard/courses/syllabus"

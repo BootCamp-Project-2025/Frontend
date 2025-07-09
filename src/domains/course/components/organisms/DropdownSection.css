@@ -1,0 +1,13 @@
+.dropdownSection {
+  gap: 1rem;
+}
+
+.dropdownSection > div {
+  display: flex;
+  flex: 0 0 30%;
+}
+
+.dropdownSection > div > button {
+  display: block;
+  flex-grow: 1;
+}
