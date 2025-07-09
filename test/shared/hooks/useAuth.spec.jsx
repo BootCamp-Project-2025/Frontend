@@ -151,7 +151,9 @@ describe("AuthProvider", () => {
         expect(screen.getByTestId("user").textContent).toBe("test@example.com")
       );
 
-      mockKeycloak.updateToken.mockImplementation(() => Promise.reject("fail"));
+      mockKeycloak.updateToken.mockImplementation(() =>
+        Promise.reject(new Error("fail"))
+      );
 
       await updateSessionRolesFn();
 
