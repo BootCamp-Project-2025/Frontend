@@ -7,12 +7,12 @@ export const ApiPut = async (path, body) => {
   try {
     const response = await learningAPI.put(path, body);
     status = response.statusCode;
-    data = response.data;
+    data = response.data.data;
     status = response.status;
   } catch (err) {
     error = true;
     status = err.status;
-    data = err.response.data ?? null;
+    data = err.response.data.data ?? null;
   }
   return { data, error, status };
 };
