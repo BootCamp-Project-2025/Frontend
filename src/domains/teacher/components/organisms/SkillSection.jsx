@@ -6,17 +6,29 @@ import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import SkillCard from "../molecules/SkillCard";
 import { SkillForm } from "./SkillForm";
+import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import PropTypes from "prop-types";
 
-export default function SkillSection() {
-  const { openPopup, closePopup } = usePopup();
-
+export default function SkillSection({ freelancerId }) {
   const [recordList, setRecordList] = useState([]);
 
+  const { openPopup, closePopup } = usePopup();
+
   useEffect(() => {
-    setRecordList([
-      { id: crypto.randomUUID(), skill: "React", level: "Intermediate" },
-      { id: crypto.randomUUID(), skill: "Node", level: "Beginner" },
-    ]);
+    fetchFreelancerData({
+      method: getFreelancerResource,
+      args: [freelancerId, "skills"],
+      setState: (data) =>
+        setRecordList(
+          data.map((skill) => ({
+            id: skill.skillId,
+            name: skill.name,
+            level: skill.level,
+          }))
+        ),
+    });
   }, []);
 
   const handleOpenPopup = () => {
@@ -24,31 +36,24 @@ export default function SkillSection() {
       PopupFormLayout,
       {
         title: "Skill Form",
-        children: (
-          <SkillForm
-            closePopup={closePopup}
-            addCard={addCard}
-            updateCard={updateCard}
-          />
-        ),
+        children: <SkillForm addCard={addCard} closePopup={closePopup} />,
         onClose: closePopup,
       },
       true
     );
   };
 
-  const handleOpenEditPopup = (skillData) => {
+  const handleOpenEditPopup = (skill) => {
     openPopup(
       PopupFormLayout,
       {
         title: "Skill Form",
         children: (
           <SkillForm
-            id={skillData.id}
-            skillObject={skillData}
-            closePopup={closePopup}
-            addCard={addCard}
+            id={skill.id}
+            skill={skill}
             updateCard={updateCard}
+            closePopup={closePopup}
           />
         ),
         onClose: closePopup,
@@ -57,29 +62,16 @@ export default function SkillSection() {
     );
   };
 
-  const handleOpenDeletePopup = (data) => {
+  const handleOpenDeletePopup = (skill) => {
     openPopup(
       DeleteCardPopup,
       {
-        id: data.id,
-        closePopup,
         deleteAction: deleteCard,
+        id: skill.id,
+        closePopup,
       },
       true
     );
-  };
-
-  const addCard = (newSkill) => {
-    const record = { ...newSkill, id: crypto.randomUUID() };
-    setRecordList((prev) => [...prev, record]);
-    closePopup();
-  };
-
-  const updateCard = (updatedSkill) => {
-    setRecordList((prev) =>
-      prev.map((item) => (item.id === updatedSkill.id ? updatedSkill : item))
-    );
-    closePopup();
   };
 
   const editCard = (cardId) => {
@@ -89,19 +81,23 @@ export default function SkillSection() {
     }
   };
 
-  const deleteCard = (cardId) => {
-    setRecordList((prev) => prev.filter((item) => item.id !== cardId));
-    closePopup();
-  };
+  const { addCard, updateCard, deleteCard } = useFreelancerResources({
+    freelancerId,
+    resourceType: "skills",
+    recordList,
+    setRecordList,
+    closePopup,
+    openEditPopup: handleOpenEditPopup,
+  });
 
   return (
     <ProfileSection title="Skills">
       <>
-        {recordList.map((data) => (
+        {recordList.map((data, index) => (
           <SkillCard
-            key={data.id}
+            key={index}
             id={data.id}
-            skill={data.skill}
+            name={data.name}
             level={data.level}
             editCard={editCard}
             deleteCard={handleOpenDeletePopup}
@@ -121,3 +117,7 @@ export default function SkillSection() {
     </ProfileSection>
   );
 }
+
+SkillSection.propTypes = {
+  freelancerId: PropTypes.string,
+};

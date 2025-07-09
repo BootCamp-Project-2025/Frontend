@@ -7,7 +7,7 @@ export const EducationCard = ({
   university,
   career,
   startDate,
-  endDate,
+  finishDate,
   editCard,
   deleteCard,
 }) => {
@@ -20,7 +20,7 @@ export const EducationCard = ({
           <div className="flex flex-col gap-1 w-full">
             <p className="text-gray-500 text-lg">{career}</p>
             <p className="text-gray-500 text-base">
-              {startDate}, {endDate}
+              {startDate}, {finishDate}
             </p>
           </div>
         }
@@ -38,7 +38,7 @@ EducationCard.propTypes = {
   university: PropTypes.string,
   career: PropTypes.string,
   startDate: PropTypes.string,
-  endDate: PropTypes.string,
+  finishDate: PropTypes.string,
   editCard: PropTypes.func,
   deleteCard: PropTypes.func,
 };
