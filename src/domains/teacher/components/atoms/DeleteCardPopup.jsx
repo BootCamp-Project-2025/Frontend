@@ -13,10 +13,8 @@ const DeleteCardPopup = ({
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   async function handleDelete() {
     setIsDeleting(true);
-    await delay(1000);
     deleteAction(id);
     setIsDeleting(false);
     closePopup();

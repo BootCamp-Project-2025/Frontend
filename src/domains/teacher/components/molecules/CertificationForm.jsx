@@ -6,7 +6,7 @@ import { NumberInput } from "../../../../shared/components/molecules/NumberInput
 
 export default function CertificationForm({
   id = "",
-  name = "",
+  certification = "",
   institution = "",
   year = "",
   addCard = () => {},
@@ -19,38 +19,40 @@ export default function CertificationForm({
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      name,
+      certification,
       institution,
       year,
     },
   });
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
   const saveNewRecord = async (data) => {
-    await delay(500);
     addCard({ ...data, id: crypto.randomUUID() });
     closePopup();
   };
 
   const updateRecord = async (data) => {
-    await delay(500);
-    updateCard({ ...data, id });
+    updateCard(data);
     closePopup();
   };
 
   return (
     <form
       className="p-3 gap-3 flex flex-col"
-      onSubmit={handleSubmit(id ? updateRecord : saveNewRecord)}
+      onSubmit={handleSubmit(async (data) => {
+        if (id != "") {
+          await updateRecord({ ...data, id });
+        } else {
+          await saveNewRecord(data);
+        }
+      })}
     >
       <TextInput
-        id="name"
+        id="certification"
         maxLength={50}
         label={"Certification Name"}
         placeholder="Certification name"
-        errorMessage={errors.name?.message}
-        register={register("name", {
+        errorMessage={errors.certification?.message}
+        register={register("certification", {
           required: "Certification name is required",
           minLength: { value: 2, message: "Minimum 2 characters" },
           maxLength: { value: 100, message: "Maximum 100 characters" },
@@ -100,7 +102,7 @@ export default function CertificationForm({
 
 CertificationForm.propTypes = {
   id: PropTypes.string,
-  name: PropTypes.string,
+  certification: PropTypes.string,
   institution: PropTypes.string,
   year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   addCard: PropTypes.func.isRequired,

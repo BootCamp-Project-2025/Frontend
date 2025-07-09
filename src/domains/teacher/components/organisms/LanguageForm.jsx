@@ -8,30 +8,27 @@ import { Button } from "../../../../shared/components/atoms/Button";
 export const LanguageForm = ({
   id = "",
   name = "",
-  proficiency = "",
-  addLanguage = () => {},
-  updateLanguage = () => {},
+  level = "",
+  addCard = () => {},
+  updateCard = () => {},
   closeForm = () => {},
 }) => {
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-  } = useForm({ defaultValues: { name, proficiency } });
+  } = useForm({ defaultValues: { name, level } });
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-  const [newLevel, setLevel] = useState(proficiency);
+  const [newLevel, setLevel] = useState(level);
   const changeLevel = (e) => {
     setLevel(e.target.value);
   };
 
   const onSave = async (data) => {
-    await delay(500);
     if (id) {
-      updateLanguage({ ...data, id });
+      updateCard({ ...data, id });
     } else {
-      addLanguage({ ...data, id: crypto.randomUUID() });
+      addCard({ ...data, id: crypto.randomUUID() });
     }
     closeForm();
   };
@@ -48,18 +45,18 @@ export const LanguageForm = ({
       />
 
       <SelectInput
-        id="proficiency"
-        label="Proficiency"
+        id="level"
+        label="Level"
         value={newLevel}
         onChange={changeLevel}
-        register={register("proficiency", { required: "Required" })}
+        register={register("level", { required: "Required" })}
         options={[
-          { value: "Basic", label: "Basic" },
-          { value: "Conversational", label: "Conversational" },
-          { value: "Fluent", label: "Fluent" },
-          { value: "Native", label: "Native" },
+          { value: "basic", label: "Basic" },
+          { value: "intermediate", label: "Intermediate" },
+          { value: "advanced", label: "Advanced" },
+          { value: "native", label: "Native" },
         ]}
-        errorMessage={errors.proficiency?.message}
+        errorMessage={errors.level?.message}
       />
 
       <div className="flex justify-center gap-3 mt-4">
@@ -82,8 +79,8 @@ export const LanguageForm = ({
 LanguageForm.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
-  proficiency: PropTypes.string,
-  addLanguage: PropTypes.func,
-  updateLanguage: PropTypes.func,
+  level: PropTypes.string,
+  addCard: PropTypes.func,
+  updateCard: PropTypes.func,
   closeForm: PropTypes.func,
 };
