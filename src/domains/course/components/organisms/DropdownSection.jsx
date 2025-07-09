@@ -23,10 +23,7 @@ export default function DropdownSection({ course }) {
     setSubCategory(educationSubCategories[option.label]);
   };
   return (
-    <section
-      style={{ flex: "0 0 30%" }}
-      className="flex justify-between dropdownSection"
-    >
+    <section className="flex justify-between dropdownSection">
       <Dropdown
         label={course.language !== "" ? course.language : "select a language"}
         variant="bordered"

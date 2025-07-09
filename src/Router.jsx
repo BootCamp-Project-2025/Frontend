@@ -25,14 +25,14 @@ export default function Router() {
             path="/dashboard/teacher"
             element={<main>Teacher profile</main>}
           />
-          <Route path="/dashboard/courses" element={<main>Course list</main>} />
+          <Route path="/dashboard/courses" element={<CourseCardList />} />
           <Route
             path="/dashboard/courses/homePage"
             element={<main>Creta home page</main>}
           />
           <Route
             path="/dashboard/courses/:courseId/homePage"
-            element={<main>Edit home page</main>}
+            element={<StaticCourseHomePageForm />}
           />
           <Route
             path="/dashboard/courses/syllabus"

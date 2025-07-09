@@ -13,14 +13,11 @@ import {
   useToastContext,
 } from "../../../../shared/contexts/ToastContext";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function StaticCourseHomePageForm() {
-  const [searchParams] = useSearchParams();
-  const { responseData, loading, error } = UseGet(
-    "courses",
-    searchParams.get("course")
-  );
+  const { courseId } = useParams();
+  const { responseData, loading, error } = UseGet("courses", courseId);
   const {
     register,
     handleSubmit,
@@ -46,11 +43,7 @@ export default function StaticCourseHomePageForm() {
   const updateCourse = async (data) => {
     course.name = data.name;
     course.description = data.description;
-    const { responseData, error } = await UsePut(
-      "courses",
-      searchParams.get("course"),
-      course
-    );
+    const { responseData, error } = await UsePut("courses", courseId, course);
     showToast(responseData.message, error ? "error" : "success");
   };
   return (
