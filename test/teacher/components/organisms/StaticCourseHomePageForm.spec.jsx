@@ -1,7 +1,7 @@
 import { describe, expect, vi, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import StaticCourseHomePageForm from "../../../../../src/domains/course/components/organisms/StaticCourseHomePageForm";
-import { UseGet } from "../../../../../src/domains/course/api/UseGet";
+import StaticCourseHomePageForm from "../../../../src/domains/course/components/organisms/StaticCourseHomePageForm";
+import * as useGetModule from "../../../../src/domains/course/api/UseGet";
 
 const CourseData = {
   id: "adad9f6e-b2f8-46bc-b089-12a0511dec3f",
@@ -15,10 +15,6 @@ const CourseData = {
   time: 401,
   requirements: "None1",
 };
-
-vi.mock("../../../../../src/domains/course/api/UseGet", () => ({
-  UseGet: vi.fn(),
-}));
 
 const searchParams = { get: vi.fn() };
 
@@ -43,8 +39,7 @@ describe("test for static course home page", async () => {
       error: false,
       status: 200,
     };
-    UseGet.mockImplementation(() => response);
-    console.log(UseGet());
+    vi.spyOn(useGetModule, "UseGet").mockReturnValue(response);
     render(<StaticCourseHomePageForm />);
     expect(screen.getByText("Home page course")).toBeInTheDocument();
   });
@@ -55,8 +50,7 @@ describe("test for static course home page", async () => {
       error: false,
       status: 200,
     };
-    UseGet.mockImplementation(() => response);
-    console.log(UseGet());
+    vi.spyOn(useGetModule, "UseGet").mockReturnValue(response);
     render(<StaticCourseHomePageForm />);
     expect(screen.getByText("loading")).toBeInTheDocument();
   });
@@ -67,8 +61,7 @@ describe("test for static course home page", async () => {
       error: true,
       status: 400,
     };
-    UseGet.mockImplementation(() => response);
-    console.log(UseGet());
+    vi.spyOn(useGetModule, "UseGet").mockReturnValue(response);
     render(<StaticCourseHomePageForm />);
     expect(screen.getByText("data couldnt be loadedd")).toBeInTheDocument();
   });
