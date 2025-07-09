@@ -2,7 +2,6 @@ import { useEffect, useReducer } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Title } from "../../../../shared/components/atoms/Title";
-import { ModulesContext } from "../../customHooks/ModuleContext";
 import SyllabusInfo from "../molecules/SyllabusInfo";
 import CourseModule from "./CourseModule";
 import { moduleReducer } from "../../utils/ModuleReducer";
@@ -56,53 +55,53 @@ export default function CourseSyllabus() {
   }
 
   return (
-    <ModulesContext.Provider value={{ modules, dispatch }}>
-      <div className="flex flex-col mx-5">
-        <Title className="border-b-1 my-3" color="black">
-          Syllabus
-        </Title>
-        <SyllabusInfo className="self-center hidden md:flex" />
+    <div className="flex flex-col mx-5">
+      <Title className="border-b-1 my-3" color="black">
+        Syllabus
+      </Title>
+      <SyllabusInfo className="self-center hidden md:flex" />
 
-        {modules.map((module, id) => (
-          <div key={`add-module-${id}`}>
-            <Button
-              onClick={() => addModule(id)}
-              radius="small"
-              className={"w-40 my-4 text-center self-start"}
-              variant="bordered"
-            >
-              <div className="flex w-full items-center">
-                <Icon icon={"plus"} />
-                <p className="mx-auto">Add module</p>
-              </div>
-            </Button>
-            <CourseModule
-              id={`module-${id}`}
-              key={`module-${id}`}
-              title={module.title}
-              modulePosition={id}
-            />
-          </div>
-        ))}
-        <Button
-          onClick={() => addModule(modules.length)}
-          radius="small"
-          className={"w-40 my-4 text-center self-start"}
-          variant="bordered"
-        >
-          <div className="flex w-full items-center">
-            <Icon icon={"plus"} />
-            <p className="mx-auto">Add module</p>
-          </div>
-        </Button>
-        <Button
-          onClick={publish}
-          radius="small"
-          className={"self-center w-40 my-4 text-center"}
-        >
-          <p className="w-full">Publish</p>
-        </Button>
-      </div>
-    </ModulesContext.Provider>
+      {modules.map((module, id) => (
+        <div key={`add-module-${id}`}>
+          <Button
+            onClick={() => addModule(id)}
+            radius="small"
+            className={"w-40 my-4 text-center self-start"}
+            variant="bordered"
+          >
+            <div className="flex w-full items-center">
+              <Icon icon={"plus"} />
+              <p className="mx-auto">Add module</p>
+            </div>
+          </Button>
+          <CourseModule
+            modules={modules}
+            dispatch={dispatch}
+            id={`module-${id}`}
+            key={`module-${id}`}
+            title={module.title}
+            modulePosition={id}
+          />
+        </div>
+      ))}
+      <Button
+        onClick={() => addModule(modules.length)}
+        radius="small"
+        className={"w-40 my-4 text-center self-start"}
+        variant="bordered"
+      >
+        <div className="flex w-full items-center">
+          <Icon icon={"plus"} />
+          <p className="mx-auto">Add module</p>
+        </div>
+      </Button>
+      <Button
+        onClick={publish}
+        radius="small"
+        className={"self-center w-40 my-4 text-center"}
+      >
+        <p className="w-full">Publish</p>
+      </Button>
+    </div>
   );
 }
