@@ -1,7 +1,6 @@
 import { learningAPI } from "../axios/AxiosCourseConnection";
 
 export const ApiPost = async (path, body) => {
-  console.log(body);
   let error = false;
   let status;
   let data = null;
@@ -13,7 +12,7 @@ export const ApiPost = async (path, body) => {
   } catch (err) {
     error = true;
     status = err.status;
-    data = err.response.data ?? null;
+    data = err.response.data.data ?? null;
   }
   return { data, error, status };
 };
