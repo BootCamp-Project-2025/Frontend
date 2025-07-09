@@ -64,7 +64,6 @@ export const moduleReducer = (state, action) => {
       const lessons = [...module.lessons];
       const lesson = { ...lessons[action.lessonPosition] };
       const resources = [...lesson.resources];
-      resources.splice(action.resourcePosition, 1);
       lesson.edited = true;
       lesson.resources = resources.filter(
         (resource) => resource.name !== action.name
