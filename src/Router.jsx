@@ -12,6 +12,7 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 
 export default function Router() {
@@ -99,6 +100,7 @@ export default function Router() {
           />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
+          <Route path="doc-component" element={<DocComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
