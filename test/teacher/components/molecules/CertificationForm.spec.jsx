@@ -65,24 +65,6 @@ describe("CertificationForm", () => {
     // expect(defaultProps.closePopup).toHaveBeenCalled();
   });
 
-  it("renders Delete button if onDelete and certification are provided", () => {
-    const onDelete = vi.fn();
-    const certification = {
-      id: "1",
-      name: "Cert",
-      institution: "Inst",
-      year: 2020,
-    };
-    render(
-      <CertificationForm
-        {...defaultProps}
-        onDelete={onDelete}
-        certification={certification}
-      />
-    );
-    expect(screen.getByRole("button", { name: "Delete" })).toBeInTheDocument();
-  });
-
   // it("calls onDelete with certification id when Delete is clicked", async () => {
   //   const onDelete = vi.fn();
   //   const certification = {

@@ -11,6 +11,7 @@ export const ExperienceCard = ({
   endDate,
   description,
   editCard,
+  deleteCard,
 }) => {
   return (
     <Card filled data-testid="experience-card">
@@ -32,9 +33,10 @@ export const ExperienceCard = ({
             <p className="text-lg text-gray-500 line-clamp-3">{description}</p>
           </div>
         }
-        onClickButton={() => {
+        onClickEdit={() => {
           editCard(id);
         }}
+        onClickDelete={() => deleteCard({ id })}
       />
     </Card>
   );
@@ -49,4 +51,5 @@ ExperienceCard.propTypes = {
   endDate: PropTypes.string,
   description: PropTypes.string,
   editCard: PropTypes.func,
+  deleteCard: PropTypes.func,
 };

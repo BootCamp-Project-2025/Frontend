@@ -3,16 +3,15 @@ import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { NumberInput } from "../../../../shared/components/molecules/NumberInput";
-import { useState } from "react";
 
 export default function CertificationForm({
   id = "",
   name = "",
   institution = "",
   year = "",
-  onSubmit,
-  onDelete,
-  closePopup,
+  addCard = () => {},
+  updateCard = () => {},
+  closePopup = () => {},
 }) {
   const {
     register,
@@ -26,27 +25,17 @@ export default function CertificationForm({
     },
   });
 
-  const [isDeleting, setIsDeleting] = useState(false);
-
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const saveNewRecord = async (data) => {
     await delay(500);
-    onSubmit({ ...data, id: crypto.randomUUID() });
+    addCard({ ...data, id: crypto.randomUUID() });
     closePopup();
   };
 
   const updateRecord = async (data) => {
     await delay(500);
-    onSubmit({ ...data, id });
-    closePopup();
-  };
-
-  const deleteRecord = async () => {
-    setIsDeleting(true);
-    await delay(500);
-    onDelete(id);
-    setIsDeleting(false);
+    updateCard({ ...data, id });
     closePopup();
   };
 
@@ -98,22 +87,10 @@ export default function CertificationForm({
       </div>
 
       <div className="flex justify-around gap-3 w-full mt-4">
-        {onDelete && (
-          <Button
-            color="danger"
-            variant="bordered"
-            onClick={deleteRecord}
-            disabled={isSubmitting || isDeleting}
-            isSpinning={isDeleting}
-          >
-            Delete
-          </Button>
-        )}
-        <Button
-          type="submit"
-          disabled={isSubmitting || isDeleting}
-          isSpinning={isSubmitting}
-        >
+        <Button color="default" variant="bordered" onClick={closePopup}>
+          Cancel
+        </Button>
+        <Button type="submit" disabled={isSubmitting} isSpinning={isSubmitting}>
           Save
         </Button>
       </div>
@@ -126,7 +103,7 @@ CertificationForm.propTypes = {
   name: PropTypes.string,
   institution: PropTypes.string,
   year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onSubmit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func,
+  addCard: PropTypes.func.isRequired,
+  updateCard: PropTypes.func.isRequired,
   closePopup: PropTypes.func.isRequired,
 };

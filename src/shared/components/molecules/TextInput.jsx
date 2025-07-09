@@ -11,9 +11,12 @@ export const TextInput = ({
 }) => {
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <label htmlFor={id} className="text-gray-600  font-semibold text-lg ">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={id} className="text-gray-600  font-semibold text-lg ">
+          {label}
+        </label>
+      )}
+
       <input
         {...register}
         type="text"
