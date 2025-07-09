@@ -1,8 +1,7 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import LessonContentGroup from "./LessonContentGroup";
 import PropTypes from "prop-types";
-import { ModulesContext } from "../../customHooks/ModuleContext";
 import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
 import SyllabusExpansionWrapper from "./SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
@@ -14,14 +13,15 @@ import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
 
 export default function CourseLesson({
+  modules,
+  dispatch,
   modulePosition,
   lessonPosition,
   ...props
 }) {
-  const modulesContext = useContext(ModulesContext);
   const [descriptionEdited, setDescriptionEdited] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
-  const lesson = modulesContext.modules[modulePosition].lessons[lessonPosition];
+  const lesson = modules[modulePosition].lessons[lessonPosition];
   const [modalOpen, setModalOpen] = useState(false);
   const inputRef = useRef(lesson.description);
   const inputOriginalRef = useRef(lesson.description);
@@ -71,7 +71,7 @@ export default function CourseLesson({
       alert("Error: video url repeated, it will not be saved");
       return;
     }
-    modulesContext.dispatch({
+    dispatch({
       type: "ADD_VIDEO",
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
@@ -80,7 +80,7 @@ export default function CourseLesson({
   }
 
   function saveTitle(newTitle) {
-    modulesContext.dispatch({
+    dispatch({
       type: "EDIT_LESSON_TITLE",
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
@@ -89,7 +89,7 @@ export default function CourseLesson({
   }
 
   function addResource(name, url, resourcePosition) {
-    modulesContext.dispatch({
+    dispatch({
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
       type: "ADD_RESOURCE",
@@ -100,7 +100,7 @@ export default function CourseLesson({
   }
 
   async function eraseResource(name) {
-    modulesContext.dispatch({
+    dispatch({
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
       name: name,
@@ -109,7 +109,7 @@ export default function CourseLesson({
   }
 
   async function eraseVideo(url) {
-    modulesContext.dispatch({
+    dispatch({
       modulePosition: modulePosition,
       lessonPosition: lessonPosition,
       url: url,
@@ -119,7 +119,7 @@ export default function CourseLesson({
 
   function checkRepeatTitle(tittle) {
     if (
-      modulesContext.modules[modulePosition].lessons.filter(
+      modules[modulePosition].lessons.filter(
         (less) => less.title === tittle && less.position !== lesson.position
       ).length > 0
     ) {
@@ -143,37 +143,38 @@ export default function CourseLesson({
 
   async function saveLesson() {
     let response;
-    if (modulesContext.modules[modulePosition].new === true) {
+    if (modules[modulePosition].new === true) {
       alert("Error: module needs to be saved before lesson");
       return;
     }
     if (!validateDescription()) return;
     if (lesson.new === true)
       response = await ApiPost(
-        `courses/modules/${modulesContext.modules[modulePosition].id}/lessons`,
+        `courses/modules/${modules[modulePosition].id}/lessons`,
         { ...lesson, description: inputRef.current }
       );
     else
       response = await ApiPut(
-        `courses/modules/${modulesContext.modules[modulePosition].id}/lessons/${lesson.id}`,
+        `courses/modules/${modules[modulePosition].id}/lessons/${lesson.id}`,
         { ...lesson, description: inputRef.current }
       );
     if (!response.error)
-      modulesContext.dispatch({
+      dispatch({
         modulePosition: modulePosition,
-        lessonPosition: lesson.position,
+        lessonPosition: lessonPosition,
         id: response.data.id,
         type: "SAVE_LESSON",
       });
     setDescriptionEdited(false);
   }
-
   async function eraseLesson() {
-    const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
-    if (error) return;
-    modulesContext.dispatch({
+    if (lesson.id) {
+      const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
+      if (error) return;
+    }
+    dispatch({
       modulePosition: modulePosition,
-      lessonPosition: lesson.position,
+      lessonPosition: lessonPosition,
       type: "DELETE_LESSON",
     });
   }
@@ -189,7 +190,7 @@ export default function CourseLesson({
       borderTitle={false}
       enableSave={lesson.edited === true || descriptionEdited}
       newSection={lesson.new === true}
-      sectionTitle={`Lesson ${lesson.position + 1}`}
+      sectionTitle={`Lesson ${lessonPosition + 1}`}
       title={lesson.title}
     >
       <TextEditor
@@ -227,5 +228,7 @@ export default function CourseLesson({
 
 CourseLesson.propTypes = {
   modulePosition: PropTypes.number,
+  modules: PropTypes.array,
+  dispatch: PropTypes.func,
   lessonPosition: PropTypes.number,
 };

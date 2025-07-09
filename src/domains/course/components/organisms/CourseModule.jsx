@@ -1,8 +1,6 @@
-import { useContext } from "react";
 import ButtonSection from "../molecules/ModuleButtonSection";
 import CourseLesson from "./CourseLesson";
 import PropTypes from "prop-types";
-import { ModulesContext } from "../../customHooks/ModuleContext";
 import SyllabusExpansionWrapper from "./SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
@@ -11,16 +9,20 @@ import { ApiPost } from "../../api/ApiPost";
 import { ApiPut } from "../../api/ApiPut";
 import { useSearchParams } from "react-router-dom";
 
-export default function CourseModule({ modulePosition, ...props }) {
-  const modulesContext = useContext(ModulesContext);
-  const module = modulesContext.modules[modulePosition];
+export default function CourseModule({
+  modules,
+  dispatch,
+  modulePosition,
+  ...props
+}) {
+  const module = modules[modulePosition];
   const [searchParams] = useSearchParams();
   const { openPopup, closePopup } = usePopup();
   const buttons = [
     {
       text: "Lesson",
       onClick: () =>
-        modulesContext.dispatch({
+        dispatch({
           type: "ADD_LESSON",
           modulePosition: modulePosition,
           lessonPosition: module.lessons.length,
@@ -42,9 +44,11 @@ export default function CourseModule({ modulePosition, ...props }) {
   }
 
   async function eraseModule() {
-    const { error } = await ApiDelete(`courses/modules/${module.id}`);
-    if (error) return;
-    modulesContext.dispatch({
+    if (module.id) {
+      const { error } = await ApiDelete(`courses/modules/${module.id}`);
+      if (error) return;
+    }
+    dispatch({
       type: "DELETE_MODULE",
       modulePosition: module.position,
     });
@@ -64,7 +68,7 @@ export default function CourseModule({ modulePosition, ...props }) {
         position: module.position,
       });
     if (!response.error)
-      modulesContext.dispatch({
+      dispatch({
         modulePosition: modulePosition,
         type: "SAVE_MODULE",
         id: response.data.id,
@@ -72,7 +76,7 @@ export default function CourseModule({ modulePosition, ...props }) {
   }
 
   function saveTitle(newTitle) {
-    modulesContext.dispatch({
+    dispatch({
       type: "EDIT_MODULE_TITLE",
       modulePosition: modulePosition,
       title: newTitle,
@@ -81,7 +85,7 @@ export default function CourseModule({ modulePosition, ...props }) {
 
   function checkRepeatTitle(tittle) {
     if (
-      modulesContext.modules.filter(
+      modules.filter(
         (mod) => mod.title === tittle && mod.position !== module.position
       ).length > 0
     ) {
@@ -106,6 +110,8 @@ export default function CourseModule({ modulePosition, ...props }) {
       <ButtonSection buttonProps={buttons} />
       {module.lessons.map((_, id) => (
         <CourseLesson
+          modules={modules}
+          dispatch={dispatch}
           id={`module-${modulePosition}-lesson-${id}`}
           key={`module-${modulePosition}-lesson-${id}`}
           lessonPosition={id}
@@ -118,5 +124,7 @@ export default function CourseModule({ modulePosition, ...props }) {
 
 CourseModule.propTypes = {
   title: PropTypes.string,
+  modules: PropTypes.array,
+  dispatch: PropTypes.func,
   modulePosition: PropTypes.number,
 };
