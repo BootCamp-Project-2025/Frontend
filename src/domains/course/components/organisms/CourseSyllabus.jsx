@@ -6,20 +6,18 @@ import SyllabusInfo from "../molecules/SyllabusInfo";
 import CourseModule from "./CourseModule";
 import { moduleReducer } from "../../utils/ModuleReducer";
 import { ApiGet } from "../../api/ApiGet";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export default function CourseSyllabus() {
-  const [searchParams] = useSearchParams();
+  const { courseId } = useParams();
   const { showToast } = useToastContext();
   useEffect(() => {
     const loadData = async () => {
-      const { responseData } = await ApiGet(
-        `courses/${searchParams.get("course")}/modules`
-      );
+      const { data } = await ApiGet(`courses/${courseId}/modules`);
       dispatch({
         type: "SET",
-        payload: responseData.data,
+        payload: data.data,
       });
     };
     loadData();
@@ -31,25 +29,29 @@ export default function CourseSyllabus() {
     dispatch({
       type: "ADD_MODULE",
       postion: position,
-      courseId: searchParams.get("course"),
+      courseId: courseId,
     });
   }
 
   function publish() {
     for (let i = 0; i < modules.length; i++) {
       const module = modules[i];
+      //check if a module hasnt been saved and scrolls to its position
       if (module.edited === true || module.new === true) {
         showToast("there are modules without saving", "warning");
-        document.getElementById(`module-${i}`).scrollIntoView();
-        window.scrollBy({ top: -100 });
+        document
+          .getElementById(`module-${i}`)
+          .scrollIntoView({ behavior: "smooth" });
         return;
       }
+      //check if a lesson hasnt been saved and scrolls to its position
       for (let j = 0; j < module.lessons.length; j++) {
         const lesson = module.lessons[j];
         if (lesson.edited === true || lesson.new === true) {
           showToast("there are lessons without saving", "warning");
-          document.getElementById(`module-${i}-lesson-${j}`).scrollIntoView();
-          window.scrollBy({ top: -100 });
+          document
+            .getElementById(`module-${i}-lesson-${j}`)
+            .scrollIntoView({ behavior: "smooth" });
           return;
         }
       }
@@ -104,7 +106,7 @@ export default function CourseSyllabus() {
         radius="small"
         className={"self-center w-40 my-4 text-center"}
       >
-        <p className="w-full">Publish</p>
+        <p className="w-full">Save</p>
       </Button>
     </div>
   );
