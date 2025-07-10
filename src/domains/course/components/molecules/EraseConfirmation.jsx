@@ -9,7 +9,7 @@ export default function EraseConfirmation({ closePopup, onDelete, ...props }) {
       <p>Are you sure you want to delete this element</p>
       <div className="flex justify-center gap-8 mt-2">
         <Button color="secondary" onClick={closePopup}>
-          cancel
+          Cancel
         </Button>
         <Button
           color="danger"
@@ -18,7 +18,7 @@ export default function EraseConfirmation({ closePopup, onDelete, ...props }) {
             closePopup();
           }}
         >
-          delete
+          Delete
         </Button>
       </div>
     </div>
