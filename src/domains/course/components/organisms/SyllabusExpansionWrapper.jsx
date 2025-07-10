@@ -31,7 +31,7 @@ export default function SyllabusExpansionWrapper({
 
   function validateTitle(e) {
     const title = e.target?.value ?? e;
-    if (checkRepeatTitle(title)) {
+    if ((title !== "", checkRepeatTitle(title))) {
       setError("Title already exists");
       return false;
     }
