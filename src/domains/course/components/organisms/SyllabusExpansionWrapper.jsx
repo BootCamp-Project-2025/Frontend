@@ -3,7 +3,6 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useEffect, useRef, useState } from "react";
-import { TextInput } from "../../../../shared/components/molecules/TextInput";
 
 export default function SyllabusExpansionWrapper({
   saveTitle,
@@ -72,19 +71,16 @@ export default function SyllabusExpansionWrapper({
             className="hidden md:block"
             color="black"
           >{`${sectionTitle}:`}</Title>
-          <div className={`${editTitle ? "" : "hidden"}`}>
-            <TextInput
-              ref={inputRef}
-              id={sectionTitle}
-              type="text"
-              placeholder={"title"}
-              className={`min-w-8 overflow-ellipsis max-w-min focus:outline-none mx-0 px-3`}
-              onChange={validateTitle}
-            />
-          </div>
-
+          <input
+            ref={inputRef}
+            id={sectionTitle}
+            type="text"
+            placeholder={"Title"}
+            className={`${editTitle ? "" : "hidden"} w-52 rounded-md border-1 overflow-ellipsis focus:outline-none mx-0 px-3`}
+            onChange={validateTitle}
+          />
           <span
-            className={`ml-4 font-medium mx-1 ${editTitle ? "hidden" : ""}`}
+            className={`ml-4 w-52 font-medium mx-1 ${editTitle ? "hidden" : ""}`}
           >
             {title}
           </span>
