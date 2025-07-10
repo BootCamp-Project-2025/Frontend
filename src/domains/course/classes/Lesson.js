@@ -40,25 +40,31 @@ export default class Lesson {
     );
   }
 
-  settitle(title) {
-    this.title = title;
+  setTitle(title) {
+    if (this.title !== title) {
+      this.isEdited = true;
+      this.title = title;
+    }
   }
-  setresources(resources) {
+  setResources(resources) {
     this.resources = resources;
   }
-  setvideoUrls(videoUrls) {
+  setVideoUrls(videoUrls) {
     this.videoUrls = videoUrls;
   }
-  setposition(position) {
+  setPosition(position) {
     this.position = position;
   }
-  setdescription(description) {
-    this.description = description;
+  setDescription(description) {
+    if (this.description !== description) {
+      this.isEdited = true;
+      this.description = description;
+    }
   }
-  setisNew(isNew) {
+  setIsNew(isNew) {
     this.isNew = isNew;
   }
-  setisEdited(isEdited) {
+  setIsEdited(isEdited) {
     this.isEdited = isEdited;
   }
 
@@ -84,7 +90,7 @@ export default class Lesson {
     );
   }
 
-  deleteVideo(urlToDelete) {
+  deleteVideoUrls(urlToDelete) {
     this.isEdited = true;
     this.videoUrls = this.videoUrls.filter((url) => url !== urlToDelete);
   }

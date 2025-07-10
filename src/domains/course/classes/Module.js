@@ -33,8 +33,10 @@ export default class Module {
   }
 
   setTitle(title) {
-    this.title = title;
-    this.isEdited = true;
+    if (this.title !== title) {
+      this.title = title;
+      this.isEdited = true;
+    }
   }
   setLessons(lessons) {
     this.lessons = lessons;
