@@ -105,6 +105,18 @@ export const moduleReducer = (state, action) => {
       newState[action.modulePosition] = module;
       return newState;
     }
+    case "EDIT_LESSON_DESCRIPTION": {
+      const newState = [...state];
+      const module = { ...newState[action.modulePosition] };
+      const lessons = [...module.lessons];
+      const lesson = { ...lessons[action.lessonPosition] };
+      if (lesson.title !== action.title) lesson.edited = true;
+      lesson.description = action.description;
+      lessons[action.lessonPosition] = lesson;
+      module.lessons = lessons;
+      newState[action.modulePosition] = module;
+      return newState;
+    }
     case "SET":
       return action.payload;
     case "DELETE_MODULE": {

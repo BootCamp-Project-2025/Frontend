@@ -7,7 +7,7 @@ import EraseConfirmation from "../molecules/EraseConfirmation";
 import { ApiDelete } from "../../api/ApiDelete";
 import { ApiPost } from "../../api/ApiPost";
 import { ApiPut } from "../../api/ApiPut";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { useEffect } from "react";
 
@@ -19,7 +19,7 @@ export default function CourseModule({
 }) {
   const module = modules[modulePosition];
   const { showToast } = useToastContext();
-  const [searchParams] = useSearchParams();
+  const { courseId } = useParams();
   const { openPopup, closePopup } = usePopup();
   const buttons = [
     {
@@ -46,6 +46,7 @@ export default function CourseModule({
     );
   }
 
+  //add event listener for when the user close or refresh the tab
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (module.edited === true || module.new === true) {
@@ -64,7 +65,7 @@ export default function CourseModule({
       const { error } = await ApiDelete(`courses/modules/${module.id}`);
       if (error) return;
     }
-    showToast("the module was deleted successfully", "success");
+    showToast("The module was deleted successfully", "success");
     dispatch({
       type: "DELETE_MODULE",
       modulePosition: module.position,
@@ -73,11 +74,12 @@ export default function CourseModule({
 
   async function saveModule() {
     let response;
+    // post or update the module depending if it has alredy been saved
     if (module.new)
-      response = await ApiPost(
-        `courses/${searchParams.get("course")}/modules`,
-        { title: module.title, position: module.position }
-      );
+      response = await ApiPost(`courses/${courseId}/modules`, {
+        title: module.title,
+        position: module.position,
+      });
     else if (module.edited)
       response = await ApiPut(`courses/modules/${module.id}`, {
         id: module.id,
@@ -85,7 +87,8 @@ export default function CourseModule({
         position: module.position,
       });
     if (!response.error) {
-      showToast("the module was saved successfully", "success");
+      // only updates the view of the user if it has been sucessfully updated or created
+      showToast("The module was saved successfully", "success");
       dispatch({
         modulePosition: modulePosition,
         type: "SAVE_MODULE",
