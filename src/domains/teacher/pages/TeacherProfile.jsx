@@ -12,8 +12,9 @@ import { useAuth } from "../../../shared/hooks/useAuth";
 const TeacherProfile = () => {
   const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
   const { user } = useAuth();
-  const freelancerId = user?.id || fallbackId;
+  const freelancerId = user?.freelancerProfile || fallbackId;
 
+  console.log("freelancerId:", freelancerId, "fallbackId", fallbackId);
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16">
       <ProfileTitle title="Teacher Profile" />

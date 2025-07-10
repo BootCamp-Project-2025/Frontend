@@ -45,7 +45,7 @@ export const Header = () => {
     closePopup();
     await updateRoles("FREELANCER");
     await updateSessionRoles();
-    navigate("/teacher/profile");
+    navigate("/dashboard/teacher/profile");
   };
   const [menuOpen, setMenuOpen] = useState(false);
 

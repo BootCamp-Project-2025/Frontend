@@ -78,7 +78,7 @@ export default function Router() {
           />
 
           <Route
-            path="/teachers/teacherId"
+            path="/dashboard/teacher/profile"
             element={
               <main>
                 <TeacherProfile />
