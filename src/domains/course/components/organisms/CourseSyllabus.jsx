@@ -68,7 +68,9 @@ export default function CourseSyllabus() {
           <Button
             onClick={() => addModule(id)}
             radius="small"
-            className={"w-40 my-4 text-center self-start"}
+            className={
+              "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
+            }
             variant="bordered"
           >
             <div className="flex w-full items-center">

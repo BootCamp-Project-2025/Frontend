@@ -29,10 +29,6 @@ export default function SyllabusExpansionWrapper({
   const [error, setError] = useState("");
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, [editTitle]);
-
   function validateTitle(e) {
     const title = e.target?.value ?? e;
     if (checkRepeatTitle(title)) {

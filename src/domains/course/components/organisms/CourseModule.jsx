@@ -48,13 +48,10 @@ export default function CourseModule({
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
-      if (module.edited || module.new) {
+      if (module.edited === true || module.new === true) {
         event.preventDefault();
-        event.returnValue =
-          "You have unsaved changes. Are you sure you want to leave?";
       }
     };
-
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
