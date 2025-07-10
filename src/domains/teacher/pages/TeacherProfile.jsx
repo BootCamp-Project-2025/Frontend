@@ -16,9 +16,10 @@ const TeacherProfile = () => {
 
   useEffect(() => {
     // const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
-    const freelancerIdAuth = user?.freelancerProfile;
-    setFreelancerId(freelancerIdAuth);
-  }, []);
+    if (user?.freelancerProfile) {
+      setFreelancerId(user.freelancerProfile);
+    }
+  }, [user]);
 
   console.log("freelancerId:", freelancerId);
   return (
