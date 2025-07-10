@@ -57,9 +57,14 @@ export default class Module {
     this.isNew = isNew;
   }
 
-  save() {
+  save(id) {
     this.isNew = false;
     this.isEdited = false;
+    this.id = id;
+  }
+
+  deleteLesson(lessonPosition) {
+    this.lessons = this.filter((lesson) => lesson.position !== lessonPosition);
   }
 }
 
