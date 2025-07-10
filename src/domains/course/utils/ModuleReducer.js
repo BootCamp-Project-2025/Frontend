@@ -19,7 +19,7 @@ export const moduleReducer = (state, action) => {
         title: "",
         resources: [],
         videoUrls: [],
-        position: lessons.length,
+        position: (lessons[lessons.length - 1]?.position ?? 0) + 1,
         description: "",
         new: true,
       });
@@ -114,6 +114,7 @@ export const moduleReducer = (state, action) => {
       );
     }
     case "DELETE_LESSON": {
+      console.log(action.lessonPosition);
       const newState = [...state];
       const module = { ...newState[action.modulePosition] };
       const lessons = [...module.lessons];
