@@ -71,6 +71,10 @@ export default class Lesson {
     this.isEdited = false;
     this.resources.push(resource);
   }
+
+  addVideoUrl(videoUrl) {
+    this.videoUrls.push(videoUrl);
+  }
 }
 
 class LessonBuilder {
