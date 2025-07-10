@@ -7,9 +7,29 @@ export default class Module {
   id;
   isNew;
 
-  constructor() {}
+  constructor(title, lessons, position, isEdited, courseId, id, isNew) {
+    this.title = title;
+    this.lessons = lessons;
+    this.position = position;
+    this.isEdited = isEdited;
+    this.courseId = courseId;
+    this.id = id;
+    this.isNew = isNew;
+  }
   static builder() {
     return new ModuleBuilder();
+  }
+
+  clone() {
+    return new Module(
+      this.title,
+      [...this.lessons],
+      this.position,
+      this.isEdited,
+      this.courseId,
+      this.id,
+      this.isNew
+    );
   }
 
   setTitle(title) {
