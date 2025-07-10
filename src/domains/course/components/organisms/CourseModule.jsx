@@ -9,6 +9,7 @@ import { ApiPost } from "../../api/ApiPost";
 import { ApiPut } from "../../api/ApiPut";
 import { useSearchParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { useEffect } from "react";
 
 export default function CourseModule({
   modules,
@@ -44,6 +45,22 @@ export default function CourseModule({
       false
     );
   }
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (module.edited || module.new) {
+        event.preventDefault();
+        event.returnValue =
+          "You have unsaved changes. Are you sure you want to leave?";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [module.edited, module.new]);
 
   async function eraseModule() {
     if (module.id) {
