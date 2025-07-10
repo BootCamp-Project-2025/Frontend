@@ -8,20 +8,20 @@ import SkillSection from "../components/organisms/SkillSection";
 import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 
 const TeacherProfile = () => {
-  const [freelancerId, setFreelancerId] = useState("");
   const { user } = useAuth();
+  //const [freelancerId, setFreelancerId] = useState(null);
 
-  useEffect(() => {
-    // const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
-    if (user?.freelancerProfile) {
-      setFreelancerId(user.freelancerProfile);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   // const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
+  //   if (user?.freelancerProfile) {
+  //     setFreelancerId(user.freelancerProfile);
+  //   }
+  // }, [user]);
 
-  console.log("freelancerId:", freelancerId);
+  console.log("freelancerId:", user?.freelancerProfile);
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16">
       <ProfileTitle title="Teacher Profile" />
@@ -55,13 +55,15 @@ const TeacherProfile = () => {
           </Link>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-        <EducationSection freelancerId={freelancerId} />
-        <ExperienceSection freelancerId={freelancerId} />
-        <CertificationSection freelancerId={freelancerId} />
-        <SkillSection freelancerId={freelancerId} />
-        <LanguageSection freelancerId={freelancerId} />
-      </div>
+      {user?.freelancerProfile && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+          <EducationSection freelancerId={user.freelancerProfile} />
+          <ExperienceSection freelancerId={user.freelancerProfile} />
+          <CertificationSection freelancerId={user.freelancerProfile} />
+          <SkillSection freelancerId={user.freelancerProfile} />
+          <LanguageSection freelancerId={user.freelancerProfile} />
+        </div>
+      )}
     </main>
   );
 };
