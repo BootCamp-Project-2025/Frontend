@@ -10,6 +10,33 @@ export default class Lesson {
   static builder() {
     return new LessonBuilder();
   }
+
+  settitle(title) {
+    this.title = title;
+  }
+  setresources(resources) {
+    this.resources = resources;
+  }
+  setvideoUrls(videoUrls) {
+    this.videoUrls = videoUrls;
+  }
+  setposition(position) {
+    this.position = position;
+  }
+  setdescription(description) {
+    this.description = description;
+  }
+  setisNew(isNew) {
+    this.isNew = isNew;
+  }
+  setisEdited(isEdited) {
+    this.isEdited = isEdited;
+  }
+
+  save() {
+    this.isNew = false;
+    this.isEdited = false;
+  }
 }
 
 class LessonBuilder {
