@@ -7,9 +7,11 @@ import CourseModule from "./CourseModule";
 import { moduleReducer } from "../../utils/ModuleReducer";
 import { ApiGet } from "../../api/ApiGet";
 import { useSearchParams } from "react-router-dom";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export default function CourseSyllabus() {
   const [searchParams] = useSearchParams();
+  const { showToast } = useToastContext();
   useEffect(() => {
     const loadData = async () => {
       const { responseData } = await ApiGet(
@@ -37,7 +39,7 @@ export default function CourseSyllabus() {
     for (let i = 0; i < modules.length; i++) {
       const module = modules[i];
       if (module.edited === true || module.new === true) {
-        alert("there are modules without saving");
+        showToast("there are modules without saving", "warning");
         document.getElementById(`module-${i}`).scrollIntoView();
         window.scrollBy({ top: -100 });
         return;
@@ -45,7 +47,7 @@ export default function CourseSyllabus() {
       for (let j = 0; j < module.lessons.length; j++) {
         const lesson = module.lessons[j];
         if (lesson.edited === true || lesson.new === true) {
-          alert("there are lessons without saving");
+          showToast("there are lessons without saving", "warning");
           document.getElementById(`module-${i}-lesson-${j}`).scrollIntoView();
           window.scrollBy({ top: -100 });
           return;

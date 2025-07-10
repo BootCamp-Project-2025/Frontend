@@ -11,6 +11,7 @@ import { ApiPost } from "../../api/ApiPost";
 import { ApiDelete } from "../../api/ApiDelete";
 import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export default function CourseLesson({
   modules,
@@ -21,6 +22,7 @@ export default function CourseLesson({
 }) {
   const [descriptionEdited, setDescriptionEdited] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
+  const { showToast } = useToastContext();
   const lesson = modules[modulePosition].lessons[lessonPosition];
   const [modalOpen, setModalOpen] = useState(false);
   const inputRef = useRef(lesson.description);
@@ -60,7 +62,7 @@ export default function CourseLesson({
       lesson.resources.filter((savedFile) => savedFile.name === file.name)
         .length > 0
     ) {
-      alert("Error: file name repeated, it will not be saved");
+      showToast("Error: file name repeated, it will not be saved", "error");
       return;
     }
     addResource(file.name, file.name, lesson.resources.length);
@@ -68,7 +70,7 @@ export default function CourseLesson({
 
   function saveVideo(url) {
     if (lesson.videoUrls.filter((savedUrl) => savedUrl === url).length > 0) {
-      alert("Error: video url repeated, it will not be saved");
+      showToast("Error: video url repeated, it will not be saved", "error");
       return;
     }
     dispatch({
@@ -102,7 +104,7 @@ export default function CourseLesson({
   async function eraseResource(name) {
     dispatch({
       modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      lessonPosition: lesson.position,
       name: name,
       type: "DELETE_RESOURCE",
     });
@@ -144,7 +146,7 @@ export default function CourseLesson({
   async function saveLesson() {
     let response;
     if (modules[modulePosition].new === true) {
-      alert("Error: module needs to be saved before lesson");
+      showToast("Error: module needs to be saved before lesson", "error");
       return;
     }
     if (!validateDescription()) return;
@@ -158,23 +160,27 @@ export default function CourseLesson({
         `courses/modules/${modules[modulePosition].id}/lessons/${lesson.id}`,
         { ...lesson, description: inputRef.current }
       );
-    if (!response.error)
+    if (!response.error) {
+      showToast("the lesson was saved successfully", "success");
       dispatch({
         modulePosition: modulePosition,
         lessonPosition: lessonPosition,
         id: response.data.id,
         type: "SAVE_LESSON",
       });
-    setDescriptionEdited(false);
+      setDescriptionEdited(false);
+    } else
+      showToast("A error has ocurred, the lesson couldnt be saved", "error");
   }
   async function eraseLesson() {
     if (lesson.id) {
       const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
       if (error) return;
     }
+    showToast("the module was deleted successfully", "success");
     dispatch({
       modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      lessonPosition: lesson.position,
       type: "DELETE_LESSON",
     });
   }
