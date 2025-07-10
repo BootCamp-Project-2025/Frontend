@@ -33,7 +33,7 @@ describe("moduleReducer", () => {
           {
             description: "",
             new: true,
-            position: 0,
+            position: 1,
             resources: [],
             title: "",
             videoUrls: [],
