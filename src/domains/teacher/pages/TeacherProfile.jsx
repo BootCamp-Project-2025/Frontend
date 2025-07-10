@@ -7,8 +7,13 @@ import CertificationSection from "../components/organisms/CertificationSection";
 import SkillSection from "../components/organisms/SkillSection";
 import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
+import { useAuth } from "../../../shared/hooks/useAuth";
 
 const TeacherProfile = () => {
+  const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
+  const { user } = useAuth();
+  const freelancerId = user?.id || fallbackId;
+
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16">
       <ProfileTitle title="Teacher Profile" />
@@ -43,11 +48,11 @@ const TeacherProfile = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-        <EducationSection />
-        <ExperienceSection />
-        <CertificationSection />
-        <SkillSection />
-        <LanguageSection />
+        <EducationSection freelancerId={freelancerId} />
+        <ExperienceSection freelancerId={freelancerId} />
+        <CertificationSection freelancerId={freelancerId} />
+        <SkillSection freelancerId={freelancerId} />
+        <LanguageSection freelancerId={freelancerId} />
       </div>
     </main>
   );

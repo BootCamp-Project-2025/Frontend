@@ -5,7 +5,7 @@ import { ExperienceCard } from "../../../../src/domains/teacher/components/molec
 describe("ExperienceCard", () => {
   const mockProps = {
     id: "123",
-    jobPosition: "Frontend Developer",
+    position: "Frontend Developer",
     employer: "Tech Company",
     country: "United States",
     startDate: "2020-02",
@@ -17,7 +17,7 @@ describe("ExperienceCard", () => {
   it("renders all provided props correctly", () => {
     render(<ExperienceCard {...mockProps} />);
 
-    expect(screen.getByText(mockProps.jobPosition)).toBeInTheDocument();
+    expect(screen.getByText(mockProps.position)).toBeInTheDocument();
     expect(
       screen.getByText(`${mockProps.startDate} - ${mockProps.endDate}`)
     ).toBeInTheDocument();

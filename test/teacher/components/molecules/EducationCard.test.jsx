@@ -8,7 +8,7 @@ describe("EducationCard", () => {
     university: "Harvard University",
     career: "Computer Science",
     startDate: "2018-09",
-    endDate: "2022-06",
+    finishDate: "2022-06",
     editCard: vi.fn(),
   };
 
@@ -17,7 +17,7 @@ describe("EducationCard", () => {
     expect(screen.getByText(mockProps.university)).toBeInTheDocument();
     expect(screen.getByText(mockProps.career)).toBeInTheDocument();
     expect(
-      screen.getByText(`${mockProps.startDate}, ${mockProps.endDate}`)
+      screen.getByText(`${mockProps.startDate}, ${mockProps.finishDate}`)
     ).toBeInTheDocument();
   });
 

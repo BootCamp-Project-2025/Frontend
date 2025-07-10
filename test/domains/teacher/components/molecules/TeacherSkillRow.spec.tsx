@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 describe("SkillCard component", () => {
   const defaultProps = {
     id: "1",
-    skill: "react",
+    name: "react",
     level: "Beginer",
     editCard: () => {
       console.log("edit");
