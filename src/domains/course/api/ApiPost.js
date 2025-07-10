@@ -12,7 +12,7 @@ export const ApiPost = async (path, body) => {
   } catch (err) {
     error = true;
     status = err.status;
-    data = err.response.data.data ?? null;
+    data = err.response.data ?? err;
   }
   return { data, error, status };
 };
