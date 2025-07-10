@@ -73,7 +73,15 @@ export default class Lesson {
   }
 
   addVideoUrl(videoUrl) {
+    this.isEdited = true;
     this.videoUrls.push(videoUrl);
+  }
+
+  deleteResource(name) {
+    this.isEdited = true;
+    this.resources = this.resources.filter(
+      (resource) => resource.name !== name
+    );
   }
 }
 
