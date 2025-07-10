@@ -8,6 +8,7 @@ import { ApiDelete } from "../../api/ApiDelete";
 import { ApiPost } from "../../api/ApiPost";
 import { ApiPut } from "../../api/ApiPut";
 import { useSearchParams } from "react-router-dom";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export default function CourseModule({
   modules,
@@ -16,6 +17,7 @@ export default function CourseModule({
   ...props
 }) {
   const module = modules[modulePosition];
+  const { showToast } = useToastContext();
   const [searchParams] = useSearchParams();
   const { openPopup, closePopup } = usePopup();
   const buttons = [
@@ -48,6 +50,7 @@ export default function CourseModule({
       const { error } = await ApiDelete(`courses/modules/${module.id}`);
       if (error) return;
     }
+    showToast("the module was deleted successfully", "success");
     dispatch({
       type: "DELETE_MODULE",
       modulePosition: module.position,
@@ -67,12 +70,15 @@ export default function CourseModule({
         title: module.title,
         position: module.position,
       });
-    if (!response.error)
+    if (!response.error) {
+      showToast("the module was saved successfully", "success");
       dispatch({
         modulePosition: modulePosition,
         type: "SAVE_MODULE",
         id: response.data.id,
       });
+    } else
+      showToast("A error has ocurred, the module couldnt be saved", "error");
   }
 
   function saveTitle(newTitle) {

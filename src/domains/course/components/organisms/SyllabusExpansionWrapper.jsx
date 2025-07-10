@@ -81,8 +81,8 @@ export default function SyllabusExpansionWrapper({
               ref={inputRef}
               id={sectionTitle}
               type="text"
+              placeholder={"title"}
               className={`min-w-8 overflow-ellipsis max-w-min focus:outline-none mx-0 px-3`}
-              errorMessage={error}
               onChange={validateTitle}
             />
           </div>
@@ -92,8 +92,10 @@ export default function SyllabusExpansionWrapper({
           >
             {title}
           </span>
-          <span className={`${newSection ? "" : "hidden"} text-blue-500`}>
-            new
+          <span
+            className={`${error !== "" ? "" : "hidden"} text-pink-500 text-sm`}
+          >
+            {error}
           </span>
 
           {editTitle ? (
