@@ -159,7 +159,7 @@ export default function CourseLesson({
     // if description is not valid exits
     if (!validateDescription(lesson.description)) return;
     // post or update depending if the lesson is alredy saved
-    if (lesson.new === true)
+    if (lesson.isNew === true)
       response = await ApiPost(
         `courses/modules/${modules[modulePosition].id}/lessons`,
         { ...lesson }

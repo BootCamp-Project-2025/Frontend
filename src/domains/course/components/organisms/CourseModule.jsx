@@ -75,12 +75,12 @@ export default function CourseModule({
   async function saveModule() {
     let response;
     // post or update the module depending if it has alredy been saved
-    if (module.new)
+    if (module.isNew)
       response = await ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
         position: module.position,
       });
-    else if (module.edited)
+    else if (module.isEdited)
       response = await ApiPut(`courses/modules/${module.id}`, {
         id: module.id,
         title: module.title,
