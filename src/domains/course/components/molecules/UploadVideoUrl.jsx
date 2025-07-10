@@ -15,7 +15,7 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
       <TextInput ref={inputRef} placeholder="video url" />
       <div className="flex justify-center gap-8 mt-2">
         <Button color="secondary" onClick={closePopup}>
-          cancel
+          Cancel
         </Button>
         <Button
           color="primary"
@@ -24,7 +24,7 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
             closePopup();
           }}
         >
-          save
+          Save
         </Button>
       </div>
     </div>
