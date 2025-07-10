@@ -124,8 +124,8 @@ export default function CourseModule({
       erase={eraseConfirmationPopUp}
       checkRepeatTitle={checkRepeatTitle}
       className="mt-10 mx-20"
-      enableSave={module.edited ?? false}
-      newSection={module.new ?? false}
+      enableSave={module.isEdited ?? false}
+      newSection={module.isNew ?? false}
       {...props}
       sectionTitle={`Module ${modulePosition + 1}`}
       title={module.title}
