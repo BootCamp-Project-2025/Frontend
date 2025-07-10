@@ -12,7 +12,7 @@ export default function LessonContentGroup({
   return (
     <div className={`px-5 py-3 mt-2 mx-16 ${className}`} {...props}>
       <Title color="black">{title}</Title>
-      <div className="px-2">
+      <ul className="px-2">
         {resources.map((resource, id) => (
           <LessonContentRow
             eraseResource={eraseResource}
@@ -21,7 +21,7 @@ export default function LessonContentGroup({
             url={resource.url ?? resource}
           />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

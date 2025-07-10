@@ -10,7 +10,7 @@ export default function LessonContentRow({
   ...props
 }) {
   return (
-    <div className={`${className} flex justify-between mt-2`} {...props}>
+    <li className={`${className} flex justify-between mt-2`} {...props}>
       <a href={url} className="text-blue-500">
         {name}
       </a>
@@ -22,7 +22,7 @@ export default function LessonContentRow({
       >
         <Icon icon={"trashCan"} />
       </Button>
-    </div>
+    </li>
   );
 }
 
