@@ -83,6 +83,11 @@ export default class Lesson {
       (resource) => resource.name !== name
     );
   }
+
+  deleteVideo(urlToDelete) {
+    this.isEdited = true;
+    this.videoUrls = this.videoUrls.filter((url) => url !== urlToDelete);
+  }
 }
 
 class LessonBuilder {
