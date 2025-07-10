@@ -1,10 +1,15 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { CategoryCard } from "../../../../src/shared/components/molecules/CategoryCard";
+import { MemoryRouter } from "react-router-dom";
 
 describe("CategoryCard component", () => {
   it("renders category name and image", () => {
-    render(<CategoryCard id="1" category="Technology" imageURL="/tech.jpg" />);
+    render(
+      <MemoryRouter>
+        <CategoryCard id="1" category="Technology" imageURL="/tech.jpg" />
+      </MemoryRouter>
+    );
 
     const image = screen.getByAltText("Category Image");
     expect(image).toBeInTheDocument();
@@ -15,7 +20,11 @@ describe("CategoryCard component", () => {
   });
 
   it("renders with default category name if not provided", () => {
-    render(<CategoryCard />);
+    render(
+      <MemoryRouter>
+        <CategoryCard />
+      </MemoryRouter>
+    );
     expect(screen.getByText("Category")).toBeInTheDocument();
   });
 });

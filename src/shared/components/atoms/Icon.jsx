@@ -17,6 +17,7 @@ import UserIcon from "../../../assets/user.svg?react";
 import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
+import Search from "../../../assets/search.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -39,6 +40,7 @@ const icons = {
   course: CourseIcon,
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
+  search: Search,
 };
 
 export function Icon({ icon, className }) {

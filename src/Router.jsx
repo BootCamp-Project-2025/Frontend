@@ -13,6 +13,7 @@ import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
+import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 
 export default function Router() {
@@ -24,7 +25,11 @@ export default function Router() {
           <Route path="/dashboard/profile" element={<main>Profile</main>} />
           <Route
             path="/dashboard/teacher"
-            element={<main>Teacher profile</main>}
+            element={
+              <main>
+                <TeacherProfile />
+              </main>
+            }
           />
           <Route path="/dashboard/courses" element={<CourseCardList />} />
           <Route
@@ -57,14 +62,7 @@ export default function Router() {
             }
           />
           <Route path="/courses/:idCourse" element={<CourseDetails />} />
-          <Route
-            path="/teachers"
-            element={
-              <main>
-                <p>teachers section</p>
-              </main>
-            }
-          />
+
           <Route
             path="/teachers"
             element={
@@ -75,22 +73,14 @@ export default function Router() {
           />
 
           <Route
-            path="/teacher/courses"
+            path="/teachers/:idTeacher"
             element={
               <main>
-                <CourseCardList />
+                <p>teachers details</p>
               </main>
             }
           />
 
-          <Route
-            path="/teachers/teacherId"
-            element={
-              <main>
-                <TeacherProfile />
-              </main>
-            }
-          />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
           <Route path="teacher-profile" element={<TeacherProfile />} />
@@ -109,6 +99,7 @@ export default function Router() {
           />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
+          <Route path="doc-component" element={<DocComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
