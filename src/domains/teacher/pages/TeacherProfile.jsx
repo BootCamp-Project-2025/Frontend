@@ -8,24 +8,14 @@ import SkillSection from "../components/organisms/SkillSection";
 import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
-//import { useEffect, useState } from "react";
 
 const TeacherProfile = () => {
   const { user } = useAuth();
-  //const [freelancerId, setFreelancerId] = useState(null);
 
-  // useEffect(() => {
-  //   // const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
-  //   if (user?.freelancerProfile) {
-  //     setFreelancerId(user.freelancerProfile);
-  //   }
-  // }, [user]);
-
-  console.log("freelancerId:", user?.freelancerProfile);
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16">
       <ProfileTitle title="Teacher Profile" />
-      <ProfileInfo name="Teacher Full Name" email="userEvent.email@gmail.com" />
+      {user && <ProfileInfo user={user} />}
       <div className="flex:col md:flex gap-24 md:gap-0 justify-around items-center w-full">
         <About />
         <div className="flex flex-col justify-center gap-4 border-2 border-[color:var(--color-primary-600)] rounded-lg p-4 max-h-min max-w-min mt-8 md:mt:0">

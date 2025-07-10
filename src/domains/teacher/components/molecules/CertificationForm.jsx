@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { NumberInput } from "../../../../shared/components/molecules/NumberInput";
-
+import { v4 as uuidv4 } from "uuid";
 export default function CertificationForm({
   id = "",
   certification = "",
@@ -26,7 +26,8 @@ export default function CertificationForm({
   });
 
   const saveNewRecord = async (data) => {
-    addCard({ ...data, id: crypto.randomUUID() });
+    let newId = uuidv4();
+    addCard({ ...data, id: newId });
     closePopup();
   };
 

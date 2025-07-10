@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { v4 as uuidv4 } from "uuid";
 
 export const LanguageForm = ({
   id = "",
@@ -28,7 +29,8 @@ export const LanguageForm = ({
     if (id) {
       updateCard({ ...data, id });
     } else {
-      addCard({ ...data, id: crypto.randomUUID() });
+      let newId = uuidv4();
+      addCard({ ...data, id: newId });
     }
     closeForm();
   };
