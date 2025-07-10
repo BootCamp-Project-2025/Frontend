@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ButtonSection from "../../../../../src/domains/course/components/molecules/ModuleButtonSection";
 
-describe("EraseConfirmation test component", () => {
+describe("ModuleButtonSection test component", () => {
   const click1 = vi.fn();
   const click2 = vi.fn();
 
