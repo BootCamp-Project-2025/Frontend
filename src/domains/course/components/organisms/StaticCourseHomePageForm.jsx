@@ -50,7 +50,7 @@ export default function StaticCourseHomePageForm() {
     <ToastProvider>
       <form
         onSubmit={handleSubmit(async (data) => await updateCourse(data))}
-        style={{ padding: "0 15vw" }}
+        style={{ padding: "2rem 15vw" }}
         className="flex flex-col gap-4"
       >
         <Title className="border-b-1" color="default">

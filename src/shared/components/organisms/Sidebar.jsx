@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [courseOpen, setCourseOpen] = useState(false);
 
   const location = useLocation();
@@ -28,19 +28,20 @@ export const Sidebar = () => {
   }, [location.pathname, courseId]);
 
   const handleClick = (open) => {
-    setIsOpen(open);
+    setIsOpen(true);
   };
 
   const handleOpenAndCourse = () => {
-    setCourseOpen(false);
-    setIsOpen(true);
+    //setCourseOpen(false);
+    //setIsOpen(true);
   };
 
   return (
     <aside
-      className={`sticky top-0 bg-white h-screen shadow-md border-r border-gray-300 flex flex-col justify-between transition-all duration-300 ${
+      className={` bg-white h-screen shadow-md border-r border-gray-300 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64 min-w-64" : "w-16 min-w-16"
       }`}
+      id="containerSideBar"
     >
       <div>
         <div className="p-4 flex justify-center">
@@ -64,7 +65,7 @@ export const Sidebar = () => {
           )}
         </div>
         <ul className="mt-4">
-          <li className={`${!isOpen ? "flex justify-center" : ""}`}>
+          {/*  <li className={`${!isOpen ? "flex justify-center" : ""}`}>
             <Link
               to="/"
               className={`py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`}
@@ -72,12 +73,12 @@ export const Sidebar = () => {
             >
               <Icon icon={"home"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
+                <Title size={"md"} color={"default"} className={"ml-3 text-nowrap"}>
                   Home
                 </Title>
               )}
             </Link>
-          </li>
+          </li> */}
           <li className={`${!isOpen ? "flex justify-center" : ""}`}>
             <NavLink
               className={({ isActive }) =>
@@ -85,13 +86,17 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="/dashboard"
+              to="/teacher/dashboard"
               onClick={handleOpenAndCourse}
               end
             >
               <Icon icon={"dashboard"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
+                <Title
+                  size={"md"}
+                  color={"default"}
+                  className={"ml-3 text-nowrap"}
+                >
                   Dashboard
                 </Title>
               )}
@@ -104,35 +109,39 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="profile"
+              to="/teacher/profile"
               onClick={handleOpenAndCourse}
             >
               <Icon icon={"user"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
-                  Profile
+                <Title
+                  size={"md"}
+                  color={"default"}
+                  className={"ml-3 text-nowrap"}
+                >
+                  Teacher Profile
                 </Title>
               )}
             </NavLink>
           </li>
-          <li className={`${!isOpen ? "flex justify-center" : ""}`}>
+          {/* <li className={`${!isOpen ? "flex justify-center" : ""}`}>
             <NavLink
               className={({ isActive }) =>
                 isActive
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="teacher"
+              to="/teacher/teacher"
               onClick={handleOpenAndCourse}
             >
               <Icon icon={"teacher"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
+                <Title size={"md"} color={"default"} className={"ml-3 text-nowrap"}>
                   Teacher profile
                 </Title>
               )}
             </NavLink>
-          </li>
+          </li> */}
           <li className={`${!isOpen ? "flex justify-center" : ""}`}>
             <NavLink
               className={({ isActive }) =>
@@ -140,12 +149,16 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
-              to="courses"
+              to="/teacher/courses"
               onClick={handleOpenAndCourse}
             >
               <Icon icon={"course"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
+                <Title
+                  size={"md"}
+                  color={"default"}
+                  className={"ml-3 text-nowrap"}
+                >
                   My courses
                 </Title>
               )}
@@ -200,7 +213,11 @@ export const Sidebar = () => {
             >
               <Icon icon={"message"}></Icon>
               {isOpen && (
-                <Title size={"md"} color={"default"} className={"ml-3"}>
+                <Title
+                  size={"md"}
+                  color={"default"}
+                  className={"ml-3 text-nowrap"}
+                >
                   Chats
                 </Title>
               )}
@@ -208,7 +225,7 @@ export const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="p-4 flex justify-center">
+      {/* <div className="p-4 flex justify-center">
         {!isOpen && (
           <button className="cursor-pointer" onClick={(e) => handleClick(true)}>
             <Icon icon={"logout"}></Icon>
@@ -228,7 +245,7 @@ export const Sidebar = () => {
             </div>
           </Button>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 };
