@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import EraseConfirmation from "../../../../../src/domains/course/components/molecules/EraseConfirmation";
 
-describe("SyllabusInfo test component", () => {
+describe("EraseConfirmation test component", () => {
   const closePopup = vi.fn();
   const onDelete = vi.fn();
 
