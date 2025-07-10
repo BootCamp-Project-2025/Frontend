@@ -204,8 +204,8 @@ export default function CourseLesson({
       erase={eraseConfirmationPopUp}
       className="border-b-1 border-gray-400 mx-10"
       borderTitle={false}
-      enableSave={lesson.edited === true}
-      newSection={lesson.new === true}
+      enableSave={lesson.isEdited === true}
+      newSection={lesson.isNew === true}
       sectionTitle={`Lesson ${lessonPosition + 1}`}
       title={lesson.title}
     >
