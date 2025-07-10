@@ -136,6 +136,7 @@ export default function CourseLesson({
   }
 
   function validateDescription(dedcription) {
+    console.log(dedcription);
     if (dedcription.length < 30) {
       setDescriptionError("description is to short");
       return false;
@@ -156,7 +157,7 @@ export default function CourseLesson({
       return;
     }
     // if description is not valid exits
-    if (!validateDescription()) return;
+    if (!validateDescription(lesson.description)) return;
     // post or update depending if the lesson is alredy saved
     if (lesson.new === true)
       response = await ApiPost(
