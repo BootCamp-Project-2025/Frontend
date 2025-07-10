@@ -1,4 +1,5 @@
 export default class Lesson {
+  id;
   title;
   resources;
   videoUrls;
@@ -8,6 +9,7 @@ export default class Lesson {
   isEdited;
 
   constructor(
+    id,
     title,
     resources,
     videoUrls,
@@ -16,6 +18,7 @@ export default class Lesson {
     isNew,
     isEdited
   ) {
+    this.id = id;
     this.title = title;
     this.resources = resources;
     this.videoUrls = videoUrls;
@@ -30,6 +33,7 @@ export default class Lesson {
 
   clone() {
     return new Lesson(
+      this.id,
       this.title,
       [...this.resources],
       [...this.videoUrls],
@@ -68,7 +72,12 @@ export default class Lesson {
     this.isEdited = isEdited;
   }
 
-  save() {
+  setId(id) {
+    this.id = id;
+  }
+
+  save(id) {
+    this.id = id;
     this.isNew = false;
     this.isEdited = false;
   }
@@ -127,6 +136,11 @@ class LessonBuilder {
   }
   isEdited(isEdited) {
     this.lesson.isEdited = isEdited;
+    return this;
+  }
+
+  id(id) {
+    this.lesson.id = id;
     return this;
   }
 
