@@ -8,12 +8,7 @@ import { AboutMeForm } from "./AboutMeForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 
 const mockInformation = `
-Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nulla
-      ipsa dignissimos quod amet asperiores! Nobis, aliquam quaerat voluptas
-      fugit maxime distinctio, a aperiam assumenda repellat
-      accusantium quibusdam! Itaque odio natus exercitationem illum autem
-      aspernatur vel qui laudantium quasi incidunt possimus repudiandae quisquam
-      quaerat aperiam eos eaque et ipsum adipisci laboriosam labore.
+Tell others a bit about your background, skills, and interests...
 `;
 
 const About = () => {
