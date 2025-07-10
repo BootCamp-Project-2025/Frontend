@@ -1,28 +1,36 @@
+import Lesson from "../classes/Lesson";
+import Module from "../classes/Module";
+
 export const moduleReducer = (state, action) => {
   switch (action.type) {
     case "ADD_MODULE": {
       const newState = [...state];
-      newState.splice(action.postion, 0, {
-        title: "",
-        lessons: [],
-        position: calculateNewPosition(newState, action.postion),
-        new: true,
-        courseId: action.courseId,
-      });
+      newState.splice(
+        action.postion,
+        0,
+        Module.builder()
+          .title("")
+          .lessons([])
+          .position(calculateNewPosition(newState, action.postion))
+          .isNew(true)
+          .courseId(action.courseId)
+          .build()
+      );
       return newState;
     }
     case "ADD_LESSON": {
       const newState = [...state];
       const module = { ...newState[action.modulePosition] };
       const lessons = [...module.lessons];
-      lessons.push({
-        title: "",
-        resources: [],
-        videoUrls: [],
-        position: (lessons[lessons.length - 1]?.position ?? 0) + 1,
-        description: "",
-        new: true,
-      });
+      lessons.push(
+        Lesson.builder()
+          .title("")
+          .resources([])
+          .videoUrls([])
+          .position((lessons[lessons.length - 1]?.position ?? 0) + 1)
+          .description("")
+          .isNew(true)
+      );
       module.lessons = lessons;
       newState[action.modulePosition] = module;
       return newState;
@@ -110,7 +118,6 @@ export const moduleReducer = (state, action) => {
       const module = { ...newState[action.modulePosition] };
       const lessons = [...module.lessons];
       const lesson = { ...lessons[action.lessonPosition] };
-      if (lesson.title !== action.title) lesson.edited = true;
       lesson.description = action.description;
       lessons[action.lessonPosition] = lesson;
       module.lessons = lessons;
