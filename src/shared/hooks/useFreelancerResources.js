@@ -18,7 +18,7 @@ export const useFreelancerResources = ({
       resourceType,
       record
     );
-    if (response.success == 0) {
+    if (response.success) {
       setRecordList((prev) => [...prev, response.data.data]);
       showToast(`${singularize(resourceType)} added successfully`, "success");
       closePopup();

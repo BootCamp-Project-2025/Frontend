@@ -8,13 +8,19 @@ import SkillSection from "../components/organisms/SkillSection";
 import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
+import { useEffect, useState } from "react";
 
 const TeacherProfile = () => {
-  const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
+  const [freelancerId, setFreelancerId] = useState("");
   const { user } = useAuth();
-  const freelancerId = user?.freelancerProfile || fallbackId;
 
-  console.log("freelancerId:", freelancerId, "fallbackId", fallbackId);
+  useEffect(() => {
+    // const fallbackId = import.meta.env.VITE_TEST_FREELANCER_ID;
+    const freelancerIdAuth = user?.freelancerProfile;
+    setFreelancerId(freelancerIdAuth);
+  }, []);
+
+  console.log("freelancerId:", freelancerId);
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16">
       <ProfileTitle title="Teacher Profile" />
