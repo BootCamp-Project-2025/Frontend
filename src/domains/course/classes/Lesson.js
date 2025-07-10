@@ -6,9 +6,38 @@ export default class Lesson {
   description;
   isNew;
   isEdited;
-  constructor() {}
+
+  constructor(
+    title,
+    resources,
+    videoUrls,
+    position,
+    description,
+    isNew,
+    isEdited
+  ) {
+    this.title = title;
+    this.resources = resources;
+    this.videoUrls = videoUrls;
+    this.position = position;
+    this.description = description;
+    this.isNew = isNew;
+    this.isEdited = isEdited;
+  }
   static builder() {
     return new LessonBuilder();
+  }
+
+  clone() {
+    return new Lesson(
+      this.title,
+      [...this.resources],
+      [...this.videoUrls],
+      this.position,
+      this.description,
+      this.isNew,
+      this.isEdited
+    );
   }
 
   settitle(title) {
@@ -36,6 +65,11 @@ export default class Lesson {
   save() {
     this.isNew = false;
     this.isEdited = false;
+  }
+
+  addResource(resource) {
+    this.isEdited = false;
+    this.resources.push(resource);
   }
 }
 
@@ -71,5 +105,9 @@ class LessonBuilder {
   isEdited(isEdited) {
     this.lesson.isEdited = isEdited;
     return this;
+  }
+
+  build() {
+    return this.lesson;
   }
 }
