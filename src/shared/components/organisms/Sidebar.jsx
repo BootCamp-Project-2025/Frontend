@@ -38,7 +38,7 @@ export const Sidebar = () => {
 
   return (
     <aside
-      className={`bg-white h-screen shadow-md border-r border-gray-300 flex flex-col justify-between transition-all duration-300 ${
+      className={`sticky top-0 bg-white h-screen shadow-md border-r border-gray-300 flex flex-col justify-between transition-all duration-300 ${
         isOpen ? "w-64 min-w-64" : "w-16 min-w-16"
       }`}
     >

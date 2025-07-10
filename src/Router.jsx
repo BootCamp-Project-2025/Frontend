@@ -25,11 +25,7 @@ export default function Router() {
           <Route path="/dashboard/profile" element={<main>Profile</main>} />
           <Route
             path="/dashboard/teacher"
-            element={
-              <main>
-                <TeacherProfile />
-              </main>
-            }
+            element={<main>Teacher profile</main>}
           />
           <Route path="/dashboard/courses" element={<CourseCardList />} />
           <Route
@@ -73,14 +69,22 @@ export default function Router() {
           />
 
           <Route
-            path="/teachers/:idTeacher"
+            path="/teacher/courses"
             element={
               <main>
-                <p>teachers details</p>
+                <CourseCardList />
               </main>
             }
           />
 
+          <Route
+            path="/teachers/teacherId"
+            element={
+              <main>
+                <TeacherProfile />
+              </main>
+            }
+          />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
           <Route path="teacher-profile" element={<TeacherProfile />} />
