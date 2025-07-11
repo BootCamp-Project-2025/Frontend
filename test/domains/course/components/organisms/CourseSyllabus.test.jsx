@@ -7,12 +7,6 @@ describe("CourseSyllabus test component", () => {
     useParams: () => ({ courseId: "course-123" }),
   }));
 
-  vi.mock("../../../../../src/shared/contexts/ToastContext", () => ({
-    useToastContext: () => ({
-      showToast: vi.fn(),
-    }),
-  }));
-
   vi.mock("../../../../../src/domains/course/api/ApiGet", () => ({
     ApiGet: vi.fn().mockResolvedValue({ data: [] }),
   }));
