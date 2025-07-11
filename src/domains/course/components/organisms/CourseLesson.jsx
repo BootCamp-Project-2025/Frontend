@@ -28,7 +28,7 @@ export default function CourseLesson({
 
   const buttons = [
     { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
-    { text: "Resources", onClick: () => setModalOpen(true) },
+    { text: "Resource", onClick: () => setModalOpen(true) },
   ];
 
   function eraseConfirmationPopUp() {
