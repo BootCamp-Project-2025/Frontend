@@ -83,12 +83,6 @@ export default function SyllabusExpansionWrapper({
           >
             {title}
           </span>
-          <span
-            className={`${error !== "" ? "" : "hidden"} text-pink-500 text-sm`}
-          >
-            {error}
-          </span>
-
           {editTitle ? (
             <Button
               data-testid="saveTitleButton"
@@ -100,7 +94,7 @@ export default function SyllabusExpansionWrapper({
               variant="light"
               color="secondary"
             >
-              <Icon className={"fill-black w-4 h-4"} icon={"save"} />
+              <Icon className={"fill-black ml-5 w-5 h-4"} icon={"check"} />
             </Button>
           ) : (
             <Button
@@ -111,6 +105,11 @@ export default function SyllabusExpansionWrapper({
               <Icon className={"w-4 h-4"} icon={"editBlack"} />
             </Button>
           )}
+          <span
+            className={`${error !== "" ? "" : "hidden"} text-pink-500 text-sm`}
+          >
+            {error}
+          </span>
         </div>
         <div>
           <Button
