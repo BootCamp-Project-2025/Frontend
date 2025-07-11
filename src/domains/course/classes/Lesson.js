@@ -83,7 +83,7 @@ export default class Lesson {
   }
 
   addResource(resource) {
-    this.isEdited = false;
+    this.isEdited = true;
     this.resources.push(resource);
   }
 
