@@ -24,7 +24,7 @@ describe("Upload video url test component", () => {
   });
   it("press Save correctly", async () => {
     render(<UploadVideoUrl closePopup={closePopup} saveVideo={saveVideo} />);
-    const urlInput = screen.getByPlaceholderText("video url");
+    const urlInput = screen.getByPlaceholderText("Video url");
     await userEvent.type(urlInput, "https://www.figma.com");
     const buttonSave = screen.getByText("Save");
     buttonSave.click();
@@ -33,7 +33,7 @@ describe("Upload video url test component", () => {
   });
   it("press show error when url is invalid", async () => {
     render(<UploadVideoUrl closePopup={closePopup} saveVideo={saveVideo} />);
-    const urlInput = screen.getByPlaceholderText("video url");
+    const urlInput = screen.getByPlaceholderText("Video url");
     await userEvent.type(urlInput, "not a url");
     const buttonSave = screen.getByText("Save");
     buttonSave.click();
