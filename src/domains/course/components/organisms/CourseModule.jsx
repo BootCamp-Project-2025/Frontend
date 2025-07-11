@@ -14,10 +14,10 @@ import { useEffect } from "react";
 export default function CourseModule({
   modules,
   dispatch,
-  modulePosition,
+  moduleIndex,
   ...props
 }) {
-  const module = modules[modulePosition];
+  const module = modules[moduleIndex];
   const { showToast } = useToastContext();
   const { courseId } = useParams();
   const { openPopup, closePopup } = usePopup();
@@ -27,8 +27,8 @@ export default function CourseModule({
       onClick: () =>
         dispatch({
           type: "ADD_LESSON",
-          modulePosition: modulePosition,
-          lessonPosition: module.lessons.length,
+          moduleIndex: moduleIndex,
+          lessonIndex: module.lessons.length,
         }),
     },
     { text: "Quiz", onClick: () => console.log("Quiz") },
@@ -90,7 +90,7 @@ export default function CourseModule({
       // only updates the view of the user if it has been sucessfully updated or created
       showToast("The module was saved successfully", "success");
       dispatch({
-        modulePosition: modulePosition,
+        moduleIndex: moduleIndex,
         type: "SAVE_MODULE",
         id: response.data.id,
       });
@@ -101,7 +101,7 @@ export default function CourseModule({
   function saveTitle(newTitle) {
     dispatch({
       type: "EDIT_MODULE_TITLE",
-      modulePosition: modulePosition,
+      moduleIndex: moduleIndex,
       title: newTitle,
     });
   }
@@ -127,7 +127,7 @@ export default function CourseModule({
       enableSave={module.isEdited ?? false}
       newSection={module.isNew ?? false}
       {...props}
-      sectionTitle={`Module ${modulePosition + 1}`}
+      sectionTitle={`Module ${moduleIndex + 1}`}
       title={module.title}
     >
       <ButtonSection buttonProps={buttons} />
@@ -135,10 +135,10 @@ export default function CourseModule({
         <CourseLesson
           modules={modules}
           dispatch={dispatch}
-          id={`module-${modulePosition}-lesson-${id}`}
-          key={`module-${modulePosition}-lesson-${id}`}
-          lessonPosition={id}
-          modulePosition={modulePosition}
+          id={`module-${moduleIndex}-lesson-${id}`}
+          key={`module-${moduleIndex}-lesson-${id}`}
+          lessonIndex={id}
+          moduleIndex={moduleIndex}
         />
       ))}
     </SyllabusExpansionWrapper>
@@ -149,5 +149,5 @@ CourseModule.propTypes = {
   title: PropTypes.string,
   modules: PropTypes.array,
   dispatch: PropTypes.func,
-  modulePosition: PropTypes.number,
+  moduleIndex: PropTypes.number,
 };

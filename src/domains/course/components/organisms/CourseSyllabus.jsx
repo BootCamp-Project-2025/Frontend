@@ -86,7 +86,7 @@ export default function CourseSyllabus() {
             id={`module-${id}`}
             key={`module-${id}`}
             title={module.title}
-            modulePosition={id}
+            moduleIndex={id}
           />
         </div>
       ))}

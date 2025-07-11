@@ -20,7 +20,7 @@ export const moduleReducer = (state, action) => {
     }
     case "ADD_LESSON": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
+      const module = newState[action.moduleIndex].clone();
       module.lessons.push(
         Lesson.builder()
           .title("")
@@ -33,71 +33,71 @@ export const moduleReducer = (state, action) => {
           .isNew(true)
           .build()
       );
-      newState[action.modulePosition] = module;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "ADD_RESOURCE": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.addResource({
         name: action.name,
         url: action.url,
       });
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "ADD_VIDEO": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.addVideoUrl(action.url);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "DELETE_RESOURCE": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.deleteResource(action.name);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "DELETE_VIDEO": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.deleteVideoUrls(action.url);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "EDIT_MODULE_TITLE": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
+      const module = newState[action.moduleIndex].clone();
       module.setTitle(action.title);
-      newState[action.modulePosition] = module;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "EDIT_LESSON_TITLE": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.setTitle(action.title);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "EDIT_LESSON_DESCRIPTION": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.setDescription(action.description);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
 
@@ -129,25 +129,25 @@ export const moduleReducer = (state, action) => {
     }
     case "DELETE_LESSON": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      module.deleteLesson(action.lessonPosition);
-      newState[action.modulePosition] = module;
+      const module = newState[action.moduleIndex].clone();
+      module.deleteLesson(action.lessonIndex);
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "SAVE_LESSON": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
-      const lesson = module.lessons[action.lessonPosition].clone();
+      const module = newState[action.moduleIndex].clone();
+      const lesson = module.lessons[action.lessonIndex].clone();
       lesson.save(action.id);
-      module.lessons[action.lessonPosition] = lesson;
-      newState[action.modulePosition] = module;
+      module.lessons[action.lessonIndex] = lesson;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     case "SAVE_MODULE": {
       const newState = [...state];
-      const module = newState[action.modulePosition].clone();
+      const module = newState[action.moduleIndex].clone();
       module.save(action.id);
-      newState[action.modulePosition] = module;
+      newState[action.moduleIndex] = module;
       return newState;
     }
     default:

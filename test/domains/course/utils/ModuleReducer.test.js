@@ -31,7 +31,7 @@ describe("moduleReducer", () => {
     baseModuleClone.lessons.push(baseLesson);
     const initialState = [baseModule];
     const finalState = [baseModuleClone];
-    const action = { modulePosition: 0, type: "ADD_LESSON" };
+    const action = { moduleIndex: 0, type: "ADD_LESSON" };
     const newState = moduleReducer(initialState, action);
     expect(newState).toEqual(finalState);
   });
@@ -50,8 +50,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       name: "testName",
       url: "testUrl",
       type: "ADD_RESOURCE",
@@ -71,8 +71,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       url: "testUrl",
       type: "ADD_VIDEO",
     };
@@ -100,8 +100,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       name: "testName",
       type: "DELETE_RESOURCE",
     };
@@ -120,8 +120,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       url: "testUrl",
       type: "DELETE_VIDEO",
     };
@@ -134,8 +134,8 @@ describe("moduleReducer", () => {
       Module.builder().position(1).title("titleExample").isEdited(true).build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       title: "titleExample",
       type: "EDIT_MODULE_TITLE",
     };
@@ -154,8 +154,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       title: "titleExample",
       type: "EDIT_LESSON_TITLE",
     };
@@ -180,8 +180,8 @@ describe("moduleReducer", () => {
     ];
     const finalState = [Module.builder().lessons([]).build()];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       type: "DELETE_LESSON",
     };
     const newState = moduleReducer(initialState, action);
@@ -199,8 +199,8 @@ describe("moduleReducer", () => {
         .build(),
     ];
     const action = {
-      modulePosition: 0,
-      lessonPosition: 0,
+      moduleIndex: 0,
+      lessonIndex: 0,
       type: "SAVE_LESSON",
     };
     const newState = moduleReducer(initialState, action);
@@ -210,7 +210,7 @@ describe("moduleReducer", () => {
     const initialState = [Module.builder().isEdited(true).isNew(true).build()];
     const finalState = [Module.builder().isEdited(false).isNew(false).build()];
     const action = {
-      modulePosition: 0,
+      moduleIndex: 0,
       type: "SAVE_MODULE",
     };
     const newState = moduleReducer(initialState, action);

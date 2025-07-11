@@ -16,15 +16,15 @@ import { useToastContext } from "../../../../shared/contexts/ToastContext";
 export default function CourseLesson({
   modules,
   dispatch,
-  modulePosition,
-  lessonPosition,
+  moduleIndex,
+  lessonIndex,
   ...props
 }) {
   const { showToast } = useToastContext();
   const { openPopup, closePopup } = usePopup();
   const [descriptionError, setDescriptionError] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const lesson = modules[modulePosition].lessons[lessonPosition];
+  const lesson = modules[moduleIndex].lessons[lessonIndex];
 
   const buttons = [
     { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
@@ -71,8 +71,8 @@ export default function CourseLesson({
     }
     dispatch({
       type: "ADD_VIDEO",
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       url: url,
     });
   }
@@ -80,8 +80,8 @@ export default function CourseLesson({
   function saveTitle(newTitle) {
     dispatch({
       type: "EDIT_LESSON_TITLE",
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       title: newTitle,
     });
   }
@@ -89,16 +89,16 @@ export default function CourseLesson({
   function saveDescription(dedcription) {
     dispatch({
       type: "EDIT_LESSON_DESCRIPTION",
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       description: dedcription,
     });
   }
 
   function addResource(name, url, resourcePosition) {
     dispatch({
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       type: "ADD_RESOURCE",
       name: name,
       resourcePosition: resourcePosition,
@@ -108,8 +108,8 @@ export default function CourseLesson({
 
   async function eraseResource(name) {
     dispatch({
-      modulePosition: modulePosition,
-      lessonPosition: lesson.position,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       name: name,
       type: "DELETE_RESOURCE",
     });
@@ -117,8 +117,8 @@ export default function CourseLesson({
 
   async function eraseVideo(url) {
     dispatch({
-      modulePosition: modulePosition,
-      lessonPosition: lessonPosition,
+      moduleIndex: moduleIndex,
+      lessonIndex: lessonIndex,
       url: url,
       type: "DELETE_VIDEO",
     });
@@ -126,7 +126,7 @@ export default function CourseLesson({
 
   function checkRepeatTitle(tittle) {
     if (
-      modules[modulePosition].lessons.filter(
+      modules[moduleIndex].lessons.filter(
         (less) => less.title === tittle && less.position !== lesson.position
       ).length > 0
     ) {
@@ -152,7 +152,7 @@ export default function CourseLesson({
   async function saveLesson() {
     let response;
     //check if the father module exist in the db, if not it needs to be saved
-    if (modules[modulePosition].new === true) {
+    if (modules[moduleIndex].new === true) {
       showToast("Error: module needs to be saved before lesson", "error");
       return;
     }
@@ -161,20 +161,20 @@ export default function CourseLesson({
     // post or update depending if the lesson is alredy saved
     if (lesson.isNew === true)
       response = await ApiPost(
-        `courses/modules/${modules[modulePosition].id}/lessons`,
+        `courses/modules/${modules[moduleIndex].id}/lessons`,
         { ...lesson }
       );
     else
       response = await ApiPut(
-        `courses/modules/${modules[modulePosition].id}/lessons/${lesson.id}`,
+        `courses/modules/${modules[moduleIndex].id}/lessons/${lesson.id}`,
         { ...lesson }
       );
     //// only updates the view of the user if it has been sucessfully updated or created or if it hasnt change
     if (!response.error || response.data.message === "Lesson not changed") {
       showToast("The lesson was saved successfully", "success");
       dispatch({
-        modulePosition: modulePosition,
-        lessonPosition: lessonPosition,
+        moduleIndex: moduleIndex,
+        lessonIndex: lessonIndex,
         id: response.data.id,
         type: "SAVE_LESSON",
       });
@@ -189,8 +189,8 @@ export default function CourseLesson({
     }
     showToast("the module was deleted successfully", "success");
     dispatch({
-      modulePosition: modulePosition,
-      lessonPosition: lesson.position,
+      moduleIndex: moduleIndex,
+      lessonIndex: lesson.position,
       type: "DELETE_LESSON",
     });
   }
@@ -206,7 +206,7 @@ export default function CourseLesson({
       borderTitle={false}
       enableSave={lesson.isEdited === true}
       newSection={lesson.isNew === true}
-      sectionTitle={`Lesson ${lessonPosition + 1}`}
+      sectionTitle={`Lesson ${lessonIndex + 1}`}
       title={lesson.title}
     >
       <TextEditor
@@ -239,8 +239,8 @@ export default function CourseLesson({
 }
 
 CourseLesson.propTypes = {
-  modulePosition: PropTypes.number,
+  moduleIndex: PropTypes.number,
   modules: PropTypes.array,
   dispatch: PropTypes.func,
-  lessonPosition: PropTypes.number,
+  lessonIndex: PropTypes.number,
 };
