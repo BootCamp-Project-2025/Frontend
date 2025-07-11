@@ -50,7 +50,7 @@ export default function Router() {
             element={<main>Create syllabus page</main>}
           />
           <Route
-            path="/dashboard/courses/:courseId/syllabus"
+            path="/teacher/courses/:courseId/syllabus"
             element={<CourseSyllabus />}
           />
           <Route
