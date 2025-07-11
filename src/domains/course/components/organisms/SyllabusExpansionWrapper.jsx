@@ -25,6 +25,12 @@ export default function SyllabusExpansionWrapper({
     setEditTitle(title === "");
   }, [title]);
 
+  useEffect(() => {
+    if (!editTitle) {
+      inputRef.current.value = title;
+    }
+  }, [editTitle, title]);
+
   const [error, setError] = useState("");
   const inputRef = useRef(null);
 
@@ -43,13 +49,6 @@ export default function SyllabusExpansionWrapper({
     }
     setError("");
     return true;
-  }
-
-  function enableEdit() {
-    if (!editTitle) {
-      inputRef.current.value = title;
-    }
-    setEditTitle(!editTitle);
   }
 
   function saveHandle() {
@@ -95,7 +94,7 @@ export default function SyllabusExpansionWrapper({
               onClick={() => {
                 if (!validateTitle(inputRef.current.value)) return;
                 saveTitle(inputRef.current.value);
-                enableEdit();
+                setEditTitle(!editTitle);
               }}
               variant="light"
               color="secondary"
@@ -103,7 +102,11 @@ export default function SyllabusExpansionWrapper({
               <Icon className={"fill-black w-4 h-4"} icon={"save"} />
             </Button>
           ) : (
-            <Button onClick={enableEdit} variant="light" color="secondary">
+            <Button
+              onClick={() => setEditTitle(!editTitle)}
+              variant="light"
+              color="secondary"
+            >
               <Icon className={"w-4 h-4"} icon={"editBlack"} />
             </Button>
           )}
