@@ -19,11 +19,6 @@ import UserIcon from "../../../assets/user.svg?react";
 import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
-import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
-import TrashCanIcon from "../../../assets/trashCan.svg?react";
-import VectorUpIcon from "../../../assets/vectorPointer.svg?react";
-import VectorDownIcon from "../../../assets/vectorDown.svg?react";
-import SaveIcon from "../../../assets/save.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -48,10 +43,6 @@ const icons = {
   course: CourseIcon,
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
-  syllabusAlert: SyllabusAlertIcon,
-  trashCan: TrashCanIcon,
-  vectorUp: VectorUpIcon,
-  vectorDown: VectorDownIcon,
 };
 
 export function Icon({ icon, className }) {
