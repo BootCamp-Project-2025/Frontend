@@ -14,6 +14,7 @@ import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
+import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus.jsx";
 
 export default function Router() {
   return (
