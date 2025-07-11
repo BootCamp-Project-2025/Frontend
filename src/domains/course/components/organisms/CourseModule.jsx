@@ -10,6 +10,8 @@ import { ApiPut } from "../../api/ApiPut";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { useEffect } from "react";
+import UploadQuiz from "../molecules/UploadQuiz";
+import LessonContentGroup from "./LessonContentGroup";
 
 export default function CourseModule({
   modules,
@@ -31,7 +33,7 @@ export default function CourseModule({
           lessonIndex: module.lessons.length,
         }),
     },
-    { text: "Quiz", onClick: () => console.log("Quiz") },
+    { text: "Quiz", onClick: () => uploadQuizPopUp() },
     { text: "Assignment", onClick: () => console.log("Assignment") },
   ];
 
@@ -41,6 +43,18 @@ export default function CourseModule({
       {
         onDelete: eraseModule,
         closePopup: closePopup,
+      },
+      false
+    );
+  }
+
+  function uploadQuizPopUp() {
+    openPopup(
+      UploadQuiz,
+      {
+        dispatch: dispatch,
+        closePopup: closePopup,
+        moduleIndex: moduleIndex,
       },
       false
     );
@@ -79,12 +93,14 @@ export default function CourseModule({
       response = await ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
         position: module.position,
+        quizzes: module.quizzes,
       });
     else
       response = await ApiPut(`courses/modules/${module.id}`, {
         id: module.id,
         title: module.title,
         position: module.position,
+        quizzes: module.quizzes,
       });
     if (!response.error) {
       // only updates the view of the user if it has been sucessfully updated or created
@@ -117,6 +133,14 @@ export default function CourseModule({
     return false;
   }
 
+  function eraseQuiz(name) {
+    dispatch({
+      type: "DELETE_QUIZ",
+      name: name,
+      moduleIndex: moduleIndex,
+    });
+  }
+
   return (
     <SyllabusExpansionWrapper
       save={saveModule}
@@ -141,6 +165,11 @@ export default function CourseModule({
           moduleIndex={moduleIndex}
         />
       ))}
+      <LessonContentGroup
+        eraseResource={eraseQuiz}
+        resources={module.quizzes}
+        title={"Quizzes:"}
+      />
     </SyllabusExpansionWrapper>
   );
 }

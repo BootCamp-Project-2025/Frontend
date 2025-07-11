@@ -1,13 +1,23 @@
 export default class Module {
   title;
   lessons;
+  quizzes;
   position;
   isEdited = false;
   courseId;
   id;
   isNew;
 
-  constructor(title, lessons, position, isEdited, courseId, id, isNew) {
+  constructor(
+    title,
+    lessons,
+    position,
+    isEdited,
+    courseId,
+    id,
+    isNew,
+    quizzes
+  ) {
     this.title = title ?? "";
     this.lessons = lessons ?? [];
     this.position = position;
@@ -15,6 +25,7 @@ export default class Module {
     this.courseId = courseId;
     this.id = id;
     this.isNew = isNew ?? false;
+    this.quizzes = quizzes ?? [];
   }
   static builder() {
     return new ModuleBuilder();
@@ -28,7 +39,8 @@ export default class Module {
       this.isEdited,
       this.courseId,
       this.id,
-      this.isNew
+      this.isNew,
+      [...this.quizzes]
     );
   }
 
@@ -68,6 +80,22 @@ export default class Module {
       (lesson) => lesson.position !== lessonPosition
     );
   }
+  addQuiz(newQuiz) {
+    this.isEdited = true;
+    this.quizzes.push(newQuiz);
+  }
+
+  deleteQuiz(name) {
+    this.isEdited = true;
+    this.quizzes = this.quizzes.filter((quiz) => quiz.name !== name);
+  }
+
+  deleteResource(name) {
+    this.isEdited = true;
+    this.resources = this.resources.filter(
+      (resource) => resource.name !== name
+    );
+  }
 }
 
 export class ModuleBuilder {
@@ -85,6 +113,10 @@ export class ModuleBuilder {
   }
   position(position) {
     this.module.position = position;
+    return this;
+  }
+  quizzes(quizzes) {
+    this.module.quizzes = quizzes;
     return this;
   }
   isEdited(isEdited) {

@@ -48,6 +48,23 @@ export const moduleReducer = (state, action) => {
       newState[action.moduleIndex] = module;
       return newState;
     }
+    case "ADD_QUIZ": {
+      const newState = [...state];
+      const module = newState[action.moduleIndex].clone();
+      module.addQuiz({
+        name: action.name,
+        url: action.url,
+      });
+      newState[action.moduleIndex] = module;
+      return newState;
+    }
+    case "DELETE_QUIZ": {
+      const newState = [...state];
+      const module = newState[action.moduleIndex].clone();
+      module.deleteQuiz(action.name);
+      newState[action.moduleIndex] = module;
+      return newState;
+    }
     case "ADD_VIDEO": {
       const newState = [...state];
       const module = newState[action.moduleIndex].clone();
@@ -106,6 +123,7 @@ export const moduleReducer = (state, action) => {
         return Module.builder()
           .id(module.id)
           .title(module.title)
+          .quizzes(module.quizzes)
           .lessons(
             module.lessons.map((lesson) => {
               return Lesson.builder()
