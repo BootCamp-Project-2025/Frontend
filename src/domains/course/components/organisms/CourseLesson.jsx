@@ -152,14 +152,14 @@ export default function CourseLesson({
   async function saveLesson() {
     let response;
     //check if the father module exist in the db, if not it needs to be saved
-    if (modules[moduleIndex].new === true) {
+    if (modules[moduleIndex].isNew) {
       showToast("Error: module needs to be saved before lesson", "error");
       return;
     }
     // if description is not valid exits
     if (!validateDescription(lesson.description)) return;
     // post or update depending if the lesson is alredy saved
-    if (lesson.isNew === true)
+    if (lesson.isNew)
       response = await ApiPost(
         `courses/modules/${modules[moduleIndex].id}/lessons`,
         { ...lesson }

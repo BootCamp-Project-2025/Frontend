@@ -80,7 +80,7 @@ export default function CourseModule({
         title: module.title,
         position: module.position,
       });
-    else if (module.isEdited)
+    else
       response = await ApiPut(`courses/modules/${module.id}`, {
         id: module.id,
         title: module.title,

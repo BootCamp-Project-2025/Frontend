@@ -37,7 +37,7 @@ export default function CourseSyllabus() {
     for (let i = 0; i < modules.length; i++) {
       const module = modules[i];
       //check if a module hasnt been saved and scrolls to its position
-      if (module.edited === true || module.new === true) {
+      if (module.isEdited || module.isNew) {
         showToast("there are modules without saving", "warning");
         document
           .getElementById(`module-${i}`)
@@ -47,7 +47,7 @@ export default function CourseSyllabus() {
       //check if a lesson hasnt been saved and scrolls to its position
       for (let j = 0; j < module.lessons.length; j++) {
         const lesson = module.lessons[j];
-        if (lesson.edited === true || lesson.new === true) {
+        if (lesson.isEdited || lesson.isNew) {
           showToast("there are lessons without saving", "warning");
           document
             .getElementById(`module-${i}-lesson-${j}`)
