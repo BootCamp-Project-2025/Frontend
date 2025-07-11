@@ -1,0 +1,74 @@
+[
+  {
+    "titleModule": "Welcome to the Course – Introduction",
+    "lessons": [
+      "Course overview",
+      "How to get the most out of this course",
+      "Setting up your environment",
+      "Running your first program"
+    ]
+  },
+  {
+    "titleModule": "Module 1 – JavaScript Essentials Refresher",
+    "lessons": [
+      "Variables and constants",
+      "Functions and arrow syntax",
+      "Array and object manipulation",
+      "ES6+ features overview"
+    ]
+  },
+  {
+    "titleModule": "Module 2 – Understanding React Basics",
+    "lessons": [
+      "What is React and why use it?",
+      "Creating your first component",
+      "JSX and rendering logic",
+      "Working with props and state"
+    ]
+  },
+  {
+    "titleModule": "Module 3 – Component Deep Dive",
+    "lessons": [
+      "Functional vs class components",
+      "Event handling",
+      "Conditional rendering",
+      "Lists and keys"
+    ]
+  },
+  {
+    "titleModule": "Module 4 – State Management with Hooks",
+    "lessons": [
+      "Using useState",
+      "Side effects with useEffect",
+      "Custom hooks",
+      "Using useRef and useReducer"
+    ]
+  },
+  {
+    "titleModule": "Module 5 – Advanced Component Patterns",
+    "lessons": [
+      "Composition vs inheritance",
+      "Controlled vs uncontrolled components",
+      "Context API for global state",
+      "Performance optimization with memo"
+    ]
+  },
+  {
+    "titleModule": "Module 6 – Routing and Navigation",
+    "lessons": [
+      "Setting up React Router",
+      "Nested and dynamic routes",
+      "Navigation and redirects",
+      "Route protection and auth flows"
+    ]
+  },
+  {
+    "titleModule": "Module 7 – Project: Build a Full React App",
+    "lessons": [
+      "Planning the project",
+      "Component structure",
+      "Data fetching and error handling",
+      "Deploying the app to the web"
+    ]
+  }
+]

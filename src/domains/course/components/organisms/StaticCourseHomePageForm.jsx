@@ -50,7 +50,7 @@ export default function StaticCourseHomePageForm() {
     <ToastProvider>
       <form
         onSubmit={handleSubmit(async (data) => await updateCourse(data))}
-        style={{ padding: "0 15vw" }}
+        style={{ padding: "2rem 15vw" }}
         className="flex flex-col gap-4"
       >
         <Title className="border-b-1" color="default">
@@ -83,7 +83,7 @@ export default function StaticCourseHomePageForm() {
             register={register("description", {
               required: "Course name is required",
               minLength: { value: 1, message: "Minimum 2 characters" },
-              maxLength: { value: 100, message: "Maximum 100 characters" },
+              maxLength: { value: 200, message: "Maximum 200 characters" },
             })}
           />
           <SmallAnotation>

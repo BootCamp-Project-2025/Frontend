@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import PropTypes from "prop-types";
+import { Icon } from "./Icon";
 
 export const Slider = ({ children }) => {
   const scrollRef = useRef(null);
@@ -26,7 +27,7 @@ export const Slider = ({ children }) => {
         onClick={() => scroll("left")}
         className=" absolute left-0 top-1/2 -translate-y-1/2 z-0  cursor-pointer bg-gray-300/70 hover:bg-gray-300 rounded-full  w-12 h-12 flex justify-center items-center rotate-180"
       >
-        <span className="material-symbols-outlined ">arrow_forward_ios</span>
+        <Icon icon={"arrowForward"} className={""}></Icon>
       </button>
       <div
         className="overflow-x-auto scroll-smooth flex space-x-4 px-10 py-4 scroll z-0"
@@ -41,7 +42,7 @@ export const Slider = ({ children }) => {
         onClick={() => scroll("right")}
         className=" absolute right-0 top-1/2 -translate-y-1/2 z-0 cursor-pointer  bg-gray-300/70 hover:bg-gray-300 rounded-full  w-12 h-12 flex justify-center items-center"
       >
-        <span className="material-symbols-outlined ">arrow_forward_ios</span>
+        <Icon icon={"arrowForward"} className={""}></Icon>
       </button>
     </div>
   );

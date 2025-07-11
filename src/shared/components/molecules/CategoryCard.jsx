@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "../atoms/Card";
 import PropTypes from "prop-types";
 
@@ -8,6 +9,7 @@ export const CategoryCard = ({
   category = "Category",
   ...props
 }) => {
+  const navigate = useNavigate();
   return (
     <>
       <Card
@@ -18,6 +20,9 @@ export const CategoryCard = ({
         color="secondary"
         shadow="custom"
         padding="sm"
+        onClick={() => {
+          navigate(`/courses?category=${category}`);
+        }}
         {...props}
       >
         <div className="overflow-hidden rounded-sm flex justify-center items-center aspect-[1/0.6] bg-gray-300 text-xs">

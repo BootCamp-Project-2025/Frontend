@@ -1,0 +1,30 @@
+[
+  {
+    "avatarURL": "https://randomuser.me/api/portraits/women/32.jpg",
+    "dateReview": "06/29/2025",
+    "name": "Samantha Lee",
+    "rating": 5,
+    "comment": "Absolutely amazing! Jonas is a fantastic instructor. He explains everything so clearly, and the projects really helped me understand how to build real-world apps. Highly recommended!"
+  },
+  {
+    "avatarURL": "https://randomuser.me/api/portraits/men/45.jpg",
+    "dateReview": "06/15/2025",
+    "name": "Carlos Méndez",
+    "rating": 4,
+    "comment": "Very complete course with up-to-date content. It took me from basic concepts to advanced patterns. Some sections felt a bit fast, but overall it was a great learning experience."
+  },
+  {
+    "avatarURL": "https://randomuser.me/api/portraits/women/18.jpg",
+    "dateReview": "05/22/2025",
+    "name": "Lina Gómez",
+    "rating": 5,
+    "comment": "I loved this course! It helped me land my first frontend job. The explanations about hooks and state management were super clear and easy to apply in real projects."
+  },
+  {
+    "avatarURL": "https://randomuser.me/api/portraits/men/12.jpg",
+    "dateReview": "05/10/2025",
+    "name": "David Zhang",
+    "rating": 5,
+    "comment": "Great structure, great teaching, and lots of value. I've taken several React courses, and this one is by far the most complete. Totally worth the time investment."
+  }
+]

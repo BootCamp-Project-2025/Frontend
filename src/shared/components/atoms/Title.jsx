@@ -25,6 +25,7 @@ export function Title({
   size = "lg",
   color = "primary",
   className = "",
+  ...props
 }) {
   return (
     <p
@@ -34,6 +35,7 @@ export function Title({
         colorStyles[color],
         className
       )}
+      {...props}
     >
       {children}
     </p>

@@ -1,8 +1,11 @@
 export const formatDate = (dateString) => {
   if (!dateString) return "";
+
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat("es-AR", {
-    year: "numeric",
-    month: "2-digit",
-  }).format(date);
+  if (isNaN(date.getTime())) return "";
+
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+
+  return `${year}-${month}`;
 };

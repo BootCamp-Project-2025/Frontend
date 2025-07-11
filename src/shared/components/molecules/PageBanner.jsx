@@ -1,4 +1,5 @@
 import { Button } from "../atoms/Button";
+import { Icon } from "../atoms/Icon";
 import { TextInput } from "./TextInput";
 
 export const PageBanner = () => {
@@ -15,12 +16,7 @@ export const PageBanner = () => {
             id="bannerTextInput"
           ></TextInput>
           <Button>
-            <span
-              className="material-symbols-outlined "
-              style={{ fontSize: "1.3rem" }}
-            >
-              search
-            </span>
+            <Icon icon={"search"} className={"w-[1.3rem] h-[1.3rem]"}></Icon>
           </Button>
         </div>
       </div>

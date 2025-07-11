@@ -77,6 +77,10 @@
   --color-warning-800: #92400e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Albert Sans";
 }
