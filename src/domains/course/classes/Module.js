@@ -64,7 +64,9 @@ export default class Module {
   }
 
   deleteLesson(lessonPosition) {
-    this.lessons = this.filter((lesson) => lesson.position !== lessonPosition);
+    this.lessons = this.lessons.filter(
+      (lesson) => lesson.position !== lessonPosition
+    );
   }
 }
 
