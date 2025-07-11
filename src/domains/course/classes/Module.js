@@ -8,13 +8,13 @@ export default class Module {
   isNew;
 
   constructor(title, lessons, position, isEdited, courseId, id, isNew) {
-    this.title = title;
-    this.lessons = lessons;
+    this.title = title ?? "";
+    this.lessons = lessons ?? [];
     this.position = position;
-    this.isEdited = isEdited;
+    this.isEdited = isEdited ?? false;
     this.courseId = courseId;
     this.id = id;
-    this.isNew = isNew;
+    this.isNew = isNew ?? false;
   }
   static builder() {
     return new ModuleBuilder();

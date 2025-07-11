@@ -19,13 +19,13 @@ export default class Lesson {
     isEdited
   ) {
     this.id = id;
-    this.title = title;
-    this.resources = resources;
-    this.videoUrls = videoUrls;
+    this.title = title ?? "";
+    this.resources = resources ?? [];
+    this.videoUrls = videoUrls ?? [];
     this.position = position;
-    this.description = description;
-    this.isNew = isNew;
-    this.isEdited = isEdited;
+    this.description = description ?? "";
+    this.isNew = isNew ?? false;
+    this.isEdited = isEdited ?? false;
   }
   static builder() {
     return new LessonBuilder();
