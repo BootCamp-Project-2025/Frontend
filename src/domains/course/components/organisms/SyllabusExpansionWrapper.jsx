@@ -19,7 +19,9 @@ export default function SyllabusExpansionWrapper({
   ...props
 }) {
   const [displayChild, setDisplayChild] = useState(true);
-  const [editTitle, setEditTitle] = useState(() => title === "");
+  const [editTitle, setEditTitle] = useState(false);
+  const [error, setError] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     setEditTitle(title === "");
@@ -31,12 +33,9 @@ export default function SyllabusExpansionWrapper({
     }
   }, [editTitle, title]);
 
-  const [error, setError] = useState("");
-  const inputRef = useRef(null);
-
   function validateTitle(e) {
     const title = e.target?.value ?? e;
-    if ((title !== "", checkRepeatTitle(title))) {
+    if (title !== "" && checkRepeatTitle(title)) {
       setError("Title already exists");
       return false;
     }
@@ -71,6 +70,7 @@ export default function SyllabusExpansionWrapper({
             color="black"
           >{`${sectionTitle}:`}</Title>
           <input
+            data-testid="inputTitle"
             ref={inputRef}
             id={sectionTitle}
             type="text"
@@ -91,6 +91,7 @@ export default function SyllabusExpansionWrapper({
 
           {editTitle ? (
             <Button
+              data-testid="saveTitleButton"
               onClick={() => {
                 if (!validateTitle(inputRef.current.value)) return;
                 saveTitle(inputRef.current.value);
@@ -113,6 +114,7 @@ export default function SyllabusExpansionWrapper({
         </div>
         <div>
           <Button
+            data-testid="saveButton"
             onClick={saveHandle}
             color="secondary"
             className={`px-5 bg-blue-500 ${enableSave || newSection ? "" : "hidden"}`}
@@ -120,6 +122,7 @@ export default function SyllabusExpansionWrapper({
             <Icon className={`fill-white w-4 h-4`} icon={"save"} />
           </Button>
           <Button
+            data-testid={"eraseButton"}
             onClick={erase}
             variant="light"
             color="secondary"
@@ -128,6 +131,7 @@ export default function SyllabusExpansionWrapper({
             <Icon icon={"trashCan"} />
           </Button>
           <Button
+            data-testid={"toggleButton"}
             onClick={() => setDisplayChild((display) => !display)}
             variant="light"
             color="secondary"
