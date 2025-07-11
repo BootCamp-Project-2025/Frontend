@@ -33,7 +33,7 @@ export default function CourseSyllabus() {
     });
   }
 
-  function publish() {
+  function save() {
     for (let i = 0; i < modules.length; i++) {
       const module = modules[i];
       //check if a module hasnt been saved and scrolls to its position
@@ -68,6 +68,7 @@ export default function CourseSyllabus() {
       {modules.map((module, id) => (
         <div key={`add-module-${id}`}>
           <Button
+            data-testid={`addModule-${id}`}
             onClick={() => addModule(id)}
             radius="small"
             className={
@@ -91,6 +92,7 @@ export default function CourseSyllabus() {
         </div>
       ))}
       <Button
+        data-testid="addModuleEnd"
         onClick={() => addModule(modules.length)}
         radius="small"
         className={"w-40 my-4 text-center self-start"}
@@ -102,7 +104,8 @@ export default function CourseSyllabus() {
         </div>
       </Button>
       <Button
-        onClick={publish}
+        data-testid="saveButton"
+        onClick={save}
         radius="small"
         className={"self-center w-40 my-4 text-center"}
       >
