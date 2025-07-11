@@ -4,6 +4,11 @@ import EditBlackIcon from "../../../assets/editBlack.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
 import PlusIcon from "../../../assets/plus.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
+import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
+import TrashCanIcon from "../../../assets/trashCan.svg?react";
+import VectorUpIcon from "../../../assets/vectorPointer.svg?react";
+import VectorDownIcon from "../../../assets/vectorDown.svg?react";
+import SaveIcon from "../../../assets/save.svg?react";
 import EmailIcon from "../../../assets/email.svg?react";
 import DeleteIcon from "../../../assets/delete.svg?react";
 import LogoutIcon from "../../../assets/logout.svg?react";
@@ -29,6 +34,10 @@ const icons = {
   save: SaveIcon,
   plus: PlusIcon,
   close: CloseIcon,
+  syllabusAlert: SyllabusAlertIcon,
+  trashCan: TrashCanIcon,
+  vectorUp: VectorUpIcon,
+  vectorDown: VectorDownIcon,
   email: EmailIcon,
   delete: DeleteIcon,
   logout: LogoutIcon,
