@@ -11,6 +11,11 @@ import VectorDownIcon from "../../../assets/vectorDown.svg?react";
 import SaveIcon from "../../../assets/save.svg?react";
 import EmailIcon from "../../../assets/email.svg?react";
 import DeleteIcon from "../../../assets/delete.svg?react";
+import ArrowForward from "../../../assets/arrowForward.svg?react";
+import Language from "../../../assets/language.svg?react";
+import Star from "../../../assets/star.svg?react";
+import Group from "../../../assets/group.svg?react";
+import LiveTv from "../../../assets/liveTv.svg?react";
 import LogoutIcon from "../../../assets/logout.svg?react";
 import MenuIcon from "../../../assets/menu.svg?react";
 import HomeIcon from "../../../assets/home.svg?react";
@@ -20,6 +25,7 @@ import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
+import Search from "../../../assets/search.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -36,6 +42,11 @@ const icons = {
   vectorDown: VectorDownIcon,
   email: EmailIcon,
   delete: DeleteIcon,
+  arrowForward: ArrowForward,
+  language: Language,
+  star: Star,
+  group: Group,
+  liveTv: LiveTv,
   logout: LogoutIcon,
   menu: MenuIcon,
   home: HomeIcon,
@@ -45,6 +56,7 @@ const icons = {
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
   check: CheckIcon,
+  search: Search,
 };
 
 export function Icon({ icon, className }) {

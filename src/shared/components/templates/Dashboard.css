@@ -1,0 +1,23 @@
+#teacherLayout {
+  width: 100%;
+  display: grid;
+  grid:
+    "header header " auto
+    "sideBar mainSection " 1fr
+    / auto 1fr;
+}
+
+#containerSideBar {
+  grid-area: sideBar;
+  height: calc(100dvh - 5.625rem);
+  position: sticky;
+  top: 5.625rem;
+}
+
+#teacherLayout header {
+  grid-area: header;
+}
+
+#mainSection {
+  grid-area: mainSection;
+}

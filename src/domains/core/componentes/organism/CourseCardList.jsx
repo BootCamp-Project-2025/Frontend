@@ -18,6 +18,7 @@ export const CourseCardList = () => {
         return (
           <CourseCard
             key={course.id}
+            id={course.id}
             author={course.author}
             description={course.description}
             imageURL={course.imageURL}

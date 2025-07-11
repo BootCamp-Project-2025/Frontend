@@ -10,6 +10,7 @@ import { useDeleteCourse } from "../../customHooks/UseDeleteCourse";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 import CourseTypeSelection from "../../../teacher/components/molecules/CourseTypeSelection";
 import { useNavigate } from "react-router-dom";
+import { Title } from "../../../../shared/components/atoms/Title";
 
 function CourseCardList({ style = {}, className = "" }) {
   const data = useGetCourseList();
@@ -42,7 +43,7 @@ function CourseCardList({ style = {}, className = "" }) {
   };
 
   const handleEditClick = (course) => () => {
-    navigate(`/dashboard/courses/${course.id}/homePage?name=${course.name}`);
+    navigate(`/teacher/courses/${course.id}/homePage?name=${course.name}`);
   };
 
   const handleDeleteClick = (course) => () => {
@@ -66,8 +67,15 @@ function CourseCardList({ style = {}, className = "" }) {
   return (
     <div
       style={style}
-      className={`mx-auto w-full max-w-3xl p-4 flex flex-col gap-6 ${className}`}
+      className={`mx-auto w-full max-w-[90rem] p-4 flex flex-col gap-6 ${className}`}
     >
+      <Title
+        size="xxl"
+        color="default"
+        className="border-b-2 border-[var(--color-secondary-500)]"
+      >
+        Course Section
+      </Title>
       <SearchAndCreateBar
         courses={courses}
         onFiltered={setFiltered}
