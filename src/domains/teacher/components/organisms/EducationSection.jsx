@@ -37,6 +37,8 @@ export const EducationSection = ({ freelancerId }) => {
   };
 
   const handleOpenEditPopup = (information) => {
+    let startDateFormat = formatDate(information.startDate);
+    let endDateFormat = formatDate(information.finishDate);
     openPopup(
       PopupFormLayout,
       {
@@ -46,8 +48,8 @@ export const EducationSection = ({ freelancerId }) => {
             id={information.id}
             university={information.university}
             career={information.career}
-            startDate={information.startDate}
-            finishDate={information.finishDate}
+            startDate={startDateFormat}
+            finishDate={endDateFormat}
             updateCard={updateCard}
             closeForm={closePopup}
           />

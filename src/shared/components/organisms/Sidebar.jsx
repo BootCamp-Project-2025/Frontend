@@ -44,7 +44,7 @@ export const Sidebar = () => {
       id="containerSideBar"
     >
       <div>
-        <div className="p-4 flex justify-center">
+        {/* <div className="p-4 flex justify-center">
           {!isOpen && (
             <button
               onClick={(e) => handleClick(true)}
@@ -63,7 +63,7 @@ export const Sidebar = () => {
               <Icon icon={"close"}></Icon>
             </button>
           )}
-        </div>
+        </div> */}
         <ul className="mt-4">
           {/*  <li className={`${!isOpen ? "flex justify-center" : ""}`}>
             <Link

@@ -83,7 +83,7 @@ export default function StaticCourseHomePageForm() {
             register={register("description", {
               required: "Course name is required",
               minLength: { value: 1, message: "Minimum 2 characters" },
-              maxLength: { value: 100, message: "Maximum 100 characters" },
+              maxLength: { value: 200, message: "Maximum 200 characters" },
             })}
           />
           <SmallAnotation>
