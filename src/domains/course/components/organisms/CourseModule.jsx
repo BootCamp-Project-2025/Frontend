@@ -155,13 +155,13 @@ export default function CourseModule({
       title={module.title}
     >
       <ButtonSection buttonProps={buttons} />
-      {module.lessons.map((_, id) => (
+      {module.lessons.map((_, lessonIndex) => (
         <CourseLesson
           modules={modules}
           dispatch={dispatch}
-          id={`module-${moduleIndex}-lesson-${id}`}
-          key={`module-${moduleIndex}-lesson-${id}`}
-          lessonIndex={id}
+          id={`module-${moduleIndex}-lesson-${lessonIndex}`}
+          key={`module-${moduleIndex}-lesson-${lessonIndex}`}
+          lessonIndex={lessonIndex}
           moduleIndex={moduleIndex}
         />
       ))}
