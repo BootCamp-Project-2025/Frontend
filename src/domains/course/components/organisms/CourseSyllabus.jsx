@@ -34,28 +34,42 @@ export default function CourseSyllabus() {
   }
 
   function save() {
-    for (let i = 0; i < modules.length; i++) {
-      const module = modules[i];
-      //check if a module hasnt been saved and scrolls to its position
+    checkIfModuleHasChanges();
+  }
+
+  function checkIfModuleHasChanges() {
+    for (let moduleIndex = 0; moduleIndex < modules.length; moduleIndex++) {
+      const module = modules[moduleIndex];
       if (module.isEdited || module.isNew) {
         showToast("there are modules without saving", "warning");
-        document
-          .getElementById(`module-${i}`)
-          .scrollIntoView({ behavior: "smooth" });
+        scrollToSectionInSyllabus(`module-${moduleIndex}`);
         return;
       }
-      //check if a lesson hasnt been saved and scrolls to its position
-      for (let j = 0; j < module.lessons.length; j++) {
-        const lesson = module.lessons[j];
-        if (lesson.isEdited || lesson.isNew) {
-          showToast("there are lessons without saving", "warning");
-          document
-            .getElementById(`module-${i}-lesson-${j}`)
-            .scrollIntoView({ behavior: "smooth" });
-          return;
-        }
+      checkIfLessonHasChanges(module, moduleIndex);
+    }
+  }
+  function checkIfLessonHasChanges(module, moduleIndex) {
+    for (
+      let lessonIndex = 0;
+      lessonIndex < module.lessons.length;
+      lessonIndex++
+    ) {
+      const lesson = module.lessons[lessonIndex];
+      if (lesson.isEdited || lesson.isNew) {
+        showToast("there are lessons without saving", "warning");
+        scrollToSectionInSyllabus(
+          `module-${moduleIndex}-lesson-${lessonIndex}`
+        );
+        return;
       }
     }
+  }
+
+  function scrollToSectionInSyllabus(section) {
+    document
+      .getElementById(section)
+      .scrollIntoView({ block: "start", behavior: "instant" });
+    window.scrollBy({ top: -100, behavior: "instant" });
   }
 
   return (
@@ -65,11 +79,11 @@ export default function CourseSyllabus() {
       </Title>
       <SyllabusInfo className="self-center hidden md:flex" />
 
-      {modules.map((module, id) => (
-        <div key={`add-module-${id}`}>
+      {modules.map((module, index) => (
+        <div key={`add-module-${index}`}>
           <Button
-            data-testid={`addModule-${id}`}
-            onClick={() => addModule(id)}
+            data-testid={`addModule-${index}`}
+            onClick={() => addModule(index)}
             radius="small"
             className={
               "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
@@ -84,10 +98,10 @@ export default function CourseSyllabus() {
           <CourseModule
             modules={modules}
             dispatch={dispatch}
-            id={`module-${id}`}
-            key={`module-${id}`}
+            id={`module-${index}`}
+            key={`module-${index}`}
             title={module.title}
-            moduleIndex={id}
+            moduleIndex={index}
           />
         </div>
       ))}
