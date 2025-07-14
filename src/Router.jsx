@@ -12,6 +12,7 @@ import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import App from "./App.jsx";
+import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 
 export default function Router() {
   return (
@@ -46,14 +47,7 @@ export default function Router() {
 
         <Route element={<App />}>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/courses"
-            element={
-              <main>
-                <p>courses section</p>
-              </main>
-            }
-          />
+          <Route path="/courses" element={<CoursesPage />} />
           <Route
             path="/teachers"
             element={
