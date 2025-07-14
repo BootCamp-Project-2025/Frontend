@@ -144,7 +144,6 @@ export default function CourseLesson({
   }
 
   function validateDescription(dedcription) {
-    console.log(dedcription);
     if (dedcription.length < 30) {
       setDescriptionError("description is to short");
       return false;
@@ -158,26 +157,17 @@ export default function CourseLesson({
   }
 
   async function saveLesson() {
-    let response;
-    //check if the father module exist in the db, if not it needs to be saved
+    if (!validateDescription(lesson.description)) return;
     if (modules[moduleIndex].isNew) {
       showToast("Error: module needs to be saved before lesson", "error");
       return;
     }
-    // if description is not valid exits
-    if (!validateDescription(lesson.description)) return;
-    // post or update depending if the lesson is alredy saved
-    if (lesson.isNew)
-      response = await ApiPost(
-        `courses/modules/${modules[moduleIndex].id}/lessons`,
-        { ...lesson }
-      );
-    else
-      response = await ApiPut(
-        `courses/modules/${modules[moduleIndex].id}/lessons/${lesson.id}`,
-        { ...lesson }
-      );
-    //// only updates the view of the user if it has been sucessfully updated or created or if it hasnt change
+    uploadLesson();
+  }
+
+  async function uploadLesson() {
+    let response;
+    response = await handleupload();
     if (!response.error || response.data.message === "Lesson not changed") {
       showToast("The lesson was saved successfully", "success");
       dispatch({
@@ -186,11 +176,25 @@ export default function CourseLesson({
         id: response.data.id,
         type: "SAVE_LESSON",
       });
-    } else
+    } else {
       showToast("A error has ocurred, the lesson couldnt be saved", "error");
+    }
+  }
+
+  async function handleupload() {
+    if (lesson.isNew) {
+      return await ApiPost(
+        `courses/modules/${modules[moduleIndex].id}/lessons`,
+        { ...lesson }
+      );
+    } else {
+      return await ApiPut(
+        `courses/modules/${modules[moduleIndex].id}/lessons/${lesson.id}`,
+        { ...lesson }
+      );
+    }
   }
   async function eraseLesson() {
-    //if the lesson has an id it means that its saved in the db and it needs to send a request to delete it
     if (lesson.id) {
       const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
       if (error) return;
