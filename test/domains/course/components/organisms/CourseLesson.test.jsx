@@ -14,6 +14,7 @@ const closePopupMock = vi.fn();
 
 vi.mock("react-router-dom", () => ({
   useParams: () => ({ courseId: "course-123" }),
+  useBeforeUnload: vi.fn(),
 }));
 
 vi.mock("../../../../../src/shared/components/molecules/UploadModal", () => ({

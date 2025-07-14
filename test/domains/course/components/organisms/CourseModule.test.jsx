@@ -3,6 +3,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import CourseModule from "../../../../../src/domains/course/components/organisms/CourseModule";
 import Module from "../../../../../src/domains/course/classes/Module";
 
+vi.mock("react-router-dom", () => ({
+  useParams: () => ({ courseId: "course-123" }),
+  useBeforeUnload: vi.fn(),
+}));
+
 vi.mock(
   "../../../../../src/domains/course/components/organisms/SyllabusExpansionWrapper",
   () => ({
