@@ -7,9 +7,8 @@ import EraseConfirmation from "../molecules/EraseConfirmation";
 import { ApiDelete } from "../../api/ApiDelete";
 import { ApiPost } from "../../api/ApiPost";
 import { ApiPut } from "../../api/ApiPut";
-import { useParams } from "react-router-dom";
+import { useParams, useBeforeUnload } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
-import { useEffect } from "react";
 import UploadQuiz from "../molecules/UploadQuiz";
 import LessonContentGroup from "./LessonContentGroup";
 
@@ -60,19 +59,12 @@ export default function CourseModule({
     );
   }
 
-  //add event listener for when the user close or refresh the tab
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      if (module.edited === true || module.new === true) {
-        event.preventDefault();
-      }
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [module.edited, module.new]);
+  useBeforeUnload((event) => {
+    if (module.isEdited || module.isNew) {
+      event.preventDefault();
+      return;
+    }
+  });
 
   async function eraseModule() {
     if (module.id) {

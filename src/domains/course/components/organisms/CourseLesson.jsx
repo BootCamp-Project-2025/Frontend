@@ -12,6 +12,7 @@ import { ApiDelete } from "../../api/ApiDelete";
 import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { useBeforeUnload } from "react-router-dom";
 
 export default function CourseLesson({
   modules,
@@ -30,6 +31,13 @@ export default function CourseLesson({
     { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
     { text: "Resource", onClick: () => setModalOpen(true) },
   ];
+
+  useBeforeUnload((event) => {
+    if (lesson.isEdited || lesson.isNew) {
+      event.preventDefault();
+      return;
+    }
+  });
 
   function eraseConfirmationPopUp() {
     openPopup(
