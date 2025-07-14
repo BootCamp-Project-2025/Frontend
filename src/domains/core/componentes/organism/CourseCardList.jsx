@@ -15,7 +15,7 @@ export const CourseCardList = () => {
       const response = await getRequest("/courses");
 
       if (response.success) {
-        setCourses(response.data);
+        setCourses(response.data.data);
       } else {
         showToast(response.error.message, "error");
       }
