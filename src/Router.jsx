@@ -16,6 +16,7 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 
 export default function Router() {
   return (
@@ -101,18 +102,10 @@ export default function Router() {
               </main>
             }
           />
+          <Route path="/student/profile" element={<StudentProfile />} />
 
-          <Route
-            path="/dashboard/teacher/profile"
-            element={
-              <main>
-                <TeacherProfile />
-              </main>
-            }
-          />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
-          <Route path="teacher-profile" element={<TeacherProfile />} />
           <Route path="button-gallery" element={<ButtonGallery />} />
           <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
           <Route path="file-upload" element={<FileUploadExample />} />
