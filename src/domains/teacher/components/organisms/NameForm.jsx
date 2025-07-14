@@ -4,7 +4,7 @@ import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import PropTypes from "prop-types";
 
 export function NameForm({ user, setUser, onClose = () => {} }) {
-  const [name, setName] = useState(user.name);
+  const [name, setName] = useState(user.userName);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = () => {
@@ -14,7 +14,7 @@ export function NameForm({ user, setUser, onClose = () => {} }) {
     }
     setUser({
       ...user,
-      name,
+      userName: name,
     });
 
     onClose();
@@ -60,9 +60,9 @@ export function NameForm({ user, setUser, onClose = () => {} }) {
 
 NameForm.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    userEmail: PropTypes.string.isRequired,
+    profilePicture: PropTypes.string.isRequired,
   }),
   onClose: PropTypes.func,
   setUser: PropTypes.func,

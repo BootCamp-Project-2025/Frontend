@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { AvatarMenuCard } from "./AvatarMenuCard";
 import PropTypes from "prop-types";
 export const OptionsDropDown = ({
@@ -6,6 +7,8 @@ export const OptionsDropDown = ({
   userEmail,
   logOut = () => {},
 }) => {
+  const location = useLocation();
+  const isTeacherRoute = location.pathname.startsWith("/teacher/");
   return (
     <>
       <AvatarMenuCard
@@ -13,19 +16,27 @@ export const OptionsDropDown = ({
         userName={userName}
         userEmail={userEmail}
       ></AvatarMenuCard>
-      <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-        My Courses
-      </button>
-      <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-        Profile
-      </button>
+      {!isTeacherRoute && (
+        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+          My Courses
+        </button>
+      )}
+      {!isTeacherRoute && (
+        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+          Profile
+        </button>
+      )}
 
-      <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-        Chats
-      </button>
-      <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-        Settigs
-      </button>
+      {!isTeacherRoute && (
+        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+          Chats
+        </button>
+      )}
+      {!isTeacherRoute && (
+        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+          Settigs
+        </button>
+      )}
       <button
         className="w-full text-left px-4 py-2 hover:bg-gray-100  border-t border-gray-300"
         onClick={logOut}

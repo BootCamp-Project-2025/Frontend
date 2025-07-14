@@ -1,0 +1,9 @@
+{
+  "name": "Jonas Schmedtmann",
+  "aboutMe": "Hi, I'm Jonas — a full-stack web developer and online instructor with over 10 years of experience in the industry. I specialize in building modern, responsive, and high-performance web applications using technologies like JavaScript, React, Node.js, and more. My mission is to help students gain real-world skills by teaching complex topics in a clear and practical way. Over the years, I’ve taught thousands of developers through my courses, and I’m passionate about making high-quality education accessible to everyone. Whether you're just starting out or looking to deepen your skills, you're in the right place.",
+  "courses": 10,
+  "rating": 4.9,
+  "students": 86280,
+  "avatarURL": "https://randomuser.me/api/portraits/men/7.jpg",
+  "teacherId": "u123456"
+}

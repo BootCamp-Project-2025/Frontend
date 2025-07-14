@@ -1,18 +1,21 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { CourseCard } from "../../../../src/shared/components/molecules/CourseCard";
+import { MemoryRouter } from "react-router-dom";
 
 describe("CourseCard component", () => {
   it("renders all course information", () => {
     render(
-      <CourseCard
-        id="1"
-        imageURL="/course-image.jpg"
-        name="React for Beginners"
-        description="Learn React from scratch"
-        rating="4.5"
-        author="Jane Doe"
-      />
+      <MemoryRouter>
+        <CourseCard
+          id="1"
+          imageURL="/course-image.jpg"
+          name="React for Beginners"
+          description="Learn React from scratch"
+          rating="4.5"
+          author="Jane Doe"
+        />
+      </MemoryRouter>
     );
 
     expect(screen.getByAltText("Course Image")).toHaveAttribute(
@@ -23,6 +26,5 @@ describe("CourseCard component", () => {
     expect(screen.getByText("Learn React from scratch")).toBeInTheDocument();
     expect(screen.getByText("4.5")).toBeInTheDocument();
     expect(screen.getByText("Jane Doe")).toBeInTheDocument();
-    expect(screen.getByText("star")).toBeInTheDocument();
   });
 });

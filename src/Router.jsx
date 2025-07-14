@@ -3,6 +3,7 @@ import CourseCardList from "./domains/course/components/organisms/CourseCardList
 import HealthCheck from "./domains/core/HealthCheck";
 import ButtonGallery from "./shared/components/templates/ButtonGallery.jsx";
 import CourseTypeSelection from "./domains/teacher/components/molecules/CourseTypeSelection.jsx";
+import StaticCourseHomePageForm from "./domains/course/components/organisms/StaticCourseHomePageForm.jsx";
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
@@ -11,48 +12,85 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
+import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
+import { Title } from "./shared/components/atoms/Title.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route path="/dashboard" element={<main>Teacher dashboard</main>} />
-          <Route path="/dashboard/profile" element={<main>Profile</main>} />
+        <Route path="teacher" element={<Dashboard />}>
           <Route
-            path="/dashboard/teacher"
-            element={<main>Teacher profile</main>}
+            path="/teacher/dashboard"
+            element={
+              <main>
+                <Title size="xxl" color="default">
+                  Teacher Dashboard
+                </Title>
+              </main>
+            }
           />
-          <Route path="/dashboard/courses" element={<main>Course list</main>} />
+          <Route path="/teacher/profile" element={<TeacherProfile />} />
+
+          <Route path="/teacher/courses" element={<CourseCardList />} />
+
           <Route
-            path="/dashboard/courses/homePage"
+            path="/teacher/courses/homePage"
             element={<main>Creta home page</main>}
           />
           <Route
-            path="/dashboard/courses/:courseId/homePage"
-            element={<main>Edit home page</main>}
+            path="/teacher/courses/:courseId/homePage"
+            element={<StaticCourseHomePageForm />}
           />
           <Route
-            path="/dashboard/courses/syllabus"
+            path="/teacher/courses/syllabus"
             element={<main>Create syllabus page</main>}
           />
           <Route
-            path="/dashboard/courses/:courseId/syllabus"
+            path="/teacher/courses/:courseId/syllabus"
             element={<main>Edit syllabus page</main>}
           />
-          <Route path="/dashboard/chats" element={<main>Chats</main>} />
+          <Route
+            path="/teacher/chats"
+            element={
+              <main>
+                <Title size="xxl" color="default">
+                  Chats
+                </Title>
+              </main>
+            }
+          />
         </Route>
 
         <Route element={<App />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route
+            path="/courses"
+            element={
+              <main>
+                <p>Courses Section</p>
+              </main>
+            }
+          />
+          <Route path="/courses/:idCourse" element={<CourseDetails />} />
+
+          <Route
             path="/teachers"
             element={
               <main>
-                <p>teachers section</p>
+                <p>Teachers Section</p>
+              </main>
+            }
+          />
+          <Route
+            path="/teachers/:idTeacher"
+            element={
+              <main>
+                <p>Teacher Details</p>
               </main>
             }
           />
@@ -67,7 +105,7 @@ export default function Router() {
           />
 
           <Route
-            path="/teacher/profile"
+            path="/dashboard/teacher/profile"
             element={
               <main>
                 <TeacherProfile />
@@ -92,6 +130,7 @@ export default function Router() {
           />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
+          <Route path="doc-component" element={<DocComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>

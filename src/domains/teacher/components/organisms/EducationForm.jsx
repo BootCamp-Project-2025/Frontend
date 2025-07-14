@@ -11,7 +11,7 @@ export const EducationForm = ({
   university = "",
   career = "",
   startDate = "",
-  endDate = "",
+  finishDate = "",
   addCard = () => {},
   closeForm = () => {},
   updateCard = () => {},
@@ -26,22 +26,17 @@ export const EducationForm = ({
       university,
       career,
       startDate,
-      endDate,
+      finishDate,
     },
   });
 
   const saveNewRecordDB = async (data) => {
-    // create logic to save new record at database
-    // db should give as a record's id
-    // create logic to manage errors
     let newId = uuidv4();
     addCard({ ...data, id: newId });
     closeForm();
   };
 
   const updateRecordDB = async (data) => {
-    // create logic to updata record at database
-    // create logic to manage errors
     updateCard(data);
   };
 
@@ -98,7 +93,7 @@ export const EducationForm = ({
           register={register("startDate", {
             required: "This field is required",
             validate: (value) => {
-              let endDate = watch("endDate");
+              let endDate = watch("finishDate");
               if (endDate && value > endDate) {
                 return "Start Date cannot be after End Date";
               }
@@ -112,12 +107,12 @@ export const EducationForm = ({
 
         <MonthInput
           label="End Date"
-          register={register("endDate", {
+          register={register("finishDate", {
             required: "This field is required",
           })}
           max={maxMonth}
-          errorMessage={errors?.endDate?.message}
-          id={"endDate"}
+          errorMessage={errors?.finishDate?.message}
+          id={"finishDate"}
         ></MonthInput>
       </div>
 
@@ -139,7 +134,7 @@ EducationForm.propTypes = {
   university: PropTypes.string,
   career: PropTypes.string,
   startDate: PropTypes.string,
-  endDate: PropTypes.string,
+  finishDate: PropTypes.string,
   addCard: PropTypes.func,
   closeForm: PropTypes.func,
   updateCard: PropTypes.func,

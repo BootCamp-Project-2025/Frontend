@@ -6,26 +6,23 @@ import CertificationForm from "../molecules/CertificationForm";
 import { ProfileSection } from "../molecules/ProfileSection";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
+import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
+import PropTypes from "prop-types";
+export default function CertificationSection({ freelancerId }) {
+  const [recordList, setRecordList] = useState([]);
 
-export default function CertificationSection() {
-  const [recordList, setRecordList] = useState([
-    {
-      id: "1",
-      name: "Certification 1",
-      institution: "Frontend Masters",
-      year: 2020,
-    },
-    {
-      id: "2",
-      name: "Certification 2",
-      institution: "Oracle Academy",
-      year: 2019,
-    },
-  ]);
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    //const response = getRequest("/")
+    fetchFreelancerData({
+      method: getFreelancerResource,
+      args: [freelancerId, "certifications"],
+      setState: setRecordList,
+      onSuccess: (data) => console.log("Certifications received:", data),
+      onError: (err) => console.error("Fetch failed:", err),
+    });
   }, []);
 
   const handleOpenPopup = () => {
@@ -42,17 +39,17 @@ export default function CertificationSection() {
     );
   };
 
-  const handleOpenEditPopup = (certification) => {
+  const handleOpenEditPopup = (cert) => {
     openPopup(
       PopupFormLayout,
       {
         title: "Certification Form",
         children: (
           <CertificationForm
-            id={certification.id}
-            name={certification.name}
-            institution={certification.institution}
-            year={certification.year}
+            id={cert.id}
+            certification={cert.certification}
+            institution={cert.institution}
+            year={cert.year}
             updateCard={updateCard}
             closePopup={closePopup}
           />
@@ -63,60 +60,50 @@ export default function CertificationSection() {
     );
   };
 
-  const handleOpenDeletePopup = (information) => {
+  const handleOpenDeletePopup = (cert) => {
     openPopup(
       DeleteCardPopup,
-      { deleteAction: deleteCard, id: information.id, closePopup },
+      { deleteAction: deleteCard, id: cert.id, closePopup },
       true
     );
   };
 
-  const addCard = (certification) => {
-    setRecordList((prev) => [
-      ...prev,
-      { ...certification, id: crypto.randomUUID() },
-    ]);
-    closePopup();
+  const editCard = (certId) => {
+    const cert = recordList.find((e) => e.id === certId);
+    if (cert) handleOpenEditPopup(cert);
   };
 
-  const editCard = (certificationId) => {
-    const record = recordList.find((e) => e.id == certificationId);
-    handleOpenEditPopup(record);
-  };
-  const updateCard = (record) => {
-    setRecordList((prev) =>
-      prev.map((element) => {
-        if (element.id == record.id) {
-          return record;
-        }
-        return element;
-      })
-    );
-    closePopup();
-  };
-
-  const deleteCard = (certificationId) => {
-    setRecordList((prev) => prev.filter((c) => c.id !== certificationId));
-    closePopup();
-  };
+  const { addCard, updateCard, deleteCard } = useFreelancerResources({
+    freelancerId,
+    resourceType: "certifications",
+    recordList,
+    setRecordList,
+    closePopup,
+    openEditPopup: handleOpenEditPopup,
+  });
 
   return (
     <ProfileSection title="Certifications">
       <div className="flex flex-col gap-4">
-        {recordList.map((cert) => (
-          <CertificationCard
-            key={cert.id}
-            certification={cert}
-            editCard={() => editCard(cert.id)}
-            deleteCard={() => handleOpenDeletePopup(cert)}
-          />
-        ))}
+        {recordList
+          .filter((cert) => cert && cert.id)
+          .map((cert) => (
+            <CertificationCard
+              key={cert.id}
+              id={cert.id}
+              certification={cert.certification}
+              institution={cert.institution}
+              year={cert.year}
+              editCard={editCard}
+              deleteCard={handleOpenDeletePopup}
+            />
+          ))}
       </div>
       <div>
         <Button
           onClick={handleOpenPopup}
           variant="ghost"
-          className={"border border-[color:var(--color-primary-600)]"}
+          className="border border-[color:var(--color-primary-600)]"
         >
           <span className="material-symbols-outlined">add</span>
           Add Certification
@@ -125,3 +112,7 @@ export default function CertificationSection() {
     </ProfileSection>
   );
 }
+
+CertificationSection.propTypes = {
+  freelancerId: PropTypes.string,
+};

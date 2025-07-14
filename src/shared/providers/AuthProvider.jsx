@@ -107,19 +107,21 @@ export function AuthProvider({ children }) {
     }, 60000);
   }, []);
 
-  const updateSessionRoles = useCallback(async (roles, route) => {
+  const updateSessionRoles = useCallback(async () => {
     const keycloak = keycloakRef.current;
     if (!keycloak) return;
     try {
-      await keycloak.logout();
-      await keycloak.login({
-        prompt: "none",
-        redirectUri: window.location.origin + route,
-      });
+      await keycloak.updateToken(-1);
+      const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+      console.log("Updated roles:", roles);
       const user = await syncUser();
       dispatch({
         type: "LOGIN_SUCCESS",
-        payload: { token: keycloak.token, roles, user },
+        payload: {
+          token: keycloak.token,
+          roles,
+          user: { ...user, isTeacher: roles.includes("FREELANCER") },
+        },
       });
     } catch (error) {
       console.error("Error updating session roles", error);
@@ -145,6 +147,9 @@ export function AuthProvider({ children }) {
           onLoad: "check-sso",
           silentCheckSsoRedirectUri:
             window.location.origin + "/silent-check-sso.html",
+          pkceMethod: false,
+          flow: "standard",
+          scope: "openid email profile",
         });
 
         dispatch({ type: "INIT_KEYCLOAK", payload: keycloak });

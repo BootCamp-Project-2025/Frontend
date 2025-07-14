@@ -9,7 +9,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 
 export const ExperienceForm = ({
   id = "",
-  jobPosition = "",
+  position = "",
   employer = "",
   country = "",
   description = "",
@@ -26,7 +26,7 @@ export const ExperienceForm = ({
     watch,
   } = useForm({
     defaultValues: {
-      jobPosition,
+      position,
       employer,
       country,
       description,
@@ -71,7 +71,7 @@ export const ExperienceForm = ({
       className="flex flex-col gap-2 items-start"
     >
       <TextInput
-        register={register("jobPosition", {
+        register={register("position", {
           required: "This field is required",
           minLength: { value: 3, message: "At least 3 letter" },
           maxLength: { value: 50, message: "Maximum 50 letters" },
@@ -79,8 +79,8 @@ export const ExperienceForm = ({
         maxLength={50}
         label={"Position"}
         placeholder={"Job position"}
-        errorMessage={errors?.jobPosition?.message}
-        id={"jobPosition"}
+        errorMessage={errors?.position?.message}
+        id={"position"}
       ></TextInput>
 
       <div className="flex flex-row w-full sm:gap-5 sm:flex-nowrap flex-wrap gap-2 ">
@@ -118,7 +118,7 @@ export const ExperienceForm = ({
             validate: (value) => {
               let endDate = watch("endDate");
               if (endDate && value > endDate) {
-                return "Start Date cannot be after End Date";
+                return "Start Date cannot be after end Date";
               }
               return true;
             },
@@ -165,7 +165,7 @@ export const ExperienceForm = ({
 
 ExperienceForm.propTypes = {
   id: PropTypes.string,
-  jobPosition: PropTypes.string,
+  position: PropTypes.string,
   employer: PropTypes.string,
   country: PropTypes.string,
   description: PropTypes.string,

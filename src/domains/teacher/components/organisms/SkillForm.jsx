@@ -3,16 +3,17 @@ import { useForm } from "react-hook-form";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import { useState } from "react";
 import SelectSkillLabeled from "../molecules/SelectSkillLabeled";
+import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 
 export const SkillForm = ({
   id = "",
-  skillObject = { skill: "", level: "Beginner" },
+  skill = { name: "", level: "beginner" },
   updateCard = () => {},
   addCard = () => {},
   closePopup = () => {},
 }) => {
-  const { skill, level } = skillObject;
+  const { name, level } = skill;
 
   const {
     register,
@@ -20,39 +21,44 @@ export const SkillForm = ({
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      skill,
+      name,
+      level,
     },
   });
 
   const [newLevel, setLevel] = useState(level);
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  const saveSkill = async (data) => {
-    await delay(1000);
-    const payload = { skill: data.skill, level: newLevel };
-
-    if (id === "") {
-      addCard({ ...payload, id: crypto.randomUUID() });
-    } else {
-      updateCard({ ...payload, id });
-    }
-
-    closePopup();
-  };
-
   const changeLevel = (value) => {
     setLevel(value);
   };
 
+  const saveNewRecordDB = async (data) => {
+    let newId = uuidv4();
+    const payload = { ...data, level: newLevel, id: newId };
+    addCard(payload);
+    closePopup();
+  };
+
+  const updateRecordDB = async (data) => {
+    const payload = { ...data, level: newLevel, id };
+    updateCard(payload);
+    closePopup();
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(saveSkill)}
+      onSubmit={handleSubmit(async (data) => {
+        if (id != "") {
+          await updateRecordDB(data);
+        } else {
+          await saveNewRecordDB(data);
+        }
+      })}
       className="flex flex-col gap-2 items-center"
     >
       <div className="flex flex-row gap-7">
         <TextInput
-          register={register("skill", {
+          register={register("name", {
             required: "This field is required",
             minLength: { value: 1, message: "At least 1 letter" },
             maxLength: { value: 50, message: "Maximum 50 letters" },
@@ -60,8 +66,8 @@ export const SkillForm = ({
           maxLength={50}
           label={"Skill"}
           placeholder={"Skill name"}
-          errorMessage={errors?.skill?.message}
-          id={"skill"}
+          errorMessage={errors?.name?.message}
+          id={"name"}
         />
 
         <SelectSkillLabeled value={newLevel} onChange={changeLevel} />
@@ -82,8 +88,8 @@ export const SkillForm = ({
 
 SkillForm.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  skillObject: PropTypes.shape({
-    skill: PropTypes.string,
+  skill: PropTypes.shape({
+    name: PropTypes.string,
     level: PropTypes.string,
   }),
   updateCard: PropTypes.func,

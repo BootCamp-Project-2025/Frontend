@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { Card } from "../atoms/Card";
+import { Icon } from "./Icon";
+import { useNavigate } from "react-router-dom";
 
 export const TeacherCard = ({
-  // eslint-disable-next-line no-unused-vars
-  id,
+  id = "idTeacher",
   imageURL = "",
   name = "Teacher name",
   rating = "0.0",
@@ -12,6 +13,7 @@ export const TeacherCard = ({
   className = "",
   ...props
 }) => {
+  const navigate = useNavigate();
   return (
     <Card
       className={`border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 gap-2.5  hover:bg-primary-50  ${className}`}
@@ -21,6 +23,9 @@ export const TeacherCard = ({
       color="secondary"
       shadow="none"
       padding="md"
+      onClick={() => {
+        navigate(`/teachers/${id}`);
+      }}
       {...props}
     >
       <div className="flex flex-row  gap-2  items-center ">
@@ -30,12 +35,10 @@ export const TeacherCard = ({
         </p>
         <p className="text-xs font-normal text-gray-900 flex items-center gap-0.5">
           {rating}
-          <span
-            className="material-symbols-outlined text-yellow-500"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-          >
-            star
-          </span>
+          <Icon
+            icon={"star"}
+            className={"w-[1.5rem] h-[1.5rem] text-yellow-500"}
+          ></Icon>
         </p>
       </div>
       <p className="line-clamp-3 text-xs font-[500]  text-gray-900">
