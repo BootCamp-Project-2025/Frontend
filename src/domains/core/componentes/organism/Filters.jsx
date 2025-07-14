@@ -81,7 +81,7 @@ export const Filters = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col">
-        <div className="flex items-center gap-5 flex-wrap">
+        <div className="flex items-center gap-2 md:gap-5 flex-wrap">
           <SelectInput
             value={ratingOrder}
             onChange={(e) => handleRating(e.target.value)}
@@ -111,7 +111,7 @@ export const Filters = () => {
             className="w-32 rounded-md border-gray-300"
           />
         </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap h-10">
+        <div className="mt-4 flex items-center gap-3 flex-wrap md:h-10">
           {ratingOrder !== "" && (
             <Button
               color="secondary"
@@ -119,7 +119,7 @@ export const Filters = () => {
               onClick={() => handleRating(ratingOrder)}
             >
               <p>{ratingOrder} stars</p>
-              <Icon icon={"close"}></Icon>
+              <Icon icon={"closeDark"}></Icon>
             </Button>
           )}
           {categoryOrder !== "" && (
@@ -131,7 +131,7 @@ export const Filters = () => {
               <p>
                 {categoryOrder === "all" ? "All categories" : categoryOrder}
               </p>
-              <Icon icon={"close"}></Icon>
+              <Icon icon={"closeDark"}></Icon>
             </Button>
           )}
           {subCategoryOrder !== "" && (
@@ -145,7 +145,7 @@ export const Filters = () => {
                   ? "All sub categories"
                   : subCategoryOrder}
               </p>
-              <Icon icon={"close"}></Icon>
+              <Icon icon={"closeDark"}></Icon>
             </Button>
           )}
           {languageOrder !== "" && (
@@ -155,7 +155,7 @@ export const Filters = () => {
               onClick={() => handleLanguage(languageOrder)}
             >
               <p>{languageOrder === "all" ? "All languages" : languageOrder}</p>
-              <Icon icon={"close"}></Icon>
+              <Icon icon={"closeDark"}></Icon>
             </Button>
           )}
         </div>
