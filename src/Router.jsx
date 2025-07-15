@@ -16,12 +16,14 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import { RequestList } from "./domains/core/componentes/organism/RequestList.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="teacher" element={<Dashboard />}>
+          <Route path="/teacher/request-search" element={<RequestList />} />
           <Route
             path="/teacher/dashboard"
             element={
