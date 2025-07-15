@@ -132,6 +132,19 @@ export default function CourseLesson({
     });
   }
 
+  async function eraseLesson() {
+    if (lesson.id) {
+      const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
+      if (error) return;
+    }
+    showToast("the module was deleted successfully", "success");
+    dispatch({
+      moduleIndex: moduleIndex,
+      lessonIndex: lesson.position,
+      type: "DELETE_LESSON",
+    });
+  }
+
   function checkRepeatTitle(tittle) {
     if (
       modules[moduleIndex].lessons.filter(
@@ -193,18 +206,6 @@ export default function CourseLesson({
         { ...lesson }
       );
     }
-  }
-  async function eraseLesson() {
-    if (lesson.id) {
-      const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
-      if (error) return;
-    }
-    showToast("the module was deleted successfully", "success");
-    dispatch({
-      moduleIndex: moduleIndex,
-      lessonIndex: lesson.position,
-      type: "DELETE_LESSON",
-    });
   }
 
   return (

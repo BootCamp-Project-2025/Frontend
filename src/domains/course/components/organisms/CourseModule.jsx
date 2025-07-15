@@ -79,23 +79,28 @@ export default function CourseModule({
   }
 
   async function saveModule() {
-    let response;
-    // post or update the module depending if it has alredy been saved
+    let response = await handleupload();
+    handleResponse(response);
+  }
+
+  async function handleupload() {
     if (module.isNew)
-      response = await ApiPost(`courses/${courseId}/modules`, {
+      return await ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
         position: module.position,
         quizzes: module.quizzes,
       });
     else
-      response = await ApiPut(`courses/modules/${module.id}`, {
+      return await ApiPut(`courses/modules/${module.id}`, {
         id: module.id,
         title: module.title,
         position: module.position,
         quizzes: module.quizzes,
       });
+  }
+
+  function handleResponse(response) {
     if (!response.error) {
-      // only updates the view of the user if it has been sucessfully updated or created
       showToast("The module was saved successfully", "success");
       dispatch({
         moduleIndex: moduleIndex,
