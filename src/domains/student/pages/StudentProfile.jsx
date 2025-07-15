@@ -5,14 +5,8 @@ import About from "../../teacher/components/organisms/About";
 import ProfileDetailCard from "../components/organisms/ProfileDetailCard";
 import GridPersonalDetail from "../components/molecules/GridPersonalDetail";
 import GridAccountDetail from "../components/molecules/GridAccountDetail";
-
-const mockUser = {
-  fullName: "Elam Cano",
-  about: "About me description",
-  userEmail: "elamcano@gmail.com",
-  roles: ["Student", "Teacher"],
-  createdAt: " 1998",
-};
+import GridSocialLinksDetail from "../components/molecules/GridSocialLinksDetail";
+import { useParams } from "react-router-dom";
 
 const mockClient = {
   phoneNumber: "+54 3785 495069",
@@ -21,28 +15,44 @@ const mockClient = {
   gender: "Masculine",
   dateOfBirth: "June, 1998",
   languagePreference: "English",
+  socialLinks: ["www.youtube.com", "www.Linkedin.com"],
 };
-
+const socialLinks = [
+  { platform: "linkedin", url: "https://linkedin.com/in/elam" },
+  { platform: "instagram", url: "https://instagram.com/elam" },
+];
 const StudentProfile = () => {
   const { user } = useAuth();
+  const { studentId } = useParams();
+  console.log(studentId);
+  //al hacer get de student deberia recibir el userId
+
   console.log(user, "user");
   return (
-    <main>
+    <main className="flex flex-col gap-16">
       <ProfileTitle title="Student Profile" />
       {user && <ProfileInfo user={user} />}
 
       <About />
-      <div className="flex flex-wrap gap-4 p-12 md:px-40">
-        <ProfileDetailCard title={"Personal details"} isEditable={true}>
-          <GridPersonalDetail
-            userName={user || "elamjxe"}
-            client={mockClient}
-          />
-        </ProfileDetailCard>
-        <ProfileDetailCard title={"Account details"}>
-          <GridAccountDetail coursesCompleted={4} user={mockUser} />
-        </ProfileDetailCard>
-      </div>
+      {user && (
+        <div className="flex flex-wrap gap-8 md:p-12 md:px-40">
+          {/* Profile Detail */}
+          <ProfileDetailCard title={"Personal details"} isEditable={false}>
+            <GridPersonalDetail
+              userName={user.userName || "User name"}
+              client={mockClient}
+            />
+          </ProfileDetailCard>
+          {/* Account Detail */}
+          <ProfileDetailCard title={"Account details"} isEditable={false}>
+            <GridAccountDetail coursesCompleted={4} user={user} />
+          </ProfileDetailCard>
+          {/* Social media Detail */}
+          <ProfileDetailCard title={"Social links"} isEditable={false}>
+            <GridSocialLinksDetail socialLinks={socialLinks} />
+          </ProfileDetailCard>
+        </div>
+      )}
     </main>
   );
 };

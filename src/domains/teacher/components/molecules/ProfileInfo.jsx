@@ -46,8 +46,17 @@ const ProfileInfo = ({ user }) => {
           <Title size="xl" color="default">
             {localUser.userName}
           </Title>
-          <Button onClick={handleOpenPopup} variant="ghost">
-            <Icon icon="edit" className={"cursor-pointer self-start"} />
+          <Button
+            color="default"
+            radius="full"
+            square
+            size="sm"
+            onClick={handleOpenPopup}
+            className={
+              "p-0 w-2 flex justify-center bg-[color:var(--color-secondary-100)]"
+            }
+          >
+            <Icon icon={"edit"} className={"min-w-4"} />
           </Button>
         </div>
 

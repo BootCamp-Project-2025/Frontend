@@ -7,7 +7,7 @@ const ProfileDetailCard = ({
   onClickEdit,
   title,
   children,
-  isEditable = false,
+  isEditable = true,
 }) => {
   return (
     <div className="border border-[color:var(--color-default-400)] rounded-md md:min-w-min w-full">

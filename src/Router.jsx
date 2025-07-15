@@ -65,6 +65,10 @@ export default function Router() {
           />
         </Route>
 
+        <Route path="student" element={<Dashboard />}>
+          <Route path="/student/profile" element={<StudentProfile />} />
+        </Route>
+
         <Route element={<App />}>
           <Route path="/" element={<HomePage />} />
           <Route
@@ -102,8 +106,15 @@ export default function Router() {
               </main>
             }
           />
-          <Route path="/student/profile" element={<StudentProfile />} />
-
+          <Route path="/students" element={<StudentProfile />} />
+          <Route
+            path="/students/:studentId"
+            element={
+              <main>
+                <p>Student Detail</p>
+              </main>
+            }
+          />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
           <Route path="button-gallery" element={<ButtonGallery />} />
