@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Button } from "../../../../shared/components/atoms/Button";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function SyllabusExpansionWrapper({
   saveTitle,
@@ -33,30 +33,46 @@ export default function SyllabusExpansionWrapper({
     }
   }, [editTitle, title]);
 
-  function validateTitle(e) {
-    const title = e.target?.value ?? e;
-    if (title !== "" && checkRepeatTitle(title)) {
-      setError("Title already exists");
-      return false;
-    }
-    if (title.length > 20) {
-      setError("Title cannot exceed 20 characters");
-      return false;
-    } else if (title.length < 5) {
-      setError("Title cannot be less than 5 characters");
-      return false;
-    }
-    setError("");
-    return true;
-  }
+  const validateTitle = useCallback(
+    (e) => {
+      const title = e.target?.value ?? e;
+      if (title !== "" && checkRepeatTitle(title)) {
+        setError("Title already exists");
+        return false;
+      }
+      if (title.length > 20) {
+        setError("Title cannot exceed 20 characters");
+        return false;
+      } else if (title.length < 5) {
+        setError("Title cannot be less than 5 characters");
+        return false;
+      }
+      setError("");
+      return true;
+    },
+    [checkRepeatTitle]
+  );
 
-  function saveHandle() {
+  const handleSaveTitle = useCallback(() => {
+    if (!validateTitle(inputRef.current.value)) return;
+    saveTitle(inputRef.current.value);
+    setEditTitle(!editTitle);
+  }, [editTitle, saveTitle, validateTitle]);
+
+  const saveHandle = useCallback(() => {
     if (editTitle) {
       setError("you need to save the title");
       return;
     }
     save();
-  }
+  }, [editTitle, save]);
+
+  const editHandle = useCallback(() => setEditTitle(!editTitle), [editTitle]);
+
+  const toggleWrapperhandle = useCallback(
+    () => setDisplayChild((display) => !display),
+    []
+  );
 
   return (
     <div className={`py-2 ${className}`}>
@@ -86,22 +102,14 @@ export default function SyllabusExpansionWrapper({
           {editTitle ? (
             <Button
               data-testid="saveTitleButton"
-              onClick={() => {
-                if (!validateTitle(inputRef.current.value)) return;
-                saveTitle(inputRef.current.value);
-                setEditTitle(!editTitle);
-              }}
+              onClick={handleSaveTitle}
               variant="light"
               color="secondary"
             >
               <Icon className={"fill-black ml-5 w-5 h-4"} icon={"check"} />
             </Button>
           ) : (
-            <Button
-              onClick={() => setEditTitle(!editTitle)}
-              variant="light"
-              color="secondary"
-            >
+            <Button onClick={editHandle} variant="light" color="secondary">
               <Icon className={"w-4 h-4"} icon={"editBlack"} />
             </Button>
           )}
@@ -131,7 +139,7 @@ export default function SyllabusExpansionWrapper({
           </Button>
           <Button
             data-testid={"toggleButton"}
-            onClick={() => setDisplayChild((display) => !display)}
+            onClick={toggleWrapperhandle}
             variant="light"
             color="secondary"
             className={"px-5"}
