@@ -1,4 +1,4 @@
-import { Icon } from "../../../../shared/components/atoms/Icon";
+import { Icon } from "../atoms/Icon";
 import PropTypes from "prop-types";
 
 export default function SearchBar({ className, ...props }) {
