@@ -30,6 +30,13 @@ export const Filters = () => {
     setLanguageOrder((prev) => (prev === order ? "" : order));
   };
 
+  const handleClear = () => {
+    setLanguageOrder("");
+    setSubCategoryOrder("");
+    setCategoryOrder("");
+    setRatingOrder("");
+  };
+
   const ratingOptions = [
     { value: "all", label: "All" },
     { value: 5, label: "5" },
@@ -110,6 +117,9 @@ export const Filters = () => {
             placeHolder="Language"
             className="w-32 rounded-md border-gray-300"
           />
+          <Button onClick={handleClear} variant="ghost" radius="full">
+            Clear Filters
+          </Button>
         </div>
         <div className="mt-4 flex items-center gap-3 flex-wrap md:h-10">
           {ratingOrder !== "" && (
