@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export const Searcher = ({ placeholder = "Find your favorite course" }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-4">
       <TextInput placeholder={placeholder} id="courseTextInput"></TextInput>
       <Button>
         <span
