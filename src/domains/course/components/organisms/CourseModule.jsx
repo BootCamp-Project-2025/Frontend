@@ -67,9 +67,13 @@ export default function CourseModule({
   });
 
   async function eraseModule() {
+    //only send an api request if the module is saved in the DB
     if (module.id) {
       const { error } = await ApiDelete(`modules/${module.id}`);
-      if (error) return;
+      if (error) {
+        showToast("There was an error saving the module", "error");
+        return;
+      }
     }
     showToast("The module was deleted successfully", "success");
     dispatch({
