@@ -24,11 +24,24 @@ export const TeacherSidebar = () => {
     setCourseOpen(isCourseRoute);
   }, [location.pathname, courseId]);
 
+  const getStyleNavLink = ({ isActive }) => {
+    return `${isActive ? "bg-gray-300" : ""} border-l-primary-500 flex items-center gap-1 px-4 py-2  text-nowrap border-l-4 ${!isActive ? "hover:bg-gray-100" : ""}   `;
+  };
+
+  const handleOpenSidebar = () => {
+    setOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setOpen(false);
+  };
+
   return (
     <aside
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={handleOpenSidebar}
+      onMouseLeave={handleCloseSidebar}
       className="w-[3.7rem] "
+      role="presentation"
     >
       <div className="relative h-full">
         <div className="absolute left-0 top-0 h-full z-[20] border-r border-gray-400">
@@ -66,9 +79,7 @@ export const TeacherSidebar = () => {
 
                     <NavLink
                       to={`${courseId ? `courses/${courseId}/homePage?name=${courseName}` : "courses/homePage"}`}
-                      className={({ isActive }) =>
-                        `${isActive ? "bg-gray-300" : ""} border-l-primary-500 flex items-center gap-1 px-4 py-2  text-nowrap border-l-4 ${!isActive ? "hover:bg-gray-100" : ""}   `
-                      }
+                      className={getStyleNavLink}
                     >
                       <span className="text-base text-gray-700 px-5 py-1 font-normal">
                         Home page
@@ -77,9 +88,7 @@ export const TeacherSidebar = () => {
 
                     <NavLink
                       to={`${courseId ? `courses/${courseId}/syllabus?name=${courseName}` : "courses/syllabus"}`}
-                      className={({ isActive }) =>
-                        `${isActive ? "bg-gray-300" : ""} border-l-primary-500 flex items-center gap-1 px-4 py-2  text-nowrap border-l-4 ${!isActive ? "hover:bg-gray-100" : ""}   `
-                      }
+                      className={getStyleNavLink}
                     >
                       <span className="text-base text-gray-700 px-5 py-1 font-normal">
                         Syllabus

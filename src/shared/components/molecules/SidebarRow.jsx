@@ -3,14 +3,11 @@ import { Icon } from "../atoms/Icon";
 import PropTypes from "prop-types";
 
 export const SidebarRow = ({ name, route, icon, className, ...props }) => {
+  const getStyleNavLink = ({ isActive }) => {
+    return `${className} ${isActive ? "bg-[#2e6df53a] border-l-primary-500" : " border-l-transparent"} flex items-center gap-1 px-4 py-2  text-nowrap border-l-4 ${!isActive ? "hover:bg-gray-100" : ""}   `;
+  };
   return (
-    <NavLink
-      to={route}
-      className={({ isActive }) =>
-        `${className} ${isActive ? "bg-[#2e6df53a] border-l-primary-500" : " border-l-transparent"} flex items-center gap-1 px-4 py-2  text-nowrap border-l-4 ${!isActive ? "hover:bg-gray-100" : ""}   `
-      }
-      {...props}
-    >
+    <NavLink to={route} className={getStyleNavLink} {...props}>
       {icon && (
         <Icon
           icon={icon}

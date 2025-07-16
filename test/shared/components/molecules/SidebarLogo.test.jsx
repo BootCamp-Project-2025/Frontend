@@ -21,7 +21,7 @@ describe("SidebarLogo", () => {
   });
 
   it("shows the 'Crowd' logo when open is true", () => {
-    renderWithRouter(<SidebarLogo open={true} />);
+    renderWithRouter(<SidebarLogo open />);
     const crowdLogo = screen.getByAltText("ltcrowdLogoCrowd");
     expect(crowdLogo).toHaveClass("opacity-100");
   });

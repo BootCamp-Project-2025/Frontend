@@ -4,14 +4,12 @@ import { Header } from "../domains/core/componentes/organism/Header";
 
 export const TeacherLayOut = () => {
   return (
-    <>
-      <div className="min-h-screen flex flex-row">
-        <TeacherSidebar />
-        <div className=" w-full flex flex-col">
-          <Header complete={false}></Header>
-          <Outlet />
-        </div>
+    <div className="min-h-screen flex flex-row">
+      <TeacherSidebar />
+      <div className=" w-full flex flex-col">
+        <Header complete={false}></Header>
+        <Outlet />
       </div>
-    </>
+    </div>
   );
 };
