@@ -16,6 +16,7 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import { Dashboard as TeacherDashboard } from "./domains/core/componentes/pages/Dashboard.jsx";
 
 export default function Router() {
   return (
@@ -25,11 +26,7 @@ export default function Router() {
           <Route
             path="/teacher/dashboard"
             element={
-              <main>
-                <Title size="xxl" color="default">
-                  Teacher Dashboard
-                </Title>
-              </main>
+              <TeacherDashboard />
             }
           />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
