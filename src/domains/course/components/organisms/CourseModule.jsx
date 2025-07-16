@@ -68,7 +68,7 @@ export default function CourseModule({
 
   async function eraseModule() {
     if (module.id) {
-      const { error } = await ApiDelete(`courses/modules/${module.id}`);
+      const { error } = await ApiDelete(`modules/${module.id}`);
       if (error) return;
     }
     showToast("The module was deleted successfully", "success");
@@ -91,7 +91,7 @@ export default function CourseModule({
         quizzes: module.quizzes,
       });
     else
-      return await ApiPut(`courses/modules/${module.id}`, {
+      return await ApiPut(`modules/${module.id}`, {
         id: module.id,
         title: module.title,
         position: module.position,

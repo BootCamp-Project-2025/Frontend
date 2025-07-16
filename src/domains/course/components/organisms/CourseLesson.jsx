@@ -134,7 +134,7 @@ export default function CourseLesson({
 
   async function eraseLesson() {
     if (lesson.id) {
-      const { error } = await ApiDelete(`courses/modules/lessons/${lesson.id}`);
+      const { error } = await ApiDelete(`lessons/${lesson.id}`);
       if (error) return;
     }
     showToast("the module was deleted successfully", "success");
@@ -196,15 +196,11 @@ export default function CourseLesson({
 
   async function handleupload() {
     if (lesson.isNew) {
-      return await ApiPost(
-        `courses/modules/${modules[moduleIndex].id}/lessons`,
-        { ...lesson }
-      );
+      return await ApiPost(`modules/${modules[moduleIndex].id}/lessons`, {
+        ...lesson,
+      });
     } else {
-      return await ApiPut(
-        `courses/modules/${modules[moduleIndex].id}/lessons/${lesson.id}`,
-        { ...lesson }
-      );
+      return await ApiPut(`lessons/${lesson.id}`, { ...lesson });
     }
   }
 
