@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 
 export const FilterChip = ({ label, onClick }) => {
   return (
-    <span className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-secondary-600 bg-[#e7e7e7]">
+    <span className="capitalize inline-flex items-center gap-3 px-4 py-2 rounded-full text-secondary-600 bg-[#e7e7e7]">
       {label}
-      <button onClick={onClick} className="outline-0">
-        <Icon icon={"close"} className="text-secondary-600" />
+      <button
+        onClick={onClick}
+        className="outline-0 text-secondary-600 hover:text-secondary-800 transition-colors"
+      >
+        <Icon icon={"close"} />
       </button>
     </span>
   );
