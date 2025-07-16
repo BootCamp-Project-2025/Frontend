@@ -13,7 +13,7 @@ export const SidebarStudent = () => {
       className="w-[3.7rem] "
     >
       <div className="relative h-full">
-        <div className="absolute left-0 top-0 h-full z-[1010] border-r border-gray-400">
+        <div className="absolute left-0 top-0 h-full z-[10] border-r border-gray-400">
           <div className="absolute top-0 left-0 h-full z-20 transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0.38,0.9)]">
             <nav
               className={`${
