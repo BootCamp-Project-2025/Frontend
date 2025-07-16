@@ -1,4 +1,4 @@
-import SearchBar from "../../../teacher/components/molecules/SearchBar";
+import SearchBar from "../../../../shared/components/molecules/SearchBar";
 import StudentEmptyRequestsMessage from "../molecules/StudentEmptyRequestsMessage";
 import RequestList from "./RequestList";
 
