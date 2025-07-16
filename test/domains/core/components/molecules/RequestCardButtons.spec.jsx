@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/dom";
 import { cleanup, render } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import RequestCardButtons from "../../../../src/domains/teacher/components/molecules/RequestCardButtons";
+import RequestCardButtons from "../../../../../src/domains/core/componentes/molecules/RequestCardButtons";
 
 beforeEach(() => {
   cleanup();
