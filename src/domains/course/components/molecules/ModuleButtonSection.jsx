@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 export default function ButtonSection({ buttonProps, ...props }) {
   return (
     <div className="flex justify-center gap-4 mt-2" {...props}>
-      {buttonProps.map((buttonData, id) => (
+      {buttonProps.map((buttonData) => (
         <Button
-          key={id}
+          key={buttonData.text}
           radius="small"
           onClick={buttonData.onClick}
           className={`w-40 text-center self-end ${buttonData.className ?? ""}`}
@@ -24,5 +24,11 @@ export default function ButtonSection({ buttonProps, ...props }) {
 }
 
 ButtonSection.propTypes = {
-  buttonProps: PropTypes.array,
+  buttonProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      onClick: PropTypes.func,
+      className: PropTypes.string,
+    })
+  ).isRequired,
 };

@@ -13,6 +13,7 @@ import UploadVideoUrl from "../molecules/UploadVideoUrl";
 import { ApiPut } from "../../api/ApiPut";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { useBeforeUnload } from "react-router-dom";
+import Module from "../../classes/Module";
 
 export default function CourseLesson({
   modules,
@@ -150,14 +151,11 @@ export default function CourseLesson({
   }
 
   function checkRepeatTitle(tittle) {
-    if (
+    return (
       modules[moduleIndex].lessons.filter(
         (less) => less.title === tittle && less.position !== lesson.position
       ).length > 0
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
 
   function validateDescription(dedcription) {
@@ -200,11 +198,11 @@ export default function CourseLesson({
 
   async function handleupload() {
     if (lesson.isNew) {
-      return await ApiPost(`modules/${modules[moduleIndex].id}/lessons`, {
+      return ApiPost(`modules/${modules[moduleIndex].id}/lessons`, {
         ...lesson,
       });
     } else {
-      return await ApiPut(`lessons/${lesson.id}`, { ...lesson });
+      return ApiPut(`lessons/${lesson.id}`, { ...lesson });
     }
   }
 
@@ -253,7 +251,7 @@ export default function CourseLesson({
 
 CourseLesson.propTypes = {
   moduleIndex: PropTypes.number,
-  modules: PropTypes.array,
+  modules: PropTypes.arrayOf(Module),
   dispatch: PropTypes.func,
   lessonIndex: PropTypes.number,
 };

@@ -13,10 +13,10 @@ export default function LessonContentGroup({
     <div className={`px-5 py-3 mt-2 mx-16 ${className}`} {...props}>
       <Title color="black">{title}</Title>
       <ul className="px-2">
-        {resources.map((resource, id) => (
+        {resources.map((resource) => (
           <LessonContentRow
             eraseResource={eraseResource}
-            key={id}
+            key={resource.name}
             name={resource.name ?? resource}
             url={resource.url ?? resource}
           />
@@ -29,6 +29,11 @@ export default function LessonContentGroup({
 LessonContentGroup.propTypes = {
   title: PropTypes.string,
   eraseResource: PropTypes.func,
-  resources: PropTypes.object,
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   className: PropTypes.string,
 };

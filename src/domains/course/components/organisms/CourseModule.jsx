@@ -11,6 +11,7 @@ import { useParams, useBeforeUnload } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import UploadQuiz from "../molecules/UploadQuiz";
 import LessonContentGroup from "./LessonContentGroup";
+import Module from "../../classes/Module";
 
 export default function CourseModule({
   modules,
@@ -89,13 +90,13 @@ export default function CourseModule({
 
   async function handleupload() {
     if (module.isNew)
-      return await ApiPost(`courses/${courseId}/modules`, {
+      return ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
         position: module.position,
         quizzes: module.quizzes,
       });
     else
-      return await ApiPut(`modules/${module.id}`, {
+      return ApiPut(`modules/${module.id}`, {
         id: module.id,
         title: module.title,
         position: module.position,
@@ -124,14 +125,11 @@ export default function CourseModule({
   }
 
   function checkRepeatTitle(tittle) {
-    if (
+    return (
       modules.filter(
         (mod) => mod.title === tittle && mod.position !== module.position
       ).length > 0
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
 
   function eraseQuiz(name) {
@@ -156,12 +154,12 @@ export default function CourseModule({
       title={module.title}
     >
       <ButtonSection buttonProps={buttons} />
-      {module.lessons.map((_, lessonIndex) => (
+      {module.lessons.map((lesson, lessonIndex) => (
         <CourseLesson
           modules={modules}
           dispatch={dispatch}
           id={`module-${moduleIndex}-lesson-${lessonIndex}`}
-          key={`module-${moduleIndex}-lesson-${lessonIndex}`}
+          key={lesson.position}
           lessonIndex={lessonIndex}
           moduleIndex={moduleIndex}
         />
@@ -177,7 +175,7 @@ export default function CourseModule({
 
 CourseModule.propTypes = {
   title: PropTypes.string,
-  modules: PropTypes.array,
+  modules: PropTypes.arrayOf(Module),
   dispatch: PropTypes.func,
   moduleIndex: PropTypes.number,
 };

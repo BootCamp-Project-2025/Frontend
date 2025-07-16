@@ -12,6 +12,7 @@ import { useToastContext } from "../../../../shared/contexts/ToastContext";
 export default function CourseSyllabus() {
   const { courseId } = useParams();
   const { showToast } = useToastContext();
+  const [modules, dispatch] = useReducer(moduleReducer, []);
   useEffect(() => {
     const loadData = async () => {
       const { data } = await ApiGet(`courses/${courseId}/modules`);
@@ -22,8 +23,6 @@ export default function CourseSyllabus() {
     };
     loadData();
   }, []);
-
-  const [modules, dispatch] = useReducer(moduleReducer, []);
 
   function addModule(position) {
     dispatch({
@@ -80,7 +79,7 @@ export default function CourseSyllabus() {
       <SyllabusInfo className="self-center hidden md:flex" />
 
       {modules.map((module, index) => (
-        <div key={`add-module-${index}`}>
+        <div key={`add-module-${module.position}`}>
           <Button
             data-testid={`addModule-${index}`}
             onClick={() => addModule(index)}
@@ -99,7 +98,7 @@ export default function CourseSyllabus() {
             modules={modules}
             dispatch={dispatch}
             id={`module-${index}`}
-            key={`module-${index}`}
+            key={`module-${module.position}`}
             title={module.title}
             moduleIndex={index}
           />
