@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import RequestCard from "./RequestCard";
 import { Button } from "../../../../shared/components/atoms/Button";
