@@ -19,7 +19,6 @@ export const StudentSidebar = () => {
       onMouseEnter={handleOpenSidebar}
       onMouseLeave={handleCloseSidebar}
       className="w-[3.7rem] "
-      role="presentation"
     >
       <div className="relative h-full">
         <div className="absolute left-0 top-0 h-full z-[20] border-r border-gray-400">
