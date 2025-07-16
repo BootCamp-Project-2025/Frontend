@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../shared/components/organisms/Sidebar";
+import { TeacherSidebar } from "../shared/components/organisms/TeacherSidebar";
 import { Header } from "../domains/core/componentes/organism/Header";
 
 export const TeacherLayOut = () => {
   return (
     <>
-      <div id="teahcerWorkspaceLayout" className="min-h-screen flex flex-row">
-        <Sidebar />
-        <div className="mainContent  w-full">
+      <div className="min-h-screen flex flex-row">
+        <TeacherSidebar />
+        <div className=" w-full flex flex-col">
           <Header complete={false}></Header>
           <Outlet />
         </div>

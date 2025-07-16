@@ -6,7 +6,10 @@ export const MainLayout = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <div className="max-w-[90rem] px-8 py-4 mx-auto min-h-screen">
+        <Outlet />
+      </div>
+
       <Footer />
     </>
   );

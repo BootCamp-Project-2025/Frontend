@@ -23,32 +23,10 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/courses"
-            element={
-              <main>
-                <p>Courses Section</p>
-              </main>
-            }
-          />
+          <Route path="/courses" element={<p>Courses Section</p>} />
           <Route path="/courses/:idCourse" element={<CourseDetails />} />
-
-          <Route
-            path="/teachers"
-            element={
-              <main>
-                <p>Teachers Section</p>
-              </main>
-            }
-          />
-          <Route
-            path="/teachers/:idTeacher"
-            element={
-              <main>
-                <p>Teacher Details</p>
-              </main>
-            }
-          />
+          <Route path="/teachers" element={<p>Teachers Section</p>} />
+          <Route path="/teachers/:idTeacher" element={<p>Teacher Details</p>} />
 
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />

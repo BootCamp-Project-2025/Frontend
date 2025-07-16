@@ -1,22 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Sidebar } from "../../../../src/shared/components/organisms/Sidebar";
+import { TeacherSidebar } from "../../../../src/shared/components/organisms/TeacherSidebar";
 import { MemoryRouter } from "react-router-dom";
 
-describe("Sidebar organism", () => {
-  it("renders  sidebar", () => {
+describe("TeacherSidebar organism", () => {
+  it("renders  TeacherSidebar", () => {
     render(
       <MemoryRouter>
-        <Sidebar />
+        <TeacherSidebar />
       </MemoryRouter>
     );
     expect(screen.queryByText("dashboard")).not.toBeInTheDocument();
   });
 
-  /*  it("expands sidebar when button is clicked", () => {
+  /*  it("expands TeacherSidebar when button is clicked", () => {
     render(
       <MemoryRouter>
-        <Sidebar />
+        <TeacherSidebar />
       </MemoryRouter>
     );
     const buttons = screen.getAllByRole("button");
