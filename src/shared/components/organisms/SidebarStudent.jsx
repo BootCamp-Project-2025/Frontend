@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Icon } from "../atoms/Icon";
 import { SidebarRow } from "../molecules/SidebarRow";
+import { Link } from "react-router-dom";
 
-export const Sidebar = () => {
+export const SidebarStudent = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,33 +22,56 @@ export const Sidebar = () => {
             >
               <SidebarRow
                 name={"Dashboard"}
-                route={"/teacher/dashboard"}
+                route={"/student/dashboard"}
                 icon={"analytics"}
               ></SidebarRow>
 
               <SidebarRow
-                name={"Teacher Profile"}
-                route={"/teacher/profile"}
+                name={"Student Profile"}
+                route={"/student/profile"}
                 icon={"user"}
               ></SidebarRow>
 
               <SidebarRow
                 name={"Courses"}
-                route={"/teacher/courses"}
+                route={"/student/courses"}
                 icon={"courses"}
               ></SidebarRow>
 
               <SidebarRow
-                name={"Search Request"}
-                route={"/teacher/search-requests"}
-                icon={"search"}
+                name={"Requests"}
+                route={"/student/my-requests"}
+                icon={"assignment"}
               ></SidebarRow>
 
               <SidebarRow
                 name={"Chats"}
-                route={"/teacher/chats"}
+                route={"/student/chats"}
                 icon={"chat"}
               ></SidebarRow>
+
+              <div className="p-4 flex justify-center">
+                {!open && (
+                  <Link to={"/"} className="cursor-pointer">
+                    <Icon icon={"logout"}></Icon>
+                  </Link>
+                )}
+                {open && (
+                  <Link
+                    to={"/"}
+                    className={`${open ? "flex ml-auto p-[.625em] w-full items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-2xl" : ""}`}
+                  >
+                    <div className={"flex items-center  gap-2 justify-center"}>
+                      <Icon icon={"logout"}></Icon>
+                      {open && (
+                        <span className="text-base text-gray-700 font-semibold text-nowrap">
+                          Go Back Home
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                )}
+              </div>
             </nav>
           </div>
         </div>

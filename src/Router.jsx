@@ -7,64 +7,21 @@ import StaticCourseHomePageForm from "./domains/course/components/organisms/Stat
 import DropdownSelectGallery from "./shared/components/templates/DropdownSelectGallery.jsx";
 import FileUploadExample from "./shared/components/templates/FileUploadExample.jsx";
 import TextEditorShowcase from "./shared/components/templates/TextEditorShowcase.jsx";
-import { Dashboard } from "./shared/components/templates/Dashboard.jsx";
 import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
-import App from "./App.jsx";
-import { Title } from "./shared/components/atoms/Title.jsx";
+import { MainLayout } from "./layouts/MainLayout.jsx";
+import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
+import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="teacher" element={<Dashboard />}>
-          <Route
-            path="/teacher/dashboard"
-            element={
-              <main>
-                <Title size="xxl" color="default">
-                  Teacher Dashboard
-                </Title>
-              </main>
-            }
-          />
-          <Route path="/teacher/profile" element={<TeacherProfile />} />
-
-          <Route path="/teacher/courses" element={<CourseCardList />} />
-
-          <Route
-            path="/teacher/courses/homePage"
-            element={<main>Creta home page</main>}
-          />
-          <Route
-            path="/teacher/courses/:courseId/homePage"
-            element={<StaticCourseHomePageForm />}
-          />
-          <Route
-            path="/teacher/courses/syllabus"
-            element={<main>Create syllabus page</main>}
-          />
-          <Route
-            path="/teacher/courses/:courseId/syllabus"
-            element={<main>Edit syllabus page</main>}
-          />
-          <Route
-            path="/teacher/chats"
-            element={
-              <main>
-                <Title size="xxl" color="default">
-                  Chats
-                </Title>
-              </main>
-            }
-          />
-        </Route>
-
-        <Route element={<App />}>
+        <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/courses"
@@ -93,43 +50,72 @@ export default function Router() {
             }
           />
 
-          <Route
-            path="/teacher/courses"
-            element={
-              <main>
-                <CourseCardList />
-              </main>
-            }
-          />
-
-          <Route
-            path="/dashboard/teacher/profile"
-            element={
-              <main>
-                <TeacherProfile />
-              </main>
-            }
-          />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
-          <Route path="teacher-profile" element={<TeacherProfile />} />
           <Route path="button-gallery" element={<ButtonGallery />} />
           <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
           <Route path="file-upload" element={<FileUploadExample />} />
           <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
-
-          <Route
-            path="*"
-            element={
-              <main>
-                <h1>Page not Found</h1>
-              </main>
-            }
-          />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
         </Route>
+
+        <Route path="teacher" element={<TeacherLayOut />}>
+          <Route
+            path="/teacher/dashboard"
+            element={<h1>Teacher Dashboard</h1>}
+          />
+          <Route path="/teacher/profile" element={<TeacherProfile />} />
+
+          <Route path="/teacher/courses" element={<CourseCardList />} />
+
+          <Route
+            path="/teacher/courses/homePage"
+            element={<h1>Creta home page</h1>}
+          />
+          <Route
+            path="/teacher/courses/:courseId/homePage"
+            element={<StaticCourseHomePageForm />}
+          />
+          <Route
+            path="/teacher/courses/syllabus"
+            element={<h1>Create syllabus page</h1>}
+          />
+          <Route
+            path="/teacher/courses/:courseId/syllabus"
+            element={<h1>Edit syllabus page</h1>}
+          />
+
+          <Route
+            path="/teacher/search-requests"
+            element={<h1>Search Resquest</h1>}
+          />
+          <Route path="/teacher/chats" element={<h1>Chats</h1>} />
+        </Route>
+
+        <Route path="student" element={<StudentLayOut />}>
+          <Route
+            path="/student/dashboard"
+            element={<h1>Student Dashboard</h1>}
+          />
+          <Route path="/student/profile" element={<h1>Student profile</h1>} />
+          <Route path="/student/courses" element={<h1>Student courses </h1>} />
+          <Route
+            path="/student/my-requests"
+            element={<h1>Student resquests </h1>}
+          />
+          <Route path="/student/chats" element={<h1>Student resquests </h1>} />
+        </Route>
+
+        <Route
+          path="*"
+          element={
+            <main>
+              <h1>Page not Found</h1>
+            </main>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

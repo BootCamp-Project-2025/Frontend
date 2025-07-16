@@ -1,6 +1,6 @@
-import { Footer } from "./domains/core/componentes/molecules/Footer.jsx";
-import { Header } from "./domains/core/componentes/organism/Header.jsx";
 import { Outlet } from "react-router-dom";
+import { Header } from "../domains/core/componentes/organism/Header.jsx";
+import { Footer } from "../domains/core/componentes/molecules/Footer.jsx";
 
 export const MainLayout = () => {
   return (

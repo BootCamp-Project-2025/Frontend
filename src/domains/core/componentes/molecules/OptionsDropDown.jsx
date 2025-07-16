@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AvatarMenuCard } from "./AvatarMenuCard";
 import PropTypes from "prop-types";
 export const OptionsDropDown = ({
@@ -17,26 +17,48 @@ export const OptionsDropDown = ({
         userEmail={userEmail}
       ></AvatarMenuCard>
       {!isTeacherRoute && (
-        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-          My Courses
-        </button>
+        <Link
+          to={"/student/dashboard"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          Dashboard
+        </Link>
       )}
       {!isTeacherRoute && (
-        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+        <Link
+          to={"/student/profile"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
           Profile
-        </button>
+        </Link>
+      )}
+      {!isTeacherRoute && (
+        <Link
+          to={"/student/courses"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          My Courses
+        </Link>
       )}
 
       {!isTeacherRoute && (
-        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-          Chats
-        </button>
+        <Link
+          to={"/student/my-requests"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          Requests
+        </Link>
       )}
+
       {!isTeacherRoute && (
-        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-          Settigs
-        </button>
+        <Link
+          to={"/student/chats"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          Chats
+        </Link>
       )}
+
       <button
         className="w-full text-left px-4 py-2 hover:bg-gray-100  border-t border-gray-300"
         onClick={logOut}
