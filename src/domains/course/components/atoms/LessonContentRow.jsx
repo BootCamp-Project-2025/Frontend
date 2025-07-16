@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
@@ -9,13 +10,17 @@ export default function LessonContentRow({
   className,
   ...props
 }) {
+  const handleErase = useCallback(
+    () => eraseResource(name),
+    [eraseResource, name]
+  );
   return (
     <li className={`${className} flex justify-between mt-2`} {...props}>
       <a href={url} className="text-blue-500">
         {name}
       </a>
       <Button
-        onClick={() => eraseResource(name)}
+        onClick={handleErase}
         variant="light"
         color="secondary"
         className={`px-5 `}

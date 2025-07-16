@@ -12,6 +12,7 @@ import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import UploadQuiz from "../molecules/UploadQuiz";
 import LessonContentGroup from "./LessonContentGroup";
 import Module from "../../classes/Module";
+import { useCallback } from "react";
 
 export default function CourseModule({
   modules,
@@ -37,17 +38,6 @@ export default function CourseModule({
     { text: "Assignment", onClick: () => console.log("Assignment") },
   ];
 
-  function eraseConfirmationPopUp() {
-    openPopup(
-      EraseConfirmation,
-      {
-        onDelete: eraseModule,
-        closePopup: closePopup,
-      },
-      false
-    );
-  }
-
   function uploadQuizPopUp() {
     openPopup(
       UploadQuiz,
@@ -67,7 +57,7 @@ export default function CourseModule({
     }
   });
 
-  async function eraseModule() {
+  const eraseModule = useCallback(async () => {
     //only send an api request if the module is saved in the DB
     if (module.id) {
       const { error } = await ApiDelete(`modules/${module.id}`);
@@ -81,14 +71,9 @@ export default function CourseModule({
       type: "DELETE_MODULE",
       modulePosition: module.position,
     });
-  }
+  }, [dispatch, module.id, module.position, showToast]);
 
-  async function saveModule() {
-    let response = await handleupload();
-    handleResponse(response);
-  }
-
-  async function handleupload() {
+  const handleupload = useCallback(async () => {
     if (module.isNew)
       return ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
@@ -102,43 +87,78 @@ export default function CourseModule({
         position: module.position,
         quizzes: module.quizzes,
       });
-  }
+  }, [
+    courseId,
+    module.id,
+    module.isNew,
+    module.position,
+    module.quizzes,
+    module.title,
+  ]);
 
-  function handleResponse(response) {
-    if (!response.error) {
-      showToast("The module was saved successfully", "success");
+  const handleResponse = useCallback(
+    (response) => {
+      if (!response.error) {
+        showToast("The module was saved successfully", "success");
+        dispatch({
+          moduleIndex: moduleIndex,
+          type: "SAVE_MODULE",
+          id: response.data.id,
+        });
+      } else
+        showToast("A error has ocurred, the module couldnt be saved", "error");
+    },
+    [dispatch, moduleIndex, showToast]
+  );
+
+  const saveModule = useCallback(async () => {
+    let response = await handleupload();
+    handleResponse(response);
+  }, [handleResponse, handleupload]);
+
+  const saveTitle = useCallback(
+    (newTitle) => {
       dispatch({
+        type: "EDIT_MODULE_TITLE",
         moduleIndex: moduleIndex,
-        type: "SAVE_MODULE",
-        id: response.data.id,
+        title: newTitle,
       });
-    } else
-      showToast("A error has ocurred, the module couldnt be saved", "error");
-  }
+    },
+    [dispatch, moduleIndex]
+  );
 
-  function saveTitle(newTitle) {
-    dispatch({
-      type: "EDIT_MODULE_TITLE",
-      moduleIndex: moduleIndex,
-      title: newTitle,
-    });
-  }
+  const checkRepeatTitle = useCallback(
+    (tittle) => {
+      return (
+        modules.filter(
+          (mod) => mod.title === tittle && mod.position !== module.position
+        ).length > 0
+      );
+    },
+    [module.position, modules]
+  );
 
-  function checkRepeatTitle(tittle) {
-    return (
-      modules.filter(
-        (mod) => mod.title === tittle && mod.position !== module.position
-      ).length > 0
+  const eraseQuiz = useCallback(
+    (name) => {
+      dispatch({
+        type: "DELETE_QUIZ",
+        name: name,
+        moduleIndex: moduleIndex,
+      });
+    },
+    [dispatch, moduleIndex]
+  );
+
+  const eraseConfirmationPopUp = useCallback(() => {
+    openPopup(
+      EraseConfirmation,
+      {
+        onDelete: eraseModule,
+        closePopup: closePopup,
+      },
+      false
     );
-  }
-
-  function eraseQuiz(name) {
-    dispatch({
-      type: "DELETE_QUIZ",
-      name: name,
-      moduleIndex: moduleIndex,
-    });
-  }
+  }, [closePopup, eraseModule, openPopup]);
 
   return (
     <SyllabusExpansionWrapper

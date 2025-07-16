@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Title } from "../../../../shared/components/atoms/Title";
@@ -24,19 +24,45 @@ export default function CourseSyllabus() {
     loadData();
   }, []);
 
-  function addModule(position) {
-    dispatch({
-      type: "ADD_MODULE",
-      postion: position,
-      courseId: courseId,
-    });
-  }
+  const addModule = useCallback(
+    (position) => {
+      dispatch({
+        type: "ADD_MODULE",
+        postion: position,
+        courseId: courseId,
+      });
+    },
+    [courseId]
+  );
 
-  function save() {
-    checkIfModuleHasChanges();
-  }
+  const scrollToSectionInSyllabus = useCallback((section) => {
+    document
+      .getElementById(section)
+      .scrollIntoView({ block: "start", behavior: "instant" });
+    window.scrollBy({ top: -100, behavior: "instant" });
+  }, []);
 
-  function checkIfModuleHasChanges() {
+  const checkIfLessonHasChanges = useCallback(
+    (module, moduleIndex) => {
+      for (
+        let lessonIndex = 0;
+        lessonIndex < module.lessons.length;
+        lessonIndex++
+      ) {
+        const lesson = module.lessons[lessonIndex];
+        if (lesson.isEdited || lesson.isNew) {
+          showToast("there are lessons without saving", "warning");
+          scrollToSectionInSyllabus(
+            `module-${moduleIndex}-lesson-${lessonIndex}`
+          );
+          return;
+        }
+      }
+    },
+    [scrollToSectionInSyllabus, showToast]
+  );
+
+  const checkIfModuleHasChanges = useCallback(() => {
     for (let moduleIndex = 0; moduleIndex < modules.length; moduleIndex++) {
       const module = modules[moduleIndex];
       if (module.isEdited || module.isNew) {
@@ -46,30 +72,11 @@ export default function CourseSyllabus() {
       }
       checkIfLessonHasChanges(module, moduleIndex);
     }
-  }
-  function checkIfLessonHasChanges(module, moduleIndex) {
-    for (
-      let lessonIndex = 0;
-      lessonIndex < module.lessons.length;
-      lessonIndex++
-    ) {
-      const lesson = module.lessons[lessonIndex];
-      if (lesson.isEdited || lesson.isNew) {
-        showToast("there are lessons without saving", "warning");
-        scrollToSectionInSyllabus(
-          `module-${moduleIndex}-lesson-${lessonIndex}`
-        );
-        return;
-      }
-    }
-  }
+  }, [checkIfLessonHasChanges, scrollToSectionInSyllabus, modules, showToast]);
 
-  function scrollToSectionInSyllabus(section) {
-    document
-      .getElementById(section)
-      .scrollIntoView({ block: "start", behavior: "instant" });
-    window.scrollBy({ top: -100, behavior: "instant" });
-  }
+  const save = useCallback(() => {
+    checkIfModuleHasChanges();
+  }, [checkIfModuleHasChanges]);
 
   return (
     <div className="flex flex-col mx-5">
