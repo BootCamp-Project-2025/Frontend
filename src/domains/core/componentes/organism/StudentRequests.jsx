@@ -35,7 +35,7 @@ const requestList = [
 export default function StudentRequests() {
   const { openPopup, closePopup } = usePopup();
 
-  const handleNewRequest = useCallback(() => {
+  const handleCreateRequest = useCallback(() => {
     openPopup(RequestForm, { closePopup: closePopup }, false);
   }, [openPopup, closePopup]);
 
@@ -43,10 +43,12 @@ export default function StudentRequests() {
     <div>
       <SearchBar placeholder="Find a specific request" />
       {requestList.length === 0 ? (
-        <StudentEmptyRequestsMessage handleNewRequest={handleNewRequest} />
+        <StudentEmptyRequestsMessage
+          handleCreateRequest={handleCreateRequest}
+        />
       ) : (
         <RequestList
-          handleNewRequest={handleNewRequest}
+          handleCreateRequest={handleCreateRequest}
           requestList={requestList}
         />
       )}
