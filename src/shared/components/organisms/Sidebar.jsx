@@ -208,6 +208,29 @@ export const Sidebar = () => {
                   ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
                   : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
               }
+              to="/teacher/request-search"
+              onClick={handleOpenAndCourse}
+              end
+            >
+              <Icon icon={"search"}></Icon>
+              {isOpen && (
+                <Title
+                  size={"md"}
+                  color={"default"}
+                  className={"ml-3 text-nowrap"}
+                >
+                  Seach Requests
+                </Title>
+              )}
+            </NavLink>
+          </li>
+          <li className={`${!isOpen ? "flex justify-center" : ""}`}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `py-2 px-4 w-full bg-gray-100 flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
+                  : `py-2 px-4 w-full flex items-center ${!isOpen ? "justify-center" : ""} hover:bg-gray-100 text-sm transition`
+              }
               to="chats"
               onClick={handleOpenAndCourse}
             >
