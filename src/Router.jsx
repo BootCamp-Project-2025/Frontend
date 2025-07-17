@@ -125,7 +125,11 @@ export default function Router() {
             element={
               <main className="flex flex-col gap-2.5">
                 <Loading></Loading>
-                <Alert type="error"></Alert>
+                <Alert
+                  type="error"
+                  title="Oops!"
+                  description="Something when wrong"
+                ></Alert>
                 <Alert type="info"></Alert>
                 <Alert type="success"></Alert>
                 <Alert type="warn"></Alert>

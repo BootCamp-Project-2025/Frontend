@@ -35,7 +35,7 @@ export const Alert = ({
   children,
 }) => {
   const [visible, setVisible] = useState(true);
-  const icon = iconMap[type];
+  const icon = iconMap[type] ?? iconMap["info"];
 
   useEffect(() => {
     let timer = null;
