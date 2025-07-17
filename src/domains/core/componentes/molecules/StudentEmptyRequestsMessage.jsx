@@ -2,7 +2,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Button } from "../../../../shared/components/atoms/Button";
 import PropTypes from "prop-types";
 
-export default function StudentEmptyRequestsMessage({ handleNewRequest }) {
+export default function StudentEmptyRequestsMessage({ handleCreateRequest }) {
   return (
     <div className="flex mt-10 gap-4 flex-col items-center">
       <Title color="black" size="md">
@@ -12,7 +12,7 @@ export default function StudentEmptyRequestsMessage({ handleNewRequest }) {
         Describe your needs and create a request. Then get a curated list of
         offers to choose from
       </p>
-      <Button onClick={handleNewRequest} className={"mt-5"}>
+      <Button onClick={handleCreateRequest} className={"mt-5"}>
         Create a new request
       </Button>
     </div>
@@ -20,5 +20,5 @@ export default function StudentEmptyRequestsMessage({ handleNewRequest }) {
 }
 
 StudentEmptyRequestsMessage.propTypes = {
-  handleNewRequest: PropTypes.func,
+  handleCreateRequest: PropTypes.func,
 };
