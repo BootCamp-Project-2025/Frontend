@@ -36,7 +36,7 @@ export default function StudentRequests() {
   const { openPopup, closePopup } = usePopup();
 
   const handleNewRequest = useCallback(() => {
-    openPopup(RequestForm, { closePopup: closePopup }, true);
+    openPopup(RequestForm, { closePopup: closePopup }, false);
   }, [openPopup, closePopup]);
 
   return (
