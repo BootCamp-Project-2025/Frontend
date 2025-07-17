@@ -16,6 +16,9 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import { Loading } from "./shared/components/molecules/Loading.jsx";
+import { Alert } from "./shared/components/molecules/Alert.jsx";
+import { Button } from "./shared/components/atoms/Button.jsx";
 
 export default function Router() {
   return (
@@ -117,6 +120,27 @@ export default function Router() {
           <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
           <Route path="file-upload" element={<FileUploadExample />} />
           <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
+          <Route
+            path="alerts"
+            element={
+              <main className="flex flex-col gap-2.5">
+                <Loading></Loading>
+                <Alert type="error"></Alert>
+                <Alert type="info"></Alert>
+                <Alert type="success"></Alert>
+                <Alert type="warn"></Alert>
+
+                <Alert
+                  type="warn"
+                  title="Another title"
+                  description="description"
+                  list={["option1", "option2"]}
+                >
+                  <Button>Button</Button>
+                </Alert>
+              </main>
+            }
+          />
 
           <Route
             path="*"
