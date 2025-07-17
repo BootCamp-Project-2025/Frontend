@@ -27,34 +27,30 @@ const iconMap = {
 };
 
 export const Alert = ({
-  type = "info",
+  type = "warn",
   title = "Default Title",
   description = "",
   list = [],
   visibleTime,
+  className,
   children,
 }) => {
   const [visible, setVisible] = useState(true);
   const icon = iconMap[type] ?? iconMap["info"];
 
   useEffect(() => {
-    let timer = null;
-    const ms = parseInt(visibleTime);
-    if (visibleTime !== undefined && !isNaN(ms)) {
-      timer = setTimeout(() => {
-        setVisible(false);
-      }, ms);
+    const ms = Number(visibleTime);
+    if (ms > 0) {
+      const timer = setTimeout(() => setVisible(false), ms);
+      return () => clearTimeout(timer);
     }
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
   }, [visibleTime]);
 
   if (!visible) return null;
 
   return (
     <div
-      className={`p-4 rounded-md w-full flex gap-3 border ${icon.containerClass}`}
+      className={`p-4 rounded-md w-full flex gap-3 border ${icon.containerClass} ${className}`}
       style={{
         alignItems: description !== "" || list.length > 0 ? "start" : "center",
       }}
@@ -84,4 +80,5 @@ Alert.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string),
   visibleTime: PropTypes.number,
   children: PropTypes.element,
+  className: PropTypes.string,
 };
