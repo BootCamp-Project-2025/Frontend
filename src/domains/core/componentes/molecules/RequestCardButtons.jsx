@@ -30,6 +30,7 @@ export default function RequestCardButtons({
         data-testid="deleteButton"
         contentClassName={"m-auto w-fit"}
         variant="bordered"
+        color="secondary"
       >
         Delete
       </Button>
