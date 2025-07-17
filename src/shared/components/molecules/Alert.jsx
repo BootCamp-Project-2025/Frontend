@@ -64,7 +64,7 @@ export const Alert = ({
         <p className="text-sm font-semibold">{title}</p>
         {description && <p className="text-sm">{description}</p>}
         {list.map((element, i) => (
-          <p key={i} className="pl-3.5 text-sm relative">
+          <p key={`list-option-${i}`} className="pl-3.5 text-sm relative">
             <span
               className={`absolute w-1.5 h-1.5 left-0 top-2 rounded-full ${icon.bulletClass}`}
             ></span>
@@ -81,7 +81,7 @@ Alert.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  list: PropTypes.array[PropTypes.string],
+  list: PropTypes.arrayOf(PropTypes.string),
   visibleTime: PropTypes.number,
   children: PropTypes.element,
 };
