@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import RequestCard from "./RequestCard";
 import { Button } from "../../../../shared/components/atoms/Button";
 
-export default function RequestList({ requestList, handleNewRequest }) {
+export default function RequestList({ requestList, handleCreateRequest }) {
   return (
     <div className=" mt-10 flex flex-col">
       <Button
-        onClick={handleNewRequest}
+        onClick={handleCreateRequest}
         variant="bordered"
         className={"self-center"}
       >
@@ -21,5 +21,5 @@ export default function RequestList({ requestList, handleNewRequest }) {
 
 RequestList.propTypes = {
   requestList: PropTypes.array.isRequired,
-  handleNewRequest: PropTypes.func.isRequired,
+  handleCreateRequest: PropTypes.func.isRequired,
 };

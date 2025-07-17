@@ -16,6 +16,7 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
 
 export default function Router() {
   return (
@@ -107,6 +108,14 @@ export default function Router() {
             element={
               <main>
                 <TeacherProfile />
+              </main>
+            }
+          />
+          <Route
+            path="/student/requests"
+            element={
+              <main>
+                <StudentRequests />
               </main>
             }
           />
