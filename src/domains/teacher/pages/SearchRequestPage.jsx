@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import RequestCard from "../molecules/RequestCard";
-import { Searcher } from "../../../../shared/components/molecules/Searcher";
-import { Filters } from "../organism/Filters";
-import { Pagination } from "../../../../shared/components/molecules/Pagination";
+import { Searcher } from "../../../shared/components/molecules/Searcher";
+import { Filters } from "../../core/componentes/organism/Filters";
+import { Pagination } from "../../../shared/components/molecules/Pagination";
+import RequestCard from "../components/molecules/RequestCard";
 
-export const RequestList = () => {
+export const SearchRequestPage = () => {
   const [requests, setRequests] = useState([]);
   const activeFilters = ["category", "subcategory", "language"];
   useEffect(() => {
