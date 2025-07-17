@@ -34,6 +34,7 @@ export default function RequestForm({ closePopup }) {
         })}
         errorMessage={errors?.name?.message}
         label="Request name:"
+        placeholder="Enter a name"
       />
 
       <TextAreaInput
@@ -48,6 +49,7 @@ export default function RequestForm({ closePopup }) {
         errorMessage={errors?.description?.message}
         rows={5}
         label="Description:"
+        placeholder="Enter a description"
       />
       <div>
         <p className="mb-3 text-gray-600  font-semibold text-lg">
