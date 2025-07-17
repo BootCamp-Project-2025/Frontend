@@ -6,10 +6,7 @@ const RequestCard = ({ request }) => {
   return (
     <Card className="flex flex-col gap-2 p-3">
       <h3 className="font-bold text-xl text-default-700">{request.title}</h3>
-      <span className="font-semibold text-secondary-700">
-        Deadline: {new Date(request.deadline).toLocaleDateString()}
-      </span>
-      <p className="line-clamp-3">{request.description}</p>
+      <p className="line-clamp-5">{request.description}</p>
       <div className="w-full flex justify-between items-center">
         <span className="font-light">{request.student}</span>
         <Button variant="bordered">Send an Offer</Button>
