@@ -5,14 +5,20 @@ import { EventCard } from "../molecules/EventCard";
 import { useState } from "react";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { getRequest } from "../../../../shared/api/getRequest";
+import { useAuth } from "../../../../shared/hooks/useAuth";
+import { useLocation } from "react-router-dom";
 
-export const UserSidebar = ({ user }) => {
+export const UserSidebar = () => {
   const [data, setData] = useState([
     { title: "Angular", user: "Pepe" },
     { title: "React", user: "Jorge" },
     { title: "DDD", user: "Jose" },
   ]);
   const { showToast } = useToastContext();
+  const { user, isAuthenticated } = useAuth();
+
+  const location = useLocation();
+  const isTeacherRoute = location.pathname.startsWith("/teacher/");
 
   // useEffect(() => {
   //   getRequest(get)
@@ -30,8 +36,9 @@ export const UserSidebar = ({ user }) => {
 
   return (
     <aside
-      className={`bg-white p-6 shadow-md border-l border-black-300 flex flex-col justify-betweenw-64 min-w-64 w-64 h-full`}
+      className={`bg-white px-6 shadow-md border-l border-black-300 flex flex-col justify-betweenw-64 min-w-64 w-64 h-full`}
       id="userSideBar"
+      style={{ minHeight: "calc(100vh - 5.75rem)" }}
     >
       <div className="min-h-[3rem] h-[3rem] w-[3rem] min-w-[3rem] ml-auto">
         <AvatarIcon
@@ -53,7 +60,7 @@ export const UserSidebar = ({ user }) => {
         </ul>
       </div> */}
 
-      {user && user.isTeacher ? (
+      {user && isAuthenticated && user.isTeacher && isTeacherRoute ? (
         <div className="mt-10">
           <em className="not-italic text-lg font-semibold">
             Pending Proposals
@@ -79,7 +86,7 @@ export const UserSidebar = ({ user }) => {
         </div>
       ) : null}
 
-      {user && !user.isTeacher ? (
+      {user && isAuthenticated && (!user.isTeacher || !isTeacherRoute) ? (
         <div className="mt-10">
           <em className="not-italic text-lg font-semibold">New Proposals</em>
           {data.length > 0 ? (
@@ -104,12 +111,4 @@ export const UserSidebar = ({ user }) => {
       ) : null}
     </aside>
   );
-};
-
-UserSidebar.propTypes = {
-  user: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    avatarURL: PropTypes.string.isRequired,
-    isTeacher: PropTypes.bool.isRequired,
-  }),
 };

@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { InfoTabs } from "../organism/InfoTabs";
 import { PendingMessages } from "../organism/PendingMessages";
@@ -5,6 +6,8 @@ import { UserSidebar } from "../organism/UserSidebar";
 
 export const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
+  const location = useLocation();
+  const isTeacherRoute = location.pathname.startsWith("/teacher/");
 
   return (
     <main
@@ -16,7 +19,7 @@ export const Dashboard = () => {
         padding: 0,
       }}
     >
-      <div className="w-full p-8">
+      <div className="w-full px-8 pb-8 xl:px-24 2xl:px-60">
         <div>
           <p className="text-lg font-semibold">
             Hello, {isAuthenticated && user ? user.userName : ""} welcome back!
@@ -25,20 +28,36 @@ export const Dashboard = () => {
         </div>
 
         <InfoTabs
-          title={user && !user.isTeacher ? "My Courses" : "Courses"}
-          icon={user && !user.isTeacher ? "search" : "add"}
-          path={user && !user.isTeacher ? "/courses" : "teacher/courses"}
+          title={
+            user && (!user.isTeacher || !isTeacherRoute)
+              ? "My Courses"
+              : "Courses"
+          }
+          icon={user && (!user.isTeacher || !isTeacherRoute) ? "search" : "add"}
+          path={
+            user && (!user.isTeacher || !isTeacherRoute)
+              ? "/courses"
+              : "/teacher/courses"
+          }
           get={""}
         ></InfoTabs>
 
         <InfoTabs
-          title={user && !user.isTeacher ? "My P2P Courses" : "P2P"}
-          icon={user && !user.isTeacher ? "add" : "search"}
-          path={user && !user.isTeacher ? "/requests" : "/courses"}
+          title={
+            user && (!user.isTeacher || !isTeacherRoute)
+              ? "My P2P Courses"
+              : "P2P"
+          }
+          icon={user && (!user.isTeacher || !isTeacherRoute) ? "add" : "search"}
+          path={
+            user && (!user.isTeacher || !isTeacherRoute)
+              ? "/requests"
+              : "/courses"
+          }
           get={""}
         ></InfoTabs>
 
-        {user && !user.isTeacher ? (
+        {user && (!user.isTeacher || !isTeacherRoute) ? (
           <InfoTabs
             title={"My requests"}
             icon="add"
@@ -50,7 +69,7 @@ export const Dashboard = () => {
 
         <PendingMessages></PendingMessages>
       </div>
-      <UserSidebar user={user}></UserSidebar>
+      <UserSidebar></UserSidebar>
     </main>
   );
 };

@@ -39,7 +39,7 @@ export const PendingMessages = () => {
                   icon={"message"}
                   className={"min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem]"}
                 ></Icon>
-                <span className="overflow-hidden text-ellipsis break-words break-all font-semibold">
+                <span className="overflow-hidden text-ellipsis break-words break-all font-semibold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] mx-1">
                   {row.user}
                 </span>
                 <div

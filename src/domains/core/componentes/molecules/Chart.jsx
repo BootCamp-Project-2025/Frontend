@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import {
-  LineChart,
+  AreaChart,
   Line,
   XAxis,
   YAxis,
@@ -42,7 +42,7 @@ export function Chart() {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
+      <AreaChart data={data} margin={{ top: 0, right: 50, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="colorFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#ffff99" stopOpacity={0.5} />
@@ -67,7 +67,8 @@ export function Chart() {
           type="monotone"
           dataKey="value"
           stroke="none"
-          fill="url(#colorFill)"
+          fill="#F2FFC3"
+          fillOpacity={0.5}
         />
         <Line
           type="monotone"
@@ -76,7 +77,7 @@ export function Chart() {
           strokeWidth={3}
           dot={{ stroke: "red", strokeWidth: 2, r: 4 }}
         />
-      </LineChart>
+      </AreaChart>
     </ResponsiveContainer>
   );
 }
