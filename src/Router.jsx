@@ -23,12 +23,7 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="teacher" element={<Dashboard />}>
-          <Route
-            path="/teacher/dashboard"
-            element={
-              <TeacherDashboard />
-            }
-          />
+          <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
 
           <Route path="/teacher/courses" element={<CourseCardList />} />
