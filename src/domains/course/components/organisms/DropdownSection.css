@@ -1,13 +1,20 @@
 .dropdownSection {
+  display: grid;
   gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-rows: auto;
 }
 
 .dropdownSection > div {
   display: flex;
-  flex: 0 0 30%;
+  width: 100%;
 }
 
 .dropdownSection > div > button {
   display: block;
   flex-grow: 1;
+}
+
+.dropdownSection > div > ul {
+  top: 100%;
 }
