@@ -1,39 +1,23 @@
-/* import PropTypes from "prop-types";
-
-const RowDetail = ({ title, value, border = true }) => {
-  return (
-    <div
-      className={`${border && "border-[color:var(--color-default-100)] border-b"} grid grid-cols-2 p-2`}
-    >
-      <p className="font-medium">{title}:</p>
-      <p className="text-[color:var(--color-default-800)] font-semibold">
-        {value}
-      </p>
-    </div>
-  );
-};
-
-export default RowDetail;
-
-RowDetail.propTypes = {
-  title: PropTypes.string,
-  value: PropTypes.string,
-  border: PropTypes.bool,
-};
- */
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 
-const RowDetail = ({ title, value, border = true, isEditable }) => {
+const RowDetail = ({
+  title,
+  value,
+  border = true,
+  isEditable,
+  onConfirm,
+  valueFormat,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState(value);
 
+  useEffect(() => {
+    setEditedValue(value);
+  }, [value]);
+
   const handleEditClick = () => {
-    /*   if (!isEditable) {
-      return;
-    } */
-    console.log("ASDADAS");
     setIsEditing(true);
   };
 
@@ -41,15 +25,17 @@ const RowDetail = ({ title, value, border = true, isEditable }) => {
     setIsEditing(false);
     setEditedValue(value);
   };
-
   const handleConfirmClick = () => {
     setIsEditing(false);
-    console.log("Nuevo valor confirmado:", editedValue);
+    if (onConfirm) {
+      onConfirm(editedValue);
+    }
   };
-
   return (
     <div
-      className={`${border && "border-[color:var(--color-default-100)] border-b"} grid grid-cols-2 p-2 gap-2`}
+      className={`${
+        border && "border-[color:var(--color-default-100)] border-b"
+      } grid grid-cols-2 p-2 gap-2`}
     >
       <p className="font-medium">{title}:</p>
 
@@ -60,7 +46,7 @@ const RowDetail = ({ title, value, border = true, isEditable }) => {
             className="border rounded px-2 py-1 text-sm w-full text-[color:var(--color-default-800)]"
             value={editedValue}
             onChange={(e) => setEditedValue(e.target.value)}
-            autoFocus
+            placeholder={valueFormat}
           />
           <div className="flex gap-1">
             <button
@@ -79,7 +65,9 @@ const RowDetail = ({ title, value, border = true, isEditable }) => {
         </div>
       ) : (
         <p
-          className={`${isEditable && "hover:bg-[color:var(--color-default-100)]"} text-[color:var(--color-default-800)] font-semibold cursor-text py-1 px-2 rounded-md`}
+          className={`${
+            isEditable && "hover:bg-[color:var(--color-default-100)]"
+          } text-[color:var(--color-default-800)] font-semibold cursor-text py-1 px-2 rounded-md`}
           onClick={isEditable ? handleEditClick : undefined}
         >
           {value}
@@ -96,4 +84,6 @@ RowDetail.propTypes = {
   value: PropTypes.string,
   border: PropTypes.bool,
   isEditable: PropTypes.bool,
+  onConfirm: PropTypes.func,
+  valueFormat: PropTypes.string,
 };

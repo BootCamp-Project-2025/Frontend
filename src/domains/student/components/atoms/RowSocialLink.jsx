@@ -2,8 +2,17 @@ import PropTypes from "prop-types";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { capitalize } from "../../../../shared/utils/capitalize";
 
-const RowSocialLink = ({ icon, title, url, border = true, isEditingAll }) => {
+const RowSocialLink = ({
+  icon,
+  title,
+  url,
+  border = true,
+  onConfirm,
+  isEditingAll,
+  valueFormat,
+}) => {
   const [isEditing, setIsEditing] = useState(isEditingAll);
   const [editedUrl, setEditedUrl] = useState(url);
 
@@ -17,7 +26,9 @@ const RowSocialLink = ({ icon, title, url, border = true, isEditingAll }) => {
 
   const handleConfirmClick = () => {
     setIsEditing(false);
-    console.log("Nuevo URL confirmado:", editedUrl);
+    if (onConfirm) {
+      onConfirm(editedUrl);
+    }
   };
 
   return (
@@ -30,7 +41,7 @@ const RowSocialLink = ({ icon, title, url, border = true, isEditingAll }) => {
         className="flex flex-col w-full rounded-sm p-2 cursor-text"
         onClick={!isEditing ? handleEditClick : undefined}
       >
-        <p className="font-semibold">{title}:</p>
+        <p className="font-semibold">{capitalize(title.toLowerCase())}</p>
 
         {isEditing ? (
           <div className="flex items-center justify-between gap-2 bg-[color:var(--color-default-100)] p-2 rounded-md">
@@ -40,6 +51,7 @@ const RowSocialLink = ({ icon, title, url, border = true, isEditingAll }) => {
               value={editedUrl}
               onChange={(e) => setEditedUrl(e.target.value)}
               autoFocus
+              placeholder={valueFormat}
             />
             <div className="flex gap-1">
               <button
@@ -57,7 +69,7 @@ const RowSocialLink = ({ icon, title, url, border = true, isEditingAll }) => {
             </div>
           </div>
         ) : (
-          <div className="w-full hover:bg-[color:var(--color-default-100)] py-2 rounded-md">
+          <div className="min-h-8 w-full hover:bg-[color:var(--color-default-100)] py-2 rounded-md">
             <Link
               to={url}
               target="_blank"
@@ -80,4 +92,6 @@ RowSocialLink.propTypes = {
   url: PropTypes.string,
   border: PropTypes.bool,
   isEditingAll: PropTypes.bool,
+  onConfirm: PropTypes.func,
+  valueFormat: PropTypes.string,
 };
