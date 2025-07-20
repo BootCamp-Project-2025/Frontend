@@ -1,4 +1,3 @@
-import { Image } from "../../../../shared/components/atoms/Image";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import usePopup from "../../../../shared/hooks/usePopup";
@@ -7,11 +6,11 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import { NameForm } from "../organisms/NameForm";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import profile from "../../../../assets/profile.png";
+import AvatarProfile from "../../../../shared/components/organisms/AvatarProfile";
+import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 
 const ProfileInfo = ({ user }) => {
   const [localUser, setLocalUser] = useState(user);
-
   const { openPopup, closePopup } = usePopup();
 
   const handleOpenPopup = () => {
@@ -23,7 +22,7 @@ const ProfileInfo = ({ user }) => {
           <NameForm
             onClose={closePopup}
             user={localUser}
-            setUser={setLocalUser}
+            setUser={updateCard}
           />
         ),
         onClose: closePopup,
@@ -32,18 +31,25 @@ const ProfileInfo = ({ user }) => {
     );
   };
 
+  const { updateCard } = useFreelancerResources({
+    freelancerId: localUser.userName,
+    resourceType: "name",
+    recordList: localUser,
+    setRecordList: setLocalUser,
+    closePopup,
+  });
+
   return (
     <div className="flex items-center gap-8 flex-wrap">
-      <Image
-        src={localUser.profilePicture || profile}
-        alt={`${localUser.userName} profile image`}
-        width="w-auto"
-        height="h-full"
-        styleType="profile"
-      />
+      <AvatarProfile profilePicture={localUser.profilePicture} />
+
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <Title size="xl" color="default">
+          <Title
+            size="xl"
+            color="default"
+            className="2xl:text-4xl font-extrabold"
+          >
             {localUser.userName}
           </Title>
           <Button
@@ -75,8 +81,8 @@ export default ProfileInfo;
 
 ProfileInfo.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-    image: PropTypes.string,
+    userName: PropTypes.string,
+    userEmail: PropTypes.string,
+    profilePicture: PropTypes.string,
   }),
 };

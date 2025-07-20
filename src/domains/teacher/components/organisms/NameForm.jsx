@@ -28,7 +28,6 @@ export function NameForm({ user, setUser, onClose = () => {} }) {
     setErrors([]);
     setName(e.target.value);
   };
-
   return (
     <div className="name-card flex flex-col justify-stretch gap-2.5 p-2">
       <div className="h-full">

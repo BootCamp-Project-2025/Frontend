@@ -7,7 +7,7 @@ import { ExperienceCard } from "../molecules/ExperienceCard";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
-import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { fetchData } from "../../../../shared/api/axios/fetchData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import { formatDate } from "../../../../shared/utils/formatDate";
@@ -19,7 +19,7 @@ export const ExperienceSection = ({ freelancerId }) => {
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    fetchFreelancerData({
+    fetchData({
       method: getFreelancerResource,
       args: [freelancerId, "experiences"],
       setState: setRecordList,
