@@ -81,10 +81,7 @@ export default function Router() {
           />
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
-          <Route
-            path="/student/my-requests"
-            element={<h1>Student resquests </h1>}
-          />
+          <Route path="/student/my-requests" element={<StudentRequests />} />
           <Route path="/student/chats" element={<h1>Student resquests </h1>} />
         </Route>
 
