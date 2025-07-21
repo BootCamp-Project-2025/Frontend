@@ -1,43 +1,66 @@
-import { useCallback } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import SearchBar from "../../../../shared/components/molecules/SearchBar";
 import usePopup from "../../../../shared/hooks/usePopup";
 import StudentEmptyRequestsMessage from "../molecules/StudentEmptyRequestsMessage";
 import RequestList from "./RequestList";
 import RequestForm from "./RequestForm";
-
-const requestList = [
-  {
-    title: "Request Title",
-    description:
-      "I require to learn JavaScript over the next month. My primary goals are to understand key concepts such as closures, hoisting, scope, this keyword, promises, async/await, and event loop. Additionally, I want to become comfortable working with arrays and objects, using higher-order functions, and writing clean, modular code. This foundation will help me build more complex applications and prepare me for frameworks like React or Node.js in the near future.",
-    estimation: 5,
-  },
-  {
-    title: "Request Title",
-    description:
-      "I require to learn JavaScript over the next month. My primary goals are to understand key concepts such as closures, hoisting, scope, this keyword, promises, async/await, and event loop. Additionally, I want to become comfortable working with arrays and objects, using higher-order functions, and writing clean, modular code. This foundation will help me build more complex applications and prepare me for frameworks like React or Node.js in the near future.",
-    estimation: 5,
-  },
-  {
-    title: "Request Title",
-    description:
-      "I require to learn JavaScript over the next month. My primary goals are to understand key concepts such as closures, hoisting, scope, this keyword, promises, async/await, and event loop. Additionally, I want to become comfortable working with arrays and objects, using higher-order functions, and writing clean, modular code. This foundation will help me build more complex applications and prepare me for frameworks like React or Node.js in the near future.",
-    estimation: 5,
-  },
-  {
-    title: "Request Title",
-    description:
-      "I require to learn JavaScript over the next month. My primary goals are to understand key concepts such as closures, hoisting, scope, this keyword, promises, async/await, and event loop. Additionally, I want to become comfortable working with arrays and objects, using higher-order functions, and writing clean, modular code. This foundation will help me build more complex applications and prepare me for frameworks like React or Node.js in the near future.",
-    estimation: 5,
-  },
-];
+import { getRequest } from "../../../../shared/api/getRequest";
+import { postRequest } from "../../../../shared/api/postRequest";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { deleteRequest } from "../../../../shared/api/deleteRequest";
 
 export default function StudentRequests() {
   const { openPopup, closePopup } = usePopup();
+  const [requestList, setRequestList] = useState([]);
+  const { showToast } = useToastContext();
+
+  const loadData = useCallback(async () => {
+    const response = await getRequest("/requests/validUserRequests");
+    if (response.success) {
+      setRequestList(response.data.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const saveRequest = useContext(async (data) => {
+    const response = await postRequest("/requests", {
+      ...data,
+      status: "AVAILABLE",
+    });
+    manageToast(response.success);
+    return response;
+  }, []);
+
+  const deleteUserRequest = useCallback(
+    async (requestId) => {
+      const response = await deleteRequest(`/requests/${requestId}`);
+      manageToast(response.success);
+    },
+    [manageToast]
+  );
+
+  const manageToast = useCallback(
+    (success) => {
+      if (success) {
+        showToast("Successfully", "success");
+        loadData();
+      } else {
+        showToast("Error deleting", "error");
+      }
+    },
+    [loadData, showToast]
+  );
 
   const handleCreateRequest = useCallback(() => {
-    openPopup(RequestForm, { closePopup: closePopup }, false);
-  }, [openPopup, closePopup]);
+    openPopup(
+      RequestForm,
+      { saveRequest: saveRequest, closePopup: closePopup },
+      false
+    );
+  }, [openPopup, saveRequest, closePopup]);
 
   return (
     <div>
@@ -48,6 +71,7 @@ export default function StudentRequests() {
         />
       ) : (
         <RequestList
+          deleteRequest={deleteUserRequest}
           handleCreateRequest={handleCreateRequest}
           requestList={requestList}
         />
