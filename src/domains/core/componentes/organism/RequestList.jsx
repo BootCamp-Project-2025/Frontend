@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 import RequestCard from "./RequestCard";
 import { Button } from "../../../../shared/components/atoms/Button";
 
-export default function RequestList({ requestList, handleCreateRequest }) {
+export default function RequestList({
+  deleteRequest,
+  requestList,
+  handleCreateRequest,
+}) {
   return (
     <div className=" mt-10 flex flex-col">
       <Button
@@ -13,7 +17,7 @@ export default function RequestList({ requestList, handleCreateRequest }) {
         Create a new request
       </Button>
       {requestList.map((request, id) => (
-        <RequestCard key={id} request={request} />
+        <RequestCard deleteRequest={deleteRequest} key={id} request={request} />
       ))}
     </div>
   );
@@ -22,4 +26,5 @@ export default function RequestList({ requestList, handleCreateRequest }) {
 RequestList.propTypes = {
   requestList: PropTypes.array.isRequired,
   handleCreateRequest: PropTypes.func.isRequired,
+  deleteRequest: PropTypes.func.isRequired,
 };
