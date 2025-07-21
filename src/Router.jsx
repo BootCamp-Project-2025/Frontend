@@ -11,12 +11,14 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus.jsx";
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
+import { Title } from "./shared/components/atoms/Title.jsx";
 
 export default function Router() {
   return (
@@ -63,7 +65,17 @@ export default function Router() {
           />
           <Route
             path="/teacher/courses/:courseId/syllabus"
-            element={<h1>Edit syllabus page</h1>}
+            element={<CourseSyllabus />}
+          />
+          <Route
+            path="/teacher/chats"
+            element={
+              <main>
+                <Title size="xxl" color="default">
+                  Chats
+                </Title>
+              </main>
+            }
           />
 
           <Route
