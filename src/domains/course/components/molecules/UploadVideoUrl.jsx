@@ -12,11 +12,11 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
       const validUrl = new URL(url);
       if (validUrl) {
         setErrorMessage("");
-        return "";
+        return true;
       }
     } catch {
       setErrorMessage("its not an url");
-      return "its not an url";
+      return false;
     }
   }
 

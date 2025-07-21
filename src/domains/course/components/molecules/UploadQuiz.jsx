@@ -14,11 +14,10 @@ export default function UploadQuiz({
     try {
       const validUrl = new URL(url);
       if (validUrl) {
-        return "";
+        return true;
       }
-      return "Url is not valid";
     } catch {
-      return "Url is not valid";
+      return false;
     }
   }
 
