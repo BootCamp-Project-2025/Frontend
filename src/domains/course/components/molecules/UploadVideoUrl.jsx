@@ -14,6 +14,7 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
         setErrorMessage("");
         return true;
       }
+      return false;
     } catch {
       setErrorMessage("its not an url");
       return false;

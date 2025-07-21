@@ -16,6 +16,7 @@ export default function UploadQuiz({
       if (validUrl) {
         return true;
       }
+      return false;
     } catch {
       return false;
     }
