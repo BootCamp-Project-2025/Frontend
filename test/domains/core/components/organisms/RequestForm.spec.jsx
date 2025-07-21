@@ -17,7 +17,7 @@ describe("RequestForm", () => {
   it("renders", () => {
     render(<RequestForm />);
     expect(screen.getByText("Create your request")).toBeInTheDocument();
-    expect(screen.getByText("Request name:")).toBeInTheDocument();
+    expect(screen.getByText("Request title:")).toBeInTheDocument();
     expect(screen.getByText("Description:")).toBeInTheDocument();
     expect(screen.getByText("Basic information:")).toBeInTheDocument();
     expect(screen.getByText("Cancel")).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe("RequestForm", () => {
   });
   it("name input works correctly", async () => {
     render(<RequestForm />);
-    const nameInput = screen.getByPlaceholderText(/Enter a name/i);
+    const nameInput = screen.getByPlaceholderText(/Enter a title/i);
     await userEvent.type(nameInput, "testText");
     expect(nameInput.value).toBe("testText");
   });
