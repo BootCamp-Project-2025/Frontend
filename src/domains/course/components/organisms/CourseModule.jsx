@@ -73,15 +73,15 @@ export default function CourseModule({
     });
   }, [dispatch, module.id, module.position, showToast]);
 
-  const handleupload = useCallback(async () => {
+  const handleupload = useCallback(() => {
     if (module.isNew)
-      return await ApiPost(`courses/${courseId}/modules`, {
+      return ApiPost(`courses/${courseId}/modules`, {
         title: module.title,
         position: module.position,
         quizzes: module.quizzes,
       });
     else
-      return await ApiPut(`modules/${module.id}`, {
+      return ApiPut(`modules/${module.id}`, {
         id: module.id,
         title: module.title,
         position: module.position,
