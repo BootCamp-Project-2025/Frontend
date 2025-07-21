@@ -22,7 +22,7 @@ export default function CourseSyllabus() {
       });
     };
     loadData();
-  }, []);
+  }, [courseId]);
 
   const addModule = useCallback(
     (position) => {
