@@ -36,7 +36,6 @@ export default function CourseLesson({
   useBeforeUnload((event) => {
     if (lesson.isEdited || lesson.isNew) {
       event.preventDefault();
-      return;
     }
   });
 
@@ -51,7 +50,7 @@ export default function CourseLesson({
     }
     showToast("the module was deleted successfully", "success");
     dispatch({
-      moduleIndex: moduleIndex,
+      moduleIndex,
       lessonIndex: lesson.position,
       type: "DELETE_LESSON",
     });
@@ -62,7 +61,7 @@ export default function CourseLesson({
       EraseConfirmation,
       {
         onDelete: eraseLesson,
-        closePopup: closePopup,
+        closePopup,
       },
       false
     );
@@ -72,8 +71,8 @@ export default function CourseLesson({
     openPopup(
       UploadVideoUrl,
       {
-        saveVideo: saveVideo,
-        closePopup: closePopup,
+        saveVideo,
+        closePopup,
       },
       false
     );
@@ -82,12 +81,12 @@ export default function CourseLesson({
   const addResource = useCallback(
     (name, url, resourcePosition) => {
       dispatch({
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
+        moduleIndex,
+        lessonIndex,
         type: "ADD_RESOURCE",
-        name: name,
-        resourcePosition: resourcePosition,
-        url: url,
+        name,
+        resourcePosition,
+        url,
       });
     },
     [dispatch, lessonIndex, moduleIndex]
@@ -114,9 +113,9 @@ export default function CourseLesson({
     }
     dispatch({
       type: "ADD_VIDEO",
-      moduleIndex: moduleIndex,
-      lessonIndex: lessonIndex,
-      url: url,
+      moduleIndex,
+      lessonIndex,
+      url,
     });
   }
 
@@ -124,8 +123,8 @@ export default function CourseLesson({
     (newTitle) => {
       dispatch({
         type: "EDIT_LESSON_TITLE",
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
+        moduleIndex,
+        lessonIndex,
         title: newTitle,
       });
     },
@@ -136,8 +135,8 @@ export default function CourseLesson({
     (dedcription) => {
       dispatch({
         type: "EDIT_LESSON_DESCRIPTION",
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
+        moduleIndex,
+        lessonIndex,
         description: dedcription,
       });
     },
@@ -147,9 +146,9 @@ export default function CourseLesson({
   const eraseResource = useCallback(
     (name) => {
       dispatch({
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
-        name: name,
+        moduleIndex,
+        lessonIndex,
+        name,
         type: "DELETE_RESOURCE",
       });
     },
@@ -159,9 +158,9 @@ export default function CourseLesson({
   const eraseVideo = useCallback(
     (url) => {
       dispatch({
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
-        url: url,
+        moduleIndex,
+        lessonIndex,
+        url,
         type: "DELETE_VIDEO",
       });
     },
@@ -203,20 +202,19 @@ export default function CourseLesson({
   }, [lesson, moduleIndex, modules]);
 
   const uploadLesson = useCallback(async () => {
-    let response;
-    response = await handleupload();
+    const response = await handleupload();
     if (!response.error) {
       dispatch({
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
+        moduleIndex,
+        lessonIndex,
         id: response.data.id,
         type: "SAVE_LESSON",
       });
       showToast("The lesson was saved successfully", "success");
     } else if (response.data.message === "Lesson not changed") {
       dispatch({
-        moduleIndex: moduleIndex,
-        lessonIndex: lessonIndex,
+        moduleIndex,
+        lessonIndex,
         id: response.data.id,
         type: "SAVE_LESSON",
       });

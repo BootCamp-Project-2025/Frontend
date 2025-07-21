@@ -12,7 +12,7 @@ vi.mock(
   "../../../../../src/domains/course/components/organisms/SyllabusExpansionWrapper",
   () => ({
     default: ({ children }) => (
-      <div data-testid={`SyllabusExpansionWrapper`}>{children}</div>
+      <div data-testid={"SyllabusExpansionWrapper"}>{children}</div>
     ),
   })
 );

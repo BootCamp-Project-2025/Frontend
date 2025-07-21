@@ -2,7 +2,7 @@ import { learningAPI } from "../axios/AxiosCourseConnection";
 
 export const ApiGet = async (path) => {
   let error = false;
-  let status;
+  let status = 200;
   let data = null;
   try {
     const response = await learningAPI.get(path);

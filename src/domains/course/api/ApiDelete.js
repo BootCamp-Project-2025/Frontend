@@ -2,8 +2,8 @@ import { learningAPI } from "../axios/AxiosCourseConnection";
 
 export const ApiDelete = async (path) => {
   let error = false;
-  let status;
-  let data;
+  let status = 200;
+  let data = null;
   try {
     const response = await learningAPI.delete(path);
     status = response.statusCode;

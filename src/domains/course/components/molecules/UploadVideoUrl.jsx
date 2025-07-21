@@ -9,9 +9,11 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
   const [errorMessage, setErrorMessage] = useState("");
   function isUrl(url) {
     try {
-      new URL(url);
-      setErrorMessage("");
-      return true;
+      const validUrl = new URL(url);
+      if (validUrl) {
+        setErrorMessage("");
+        return true;
+      }
     } catch {
       setErrorMessage("its not an url");
       return false;
@@ -27,7 +29,7 @@ export default function UploadVideoUrl({ closePopup, saveVideo, ...props }) {
   }, [closePopup, saveVideo]);
 
   return (
-    <div className={`flex flex-col w-64 md:w-xl gap-6 p-4`} {...props}>
+    <div className={"flex flex-col w-64 md:w-xl gap-6 p-4"} {...props}>
       <Title className="text-center" color="black">
         Upload video url
       </Title>

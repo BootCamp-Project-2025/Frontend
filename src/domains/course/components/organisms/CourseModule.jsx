@@ -30,7 +30,7 @@ export default function CourseModule({
       onClick: () =>
         dispatch({
           type: "ADD_LESSON",
-          moduleIndex: moduleIndex,
+          moduleIndex,
           lessonIndex: module.lessons.length,
         }),
     },
@@ -42,9 +42,9 @@ export default function CourseModule({
     openPopup(
       UploadQuiz,
       {
-        dispatch: dispatch,
-        closePopup: closePopup,
-        moduleIndex: moduleIndex,
+        dispatch,
+        closePopup,
+        moduleIndex,
       },
       false
     );
@@ -53,7 +53,6 @@ export default function CourseModule({
   useBeforeUnload((event) => {
     if (module.isEdited || module.isNew) {
       event.preventDefault();
-      return;
     }
   });
 
@@ -101,7 +100,7 @@ export default function CourseModule({
       if (!response.error) {
         showToast("The module was saved successfully", "success");
         dispatch({
-          moduleIndex: moduleIndex,
+          moduleIndex,
           type: "SAVE_MODULE",
           id: response.data.id,
         });
@@ -112,7 +111,7 @@ export default function CourseModule({
   );
 
   const saveModule = useCallback(async () => {
-    let response = await handleupload();
+    const response = await handleupload();
     handleResponse(response);
   }, [handleResponse, handleupload]);
 
@@ -120,7 +119,7 @@ export default function CourseModule({
     (newTitle) => {
       dispatch({
         type: "EDIT_MODULE_TITLE",
-        moduleIndex: moduleIndex,
+        moduleIndex,
         title: newTitle,
       });
     },
@@ -142,8 +141,8 @@ export default function CourseModule({
     (name) => {
       dispatch({
         type: "DELETE_QUIZ",
-        name: name,
-        moduleIndex: moduleIndex,
+        name,
+        moduleIndex,
       });
     },
     [dispatch, moduleIndex]
@@ -154,7 +153,7 @@ export default function CourseModule({
       EraseConfirmation,
       {
         onDelete: eraseModule,
-        closePopup: closePopup,
+        closePopup,
       },
       false
     );

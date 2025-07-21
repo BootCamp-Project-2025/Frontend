@@ -4,10 +4,10 @@ import { describe, it, vi, expect, beforeEach } from "vitest";
 import SyllabusExpansionWrapper from "../../../../../src/domains/course/components/organisms/SyllabusExpansionWrapper";
 
 describe("SyllabusExpansionWrapper", () => {
-  let mockSave;
-  let mockSaveTitle;
-  let mockErase;
-  let mockCheckRepeatTitle;
+  let mockSave = vi.fn();
+  let mockSaveTitle = vi.fn();
+  let mockErase = vi.fn();
+  let mockCheckRepeatTitle = vi.fn();
 
   beforeEach(() => {
     mockSave = vi.fn();

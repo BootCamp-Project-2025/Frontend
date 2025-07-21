@@ -178,7 +178,7 @@ function calculateNewPosition(modules, position) {
     return modules.length + 1;
   }
 
-  const a = modules[position - 1]?.position ?? 0;
-  const b = modules[position].position;
-  return (a + b) / 2;
+  const beforePosition = modules[position - 1]?.position ?? 0;
+  const afterPosition = modules[position].position;
+  return (beforePosition + afterPosition) / 2;
 }

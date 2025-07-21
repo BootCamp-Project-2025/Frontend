@@ -126,14 +126,14 @@ export default function SyllabusExpansionWrapper({
             color="secondary"
             className={`px-5 bg-blue-500 ${enableSave || newSection ? "" : "hidden"}`}
           >
-            <Icon className={`fill-white w-4 h-4`} icon={"save"} />
+            <Icon className={"fill-white w-4 h-4"} icon={"save"} />
           </Button>
           <Button
             data-testid={"eraseButton"}
             onClick={erase}
             variant="light"
             color="secondary"
-            className={`px-5 `}
+            className={"px-5"}
           >
             <Icon icon={"trashCan"} />
           </Button>

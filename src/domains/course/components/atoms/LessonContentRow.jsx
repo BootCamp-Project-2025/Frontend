@@ -23,7 +23,7 @@ export default function LessonContentRow({
         onClick={handleErase}
         variant="light"
         color="secondary"
-        className={`px-5 `}
+        className={"px-5"}
       >
         <Icon icon={"trashCan"} />
       </Button>

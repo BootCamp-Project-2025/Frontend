@@ -29,7 +29,7 @@ export default function CourseSyllabus() {
       dispatch({
         type: "ADD_MODULE",
         postion: position,
-        courseId: courseId,
+        courseId,
       });
     },
     [courseId]
@@ -44,7 +44,7 @@ export default function CourseSyllabus() {
     dispatch({
       type: "ADD_MODULE",
       postion: modules.length,
-      courseId: courseId,
+      courseId,
     });
   }, [courseId, modules.length]);
 

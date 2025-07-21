@@ -12,8 +12,10 @@ export default function UploadQuiz({
 }) {
   function isUrl(url) {
     try {
-      new URL(url);
-      return true;
+      const validUrl = new URL(url);
+      if (validUrl) {
+        return true;
+      }
     } catch {
       return "Url is not valid";
     }
@@ -31,11 +33,11 @@ export default function UploadQuiz({
           type: "ADD_QUIZ",
           url: data.quizUrl,
           name: data.name,
-          moduleIndex: moduleIndex,
+          moduleIndex,
         });
         closePopup();
       })}
-      className={`flex flex-col w-64 md:w-xl gap-6 p-4`}
+      className={"flex flex-col w-64 md:w-xl gap-6 p-4"}
       {...props}
     >
       <Title className="text-center" color="black">
