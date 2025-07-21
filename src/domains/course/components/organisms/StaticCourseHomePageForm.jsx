@@ -11,7 +11,7 @@ import {
   ToastProvider,
   useToastContext,
 } from "../../../../shared/contexts/ToastContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FileUpload } from "../../../../shared/components/organisms/FileUpload";
 
@@ -28,6 +28,10 @@ export default function StaticCourseHomePageForm() {
   const { showToast } = useToastContext();
   const [file, setFile] = useState(null);
 
+  const selectNewCourseImage = useCallback((newFile) => {
+    setFile(newFile);
+  }, []);
+
   useEffect(() => {
     if (responseData) {
       setValue("name", responseData.data.name ?? "");
@@ -40,10 +44,6 @@ export default function StaticCourseHomePageForm() {
   if (error) return <>data couldnt be loadedd</>;
 
   const course = responseData.data;
-
-  const selectNewCourseImage = (newFile) => {
-    setFile(newFile);
-  };
 
   const updateCourse = async (data) => {
     console.log(file);
