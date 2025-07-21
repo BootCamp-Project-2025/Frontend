@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Title } from "../../../../shared/components/atoms/Title";
@@ -34,6 +34,19 @@ export default function CourseSyllabus() {
     },
     [courseId]
   );
+
+  const handlersAddModule = useMemo(
+    () => modules.map((_, index) => () => addModule(index)),
+    [modules, addModule]
+  );
+
+  const addModuleAtTheEnd = useCallback(() => {
+    dispatch({
+      type: "ADD_MODULE",
+      postion: modules.length,
+      courseId: courseId,
+    });
+  }, [courseId, modules.length]);
 
   const scrollToSectionInSyllabus = useCallback((section) => {
     document
@@ -89,7 +102,7 @@ export default function CourseSyllabus() {
         <div key={`add-module-${module.position}`}>
           <Button
             data-testid={`addModule-${index}`}
-            onClick={() => addModule(index)}
+            onClick={handlersAddModule[index]}
             radius="small"
             className={
               "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
@@ -113,7 +126,7 @@ export default function CourseSyllabus() {
       ))}
       <Button
         data-testid="addModuleEnd"
-        onClick={() => addModule(modules.length)}
+        onClick={addModuleAtTheEnd}
         radius="small"
         className={"w-40 my-4 text-center self-start"}
         variant="bordered"
