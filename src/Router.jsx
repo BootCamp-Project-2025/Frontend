@@ -16,6 +16,7 @@ import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
 import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
+import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
 
 export default function Router() {
   return (
@@ -78,7 +79,7 @@ export default function Router() {
             element={<h1>Student Dashboard</h1>}
           />
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
-          <Route path="/student/courses" element={<h1>Student courses </h1>} />
+          <Route path="/student/courses" element={<MyCoursesListStudent />} />
           <Route
             path="/student/my-requests"
             element={<h1>Student resquests </h1>}
