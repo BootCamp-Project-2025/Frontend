@@ -55,7 +55,7 @@ export default function StaticCourseHomePageForm() {
   return (
     <ToastProvider>
       <form
-        onSubmit={handleSubmit(async (data) => await updateCourse(data))}
+        onSubmit={handleSubmit(updateCourse)}
         className="flex flex-col w-full gap-4 max-w-[90rem] px-8 py-4 mx-auto"
       >
         <Title className="border-b-1" color="default">
