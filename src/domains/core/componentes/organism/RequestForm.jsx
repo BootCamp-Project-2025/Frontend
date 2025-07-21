@@ -5,10 +5,8 @@ import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaI
 import DropdownSection from "../../../course/components/organisms/DropdownSection";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
-import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export default function RequestForm({ closePopup, saveRequest }) {
-  const { showToast } = useToastContext();
   const {
     register,
     handleSubmit,
@@ -20,10 +18,7 @@ export default function RequestForm({ closePopup, saveRequest }) {
       onSubmit={handleSubmit(async (data) => {
         const response = await saveRequest({ ...data, ...courseInfo });
         if (response.success) {
-          showToast("The request was saved successfully", "success");
           closePopup();
-        } else {
-          showToast("Error saving the request", "error");
         }
       })}
       className="flex sm:w-3xl overflow-clip flex-col gap-8 py-6 px-10"
