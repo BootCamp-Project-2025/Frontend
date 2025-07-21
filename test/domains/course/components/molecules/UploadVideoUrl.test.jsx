@@ -40,7 +40,7 @@ describe("Upload video url test component", () => {
     render().rerender();
     expect(screen.getByText("its not an url")).toBeInTheDocument();
   });
-  it("press cancel calls to closePopup", async () => {
+  it("press cancel calls to closePopup", () => {
     render(<UploadVideoUrl closePopup={closePopup} saveVideo={saveVideo} />);
     const buttonCancel = screen.getByText("Cancel");
     buttonCancel.click();

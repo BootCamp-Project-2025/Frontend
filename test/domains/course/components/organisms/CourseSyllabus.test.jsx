@@ -26,14 +26,14 @@ describe("CourseSyllabus test component", () => {
     render(<CourseSyllabus />);
     expect(screen.getByText("Syllabus")).toBeInTheDocument();
   });
-  it("add a module at the end of the list correctly", async () => {
+  it("add a module at the end of the list correctly", () => {
     render(<CourseSyllabus />);
     const saveModuleButton = screen.getByTestId("addModuleEnd");
     saveModuleButton.click(saveModuleButton);
     render().rerender();
     expect(screen.getByTestId("course-module-0")).toBeInTheDocument();
   });
-  it("add a module at the end of the list correctly", async () => {
+  it("add a module at the end of the list correctly", () => {
     render(<CourseSyllabus />);
     const saveModuleButton = screen.getByTestId("addModuleEnd");
     saveModuleButton.click(saveModuleButton);

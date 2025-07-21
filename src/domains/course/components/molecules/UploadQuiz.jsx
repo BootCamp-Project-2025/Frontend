@@ -26,7 +26,7 @@ export default function UploadQuiz({
   } = useForm();
   return (
     <form
-      onSubmit={handleSubmit(async (data) => {
+      onSubmit={handleSubmit((data) => {
         dispatch({
           type: "ADD_QUIZ",
           url: data.quizUrl,

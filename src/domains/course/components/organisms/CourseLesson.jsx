@@ -192,7 +192,7 @@ export default function CourseLesson({
     return true;
   }
 
-  const handleupload = useCallback(async () => {
+  const handleupload = useCallback(() => {
     if (lesson.isNew) {
       return ApiPost(`modules/${modules[moduleIndex].id}/lessons`, {
         ...lesson,
@@ -226,7 +226,7 @@ export default function CourseLesson({
     }
   }, [dispatch, handleupload, lessonIndex, moduleIndex, showToast]);
 
-  const saveLesson = useCallback(async () => {
+  const saveLesson = useCallback(() => {
     if (!validateDescription(lesson.description)) return;
     if (modules[moduleIndex].isNew) {
       showToast("Error: module needs to be saved before lesson", "error");

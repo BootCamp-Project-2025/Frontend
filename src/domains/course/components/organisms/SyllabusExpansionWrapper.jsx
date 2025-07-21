@@ -35,15 +35,15 @@ export default function SyllabusExpansionWrapper({
 
   const validateTitle = useCallback(
     (e) => {
-      const title = e.target?.value ?? e;
-      if (title !== "" && checkRepeatTitle(title)) {
+      const newTitle = e.target?.value ?? e;
+      if (newTitle !== "" && checkRepeatTitle(newTitle)) {
         setError("Title already exists");
         return false;
       }
-      if (title.length > 20) {
+      if (newTitle.length > 20) {
         setError("Title cannot exceed 20 characters");
         return false;
-      } else if (title.length < 5) {
+      } else if (newTitle.length < 5) {
         setError("Title cannot be less than 5 characters");
         return false;
       }
