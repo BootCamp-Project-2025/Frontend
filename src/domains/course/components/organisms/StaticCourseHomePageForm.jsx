@@ -28,18 +28,6 @@ export default function StaticCourseHomePageForm() {
   const { showToast } = useToastContext();
   const [file, setFile] = useState(null);
 
-  const selectNewCourseImage = (newFile) => {
-    setFile(newFile);
-  };
-
-  const updateCourse = async (data) => {
-    console.log(file);
-    course.name = data.name;
-    course.description = data.description;
-    const { responseData, error } = await UsePut("courses", courseId, course);
-    showToast(responseData.message, error ? "error" : "success");
-  };
-
   useEffect(() => {
     if (responseData) {
       setValue("name", responseData.data.name ?? "");
@@ -52,6 +40,18 @@ export default function StaticCourseHomePageForm() {
   if (error) return <>data couldnt be loadedd</>;
 
   const course = responseData.data;
+
+  const selectNewCourseImage = (newFile) => {
+    setFile(newFile);
+  };
+
+  const updateCourse = async (data) => {
+    console.log(file);
+    course.name = data.name;
+    course.description = data.description;
+    const { responseData, error } = await UsePut("courses", courseId, course);
+    showToast(responseData.message, error ? "error" : "success");
+  };
 
   return (
     <ToastProvider>
