@@ -16,6 +16,7 @@ import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
 import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
+import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 
 export default function Router() {
   return (
@@ -23,7 +24,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/courses" element={<p>Courses Section</p>} />
+          <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:idCourse" element={<CourseDetails />} />
           <Route path="/teachers" element={<p>Teachers Section</p>} />
           <Route path="/teachers/:idTeacher" element={<p>Teacher Details</p>} />
