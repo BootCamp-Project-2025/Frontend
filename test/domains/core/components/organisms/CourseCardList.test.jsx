@@ -2,6 +2,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { CourseCardList } from "../../../../../src/domains/core/componentes/organism/CourseCardList";
+import * as api from "../../../../../src/shared/api/getRequest";
 
 vi.mock("../../../../../src/shared/components/molecules/CourseCard", () => ({
   CourseCard: ({ author, description, imageURL, name, rating }) => (
@@ -36,11 +37,10 @@ describe("CourseCardList component", () => {
   ];
 
   beforeEach(() => {
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockCourses),
-      })
-    );
+    vi.spyOn(api, "getRequest").mockResolvedValue({
+      success: true,
+      data: { data: mockCourses },
+    });
   });
 
   afterEach(() => {
@@ -56,11 +56,26 @@ describe("CourseCardList component", () => {
       );
     });
 
-    mockCourses.forEach((course) => {
-      expect(screen.getByText(course.name)).toBeInTheDocument();
-      expect(screen.getByText(course.description)).toBeInTheDocument();
-      expect(screen.getByText(course.author)).toBeInTheDocument();
-      expect(screen.getByText(course.rating)).toBeInTheDocument();
-    });
+    for (const course of mockCourses) {
+      const nameEl = await screen.findByText((content) =>
+        content.includes(course.name)
+      );
+      expect(nameEl).toBeInTheDocument();
+
+      const descEl = await screen.findByText((content) =>
+        content.includes(course.description)
+      );
+      expect(descEl).toBeInTheDocument();
+
+      const authorEl = await screen.findByText((content) =>
+        content.includes(course.author)
+      );
+      expect(authorEl).toBeInTheDocument();
+
+      const ratingEl = await screen.findByText((content) =>
+        content.includes(course.rating.toString())
+      );
+      expect(ratingEl).toBeInTheDocument();
+    }
   });
 });
