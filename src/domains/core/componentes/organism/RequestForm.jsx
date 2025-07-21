@@ -5,8 +5,10 @@ import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaI
 import DropdownSection from "../../../course/components/organisms/DropdownSection";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
-export default function RequestForm({ closePopup }) {
+export default function RequestForm({ closePopup, saveRequest }) {
+  const { showToast } = useToastContext();
   const {
     register,
     handleSubmit,
@@ -15,8 +17,14 @@ export default function RequestForm({ closePopup }) {
   const courseInfo = { category: "", subCategory: "", language: "" };
   return (
     <form
-      onSubmit={handleSubmit(() => {
-        console.log("asd");
+      onSubmit={handleSubmit(async (data) => {
+        const response = await saveRequest({ ...data, ...courseInfo });
+        if (response.success) {
+          showToast("The request was saved successfully", "success");
+          closePopup();
+        } else {
+          showToast("Error saving the request", "error");
+        }
       })}
       className="flex sm:w-3xl overflow-clip flex-col gap-8 py-6 px-10"
     >
@@ -24,17 +32,17 @@ export default function RequestForm({ closePopup }) {
         Create your request
       </Title>
       <TextInput
-        id={"name"}
-        register={register("name", {
+        id={"title"}
+        register={register("title", {
           required: "This field is required",
           minLength: {
             value: 10,
-            message: "The name must be at least 10 characters",
+            message: "The title must be at least 10 characters",
           },
         })}
         errorMessage={errors?.name?.message}
-        label="Request name:"
-        placeholder="Enter a name"
+        label="Request title:"
+        placeholder="Enter a title"
       />
 
       <TextAreaInput
@@ -69,4 +77,5 @@ export default function RequestForm({ closePopup }) {
 
 RequestForm.propTypes = {
   closePopup: PropTypes.func,
+  saveRequest: PropTypes.func,
 };
