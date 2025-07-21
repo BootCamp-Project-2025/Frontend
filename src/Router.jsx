@@ -17,6 +17,7 @@ import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
 import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
+import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
 
 export default function Router() {
   return (
@@ -86,6 +87,30 @@ export default function Router() {
           />
           <Route path="/student/chats" element={<h1>Student resquests </h1>} />
         </Route>
+
+        <Route
+          path="/dashboard/teacher/profile"
+          element={
+            <main>
+              <TeacherProfile />
+            </main>
+          }
+        />
+        <Route
+          path="/student/requests"
+          element={
+            <main>
+              <StudentRequests />
+            </main>
+          }
+        />
+        <Route path="health-check" element={<HealthCheck />} />
+        <Route path="course-select" element={<CourseTypeSelection />} />
+        <Route path="teacher-profile" element={<TeacherProfile />} />
+        <Route path="button-gallery" element={<ButtonGallery />} />
+        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="file-upload" element={<FileUploadExample />} />
+        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
           path="*"
