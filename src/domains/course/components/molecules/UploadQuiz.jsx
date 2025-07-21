@@ -13,10 +13,7 @@ export default function UploadQuiz({
   function isUrl(url) {
     try {
       const validUrl = new URL(url);
-      if (validUrl) {
-        return true;
-      }
-      return false;
+      return validUrl !== undefined;
     } catch {
       return false;
     }
