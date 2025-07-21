@@ -18,6 +18,7 @@ import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
+import { Title } from "./shared/components/atoms/Title.jsx";
 
 export default function Router() {
   return (
