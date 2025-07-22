@@ -45,7 +45,7 @@ export default function Router() {
 
         <Route path="teacher" element={<TeacherLayout />}>
           <Route
-            path="/teacher/request-search"
+            path="/teacher/search-requests"
             element={<SearchRequestPage />}
           />
           <Route
