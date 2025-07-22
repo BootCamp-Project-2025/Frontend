@@ -11,7 +11,7 @@ export const CourseHeroSection = ({
   language = "Language name",
   category = "Category",
   subCategory = "SubCategory",
-  courseImage = "/defaultImage3.png",
+  imgSrc = "/defaultImage3.png",
   raters = 0,
   students = 0,
   rating = 0,
@@ -25,7 +25,7 @@ export const CourseHeroSection = ({
             subCategory={subCategory}
           ></CourseDetailsCategory>
           <div className="flex md:hidden  w-full rounded-lg overflow-hidden">
-            <img src={courseImage} alt="course image" className="w-full" />
+            <img src={imgSrc} alt="course image" className="w-full" />
           </div>
           <p className=" font-bold text-3xl line-clamp-2">{title}</p>
           <CourseDetailsStats
@@ -40,7 +40,7 @@ export const CourseHeroSection = ({
         <div className="hidden md:flex flex-col w-[21rem] min-w-[21rem] p-3 gap-3.5 bg-white rounded-xl">
           <div className="flex w-full rounded-lg overflow-hidden aspect-[1/0.6] bg-gray-200">
             <img
-              src={courseImage}
+              src={imgSrc}
               alt="course image"
               className="w-full h-full"
             />
@@ -57,7 +57,7 @@ CourseHeroSection.propTypes = {
   language: PropTypes.string,
   category: PropTypes.string,
   subCategory: PropTypes.string,
-  courseImage: PropTypes.string,
+  imgSrc: PropTypes.string,
   raters: PropTypes.number,
   students: PropTypes.number,
   rating: PropTypes.number,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { ExpandableText } from "../../../../shared/components/molecules/ExpandableText";
@@ -6,12 +6,19 @@ import { CourseDetailsTeacher } from "../molecules/CourseDetailsTeacher";
 import { CourseDetailsModule } from "../molecules/CourseDetailsModule";
 import { CourseDetailsReview } from "../molecules/CourseDetailsReview";
 import { CourseHeroSection } from "../organisms/CourseHeroSection";
+import { UseGet } from "../../api/UseGet";
+import { useNavigate, useParams } from "react-router-dom";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export const CourseDetails = () => {
-  const [basicInfo, setBasicInfo] = useState(null);
-  const [modules, setModules] = useState([]);
   const [teacher, setTeacher] = useState(null);
   const [reviews, setReviews] = useState([]);
+
+  const navigate = useNavigate();
+  const { showToast } = useToastContext();
+  const { id } = useParams();
+
+  const { responseData, loading, error } = UseGet("courses", id);
 
   const fetchJSON = async (url) => {
     const res = await fetch(url);
@@ -19,23 +26,21 @@ export const CourseDetails = () => {
     return res.json();
   };
 
-  const getBannerAndDescription = () =>
-    fetchJSON("/courseDetails/basicInformation.json");
-
-  const getCourseModules = () => fetchJSON("/courseDetails/modules.json");
-
   const getCourseTeacher = () => fetchJSON("/courseDetails/teacher.json");
 
   const getCourseReviews = () => fetchJSON("/courseDetails/reviews.json");
 
   useEffect(() => {
-    getBannerAndDescription().then(setBasicInfo).catch(console.error);
-    getCourseModules().then(setModules).catch(console.error);
     getCourseTeacher().then(setTeacher).catch(console.error);
     getCourseReviews().then(setReviews).catch(console.error);
   }, []);
 
-  if (!basicInfo) return <p className="text-center py-10">Loading…</p>;
+  if (loading) return <p className="text-center py-10">Loading…</p>;
+
+  if (error) {
+    showToast("Failed to load course details", "error");
+    navigate("/courses");
+  }
 
   function getMoreReview() {
     console.log("getting more reviews");
@@ -43,22 +48,19 @@ export const CourseDetails = () => {
 
   return (
     <>
-      <CourseHeroSection {...basicInfo} />
+      <CourseHeroSection {...responseData} />
 
       <div className="flex flex-col w-[80rem] max-w-[90%] m-auto py-10 gap-9">
         <Title size="lg" color="secondary">
           Description
         </Title>
-        <ExpandableText maxLines={4} text={basicInfo.description} />
+        <ExpandableText maxLines={4} text={responseData.description} />
 
         <Title size="lg" color="secondary">
           Course Content
         </Title>
-        <div className="flex flex-col border border-gray-400 border-b-0">
-          {modules.map((m) => (
-            <CourseDetailsModule key={m.titleModule} {...m} />
-          ))}
-        </div>
+
+        <CourseDetailsModule />
 
         <Title size="lg" color="secondary" id="teacherSection">
           Teacher
