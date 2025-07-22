@@ -1,20 +1,13 @@
 import { useState } from "react";
 import { Icon } from "../../../../shared/components/atoms/Icon";
-import { useParams } from "react-router-dom";
-import { UseGet } from "../../api/UseGet";
+import PropTypes from "prop-types";
 
-export const CourseDetailsModule = () => {
-  const { courseId } = useParams();
-
-  const { responseData, loading } = UseGet("courses", courseId + "/modules");
-
+export const CourseDetailsModule = ({ responseData }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  if (loading) return <p className="text-center py-10">Loading…</p>;
 
   return (
     <div className="flex flex-col border border-gray-400 border-b-0">
-      {responseData && responseData.length > 0 ?
+      {responseData && responseData.length > 0 ? (
         responseData.map((m, idx) => (
           <div key={idx} className="flex w-full">
             <div className=" w-full">
@@ -51,7 +44,16 @@ export const CourseDetailsModule = () => {
             </div>
           </div>
         ))
-      : <p>There is not modules availables</p>}
+      ) : (
+        <p>There is not modules availables</p>
+      )}
     </div>
   );
+};
+
+CourseDetailsModule.propTypes = {
+  responseData: PropTypes.arrayOf({
+    titleModule: PropTypes.string.isRequired,
+    lessons: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
 };

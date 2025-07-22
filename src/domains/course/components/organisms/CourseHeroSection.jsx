@@ -6,7 +6,7 @@ import { CourseDetailsStats } from "../molecules/CourseDetailsStats";
 import PropTypes from "prop-types";
 
 export const CourseHeroSection = ({
-  title = "Course Title",
+  name = "Course Title",
   teacher = "Teacher Name",
   language = "Language name",
   category = "Category",
@@ -27,7 +27,7 @@ export const CourseHeroSection = ({
           <div className="flex md:hidden  w-full rounded-lg overflow-hidden">
             <img src={imgSrc} alt="course image" className="w-full" />
           </div>
-          <p className=" font-bold text-3xl line-clamp-2">{title}</p>
+          <p className=" font-bold text-3xl line-clamp-2">{name}</p>
           <CourseDetailsStats
             rating={rating}
             raters={raters}
@@ -39,11 +39,7 @@ export const CourseHeroSection = ({
         </div>
         <div className="hidden md:flex flex-col w-[21rem] min-w-[21rem] p-3 gap-3.5 bg-white rounded-xl">
           <div className="flex w-full rounded-lg overflow-hidden aspect-[1/0.6] bg-gray-200">
-            <img
-              src={imgSrc}
-              alt="course image"
-              className="w-full h-full"
-            />
+            <img src={imgSrc} alt="course image" className="w-full h-full" />
           </div>
           <Button className="flex justify-center">Enroll In</Button>
         </div>
@@ -52,7 +48,7 @@ export const CourseHeroSection = ({
   );
 };
 CourseHeroSection.propTypes = {
-  title: PropTypes.string,
+  name: PropTypes.string,
   teacher: PropTypes.string,
   language: PropTypes.string,
   category: PropTypes.string,

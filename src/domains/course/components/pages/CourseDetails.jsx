@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { ExpandableText } from "../../../../shared/components/molecules/ExpandableText";
@@ -16,9 +16,14 @@ export const CourseDetails = () => {
 
   const navigate = useNavigate();
   const { showToast } = useToastContext();
-  const { id } = useParams();
+  const { idCourse } = useParams();
 
-  const { responseData, loading, error } = UseGet("courses", id);
+  const { responseData, loading, error } = UseGet("courses", idCourse);
+  const {
+    responseData: responseDataModule,
+    loading: loadingModule,
+    error: errorModule,
+  } = UseGet("courses", idCourse + "/modules");
 
   const fetchJSON = async (url) => {
     const res = await fetch(url);
@@ -35,32 +40,33 @@ export const CourseDetails = () => {
     getCourseReviews().then(setReviews).catch(console.error);
   }, []);
 
-  if (loading) return <p className="text-center py-10">Loading…</p>;
+  if (loading || loadingModule)
+    return <p className="text-center py-10">Loading…</p>;
 
-  if (error) {
+  if (error || errorModule) {
     showToast("Failed to load course details", "error");
-    navigate("/courses");
+    // navigate("/courses");
   }
 
   function getMoreReview() {
     console.log("getting more reviews");
   }
 
-  return (
+  return responseData ? (
     <>
-      <CourseHeroSection {...responseData} />
+      <CourseHeroSection {...responseData.data} />
 
       <div className="flex flex-col w-[80rem] max-w-[90%] m-auto py-10 gap-9">
         <Title size="lg" color="secondary">
           Description
         </Title>
-        <ExpandableText maxLines={4} text={responseData.description} />
+        <ExpandableText maxLines={4} text={responseData.data.description} />
 
         <Title size="lg" color="secondary">
           Course Content
         </Title>
 
-        <CourseDetailsModule />
+        <CourseDetailsModule responseData={responseDataModule} />
 
         <Title size="lg" color="secondary" id="teacherSection">
           Teacher
@@ -92,5 +98,5 @@ export const CourseDetails = () => {
         </div>
       </div>
     </>
-  );
+  ) : null;
 };
