@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SearchBar from "../../../../shared/components/molecules/SearchBar";
 import usePopup from "../../../../shared/hooks/usePopup";
 import StudentEmptyRequestsMessage from "../molecules/StudentEmptyRequestsMessage";
@@ -14,9 +14,12 @@ export default function StudentRequests() {
   const { showToast } = useToastContext();
   const { openPopup, closePopup } = usePopup();
   const [requestList, setRequestList] = useState([]);
+  const inputRef = useRef(null);
 
-  const loadData = useCallback(async () => {
-    const response = await getRequest("/requests/validUserRequests");
+  const loadData = useCallback(async (title = "") => {
+    const response = await getRequest(
+      `/requests/validUserRequests?title=${title}`
+    );
     if (response.success) {
       setRequestList(response.data.data);
     }
@@ -26,13 +29,17 @@ export default function StudentRequests() {
     loadData();
   }, [loadData]);
 
+  const search = useCallback(() => {
+    loadData(inputRef.current.value);
+  }, [loadData]);
+
   const manageToast = useCallback(
-    (success) => {
+    (success, operationType) => {
       if (success) {
-        showToast("Successfully", "success");
+        showToast(`Successful ${operationType}`, "success");
         loadData();
       } else {
-        showToast("Error deleting", "error");
+        showToast(`Error at ${operationType}`, "error");
       }
     },
     [loadData, showToast]
@@ -44,7 +51,7 @@ export default function StudentRequests() {
         ...data,
         status: "AVAILABLE",
       });
-      manageToast(response.success);
+      manageToast(response.success, "create");
       return response;
     },
     [manageToast]
@@ -53,7 +60,7 @@ export default function StudentRequests() {
   const deleteUserRequest = useCallback(
     async (requestId) => {
       const response = await deleteRequest(`/requests/${requestId}`);
-      manageToast(response.success);
+      manageToast(response.success, "delete");
     },
     [manageToast]
   );
@@ -84,7 +91,7 @@ export default function StudentRequests() {
 
   return (
     <div className="max-w-[90rem] w-full px-8 py-4 mx-auto">
-      <SearchBar placeholder="Find a specific request" />
+      <SearchBar seach={search} ref={inputRef} placeholder="Find by title" />
       {requestList.length === 0 ? (
         <StudentEmptyRequestsMessage
           handleCreateRequest={handleCreateRequest}
