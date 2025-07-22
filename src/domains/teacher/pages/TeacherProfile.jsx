@@ -13,7 +13,7 @@ const TeacherProfile = () => {
   const { user } = useAuth();
 
   return (
-    <main className="flex flex-col justify-between h-full w-full gap-16">
+    <main className="flex flex-col justify-between h-full w-full gap-16 max-w-[90rem] px-8 py-4 mx-auto">
       <ProfileTitle title="Teacher Profile" />
       {user && <ProfileInfo user={user} />}
       <div className="flex:col md:flex gap-24 md:gap-0 justify-around items-center w-full">
