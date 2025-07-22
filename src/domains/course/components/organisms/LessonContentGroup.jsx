@@ -16,7 +16,7 @@ export default function LessonContentGroup({
         {resources.map((resource) => (
           <LessonContentRow
             eraseResource={eraseResource}
-            key={resource.name}
+            key={resource.name ?? resource}
             name={resource.name ?? resource}
             url={resource.url ?? resource}
           />

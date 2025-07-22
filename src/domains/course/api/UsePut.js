@@ -1,4 +1,4 @@
-import { baseAPI } from "../axios/AxiosConnection";
+import { baseAPI } from "../../../shared/api/axios/AxiosConnection";
 
 export const UsePut = async (path, id = "", body) => {
   let error = false;

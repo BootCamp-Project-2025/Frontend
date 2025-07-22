@@ -1,4 +1,4 @@
-import { learningAPI } from "../axios/AxiosCourseConnection";
+import { baseAPI as learningAPI } from "../../../shared/api/axios/AxiosConnection";
 
 export const ApiPut = async (path, body) => {
   let error = false;
