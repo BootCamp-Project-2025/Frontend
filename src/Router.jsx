@@ -46,6 +46,10 @@ export default function Router() {
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
+          <Route
+            path="course-interaction-bar"
+            element={<p>Here will be our Course Bar interaction</p>}
+          />
         </Route>
 
         <Route path="teacher" element={<TeacherLayout />}>
