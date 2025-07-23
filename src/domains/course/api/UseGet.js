@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { baseAPI } from "../axios/AxiosConnection";
+import { baseAPI } from "../../../shared/api/axios/AxiosConnection";
 
 export const UseGet = (path, id = "") => {
   const [responseData, setResponseData] = useState(null);

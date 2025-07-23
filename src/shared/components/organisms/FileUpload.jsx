@@ -16,9 +16,10 @@ export const FileUpload = ({
   buttonSize = "md",
   maxFileSize = 5 * 1024 * 1024,
   customValidation,
+  initialPreview = null,
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(initialPreview);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
@@ -105,7 +106,14 @@ export const FileUpload = ({
 
   const removeFile = () => {
     setSelectedFile(null);
-    setPreview(null);
+    if (initialPreview) {
+      setPreview(initialPreview);
+    } else {
+      setPreview(null);
+    }
+    if (onFileUpload) {
+      onFileUpload(null);
+    }
     setError("");
   };
 
@@ -181,7 +189,7 @@ export const FileUpload = ({
                       value={selectedFile ? selectedFile.name : ""}
                       placeholder={getPlaceholderText()}
                       readOnly
-                      className="w-full bg-white py-2 px-3 rounded-md border border-gray-300 outline-1 focus:outline-2 focus:outline-blue-500 text-sm cursor-pointer"
+                      className="w-full bg-white py-2 px-3 rounded-md  outline-1 outline-gray-400 focus:outline-2 focus:outline-blue-500 text-sm cursor-pointer"
                       onClick={handleInputClick}
                     />
                     {selectedFile && (
@@ -270,4 +278,5 @@ FileUpload.propTypes = {
   buttonSize: PropTypes.string,
   maxFileSize: PropTypes.number,
   customValidation: PropTypes.func,
+  initialPreview: PropTypes.string,
 };

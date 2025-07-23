@@ -2,7 +2,6 @@ import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaI
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import SmallAnotation from "../atoms/SmallAnotation";
 import { Title } from "../../../../shared/components/atoms/Title";
-import ImageCourseForm from "./ImageCourseForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
 import DropdownSection from "./DropdownSection";
@@ -12,8 +11,9 @@ import {
   ToastProvider,
   useToastContext,
 } from "../../../../shared/contexts/ToastContext";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FileUpload } from "../../../../shared/components/organisms/FileUpload";
 
 export default function StaticCourseHomePageForm() {
   const { courseId } = useParams();
@@ -26,6 +26,11 @@ export default function StaticCourseHomePageForm() {
   } = useForm();
 
   const { showToast } = useToastContext();
+  const [file, setFile] = useState(null);
+
+  const selectNewCourseImage = useCallback((newFile) => {
+    setFile(newFile);
+  }, []);
 
   useEffect(() => {
     if (responseData) {
@@ -41,17 +46,18 @@ export default function StaticCourseHomePageForm() {
   const course = responseData.data;
 
   const updateCourse = async (data) => {
+    console.log(file);
     course.name = data.name;
     course.description = data.description;
     const { responseData, error } = await UsePut("courses", courseId, course);
     showToast(responseData.message, error ? "error" : "success");
   };
+
   return (
     <ToastProvider>
       <form
-        onSubmit={handleSubmit(async (data) => await updateCourse(data))}
-        style={{ padding: "2rem 15vw" }}
-        className="flex flex-col gap-4"
+        onSubmit={handleSubmit(updateCourse)}
+        className="flex flex-col w-full gap-4 max-w-[90rem] px-8 py-4 mx-auto"
       >
         <Title className="border-b-1" color="default">
           Home page course
@@ -96,7 +102,17 @@ export default function StaticCourseHomePageForm() {
         </p>
         <DropdownSection course={course} />
         <p className="text-gray-600 font-semibold text-lg ">Image of course:</p>
-        <ImageCourseForm />
+
+        <FileUpload
+          maxFileSize={5 * 1024 * 1024}
+          initialPreview={responseData?.data?.imgSrc}
+          label="Select the image for your course"
+          description="Upload your course image here. The image must meet the quality standards for course images."
+          guidelines="Important guidelines: 000 x 000 pixels; format .jpg, .jpeg, .gif, or .png."
+          buttonVariant="ghost"
+          onFileUpload={selectNewCourseImage}
+        ></FileUpload>
+
         <Button
           type="submit"
           disabled={isSubmitting}
