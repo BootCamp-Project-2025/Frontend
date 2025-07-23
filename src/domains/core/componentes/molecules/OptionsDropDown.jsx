@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { AvatarMenuCard } from "./AvatarMenuCard";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 export const OptionsDropDown = ({
   avatarURL,
   userName,
@@ -9,6 +10,7 @@ export const OptionsDropDown = ({
 }) => {
   const location = useLocation();
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
+  const navigate = useNavigate();
   return (
     <>
       <AvatarMenuCard
@@ -28,7 +30,10 @@ export const OptionsDropDown = ({
       )}
 
       {!isTeacherRoute && (
-        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
+        <button
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+          onClick={() => navigate("/chats")}
+        >
           Chats
         </button>
       )}

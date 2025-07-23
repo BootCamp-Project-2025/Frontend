@@ -16,6 +16,9 @@ import { CourseDetails } from "./domains/course/components/pages/CourseDetails.j
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import App from "./App.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
+import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
+// import ChatTemplate from "./domains/chat/components/templates/ChatTemplate.jsx";
 
 export default function Router() {
   return (
@@ -52,16 +55,9 @@ export default function Router() {
             path="/teacher/courses/:courseId/syllabus"
             element={<main>Edit syllabus page</main>}
           />
-          <Route
-            path="/teacher/chats"
-            element={
-              <main>
-                <Title size="xxl" color="default">
-                  Chats
-                </Title>
-              </main>
-            }
-          />
+          <Route path="/teacher/chats">
+            <Route index element={<ChatPage />} />
+          </Route>
         </Route>
 
         <Route element={<App />}>
@@ -110,6 +106,7 @@ export default function Router() {
               </main>
             }
           />
+          <Route path="/chats" element={<ChatPage />} />
           <Route path="health-check" element={<HealthCheck />} />
           <Route path="course-select" element={<CourseTypeSelection />} />
           <Route path="teacher-profile" element={<TeacherProfile />} />
@@ -129,6 +126,7 @@ export default function Router() {
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
+          <Route path="chat-showcase" element={<ChatShowcase />} />
         </Route>
       </Routes>
     </BrowserRouter>

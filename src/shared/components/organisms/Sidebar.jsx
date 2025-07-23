@@ -25,6 +25,7 @@ export const Sidebar = () => {
       location.pathname.includes("homePage") ||
       location.pathname.includes("syllabus");
     setCourseOpen(isCourseRoute);
+    setIsOpen(!location.pathname.includes("chat"));
   }, [location.pathname, courseId]);
 
   const handleClick = (open) => {
