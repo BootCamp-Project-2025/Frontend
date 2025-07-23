@@ -14,8 +14,9 @@ import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
-import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
-import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
+import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
+import { StudentLayout } from "./layouts/StudentLayout.jsx";
+import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
 
 export default function Router() {
@@ -24,7 +25,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/courses" element={<p>Courses Section</p>} />
+          <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:idCourse" element={<CourseDetails />} />
           <Route path="/teachers" element={<p>Teachers Section</p>} />
           <Route path="/teachers/:idTeacher" element={<p>Teacher Details</p>} />
@@ -40,7 +41,7 @@ export default function Router() {
           <Route path="doc-component" element={<DocComponent />} />
         </Route>
 
-        <Route path="teacher" element={<TeacherLayOut />}>
+        <Route path="teacher" element={<TeacherLayout />}>
           <Route
             path="/teacher/dashboard"
             element={<h1>Teacher Dashboard</h1>}
@@ -73,7 +74,7 @@ export default function Router() {
           <Route path="/teacher/chats" element={<h1>Chats</h1>} />
         </Route>
 
-        <Route path="student" element={<StudentLayOut />}>
+        <Route path="student" element={<StudentLayout />}>
           <Route
             path="/student/dashboard"
             element={<h1>Student Dashboard</h1>}

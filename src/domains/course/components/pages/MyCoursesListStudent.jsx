@@ -1,55 +1,76 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import PropTypes from "prop-types";
 import { Title } from "../../../../shared/components/atoms/Title";
+import { CourseCard } from "../../../../shared/components/molecules/CourseCard";
 
 export const MyCoursesListStudent = () => {
-  const FILTER = [
-    { label: "All Courses", value: "all" },
-    { label: "Stactic Courses", value: "static" },
-    { label: "P2P Courses", value: "p2p" },
-  ];
-
   const SORT = [
     { label: "Name (A–Z)", value: "asc" },
     { label: "Name (Z–A)", value: "des" },
-    { label: "Newest", value: "newest" },
-    { label: "Oldest", value: "oldest" },
+    { label: "Newest Enrollment", value: "newest" },
+    { label: "Oldest Enrollment", value: "oldest" },
   ];
 
   const search = useRef(null);
   const [sort, setSort] = useState(SORT[2].value);
-  const [filter, setFilter] = useState(FILTER[0].value);
+  const [allCourses, setAllCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-  const searchCourses = () => {
-    return "";
+  useEffect(() => {
+    const getCourses = async () => {
+      let res = await fetch("/requestMyCoursesStudent.json");
+      if (res.ok) {
+        const data = await res.json();
+        setAllCourses(data);
+        setCourses(data);
+      }
+    };
+
+    getCourses();
+  }, []);
+
+  const searchCourses = ({ search = "", sort = "newest" }) => {
+    let filtered = [...allCourses];
+
+    if (search.trim() !== "") {
+      filtered = filtered.filter((course) =>
+        course.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    switch (sort) {
+      case "asc":
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "des":
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "newest":
+        filtered.sort(
+          (a, b) => new Date(b.enrollmentDate) - new Date(a.enrollmentDate)
+        );
+        break;
+      case "oldest":
+        filtered.sort(
+          (a, b) => new Date(a.enrollmentDate) - new Date(b.enrollmentDate)
+        );
+        break;
+    }
+
+    setCourses(filtered);
   };
 
   const handleSearchInput = () => {
-    console.log(search.current.value);
-    searchCourses({ search: search.current.value, filter: filter, sort: sort });
+    searchCourses({ search: search.current.value, sort });
   };
 
   const handleSortInput = (option) => {
-    let newSort = option.value;
+    const newSort = option.value;
     setSort(newSort);
-    searchCourses({
-      search: search.current.value,
-      filter: filter,
-      sort: newSort,
-    });
-  };
-
-  const handleFilterInput = (option) => {
-    let newFilter = option.value;
-    setFilter(newFilter);
-    searchCourses({
-      search: search.current.value,
-      filter: newFilter,
-      sort: sort,
-    });
+    searchCourses({ search: search.current.value, sort: newSort });
   };
 
   return (
@@ -59,7 +80,13 @@ export const MyCoursesListStudent = () => {
       </Title>
       <div className="grid gap-4  lg:flex">
         <div className="flex gap-4 items-center w-full lg:w-[25rem]">
-          <TextInput placeholder="Search your courses" ref={search}></TextInput>
+          <TextInput
+            placeholder="Search your courses"
+            ref={search}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearchInput();
+            }}
+          ></TextInput>
           <Button
             variant="bordered"
             radius="medium"
@@ -71,20 +98,27 @@ export const MyCoursesListStudent = () => {
         </div>
         <div className="flex gap-4 justify-start w-full">
           <Dropdown
-            label={FILTER[0].label}
-            variant="bordered"
-            options={FILTER}
-            className="w-40"
-            onSelect={handleFilterInput}
-          ></Dropdown>
-          <Dropdown
             label={SORT[2].label}
             variant="bordered"
             options={SORT}
-            className="w-40"
+            className="w-50"
             onSelect={handleSortInput}
           ></Dropdown>
         </div>
+      </div>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-x-4 gap-y-12">
+        {courses.map((course, idx) => {
+          return (
+            <CourseCard
+              key={course.id ? course.id : idx}
+              author={course.author}
+              description={course.description}
+              imageURL={course.imageURL}
+              name={course.name}
+              rating={course.rating}
+            ></CourseCard>
+          );
+        })}
       </div>
     </main>
   );

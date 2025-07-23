@@ -18,10 +18,17 @@ import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import Search from "../../../assets/search.svg?react";
+import CheckCircle from "../../../assets/checkCircle.svg?react";
+import ErrorCircle from "../../../assets/errorCircle.svg?react";
+import InfoCircle from "../../../assets/infoCircle.svg?react";
+import Warning from "../../../assets/warning.svg?react";
+import ArrowForwardBlueIcon from "../../../assets/arrowForwardBlue.svg?react";
+import CloseDarkIcon from "../../../assets/closeDark.svg?react";
 import ChatIcon from "../../../assets/chat.svg?react";
 import CoursesIcon from "../../../assets/courses.svg?react";
 import AnalyticsIcon from "../../../assets/analytics.svg?react";
 import AssignmentIcon from "../../../assets/assignment.svg?react";
+
 import PropTypes from "prop-types";
 
 const icons = {
@@ -45,6 +52,12 @@ const icons = {
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
   search: Search,
+  checkCircle: CheckCircle,
+  errorCircle: ErrorCircle,
+  infoCircle: InfoCircle,
+  warning: Warning,
+  arrowForwardBlue: ArrowForwardBlueIcon,
+  closeDark: CloseDarkIcon,
   chat: ChatIcon,
   courses: CoursesIcon,
   analytics: AnalyticsIcon,
