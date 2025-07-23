@@ -1,7 +1,14 @@
 import CertificationIcon from "../../../assets/certification.svg?react";
 import EditIcon from "../../../assets/edit.svg?react";
+import EditBlackIcon from "../../../assets/editBlack.svg?react";
 import AddIcon from "../../../assets/add.svg?react";
+import PlusIcon from "../../../assets/plus.svg?react";
 import CloseIcon from "../../../assets/close.svg?react";
+import SyllabusAlertIcon from "../../../assets/syllabusAlert.svg?react";
+import TrashCanIcon from "../../../assets/trashCan.svg?react";
+import VectorUpIcon from "../../../assets/vectorPointer.svg?react";
+import VectorDownIcon from "../../../assets/vectorDown.svg?react";
+import SaveIcon from "../../../assets/save.svg?react";
 import EmailIcon from "../../../assets/email.svg?react";
 import DeleteIcon from "../../../assets/delete.svg?react";
 import ArrowForward from "../../../assets/arrowForward.svg?react";
@@ -17,19 +24,36 @@ import UserIcon from "../../../assets/user.svg?react";
 import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
+import CheckIcon from "../../../assets/check.svg?react";
 import Search from "../../../assets/search.svg?react";
+import CheckCircle from "../../../assets/checkCircle.svg?react";
+import ErrorCircle from "../../../assets/errorCircle.svg?react";
+import InfoCircle from "../../../assets/infoCircle.svg?react";
+import Warning from "../../../assets/warning.svg?react";
+import ArrowForwardBlueIcon from "../../../assets/arrowForwardBlue.svg?react";
+import CloseDarkIcon from "../../../assets/closeDark.svg?react";
+import ChatIcon from "../../../assets/chat.svg?react";
+import CoursesIcon from "../../../assets/courses.svg?react";
+import AnalyticsIcon from "../../../assets/analytics.svg?react";
+import AssignmentIcon from "../../../assets/assignment.svg?react";
 import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
-import Check from "../../../assets/check.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
   certification: CertificationIcon,
   edit: EditIcon,
+  editBlack: EditBlackIcon,
   add: AddIcon,
+  save: SaveIcon,
+  plus: PlusIcon,
   close: CloseIcon,
+  syllabusAlert: SyllabusAlertIcon,
+  trashCan: TrashCanIcon,
+  vectorUp: VectorUpIcon,
+  vectorDown: VectorDownIcon,
   email: EmailIcon,
   delete: DeleteIcon,
   arrowForward: ArrowForward,
@@ -45,12 +69,22 @@ const icons = {
   course: CourseIcon,
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
+  check: CheckIcon,
   search: Search,
+  checkCircle: CheckCircle,
+  errorCircle: ErrorCircle,
+  infoCircle: InfoCircle,
+  warning: Warning,
+  arrowForwardBlue: ArrowForwardBlueIcon,
+  closeDark: CloseDarkIcon,
+  chat: ChatIcon,
+  courses: CoursesIcon,
+  analytics: AnalyticsIcon,
+  assignment: AssignmentIcon,
   facebook: Facebook,
   instagram: Instagram,
   linkedin: Linkedin,
   youtube: Youtube,
-  check: Check,
 };
 
 export function Icon({ icon, className }) {

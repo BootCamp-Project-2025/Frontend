@@ -11,8 +11,9 @@ import { BecomeTeacherDialog } from "../molecules/BecomeTeacherDialog";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { updateRoles } from "../../../../shared/api/AuthApi";
+import PropTypes from "prop-types";
 
-export const Header = () => {
+export const Header = ({ complete = true }) => {
   const {
     handleLogin,
     handleLogout,
@@ -75,12 +76,20 @@ export const Header = () => {
   }, [authUser]);
 
   return (
-    <header className="flex items-center justify-center h-[5.625rem] border-gray-300 shadow-md bg-white sticky top-0 z-10">
-      <div className="flex justify-between items-center  w-[90%] ">
-        <NavBarLogo></NavBarLogo>
-        <nav className="hidden md:flex  w-full justify-center gap-10  ">
-          <HeaderOptions></HeaderOptions>
-        </nav>
+    <header
+      className={`flex items-center justify-center h-[5.625rem] ${complete ? "border-gray-300 shadow-md sticky top-0" : ""} bg-white  z-10`}
+    >
+      <div
+        className={`flex justify-between ${complete ? "justify-between" : "justify-end"} items-center  w-[90%] `}
+      >
+        {complete && (
+          <>
+            <NavBarLogo></NavBarLogo>
+            <nav className="hidden md:flex  w-full justify-center gap-10  ">
+              <HeaderOptions></HeaderOptions>
+            </nav>
+          </>
+        )}
 
         <div className="hidden md:flex  gap-5 items-center">
           <HeaderButtons
@@ -151,4 +160,8 @@ export const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  complete: PropTypes.bool,
 };
