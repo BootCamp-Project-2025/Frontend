@@ -62,7 +62,7 @@ export function ChatMessage({
       <div className={clsx(boxBaseStyle, styles[variant]["box"])}>
         {renderContent()}
         {time ? (
-          <div className="self-end pr-1 pb-1 text-secondary-700">
+          <div className="self-end pr-1 pb-1 text-secondary-700 text-xs">
             {formatTime(time)}
           </div>
         ) : null}

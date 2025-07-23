@@ -6,6 +6,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { formatTime } from "../../../../shared/utils/formatTime";
 import DOMPurify from "dompurify";
 import { Icon } from "../../../../shared/components/atoms/Icon";
+import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
 
 const API_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
@@ -67,6 +68,12 @@ export function ChatListItem({
     } else return false;
   };
 
+  const getFormatedDateLabel = () => {
+    return formatDateLabel(
+      lastMessage ? lastMessage.timestamp : chat.createdAt
+    );
+  };
+
   useEffect(() => {
     fetchUserInfo();
     setHasBeenSelected(false);
@@ -92,9 +99,9 @@ export function ChatListItem({
             {chat.name.length > 0 ? chat.name : user ? user.userName : "..."}
           </Title>
           <p className="text-sm self-center">
-            {formatTime(
-              new Date(lastMessage ? lastMessage.timestamp : chat.createdAt)
-            )}
+            {getFormatedDateLabel() == "Today"
+              ? formatTime(lastMessage ? lastMessage.timestamp : chat.createdAt)
+              : getFormatedDateLabel()}
           </p>
         </div>
         {lastMessage ? (
