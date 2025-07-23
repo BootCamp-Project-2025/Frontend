@@ -14,6 +14,13 @@ export const SearchRequestPage = () => {
       .catch((err) => console.error("Error loading requests:", err));
   }, []);
 
+  const handleBackward = () => {};
+  const handleForward = () => {};
+  const handleSelected = () => {};
+  const handleIndexedDB = () => {
+    return [1, 2, 3];
+  };
+
   return (
     <div className="p-12 flex flex-col gap-2 justify-center">
       <h1 className="text-3xl font-bold mb-6 text-center">Students requests</h1>
@@ -25,10 +32,10 @@ export const SearchRequestPage = () => {
         ))}
       </div>
       <Pagination
-        backwardFn={() => {}}
-        forwardFn={() => {}}
-        selectedFn={() => {}}
-        indexedDB={[1, 2, 3]}
+        backwardFn={handleBackward}
+        forwardFn={handleForward}
+        selectedFn={handleSelected}
+        indexedDB={handleIndexedDB()}
       />
     </div>
   );

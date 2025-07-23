@@ -95,26 +95,34 @@ export const Filters = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-2 md:gap-5 flex-wrap">
           {activeFilters &&
-            activeFilters.map((filter) => (
-              <SelectInput
-                key={filter}
-                options={options[filter]}
-                placeHolder={filter}
-                className="rounded-md border-gray-300 capitalize font-semibold"
-                value={filter}
-                onChange={(e) => handleSelectFilter(filter, e.target.value)}
-              />
-            ))}
+            activeFilters.map(function (filter) {
+              return (
+                <SelectInput
+                  key={filter}
+                  options={options[filter]}
+                  placeHolder={filter}
+                  className="rounded-md border-gray-300 capitalize font-semibold"
+                  value={filter}
+                  onChange={function (e) {
+                    handleSelectFilter(filter, e.target.value);
+                  }}
+                />
+              );
+            })}
         </div>
         <div className="mt-4 flex items-center gap-3 flex-wrap md:h-10">
           {filters.length > 0 &&
-            filters.map((filter) => (
-              <FilterChip
-                key={filter.type}
-                label={filter.filter}
-                onClick={() => handleRemoveFilter(filter.filter)}
-              />
-            ))}
+            filters.map(function (filter) {
+              return (
+                <FilterChip
+                  key={filter.type}
+                  label={filter.filter}
+                  onClick={function () {
+                    handleRemoveFilter(filter.filter);
+                  }}
+                />
+              );
+            })}
 
           {filters.length > 0 && (
             <Button variant="ghost" onClick={handleClearFilters}>
@@ -129,7 +137,9 @@ export const Filters = ({
           <p className="mr-2 text-gray-400">Order by:</p>
           <SelectInput
             value={sortOrder}
-            onChange={(e) => handleSort(e.target.value)}
+            onChange={function (e) {
+              handleSort(e.target.value);
+            }}
             options={sortOptions}
             placeHolder="Sort"
             className="bg-gray-200 border-gray-200 outline-gray-200"

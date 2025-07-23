@@ -80,13 +80,13 @@ describe("SearchRequestPage", () => {
   });
 
   it("handles fetch errors gracefully", async () => {
-    global.fetch = vi.fn(() => Promise.reject("API error"));
+    global.fetch = vi.fn(() => Promise.reject(new Error("API error")));
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     render(<SearchRequestPage />);
     await waitFor(() => {
       expect(errorSpy).toHaveBeenCalledWith(
         "Error loading requests:",
-        "API error"
+        new Error("API error")
       );
     });
     errorSpy.mockRestore();
