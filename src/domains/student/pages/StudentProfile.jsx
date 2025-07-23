@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { getRequest } from "../../../shared/api/getRequest"; // asegurate del path
-import { useToastContext } from "../../../shared/contexts/ToastContext"; // si querés mostrar errores
+import { getRequest } from "../../../shared/api/getRequest";
+import { useToastContext } from "../../../shared/contexts/ToastContext";
 import { useAuth } from "../../../shared/hooks/useAuth";
 import ProfileTitle from "../../../shared/components/atoms/ProfileTitle";
 import ProfileInfo from "../../teacher/components/molecules/ProfileInfo";
-import About from "../../teacher/components/organisms/About";
 import ProfileDetailCard from "../components/organisms/ProfileDetailCard";
 import GridPersonalDetail from "../components/molecules/GridPersonalDetail";
 import GridAccountDetail from "../components/molecules/GridAccountDetail";
@@ -32,7 +31,6 @@ const StudentProfile = () => {
     <main className="flex flex-col gap-16">
       <ProfileTitle title="Student Profile" />
       {user && <ProfileInfo user={user} />}
-      <About />
 
       {client && (
         <div className="flex flex-wrap gap-8 md:p-12 md:px-40">

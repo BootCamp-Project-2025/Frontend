@@ -3,13 +3,14 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-export function AboutMeForm({ text, setText, closePopup }) {
+export function AboutMeForm({ text, setText, closePopup, setAbout }) {
   const [description, setDescription] = useState(text);
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = () => {
     if (!description) setErrors([...errors, "This field is required"]);
     setText(description);
+    setAbout(description);
     closePopup();
   };
 
@@ -56,4 +57,5 @@ AboutMeForm.propTypes = {
   text: PropTypes.string,
   setText: PropTypes.func,
   closePopup: PropTypes.func,
+  setAbout: PropTypes.func,
 };
