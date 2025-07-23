@@ -1,0 +1,142 @@
+{
+  "id": "3e80ebf9-3d59-4fdd-8db3-2c10059d5164",
+  "name": "",
+  "participantsIds": [
+    "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+    "fdb70cf2-5d37-4609-85b6-42607da1d405"
+  ],
+  "createdAt": "2025-07-18",
+  "status": "ACTIVE",
+  "messages": [
+    {
+      "id": "e7d3c02e-4f19-4d0c-9f60-2f7ea9d22b3a",
+      "content": "<p>Hey! How are you doing today?</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:10:00Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "b12f4e8e-4f10-47e6-a4f9-089a42b0483a",
+      "content": "<p>I'm good, just finishing some work. You?</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:11:32Z",
+      "senderId": "fdb70cf2-5d37-4609-85b6-42607da1d405",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "84fc9b13-7be8-4c1b-9372-e4c3192a389a",
+      "content": "<p>Nice! I'm just chilling now.</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:12:03Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "f5f0aaf1-49e2-4c7f-a5a7-8d807bf29b6e",
+      "content": "<p>Wanna hop on a quick game?</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:12:45Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "7db497b6-7be9-41f3-a48c-4e6203172adf",
+      "content": "<p>Sure! Just give me 10 minutes, finishing up some emails.</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:13:10Z",
+      "senderId": "fdb70cf2-5d37-4609-85b6-42607da1d405",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "37426e7a-3c0f-4299-9767-27a1acbb0c10",
+      "content": "<p>No rush, take your time.</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:13:40Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "8caa90cf-0a3a-4177-b388-0341898ae184",
+      "content": "<p>By the way, did you check out the new trailer for Battlefield?</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:14:01Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "b2459f3e-d17f-4f59-b26c-ec7a3bb18ee3",
+      "content": "<p>Not yet! Is it good?</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:14:45Z",
+      "senderId": "fdb70cf2-5d37-4609-85b6-42607da1d405",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "10cc59f2-e2ef-46d6-b58f-cb9f33d4d4f3",
+      "content": "<p>Looks insane. Graphics are on another level!</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:15:08Z",
+      "senderId": "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    },
+    {
+      "id": "f0b17f79-d00c-4340-92ed-63cf89322c5a",
+      "content": "<p><strong>Awesome. Let’s watch it</strong> together later!</p>",
+      "type": "TEXT",
+      "timestamp": "2025-07-18T23:15:50Z",
+      "senderId": "fdb70cf2-5d37-4609-85b6-42607da1d405",
+      "receiversIds": [
+        "83303737-8ee5-4ba2-b6f4-f19c3f596817",
+        "fdb70cf2-5d37-4609-85b6-42607da1d405"
+      ],
+      "status": "READ",
+      "chatId": "a1d430fd-6f32-4fae-879e-093ca435b786"
+    }
+  ]
+}
