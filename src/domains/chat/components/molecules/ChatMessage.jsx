@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
 import DOMPurify from "dompurify";
+import { formatTime } from "../../../../shared/utils/formatTime";
 
 const containerBaseStyle = "flex gap-1 text-sm";
 const boxBaseStyle = "px-1 py-0.5 flex flex-col rounded-xl max-w-9/12 min-w-60";
@@ -33,13 +34,6 @@ export function ChatMessage({
   content,
 }) {
   const sanitizedContent = DOMPurify.sanitize(content);
-  const getFormatedTime = () => {
-    return time.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-  };
 
   //* This method renders the content of the message
   //? To add more types of messages just add a new case to handle it and return a component
@@ -48,7 +42,7 @@ export function ChatMessage({
       case "TEXT":
         return (
           <div
-            className="px-4 py-2"
+            className="px-4 py-2 break-words"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           ></div>
         );
@@ -69,7 +63,7 @@ export function ChatMessage({
         {renderContent()}
         {time ? (
           <div className="self-end pr-1 pb-1 text-secondary-700">
-            {getFormatedTime()}
+            {formatTime(time)}
           </div>
         ) : null}
       </div>
