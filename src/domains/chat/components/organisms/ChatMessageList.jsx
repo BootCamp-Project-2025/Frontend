@@ -3,8 +3,11 @@ import { ChatMessage } from "../molecules/ChatMessage";
 import ScrollToBottom from "react-scroll-to-bottom";
 import PropTypes from "prop-types";
 import { Title } from "../../../../shared/components/atoms/Title";
+import { ChatDateDivider } from "../atoms/ChatDateDivider";
+import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
 
 export function ChatMessageList({ ownerId, messages = [] }) {
+  let lastLabel = null;
   return (
     <ScrollToBottom
       initialScrollBehavior={messages.length < 11 ? "smooth" : "auto"}
@@ -13,22 +16,28 @@ export function ChatMessageList({ ownerId, messages = [] }) {
       <div className="px-10 sm:px-10 md:px-10 lg:px-20 xl:px-30 2xl:px-40 3xl:px-70 py-2">
         {messages.length > 0 ? (
           messages.map((message, index) => {
+            const label = formatDateLabel(message.timestamp);
+            const showDivider = label !== lastLabel;
+            lastLabel = label;
             return (
-              <ChatMessage
-                key={index}
-                content={message.content}
-                iconVariant={message.status}
-                time={new Date(message.timestamp)}
-                type={message.type}
-                variant={message.senderId == ownerId ? "sent" : "received"}
-                displayStatus={
-                  index == messages.length - 1 || message.status == "ERROR"
-                }
-                marginBottom={
-                  index == messages.length - 1 ||
-                  message.senderId != messages[index + 1].senderId
-                }
-              />
+              <>
+                {showDivider && <ChatDateDivider label={label} />}
+                <ChatMessage
+                  key={index}
+                  content={message.content}
+                  iconVariant={message.status}
+                  time={message.timestamp}
+                  type={message.type}
+                  variant={message.senderId == ownerId ? "sent" : "received"}
+                  displayStatus={
+                    index == messages.length - 1 || message.status == "ERROR"
+                  }
+                  marginBottom={
+                    index == messages.length - 1 ||
+                    message.senderId != messages[index + 1].senderId
+                  }
+                />
+              </>
             );
           })
         ) : (
