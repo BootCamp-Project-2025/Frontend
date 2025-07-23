@@ -19,6 +19,7 @@ import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 import { Title } from "./shared/components/atoms/Title.jsx";
+import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 
 export default function Router() {
   return (
@@ -43,6 +44,10 @@ export default function Router() {
         </Route>
 
         <Route path="teacher" element={<TeacherLayout />}>
+          <Route
+            path="/teacher/search-requests"
+            element={<SearchRequestPage />}
+          />
           <Route
             path="/teacher/dashboard"
             element={<h1>Teacher Dashboard</h1>}
