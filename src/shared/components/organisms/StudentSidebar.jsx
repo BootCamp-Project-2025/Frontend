@@ -18,7 +18,7 @@ export const StudentSidebar = () => {
     <aside
       onMouseEnter={handleOpenSidebar}
       onMouseLeave={handleCloseSidebar}
-      className="w-[3.7rem] "
+      className="w-[3.7rem] min-w-[3.7rem]"
     >
       <div className="relative h-full">
         <div className="absolute left-0 top-0 h-full z-[20] border-r border-gray-400">
