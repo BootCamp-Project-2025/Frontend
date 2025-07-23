@@ -13,18 +13,35 @@ export const useEnrollments = (userId) => {
           `users/${userId}/enrollments`
         );
 
-        const courseRequests = enrollmentList.map((enrollment) =>
+        const courseRequests = enrollmentList.data.map((enrollment) =>
           baseAPI.get(`courses/${enrollment.courseId}`)
         );
 
         const courseResponses = await Promise.all(courseRequests);
 
-        const enrichedEnrollments = enrollmentList.map((enrollment, index) => ({
-          ...enrollment,
-          course: courseResponses[index].data,
-        }));
+        const enrichedEnrollments = enrollmentList.data.map(
+          (enrollment, index) => {
+            const courseData = courseResponses[index].data?.data || {};
 
-        setEnrollments(enrichedEnrollments);
+            return {
+              enrollmentId: enrollment.id,
+              courseId: courseData.id,
+              name: courseData.name || "Untitled",
+              description: courseData.description || "",
+              imageURL: courseData.imgSrc || "/default-course.png",
+              author: courseData.author || "Unknown",
+              enrollmentDate: enrollment.createdAt,
+              rating: courseData.rating || 0,
+              status: enrollment.status,
+            };
+          }
+        );
+
+        const activeEnrollments = enrichedEnrollments.filter(
+          (e) => e.status !== "CANCELED"
+        );
+
+        setEnrollments(activeEnrollments);
         setError(false);
       } catch (err) {
         console.error(err);
@@ -40,5 +57,5 @@ export const useEnrollments = (userId) => {
     }
   }, [userId]);
 
-  return { enrollments, loading, error };
+  return { enrollments, loading, error, setEnrollments };
 };

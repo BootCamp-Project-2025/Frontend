@@ -36,6 +36,7 @@ import ChatIcon from "../../../assets/chat.svg?react";
 import CoursesIcon from "../../../assets/courses.svg?react";
 import AnalyticsIcon from "../../../assets/analytics.svg?react";
 import AssignmentIcon from "../../../assets/assignment.svg?react";
+import MoreVert from "../../../assets/moreVert.svg?react";
 
 import PropTypes from "prop-types";
 
@@ -78,6 +79,7 @@ const icons = {
   courses: CoursesIcon,
   analytics: AnalyticsIcon,
   assignment: AssignmentIcon,
+  moreVert: MoreVert,
 };
 
 export function Icon({ icon, className }) {
