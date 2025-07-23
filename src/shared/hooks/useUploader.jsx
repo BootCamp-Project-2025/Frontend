@@ -11,16 +11,19 @@ export function useUploader(onUpload) {
 
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
-        cloudName: "ltcrowd-cdn",
-        uploadPreset: "ltcrowd_preset",
+        cloudName: "deado6aup",
+        uploadPreset: "cloudi_test_temp",
         resourceType: "raw",
-        clientAllowedFormats: ["pdf", "doc", "docx", "png", "jpg"],
+        clientAllowedFormats: ["pdf", "doc", "docx", "jpg", "jpeg", "png"],
         multiple: false,
+        sources: ["local"],
+        folder: "temp",
+        maxFileSize: 10000000,
       },
       (error, result) => {
         if (!error && result.event === "success") {
           console.log("PDF subido:", result.info);
-          onUpload(result.info.secure_url);
+          onUpload(result.info);
         }
       }
     );
