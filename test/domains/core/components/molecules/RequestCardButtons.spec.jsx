@@ -12,7 +12,7 @@ describe("RequestCardButtons", () => {
   const editRequestFunction = vi.fn();
   const deleteRequestFunction = vi.fn();
 
-  it("renders correctly", async () => {
+  it("renders correctly", () => {
     render(
       <RequestCardButtons
         deleteRequest={deleteRequestFunction}

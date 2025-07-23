@@ -82,11 +82,7 @@ export default function StudentRequests() {
   );
 
   const handleCreateRequest = useCallback(() => {
-    openPopup(
-      RequestForm,
-      { saveRequest: saveRequest, closePopup: closePopup },
-      false
-    );
+    openPopup(RequestForm, { saveRequest, closePopup }, false);
   }, [openPopup, saveRequest, closePopup]);
 
   return (
