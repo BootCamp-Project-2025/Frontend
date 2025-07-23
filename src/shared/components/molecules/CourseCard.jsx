@@ -53,13 +53,13 @@ export const CourseCard = ({
       {...props}
     >
       {showDropOption && (
-        <div className="absolute top-2 right-2 z-10" ref={menuRef}>
+        <div className="absolute top-2 right-2 z-1" ref={menuRef}>
           <button
             onClick={(e) => {
               e.stopPropagation();
               setShowMenu((prev) => !prev);
             }}
-            className="text-gray-600 hover:text-gray-900 p-1.5 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded-sm"
+            className="text-gray-600 hover:text-gray-900 px-1.5 py-2 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded-sm"
           >
             <Icon icon="moreVert" className="w-5 h-5 fill-gray-900" />
           </button>
@@ -69,7 +69,7 @@ export const CourseCard = ({
               className="absolute right-0 mt-1 w-32 bg-white border border-gray-200 rounded shadow-md z-20"
             >
               <button
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-200 cursor-pointer"
+                className="w-full text-left px-4 py-2 text-sm font-medium hover:bg-gray-200 cursor-pointer"
                 onClick={() => {
                   setShowMenu(false);
                   onDropCourse(id);
