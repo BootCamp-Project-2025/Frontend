@@ -133,8 +133,26 @@ export function ChatListItem({
 }
 
 ChatListItem.propTypes = {
-  ownerId: PropTypes.object,
-  chat: PropTypes.object,
+  ownerId: PropTypes.string,
+  chat: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    participantsIds: PropTypes.arrayOf(PropTypes.string),
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        content: PropTypes.string,
+        type: PropTypes.oneOf(["TEXT"]),
+        timestamp: PropTypes.string,
+        senderId: PropTypes.string,
+        receiversIds: PropTypes.arrayOf(PropTypes.string),
+        status: PropTypes.oneOf(["SENT", "DELIVERED", "READ", "ERROR"]),
+        chatId: PropTypes.string,
+      })
+    ),
+    createdAt: PropTypes.string,
+    status: PropTypes.oneOf(["ACTIVE", "CLOSED"]),
+  }),
   selectChat: PropTypes.func,
   isSelected: PropTypes.bool,
 };

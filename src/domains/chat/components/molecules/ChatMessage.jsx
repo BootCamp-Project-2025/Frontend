@@ -80,7 +80,7 @@ export function ChatMessage({
 ChatMessage.propTypes = {
   variant: PropTypes.oneOf(["sent", "received"]),
   type: PropTypes.oneOf(["TEXT"]),
-  time: PropTypes.object,
+  time: PropTypes.instanceOf(Date),
   iconVariant: PropTypes.oneOf(["SENT", "DELIVERED", "READ", "ERROR"]),
   displayStatus: PropTypes.bool,
   marginBottom: PropTypes.bool,

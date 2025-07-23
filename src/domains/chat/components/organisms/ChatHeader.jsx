@@ -61,6 +61,6 @@ export function ChatHeader({ participantsIds = [], chatName = "" }) {
 }
 
 ChatHeader.propTypes = {
-  participantsIds: PropTypes.array,
+  participantsIds: PropTypes.arrayOf(PropTypes.string),
   chatName: PropTypes.string,
 };

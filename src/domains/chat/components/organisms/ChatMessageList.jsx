@@ -54,5 +54,5 @@ export function ChatMessageList({ ownerId, messages = [] }) {
 
 ChatMessageList.propTypes = {
   ownerId: PropTypes.string,
-  messages: PropTypes.array,
+  messages: PropTypes.arrayOf(PropTypes.string),
 };
