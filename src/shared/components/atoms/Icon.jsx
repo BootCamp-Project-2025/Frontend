@@ -24,6 +24,7 @@ import msgRead from "../../../assets/chat-icons/msg-read.svg?react";
 import msgSent from "../../../assets/chat-icons/msg-sent.svg?react";
 import userOffline from "../../../assets/chat-icons/user-offline.svg?react";
 import userOnline from "../../../assets/chat-icons/user-online.svg?react";
+import newMessage from "../../../assets/chat-icons/new-message.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -53,6 +54,7 @@ const icons = {
   msgSent: msgSent,
   userOffline: userOffline,
   userOnline: userOnline,
+  newMessage: newMessage,
 };
 
 export function Icon({ icon, className }) {
