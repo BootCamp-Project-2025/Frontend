@@ -31,7 +31,6 @@ export const CourseDetails = () => {
     return res.json();
   };
 
-  console.log(responseDataModule);
   const getCourseTeacher = () => fetchJSON("/courseDetails/teacher.json");
 
   const getCourseReviews = () => fetchJSON("/courseDetails/reviews.json");
