@@ -43,11 +43,13 @@ import ChatIcon from "../../../assets/chat.svg?react";
 import CoursesIcon from "../../../assets/courses.svg?react";
 import AnalyticsIcon from "../../../assets/analytics.svg?react";
 import AssignmentIcon from "../../../assets/assignment.svg?react";
-import YoutubeIcon from "../../../assets/youtube.svg?react";
 import ArticleIcon from "../../../assets/article.svg?react";
 import QuizIcon from "../../../assets/quiz.svg?react";
 import DocumentIcon from "../../../assets/document.svg?react";
-
+import Facebook from "../../../assets/facebook.svg?react";
+import Instagram from "../../../assets/instagram.svg?react";
+import Linkedin from "../../../assets/linkedin.svg?react";
+import Youtube from "../../../assets/youtube.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -96,7 +98,10 @@ const icons = {
   courses: CoursesIcon,
   analytics: AnalyticsIcon,
   assignment: AssignmentIcon,
-  youtube: YoutubeIcon,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  youtube: Youtube,
   article: ArticleIcon,
   quiz: QuizIcon,
   document: DocumentIcon,

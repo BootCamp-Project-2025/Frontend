@@ -7,12 +7,8 @@ import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import { AboutMeForm } from "./AboutMeForm";
 import { Button } from "../../../../shared/components/atoms/Button";
 
-const mockInformation = `
-Tell others a bit about your background, skills, and interests...
-`;
-
-const About = () => {
-  const [information, setInformation] = useState(mockInformation);
+const About = ({ text, updateAbout }) => {
+  const [about, setAbout] = useState(text);
 
   const { openPopup, closePopup } = usePopup();
 
@@ -23,9 +19,10 @@ const About = () => {
         title: "About me Form",
         children: (
           <AboutMeForm
-            text={information}
-            setText={setInformation}
+            text={about}
+            setText={updateAbout}
             closePopup={closePopup}
+            setAbout={setAbout}
           />
         ),
         onClose: closePopup,
@@ -35,16 +32,25 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 flex-[0.5]">
+    <div className="flex flex-col gap-2 flex-[0.5] px-10">
       <div className="flex items-center gap-2">
         <Title size="lg" color="default">
           About me
         </Title>
-        <Button onClick={handleOpenPopup} variant="ghost">
-          <Icon icon="edit" className={"cursor-pointer self-start"} />
+        <Button
+          color="default"
+          radius="full"
+          square
+          size="sm"
+          onClick={handleOpenPopup}
+          className={
+            "p-0 w-2 flex justify-center bg-[color:var(--color-secondary-100)]"
+          }
+        >
+          <Icon icon={"edit"} className={"min-w-4"} />
         </Button>
       </div>
-      <p className="text-[color:var(--color-default-500)] ">{information}</p>
+      <p className="text-[color:var(--color-default-500)] ">{about}</p>
     </div>
   );
 };
@@ -53,4 +59,5 @@ export default About;
 
 About.propTypes = {
   text: PropTypes.string,
+  updateAbout: PropTypes.func,
 };

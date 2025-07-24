@@ -22,6 +22,7 @@ import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
 import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
 import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
+import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 
 export default function Router() {
@@ -83,7 +84,7 @@ export default function Router() {
 
         <Route path="student" element={<StudentLayout />}>
           <Route path="/student/dashboard" element={<Dashboard />} />
-          <Route path="/student/profile" element={<h1>Student profile</h1>} />
+          <Route path="/student/profile" element={<StudentProfile />} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
           <Route path="chats" element={<ChatPage />} />

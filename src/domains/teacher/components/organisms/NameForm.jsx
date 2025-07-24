@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
 import PropTypes from "prop-types";
 
-export function NameForm({ user, setUser, onClose = () => {} }) {
+export function NameForm({ user, updateName, onClose = () => {} }) {
   const [name, setName] = useState(user.userName);
   const [errors, setErrors] = useState([]);
 
@@ -12,11 +12,8 @@ export function NameForm({ user, setUser, onClose = () => {} }) {
       setErrors(["This field is required"]);
       return;
     }
-    setUser({
-      ...user,
-      userName: name,
-    });
 
+    updateName(name);
     onClose();
   };
 
@@ -65,5 +62,5 @@ NameForm.propTypes = {
     profilePicture: PropTypes.string.isRequired,
   }),
   onClose: PropTypes.func,
-  setUser: PropTypes.func,
+  updateName: PropTypes.func,
 };
