@@ -11,13 +11,17 @@ import { HomePage } from "./domains/core/componentes/pages/HomePage.jsx";
 import TeacherProfile from "./domains/teacher/pages/TeacherProfile.jsx";
 import CardShowcase from "./shared/components/templates/CardShowcase.jsx";
 import TitleShowcase from "./shared/components/templates/TitleShowcase.jsx";
+import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus.jsx";
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
-import { TeacherLayOut } from "./layouts/TeacherLayOut.jsx";
-import { StudentLayOut } from "./layouts/StudentLayOut.jsx";
+import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
+import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
 import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
+import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
+import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
+import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 
 export default function Router() {
   return (
@@ -41,7 +45,11 @@ export default function Router() {
           <Route path="doc-component" element={<DocComponent />} />
         </Route>
 
-        <Route path="teacher" element={<TeacherLayOut />}>
+        <Route path="teacher" element={<TeacherLayout />}>
+          <Route
+            path="/teacher/search-requests"
+            element={<SearchRequestPage />}
+          />
           <Route
             path="/teacher/dashboard"
             element={<h1>Teacher Dashboard</h1>}
@@ -64,17 +72,18 @@ export default function Router() {
           />
           <Route
             path="/teacher/courses/:courseId/syllabus"
-            element={<h1>Edit syllabus page</h1>}
+            element={<CourseSyllabus />}
           />
-
+          <Route path="/teacher/chats">
+            <Route index element={<ChatPage />} />
+          </Route>
           <Route
             path="/teacher/search-requests"
             element={<h1>Search Resquest</h1>}
           />
-          <Route path="/teacher/chats" element={<h1>Chats</h1>} />
         </Route>
 
-        <Route path="student" element={<StudentLayOut />}>
+        <Route path="student" element={<StudentLayout />}>
           <Route
             path="/student/dashboard"
             element={<h1>Student Dashboard</h1>}
@@ -82,7 +91,11 @@ export default function Router() {
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
-          <Route path="/student/chats" element={<h1>Student resquests </h1>} />
+          <Route path="chats" element={<ChatPage />} />
+          <Route path="card-showcase" element={<CardShowcase />} />
+          <Route path="title-showcase" element={<TitleShowcase />} />
+          <Route path="doc-component" element={<DocComponent />} />
+          <Route path="chat-showcase" element={<ChatShowcase />} />
         </Route>
 
         <Route

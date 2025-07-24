@@ -1,11 +1,11 @@
-import { baseAPI } from "../axios/AxiosConnection";
+import { baseAPI } from "../../../shared/api/axios/AxiosConnection";
 
-export const UsePut = async (path, id = "", body) => {
+export const UsePut = async (path, id, body) => {
   let error = false;
-  let status;
+  let status = 200;
   let responseData = null;
   try {
-    const response = await baseAPI.put(path + "/" + id, body);
+    const response = await baseAPI.put(`${path}/${id ?? ""}`, body);
     status = response.statusCode;
     responseData = response.data;
     status = response.status;

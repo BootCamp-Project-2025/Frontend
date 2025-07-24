@@ -8,4 +8,5 @@ export default defineConfig({
     globals: true,
     setupFiles: "./setupTests.ts",
   },
+  assetsInclude: ["**/*.svg"],
 });
