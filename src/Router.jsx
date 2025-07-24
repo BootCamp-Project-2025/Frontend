@@ -15,6 +15,7 @@ import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
+import { Dashboard } from "./domains/core/componentes/pages/Dashboard.jsx";
 import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
@@ -50,10 +51,7 @@ export default function Router() {
             path="/teacher/search-requests"
             element={<SearchRequestPage />}
           />
-          <Route
-            path="/teacher/dashboard"
-            element={<h1>Teacher Dashboard</h1>}
-          />
+          <Route path="/teacher/dashboard" element={<Dashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
 
           <Route path="/teacher/courses" element={<CourseCardList />} />
@@ -84,10 +82,7 @@ export default function Router() {
         </Route>
 
         <Route path="student" element={<StudentLayout />}>
-          <Route
-            path="/student/dashboard"
-            element={<h1>Student Dashboard</h1>}
-          />
+          <Route path="/student/dashboard" element={<Dashboard />} />
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
