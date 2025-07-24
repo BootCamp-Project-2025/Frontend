@@ -23,13 +23,14 @@ export default function DropdownSection({ course }) {
     setSubCategory(educationSubCategories[option.label]);
   };
   return (
-    <section className="flex justify-between dropdownSection">
+    <section className="  dropdownSection ">
       <Dropdown
         label={course.language !== "" ? course.language : "select a language"}
         variant="bordered"
         radius="small"
         options={languages}
         onSelect={handleLanguage}
+        color="secondary"
       ></Dropdown>
       <Dropdown
         label={course.category !== "" ? course.category : "select a category"}
@@ -37,6 +38,7 @@ export default function DropdownSection({ course }) {
         radius="small"
         options={educationCategories}
         onSelect={handleCategory}
+        color="secondary"
       ></Dropdown>
       <Dropdown
         type="button"
@@ -49,6 +51,7 @@ export default function DropdownSection({ course }) {
         radius="small"
         options={subCategory}
         onSelect={handleSubCategory}
+        color="secondary"
       ></Dropdown>
     </section>
   );

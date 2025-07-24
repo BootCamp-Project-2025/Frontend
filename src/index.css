@@ -84,3 +84,18 @@ html {
 body {
   font-family: "Albert Sans";
 }
+
+main {
+  max-width: 90rem;
+  padding: 1rem 2rem;
+  margin: auto;
+  min-height: 100vh;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
