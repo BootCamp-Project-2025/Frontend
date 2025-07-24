@@ -15,7 +15,6 @@ export const CourseCardList = () => {
       const response = await getRequest("/courses");
 
       if (response.success) {
-        console.log(response.data.data);
         setCourses(response.data.data);
       } else {
         showToast(response.error.message, "error");
@@ -35,11 +34,9 @@ export const CourseCardList = () => {
                 <CourseCard
                   key={course.id ? course.id : idx}
                   id={course.id}
-                  author={course.author}
                   description={course.description}
-                  imageURL={course.imageURL}
+                  imageURL={course.imgSrc}
                   name={course.name}
-                  rating={course.rating}
                 ></CourseCard>
               );
             })}

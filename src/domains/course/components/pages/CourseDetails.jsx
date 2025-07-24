@@ -31,6 +31,7 @@ export const CourseDetails = () => {
     return res.json();
   };
 
+  console.log(responseDataModule);
   const getCourseTeacher = () => fetchJSON("/courseDetails/teacher.json");
 
   const getCourseReviews = () => fetchJSON("/courseDetails/reviews.json");
@@ -45,7 +46,7 @@ export const CourseDetails = () => {
 
   if (error || errorModule) {
     showToast("Failed to load course details", "error");
-    // navigate("/courses");
+    navigate("/courses");
   }
 
   function getMoreReview() {
@@ -66,7 +67,11 @@ export const CourseDetails = () => {
           Course Content
         </Title>
 
-        <CourseDetailsModule responseData={responseDataModule} />
+        <div className="flex flex-col border border-gray-400 border-b-0">
+          {responseDataModule.data.map((m) => (
+            <CourseDetailsModule key={m.id} {...m} />
+          ))}
+        </div>
 
         <Title size="lg" color="secondary" id="teacherSection">
           Teacher
