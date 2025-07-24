@@ -3,11 +3,9 @@ export default function CourseContentTrackBar({
   setCurrentContent,
   progress,
 }) {
-  console.log(content);
   const handleClickOnContent = (resource) => {
     setCurrentContent(resource);
   };
-  console.log(progress);
 
   return (
     <div className="flex flex-col">
