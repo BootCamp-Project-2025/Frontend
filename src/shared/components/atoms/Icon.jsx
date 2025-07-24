@@ -26,6 +26,13 @@ import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
 import Search from "../../../assets/search.svg?react";
+import msgDelivered from "../../../assets/chat-icons/msg-delivered.svg?react";
+import msgError from "../../../assets/chat-icons/msg-error.svg?react";
+import msgRead from "../../../assets/chat-icons/msg-read.svg?react";
+import msgSent from "../../../assets/chat-icons/msg-sent.svg?react";
+import userOffline from "../../../assets/chat-icons/user-offline.svg?react";
+import userOnline from "../../../assets/chat-icons/user-online.svg?react";
+import newMessage from "../../../assets/chat-icons/new-message.svg?react";
 import CheckCircle from "../../../assets/checkCircle.svg?react";
 import ErrorCircle from "../../../assets/errorCircle.svg?react";
 import InfoCircle from "../../../assets/infoCircle.svg?react";
@@ -72,6 +79,13 @@ const icons = {
   teacher: TeacherIcon,
   check: CheckIcon,
   search: Search,
+  msgDelivered: msgDelivered,
+  msgError: msgError,
+  msgRead: msgRead,
+  msgSent: msgSent,
+  userOffline: userOffline,
+  userOnline: userOnline,
+  newMessage: newMessage,
   checkCircle: CheckCircle,
   errorCircle: ErrorCircle,
   infoCircle: InfoCircle,

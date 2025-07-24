@@ -15,10 +15,13 @@ import CourseSyllabus from "./domains/course/components/organisms/CourseSyllabus
 import { CourseDetails } from "./domains/course/components/pages/CourseDetails.jsx";
 import DocComponent from "./shared/components/atoms/DocComponent.jsx";
 import { MainLayout } from "./layouts/MainLayout.jsx";
+import { Dashboard } from "./domains/core/componentes/pages/Dashboard.jsx";
 import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
-import { Title } from "./shared/components/atoms/Title.jsx";
+import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
+import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
+import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 
 export default function Router() {
@@ -48,10 +51,7 @@ export default function Router() {
             path="/teacher/search-requests"
             element={<SearchRequestPage />}
           />
-          <Route
-            path="/teacher/dashboard"
-            element={<h1>Teacher Dashboard</h1>}
-          />
+          <Route path="/teacher/dashboard" element={<Dashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
 
           <Route path="/teacher/courses" element={<CourseCardList />} />
@@ -72,37 +72,50 @@ export default function Router() {
             path="/teacher/courses/:courseId/syllabus"
             element={<CourseSyllabus />}
           />
-          <Route
-            path="/teacher/chats"
-            element={
-              <main>
-                <Title size="xxl" color="default">
-                  Chats
-                </Title>
-              </main>
-            }
-          />
-
+          <Route path="/teacher/chats">
+            <Route index element={<ChatPage />} />
+          </Route>
           <Route
             path="/teacher/search-requests"
             element={<h1>Search Resquest</h1>}
           />
-          <Route path="/teacher/chats" element={<h1>Chats</h1>} />
         </Route>
 
         <Route path="student" element={<StudentLayout />}>
-          <Route
-            path="/student/dashboard"
-            element={<h1>Student Dashboard</h1>}
-          />
+          <Route path="/student/dashboard" element={<Dashboard />} />
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
-          <Route
-            path="/student/my-requests"
-            element={<h1>Student resquests </h1>}
-          />
-          <Route path="/student/chats" element={<h1>Student resquests </h1>} />
+          <Route path="/student/my-requests" element={<StudentRequests />} />
+          <Route path="chats" element={<ChatPage />} />
+          <Route path="card-showcase" element={<CardShowcase />} />
+          <Route path="title-showcase" element={<TitleShowcase />} />
+          <Route path="doc-component" element={<DocComponent />} />
+          <Route path="chat-showcase" element={<ChatShowcase />} />
         </Route>
+
+        <Route
+          path="/dashboard/teacher/profile"
+          element={
+            <main>
+              <TeacherProfile />
+            </main>
+          }
+        />
+        <Route
+          path="/student/requests"
+          element={
+            <main>
+              <StudentRequests />
+            </main>
+          }
+        />
+        <Route path="health-check" element={<HealthCheck />} />
+        <Route path="course-select" element={<CourseTypeSelection />} />
+        <Route path="teacher-profile" element={<TeacherProfile />} />
+        <Route path="button-gallery" element={<ButtonGallery />} />
+        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="file-upload" element={<FileUploadExample />} />
+        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
           path="*"
