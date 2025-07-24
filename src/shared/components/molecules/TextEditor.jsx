@@ -131,7 +131,7 @@ const editorConfig = {
 
 export function TextEditor({
   onChange = () => {},
-  showToolbar = false,
+  showToolbar = true,
   placeholder = "",
   // eslint-disable-next-line no-unused-vars
   value,
