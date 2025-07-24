@@ -7,8 +7,16 @@ import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { $isTextNode, isHTMLElement, ParagraphNode, TextNode } from "lexical";
-import { $generateHtmlFromNodes } from "@lexical/html";
+import {
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+  $isTextNode,
+  isHTMLElement,
+  ParagraphNode,
+  TextNode,
+} from "lexical";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 
 import TextEditorTheme from "../../utils/TextEditorTheme";
 import TextEditorToolbarPlugin from "../atoms/TextEditorToolbarPlugin";
@@ -115,20 +123,6 @@ const constructImportMap = () => {
   return importMap;
 };
 
-const editorConfig = {
-  html: {
-    export: exportMap,
-    import: constructImportMap(),
-  },
-  namespace: "React.js Demo",
-  nodes: [ParagraphNode, TextNode],
-  onError(error) {
-    throw error;
-  },
-  theme: TextEditorTheme,
-  editorState: null,
-};
-
 export function TextEditor({
   onChange = () => {},
   showToolbar = true,
@@ -136,6 +130,48 @@ export function TextEditor({
   // eslint-disable-next-line no-unused-vars
   value,
 }) {
+  const editorConfig = {
+    html: {
+      export: exportMap,
+      import: constructImportMap(),
+    },
+    namespace: "React.js Demo",
+    nodes: [ParagraphNode, TextNode],
+    onError(error) {
+      throw error;
+    },
+    theme: TextEditorTheme,
+    editorState: value
+      ? (editor) => {
+          const parser = new DOMParser();
+          const isHtml = value.trim().startsWith("<");
+
+          editor.update(() => {
+            const root = $getRoot();
+            root.clear();
+
+            if (isHtml) {
+              const dom = parser.parseFromString(value, "text/html");
+              const nodes = $generateNodesFromDOM(editor, dom);
+
+              if (nodes.length === 1 && nodes[0].getType() === "text") {
+                const paragraph = $createParagraphNode();
+                paragraph.append(nodes[0]);
+                root.append(paragraph);
+              } else {
+                root.append(...nodes);
+              }
+            } else {
+              const paragraph = $createParagraphNode();
+              const textNode = $createTextNode(value);
+              paragraph.append(textNode);
+              root.append(paragraph);
+            }
+          });
+        }
+      : undefined,
+  };
+
   useEffect(() => {}, []);
 
   const handleGetHtml = (editorState, editor) => {
