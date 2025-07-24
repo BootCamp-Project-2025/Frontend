@@ -8,8 +8,7 @@ import DOMPurify from "dompurify";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
 
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 const baseStyle =
   "bg-secondary-50 cursor-pointer hover:opacity-70 py-4 px-6 border-b-2 border-secondary-200 max-h-25 overflow-hidden select-none";

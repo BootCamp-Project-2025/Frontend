@@ -5,8 +5,7 @@ import axios from "axios";
 import SocketContext from "../../contexts/SocketContext";
 import { AvatarIcon } from "../../../core/componentes/molecules/AvatarIcon";
 
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 export function ChatHeader({ participantsIds = [], chatName = "" }) {
   //TODO Implement logic to handle multiple participants
   const { onlineUsers } = useContext(SocketContext);
