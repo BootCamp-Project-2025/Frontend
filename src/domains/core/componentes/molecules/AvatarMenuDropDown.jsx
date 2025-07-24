@@ -10,7 +10,6 @@ export const AvatarMenuDropDown = ({
 }) => {
   const [openUserMenu, setOpenUserMenu] = useState(false);
   const userMenuRef = useRef(null);
-
   const handleClickOutside = (e) => {
     if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
       setOpenUserMenu(false);

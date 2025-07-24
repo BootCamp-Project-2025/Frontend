@@ -1,4 +1,3 @@
-import { Image } from "../../../../shared/components/atoms/Image";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import usePopup from "../../../../shared/hooks/usePopup";
@@ -6,13 +5,43 @@ import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { NameForm } from "../organisms/NameForm";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import profile from "../../../../assets/profile.png";
+import { useEffect, useState } from "react";
+import AvatarProfile from "../../../../shared/components/organisms/AvatarProfile";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import About from "../organisms/About";
+import { patchRequest } from "../../../../shared/api/patchRequest";
 
 const ProfileInfo = ({ user }) => {
-  const [localUser, setLocalUser] = useState(user);
-
   const { openPopup, closePopup } = usePopup();
+  const [localUser, setLocalUser] = useState(user || null);
+  const { showToast } = useToastContext();
+
+  useEffect(() => {
+    if (user) {
+      setLocalUser(user);
+    }
+  }, [user]);
+
+  const handlePatchField = async (field, value) => {
+    const updatedUser = { ...localUser, [field]: value };
+
+    try {
+      const res = await patchRequest(`/users/${localUser.id}`, {
+        [field]: value,
+      });
+
+      if (res.success) {
+        setLocalUser(updatedUser);
+        showToast(`${field} updated`, "success");
+      } else {
+        showToast(`Error updating ${field}`, "error");
+        console.error("Error updating", res.error);
+      }
+    } catch (err) {
+      console.error("Unexpected error", err);
+      showToast(`Unexpected error updating ${field}`, "error");
+    }
+  };
 
   const handleOpenPopup = () => {
     openPopup(
@@ -23,7 +52,7 @@ const ProfileInfo = ({ user }) => {
           <NameForm
             onClose={closePopup}
             user={localUser}
-            setUser={setLocalUser}
+            updateName={(name) => handlePatchField("userName", name)}
           />
         ),
         onClose: closePopup,
@@ -32,32 +61,53 @@ const ProfileInfo = ({ user }) => {
     );
   };
 
-  return (
-    <div className="flex items-center gap-8 flex-wrap">
-      <Image
-        src={localUser.profilePicture || profile}
-        alt={`${localUser.userName} profile image`}
-        width="w-auto"
-        height="h-full"
-        styleType="profile"
-      />
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <Title size="xl" color="default">
-            {localUser.userName}
-          </Title>
-          <Button onClick={handleOpenPopup} variant="ghost">
-            <Icon icon="edit" className={"cursor-pointer self-start"} />
-          </Button>
-        </div>
+  if (!localUser) return null;
 
-        <div className="flex items-center gap-1">
-          <Icon icon="email" />
-          <p className="text-[var(--color-default-500)]">
-            {localUser.userEmail}
-          </p>
+  return (
+    <div className="flex flex-col gap-8">
+      <div className="flex gap-8 items-center">
+        <AvatarProfile
+          profilePicture={localUser.profilePicture}
+          updateProfilePicture={(picture) =>
+            handlePatchField("profilePicture", picture)
+          }
+        />
+
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Title
+              size="xl"
+              color="default"
+              className="2xl:text-4xl font-extrabold"
+            >
+              {localUser.userName}
+            </Title>
+            <Button
+              color="default"
+              radius="full"
+              square
+              size="sm"
+              onClick={handleOpenPopup}
+              className={
+                "p-0 w-2 flex justify-center bg-[color:var(--color-secondary-100)]"
+              }
+            >
+              <Icon icon={"edit"} className={"min-w-4"} />
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Icon icon="email" />
+            <p className="text-[var(--color-default-500)]">
+              {localUser.userEmail}
+            </p>
+          </div>
         </div>
       </div>
+      <About
+        text={localUser.about}
+        updateAbout={(about) => handlePatchField("about", about)}
+      />
     </div>
   );
 };
@@ -66,8 +116,9 @@ export default ProfileInfo;
 
 ProfileInfo.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-    image: PropTypes.string,
+    userName: PropTypes.string,
+    userEmail: PropTypes.string,
+    profilePicture: PropTypes.string,
+    about: PropTypes.string,
   }),
 };

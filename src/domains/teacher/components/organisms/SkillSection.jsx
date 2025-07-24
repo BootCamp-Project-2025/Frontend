@@ -6,7 +6,7 @@ import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import SkillCard from "../molecules/SkillCard";
 import { SkillForm } from "./SkillForm";
-import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { fetchData } from "../../../../shared/api/axios/fetchData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import PropTypes from "prop-types";
@@ -17,7 +17,7 @@ export default function SkillSection({ freelancerId }) {
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    fetchFreelancerData({
+    fetchData({
       method: getFreelancerResource,
       args: [freelancerId, "skills"],
       setState: (data) =>

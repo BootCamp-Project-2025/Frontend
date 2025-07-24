@@ -7,7 +7,7 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import { PopupFormLayout } from "../atoms/PopupFormLayout";
 import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
-import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { fetchData } from "../../../../shared/api/axios/fetchData";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import { formatDate } from "../../../../shared/utils/formatDate";
 import PropTypes from "prop-types";
@@ -17,7 +17,7 @@ export const EducationSection = ({ freelancerId }) => {
 
   const { openPopup, closePopup } = usePopup();
   useEffect(() => {
-    fetchFreelancerData({
+    fetchData({
       method: getFreelancerResource,
       args: [freelancerId, "educations"],
       setState: setRecordList,
