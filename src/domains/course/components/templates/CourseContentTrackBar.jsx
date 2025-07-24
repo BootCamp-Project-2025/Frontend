@@ -10,7 +10,7 @@ export default function CourseContentTrackBar({
   console.log(progress);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div>Here will be the progress bar</div>
       <div>Here will be the modules</div>
     </div>
