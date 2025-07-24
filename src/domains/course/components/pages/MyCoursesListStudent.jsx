@@ -168,7 +168,7 @@ export const MyCoursesListStudent = () => {
         />
       )}
 
-      {!loading && !error && courses.length === 0 && (
+      {!loading && !error && enrollments.length === 0 && (
         <Alert
           type="info"
           title="No courses found"

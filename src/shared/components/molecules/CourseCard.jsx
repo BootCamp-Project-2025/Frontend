@@ -27,13 +27,27 @@ export const CourseCard = ({
     if (!showMenu) navigate(redirecTo || `/courses/${id}`);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setShowMenu(false);
-      }
-    };
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
 
+  const handleMenuToggle = (e) => {
+    e.stopPropagation();
+    setShowMenu((prev) => !prev);
+  };
+
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleDropCourse = () => {
+    setShowMenu(false);
+    onDropCourse(id);
+  };
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -55,25 +69,19 @@ export const CourseCard = ({
       {showDropOption && (
         <div className="absolute top-2 right-2 z-1" ref={menuRef}>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowMenu((prev) => !prev);
-            }}
+            onClick={handleMenuToggle}
             className="text-gray-600 hover:text-gray-900 px-1.5 py-2 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded-sm"
           >
             <Icon icon="moreVert" className="w-5 h-5 fill-gray-900" />
           </button>
           {showMenu && (
             <div
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleMenuClick}
               className="absolute right-0 mt-1 w-32 bg-white border border-gray-200 rounded shadow-md z-20"
             >
               <button
                 className="w-full text-left px-4 py-2 text-sm font-medium hover:bg-gray-200 cursor-pointer"
-                onClick={() => {
-                  setShowMenu(false);
-                  onDropCourse(id);
-                }}
+                onClick={handleDropCourse}
               >
                 Drop course
               </button>
@@ -107,7 +115,6 @@ export const CourseCard = ({
             {description}
           </p>
         )}
-
         {showAuthor && (
           <p className="line-clamp-1 text-xs uppercase font-[400] text-gray-950 mt-auto">
             {author}
