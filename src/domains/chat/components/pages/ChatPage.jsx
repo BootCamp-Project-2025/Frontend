@@ -21,7 +21,7 @@ export function ChatPage() {
           <div className="h-full w-full opacity-40 bg-no-repeat bg-center flex flex-col justify-center items-center">
             <img
               className="max-w-2/6"
-              src="/src/assets/chats.png"
+              src="/images/chats.png"
               alt="chats image"
             />
             <div className="text-center select-none">
