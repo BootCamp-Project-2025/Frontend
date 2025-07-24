@@ -18,6 +18,7 @@ import { MainLayout } from "./layouts/MainLayout.jsx";
 import { TeacherLayout } from "./layouts/TeacherLayout.jsx";
 import { StudentLayout } from "./layouts/StudentLayout.jsx";
 import { CoursesPage } from "./domains/core/componentes/pages/CoursesPage.jsx";
+import StudentRequests from "./domains/core/componentes/organism/StudentRequests.jsx";
 import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
 import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
@@ -89,32 +90,37 @@ export default function Router() {
           />
           <Route path="/student/profile" element={<h1>Student profile</h1>} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
-          <Route
-            path="/student/my-requests"
-            element={<h1>Student resquests </h1>}
-          />
+          <Route path="/student/my-requests" element={<StudentRequests />} />
           <Route path="chats" element={<ChatPage />} />
-          <Route path="health-check" element={<HealthCheck />} />
-          <Route path="course-select" element={<CourseTypeSelection />} />
-          <Route path="teacher-profile" element={<TeacherProfile />} />
-          <Route path="button-gallery" element={<ButtonGallery />} />
-          <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
-          <Route path="file-upload" element={<FileUploadExample />} />
-          <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
-
-          <Route
-            path="*"
-            element={
-              <main>
-                <h1>Page not Found</h1>
-              </main>
-            }
-          />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
           <Route path="chat-showcase" element={<ChatShowcase />} />
         </Route>
+
+        <Route
+          path="/dashboard/teacher/profile"
+          element={
+            <main>
+              <TeacherProfile />
+            </main>
+          }
+        />
+        <Route
+          path="/student/requests"
+          element={
+            <main>
+              <StudentRequests />
+            </main>
+          }
+        />
+        <Route path="health-check" element={<HealthCheck />} />
+        <Route path="course-select" element={<CourseTypeSelection />} />
+        <Route path="teacher-profile" element={<TeacherProfile />} />
+        <Route path="button-gallery" element={<ButtonGallery />} />
+        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
+        <Route path="file-upload" element={<FileUploadExample />} />
+        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
 
         <Route
           path="*"
