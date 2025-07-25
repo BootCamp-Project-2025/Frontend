@@ -215,14 +215,14 @@ export default function CourseLesson({
       dispatch({
         moduleIndex,
         lessonIndex,
-        id: response.data.id,
+        id: lesson.id,
         type: "SAVE_LESSON",
       });
       showToast("The lesson did not have changes", "warning");
     } else {
       showToast("A error has ocurred, the lesson couldnt be saved", "error");
     }
-  }, [dispatch, handleupload, lessonIndex, moduleIndex, showToast]);
+  }, [dispatch, handleupload, lesson.id, lessonIndex, moduleIndex, showToast]);
 
   const saveLesson = useCallback(() => {
     if (!validateDescription(lesson.description)) return;
