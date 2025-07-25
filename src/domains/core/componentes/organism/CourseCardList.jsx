@@ -35,7 +35,7 @@ export const CourseCardList = () => {
                   key={course.id ? course.id : idx}
                   author={course.author}
                   description={course.description}
-                  imageURL={course.imageURL}
+                  imageURL={course.imgSrc}
                   name={course.name}
                   rating={course.rating}
                 ></CourseCard>
