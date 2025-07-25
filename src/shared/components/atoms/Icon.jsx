@@ -25,6 +25,7 @@ import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
+import CheckSyllabusIcon from "../../../assets/checkSyllabus.svg?react";
 import Search from "../../../assets/search.svg?react";
 import msgDelivered from "../../../assets/chat-icons/msg-delivered.svg?react";
 import msgError from "../../../assets/chat-icons/msg-error.svg?react";
@@ -78,6 +79,7 @@ const icons = {
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
   check: CheckIcon,
+  checkSyllabus: CheckSyllabusIcon,
   search: Search,
   msgDelivered: msgDelivered,
   msgError: msgError,
