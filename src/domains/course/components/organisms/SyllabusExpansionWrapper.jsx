@@ -106,7 +106,10 @@ export default function SyllabusExpansionWrapper({
               variant="light"
               color="secondary"
             >
-              <Icon className={"fill-black ml-5 w-5 h-4"} icon={"check"} />
+              <Icon
+                className={"fill-black ml-5 w-5 h-4"}
+                icon={"checkSyllabus"}
+              />
             </Button>
           ) : (
             <Button onClick={editHandle} variant="light" color="secondary">
