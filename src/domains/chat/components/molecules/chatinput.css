@@ -1,0 +1,6 @@
+.chat-input {
+  border-radius: 8px;
+  .editor-container {
+    border-style: none !important;
+  }
+}

@@ -25,7 +25,7 @@ export default function DropdownSection({ course }) {
   return (
     <section className="  dropdownSection ">
       <Dropdown
-        label={course.language !== "" ? course.language : "select a language"}
+        label={course.language !== "" ? course.language : "Select a language"}
         variant="bordered"
         radius="small"
         options={languages}
@@ -33,7 +33,7 @@ export default function DropdownSection({ course }) {
         color="secondary"
       ></Dropdown>
       <Dropdown
-        label={course.category !== "" ? course.category : "select a category"}
+        label={course.category !== "" ? course.category : "Select a category"}
         variant="bordered"
         radius="small"
         options={educationCategories}
@@ -45,7 +45,7 @@ export default function DropdownSection({ course }) {
         label={
           course.subCategory !== ""
             ? course.subCategory
-            : "select a sub category"
+            : "Select a sub category"
         }
         variant="bordered"
         radius="small"

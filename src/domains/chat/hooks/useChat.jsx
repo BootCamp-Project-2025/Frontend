@@ -109,6 +109,14 @@ export const useChat = () => {
               });
             }
             break;
+          case "saved-message":
+            {
+              dispatch({
+                type: "UPDATE_ACTIVE_CHAT",
+                payload: { message: data.data.message },
+              });
+            }
+            break;
           case "new-chat":
             {
               dispatch({
