@@ -102,7 +102,7 @@ export default function CourseLesson({
     [addResource, lesson.resources, showToast]
   );
 
-  const { openWidget } = useUploader(handleFileUpload);
+  const { openWidget } = useUploader(handleFileUpload, "ltcrowd_preset_temp");
   const handleOpenWidget = useCallback(() => {
     openWidget();
   }, [openWidget]);
@@ -214,6 +214,7 @@ export default function CourseLesson({
         moduleIndex,
         lessonIndex,
         id: response.data.id,
+        resources: response.data.resources,
         type: "SAVE_LESSON",
       });
       showToast("The lesson was saved successfully", "success");
@@ -246,7 +247,7 @@ export default function CourseLesson({
     },
     [saveDescription]
   );
-
+  console.log("courseLesson", { modules, lesson });
   return (
     <SyllabusExpansionWrapper
       {...props}
