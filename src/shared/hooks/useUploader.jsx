@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function useUploader(onUpload) {
+export function useUploader(onUpload, preset) {
   const widgetRef = useRef(null);
 
   useEffect(() => {
@@ -11,13 +11,12 @@ export function useUploader(onUpload) {
 
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
-        cloudName: "deado6aup",
-        uploadPreset: "cloudi_test_temp",
+        cloudName: "ltcrowd-cdn",
+        uploadPreset: preset || "ltcrowd_preset",
         resourceType: "raw",
         clientAllowedFormats: ["pdf", "doc", "docx", "jpg", "jpeg", "png"],
         multiple: false,
         sources: ["local"],
-        folder: "temp",
         maxFileSize: 10000000,
       },
       (error, result) => {
@@ -27,7 +26,7 @@ export function useUploader(onUpload) {
         }
       }
     );
-  }, [onUpload]);
+  }, [onUpload, preset]);
 
   const openWidget = () => {
     widgetRef.current?.open();
