@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 export const CourseHeroSection = ({
   name = "Course Title",
-  teacher = "Teacher Name",
+  userName = "Teacher Name",
   language = "Language name",
   category = "Category",
   subCategory = "SubCategory",
@@ -33,7 +33,7 @@ export const CourseHeroSection = ({
             raters={raters}
             students={students}
           ></CourseDetailsStats>
-          <CourseDetailsCreatedBy teacher={teacher}></CourseDetailsCreatedBy>
+          <CourseDetailsCreatedBy teacher={userName}></CourseDetailsCreatedBy>
           <CourseDetailsLanguage language={language}></CourseDetailsLanguage>
           <Button className="flex md:hidden justify-center">Enroll In</Button>
         </div>
@@ -49,7 +49,7 @@ export const CourseHeroSection = ({
 };
 CourseHeroSection.propTypes = {
   name: PropTypes.string,
-  teacher: PropTypes.string,
+  userName: PropTypes.string,
   language: PropTypes.string,
   category: PropTypes.string,
   subCategory: PropTypes.string,

@@ -43,7 +43,10 @@ export const CourseDetailsModule = ({
 
                 {lesson.videoUrls && lesson.videoUrls.length > 0 && (
                   <div className="flex items-start gap-3 mt-2">
-                    <Icon icon={"youtube"} className={"mt-1"}></Icon>
+                    <Icon
+                      icon={"youtube"}
+                      className={"mt-1 h-[1.25rem] w-[1.25rem]"}
+                    ></Icon>
                     <ul>
                       {lesson.videoUrls.map((url, idx) => (
                         <li key={idx}>

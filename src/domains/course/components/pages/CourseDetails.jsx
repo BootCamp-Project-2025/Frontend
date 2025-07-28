@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Title } from "../../../../shared/components/atoms/Title";
@@ -9,10 +10,11 @@ import { CourseHeroSection } from "../organisms/CourseHeroSection";
 import { UseGet } from "../../api/UseGet";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { getRequest } from "../../../../shared/api/getRequest";
 
 export const CourseDetails = () => {
-  const [teacher, setTeacher] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [teacher, setTeacher] = useState(null);
 
   const navigate = useNavigate();
   const { showToast } = useToastContext();
@@ -25,28 +27,43 @@ export const CourseDetails = () => {
     error: errorModule,
   } = UseGet("courses", idCourse + "/modules");
 
+  const getTeacher = async () => {
+    if (!responseData || !responseData.data?.userId) {
+      setTeacher(null);
+      return;
+    }
+
+    const response = await getRequest(`/users/${responseData.data?.userId}`);
+
+    if (!response.success) {
+      setTeacher(null);
+    } else {
+      setTeacher(response.data);
+    }
+  };
+
   const fetchJSON = async (url) => {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Fetch failed (${url})`);
     return res.json();
   };
 
-  const getCourseTeacher = () => fetchJSON("/courseDetails/teacher.json");
-
   const getCourseReviews = () => fetchJSON("/courseDetails/reviews.json");
 
   useEffect(() => {
-    getCourseTeacher().then(setTeacher).catch(console.error);
+    getTeacher();
     getCourseReviews().then(setReviews).catch(console.error);
-  }, []);
+  }, [responseData]);
+
+  useEffect(() => {
+    if (error || errorModule) {
+      showToast("Failed to load course details", "error");
+      navigate("/courses");
+    }
+  }, [error, errorModule]);
 
   if (loading || loadingModule)
     return <p className="text-center py-10">Loading…</p>;
-
-  if (error || errorModule) {
-    showToast("Failed to load course details", "error");
-    navigate("/courses");
-  }
 
   function getMoreReview() {
     console.log("getting more reviews");
@@ -54,7 +71,7 @@ export const CourseDetails = () => {
 
   return responseData ? (
     <>
-      <CourseHeroSection {...responseData.data} />
+      <CourseHeroSection {...responseData.data} userName={teacher?.userName} />
 
       <div className="flex flex-col w-[80rem] max-w-[90%] m-auto py-10 gap-9">
         <Title size="lg" color="secondary">
@@ -67,15 +84,16 @@ export const CourseDetails = () => {
         </Title>
 
         <div className="flex flex-col border border-gray-400 border-b-0">
-          {responseDataModule.data.map((m) => (
-            <CourseDetailsModule key={m.id} {...m} />
+          {responseDataModule.data.map((m, idx) => (
+            <CourseDetailsModule key={idx} {...m} />
           ))}
         </div>
 
         <Title size="lg" color="secondary" id="teacherSection">
           Teacher
         </Title>
-        <CourseDetailsTeacher {...teacher} />
+
+        {teacher && <CourseDetailsTeacher {...teacher} />}
 
         <Title size="lg" color="secondary" id="reviewsSection">
           Reviews
