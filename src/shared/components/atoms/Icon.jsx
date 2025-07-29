@@ -53,6 +53,8 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
+import Uparrow from "../../../assets/uparrow.svg?react";
+import Downarrow from "../../../assets/downarrow.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -111,6 +113,8 @@ const icons = {
   article: ArticleIcon,
   quiz: QuizIcon,
   document: DocumentIcon,
+  uparrow: Uparrow,
+  downarrow: Downarrow,
 };
 
 export function Icon({ icon, className }) {

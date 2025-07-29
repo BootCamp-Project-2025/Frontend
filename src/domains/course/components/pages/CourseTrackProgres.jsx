@@ -6,15 +6,17 @@ import { ApiGet } from "../../api/ApiGet";
 import { ApiPut } from "../../api/ApiPut";
 
 export default function CourseTrackProgress({
-  enrollmentId = "621f4060-ddfa-4ddd-8b7d-b23480da0221",
+  enrollmentId = "53a42078-2b49-4d10-80bc-55f9c752103b",
 }) {
   /* const { enrollmentId } = useParams(); */
 
   const [modules, setModules] = useState([]);
+  const [originalModules, setOriginalModules] = useState([]);
   const [progressMap, setProgressMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,10 +29,14 @@ export default function CourseTrackProgress({
         if (apiError) {
           throw new Error("API error fetching course progress");
         }
-        console.log(data);
-        const { modules, studentTrackProgresses } = data.data;
-
-        console.log(modules, studentTrackProgresses);
+        const {
+          modules,
+          studentTrackProgresses,
+          progress: progressPercentage,
+        } = data.data;
+        setOriginalModules(modules);
+        console.log(modules, "estos son los modules");
+        setProgressPercentage(progressPercentage);
 
         const progressObj = studentTrackProgresses.reduce((acc, track) => {
           acc[track.props.lessonId] = {
@@ -43,11 +49,10 @@ export default function CourseTrackProgress({
           };
           return acc;
         }, {});
-        console.log(progressObj);
         setProgressMap(progressObj);
 
         const resources = modules.flatMap((mod) =>
-          mod.props.lessons.currentItems.map((lesson) => {
+          mod.props.lessons.currentItems.map((lesson, index) => {
             const videoUrls = lesson.props.videoUrls || [];
             const resourcesUrls = lesson.props.resources || [];
 
@@ -63,13 +68,15 @@ export default function CourseTrackProgress({
                   : resourcesUrls.some((r) => r.url.endsWith(".pdf"))
                     ? "pdf"
                     : "link",
+              globalIndex: index,
             };
           })
         );
-        console.log(resources);
         setModules(resources);
+
+        const initialIndex = getInitialResourceIndex(resources, progressObj);
+        setCurrentResourceIndex(initialIndex);
       } catch (err) {
-        console.error("Error fetching student track progress:", err);
         setError("Failed to load course progress.");
       } finally {
         setLoading(false);
@@ -80,6 +87,7 @@ export default function CourseTrackProgress({
   }, [enrollmentId]);
 
   const handleSelectResource = useCallback((index) => {
+    console.log("Seleccionado:", index, "modules length:", modules.length);
     setCurrentResourceIndex(index);
   }, []);
 
@@ -117,7 +125,6 @@ export default function CourseTrackProgress({
         );
 
         if (apiError) {
-          console.error("Error updating progress:", data);
           return;
         }
 
@@ -128,9 +135,7 @@ export default function CourseTrackProgress({
             ...payload,
           },
         }));
-      } catch (err) {
-        console.error("Error updating progress:", err);
-      }
+      } catch (err) {}
     },
     [progressMap]
   );
@@ -153,10 +158,33 @@ export default function CourseTrackProgress({
         onComplete={handleCompleteResource}
       />
       <CourseContentTrackBar
+        progress={progressPercentage}
+        originalModules={originalModules}
         resources={modules}
         currentIndex={currentResourceIndex}
         onSelectResource={handleSelectResource}
       />
     </div>
   );
+}
+
+function getInitialResourceIndex(resources, progressObj) {
+  if (!resources.length) return 0;
+
+  const completedIndices = resources
+    .map((res, index) => ({
+      index,
+      completed: progressObj[res.lessonId]?.completed,
+    }))
+    .filter((r) => r.completed)
+    .map((r) => r.index);
+
+  if (completedIndices.length === 0) {
+    return 0;
+  }
+
+  const lastCompletedIndex = completedIndices[completedIndices.length - 1];
+  const nextIndex = lastCompletedIndex + 1;
+
+  return nextIndex < resources.length ? nextIndex : lastCompletedIndex;
 }

@@ -1,16 +1,22 @@
-export default function CourseContentTrackBar({
-  content,
-  setCurrentContent,
-  progress,
-}) {
-  const handleClickOnContent = (resource) => {
-    setCurrentContent(resource);
-  };
+import ProgressBar from "../molecules/ProgressBar";
+import ContentBar from "../organisms/ContentBar";
 
+export default function CourseContentTrackBar({
+  progress,
+  originalModules,
+  resources,
+  currentIndex,
+  onSelectResource,
+}) {
   return (
-    <div className="flex flex-col">
-      <div>Here will be the progress bar</div>
-      <div>Here will be the modules</div>
+    <div className="flex flex-col w-120 border-l border-gray-200 bg-white">
+      <ProgressBar progress={progress} />
+      <ContentBar
+        originalModules={originalModules}
+        resources={resources}
+        currentIndex={currentIndex}
+        onSelectResource={onSelectResource}
+      />
     </div>
   );
 }
