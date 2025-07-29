@@ -20,19 +20,15 @@ describe("CourseCardList component", () => {
   const mockCourses = [
     {
       id: "1",
-      author: "Jane Doe",
       description: "Learn React",
       imageURL: "/react.jpg",
       name: "React Basics",
-      rating: "4.5",
     },
     {
       id: "2",
-      author: "John Smith",
       description: "Learn Vue",
       imageURL: "/vue.jpg",
       name: "Vue Fundamentals",
-      rating: "4.7",
     },
   ];
 
@@ -66,16 +62,6 @@ describe("CourseCardList component", () => {
         content.includes(course.description)
       );
       expect(descEl).toBeInTheDocument();
-
-      const authorEl = await screen.findByText((content) =>
-        content.includes(course.author)
-      );
-      expect(authorEl).toBeInTheDocument();
-
-      const ratingEl = await screen.findByText((content) =>
-        content.includes(course.rating.toString())
-      );
-      expect(ratingEl).toBeInTheDocument();
     }
   });
 });
