@@ -49,8 +49,8 @@ vi.mock("../../../../../src/shared/components/atoms/Button", () => ({
 
 describe("CourseHeroSection", () => {
   const props = {
-    title: "React Basics",
-    teacher: "Jane Smith",
+    name: "React Basics",
+    userName: "Jane Smith",
     language: "English",
     category: "Programming",
     subCategory: "Frontend",
@@ -60,9 +60,9 @@ describe("CourseHeroSection", () => {
     rating: 4.7,
   };
 
-  it("renders the title and course image", () => {
+  it("renders the name and course image", () => {
     render(<CourseHeroSection {...props} />);
-    expect(screen.getByText(props.title)).toBeInTheDocument();
+    expect(screen.getByText(props.name)).toBeInTheDocument();
     const images = screen.getAllByAltText("course image");
     expect(images.length).toBeGreaterThanOrEqual(1);
     images.forEach((img) => expect(img).toHaveAttribute("src"));
@@ -73,7 +73,7 @@ describe("CourseHeroSection", () => {
     expect(screen.getByTestId("category")).toHaveTextContent(
       `${props.category} - ${props.subCategory}`
     );
-    expect(screen.getByTestId("created-by")).toHaveTextContent(props.teacher);
+    expect(screen.getByTestId("created-by")).toHaveTextContent(props.userName);
     expect(screen.getByTestId("language")).toHaveTextContent(props.language);
     expect(screen.getByTestId("stats")).toHaveTextContent(
       `Rating: ${props.rating}, Raters: ${props.raters}, Students: ${props.students}`
