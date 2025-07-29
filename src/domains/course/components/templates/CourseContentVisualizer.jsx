@@ -8,23 +8,34 @@ export default function CourseContentVisualizer({ resource, onComplete }) {
     return <p className="p-4 text-gray-500">No resource</p>;
   }
 
+  console.log(resource);
   const { type, title, url, description } = resource;
 
   return (
-    <div className="flex flex-col gap-4 p-4 w-full">
-      <CourseTitleNavigation title={title} />
-
-      {type === "video" && url && (
-        <LessonPlayerRY
-          videoUrl={url}
-          resource={resource}
-          onComplete={onComplete}
+    <div className="flex flex-col gap-4 w-full">
+      <div>
+        <CourseTitleNavigation
+          title={resource.courseTitle}
+          moduleTitle={resource.modTitle}
+          lessonTitle={resource.title}
         />
-      )}
 
-      {type === "pdf" && url && (
-        <PdfVisualiser url={url} resource={resource} onComplete={onComplete} />
-      )}
+        {type === "video" && url && (
+          <LessonPlayerRY
+            videoUrl={url}
+            resource={resource}
+            onComplete={onComplete}
+          />
+        )}
+
+        {type === "pdf" && url && (
+          <PdfVisualiser
+            url={url}
+            resource={resource}
+            onComplete={onComplete}
+          />
+        )}
+      </div>
 
       <LessonExtraInfo description={description} resources={[]} />
     </div>

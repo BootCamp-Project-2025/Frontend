@@ -1,22 +1,5 @@
-import { useEffect, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-
 export default function PdfVisualiser({ url, resource, onComplete }) {
-  const [file, setFile] = useState(null);
-
-  useEffect(() => {
-    if (url && !url.startsWith("http")) {
-      fetch(url)
-        .then((res) => res.blob())
-        .then((blob) => setFile(blob));
-    } else {
-      setFile(url);
-    }
-  }, [url]);
-
-  const handleDocumentLoadSuccess = () => {
+  const handleLoad = () => {
     onComplete({
       ...resource,
       type: "pdf",
@@ -25,14 +8,13 @@ export default function PdfVisualiser({ url, resource, onComplete }) {
   };
 
   return (
-    <div className="flex justify-center">
-      <Document
-        file={file}
-        onLoadSuccess={handleDocumentLoadSuccess}
-        className="border rounded shadow"
-      >
-        <Page pageNumber={1} />
-      </Document>
+    <div className="flex justify-center w-full h-full">
+      <iframe
+        src={url}
+        className="w-full h-[80vh] border rounded"
+        title="PDF Viewer"
+        onLoad={handleLoad}
+      ></iframe>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function CourseContentTrackBar({
   onSelectResource,
 }) {
   return (
-    <div className="flex flex-col w-120 border-l border-gray-200 bg-white">
+    <div className="flex flex-col w-130 border-l border-gray-200 bg-white">
       <ProgressBar progress={progress} />
       <ContentBar
         originalModules={originalModules}

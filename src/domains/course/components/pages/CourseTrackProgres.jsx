@@ -34,6 +34,7 @@ export default function CourseTrackProgress({
           progress: progressPercentage,
         } = data.data;
 
+        console.log(modules);
         setOriginalModules(modules);
         setProgressPercentage(progressPercentage);
 
@@ -55,20 +56,24 @@ export default function CourseTrackProgress({
           mod.props.lessons.currentItems.flatMap((lesson) => {
             const videoResources = (lesson.props.videoUrls || []).map((v) => ({
               lessonId: lesson._id.value,
-              title: `${lesson.props.title.props.title} - Video`,
+              title: `${lesson.props.title.props.title}`,
               description: lesson.props.description.props.description,
               url: v.props.url,
               type: "video",
               globalIndex: globalCounter++,
+              modTitle: mod.props.title.props.title,
+              courseTitle: "Angular course",
             }));
 
             const fileResources = (lesson.props.resources || []).map((r) => ({
               lessonId: lesson._id.value,
-              title: `${lesson.props.title.props.title} - ${r.props.name}`,
+              title: `${lesson.props.title.props.title}`,
               description: lesson.props.description.props.description,
               url: r.props.url,
               type: r.props.url.endsWith(".pdf") ? "pdf" : "link",
               globalIndex: globalCounter++,
+              modTitle: mod.props.title.props.title,
+              courseTitle: "Angular course",
             }));
 
             return [...videoResources, ...fileResources];

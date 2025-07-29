@@ -25,8 +25,8 @@ export default function LessonPlayerRY({ videoUrl, resource, onComplete }) {
   };
 
   const options = {
-    height: "390",
-    width: "640",
+    height: "420",
+    width: "100%",
     playerVars: {
       autoplay: 1,
     },
