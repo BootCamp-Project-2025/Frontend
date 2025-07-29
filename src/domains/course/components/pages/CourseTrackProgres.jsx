@@ -26,16 +26,15 @@ export default function CourseTrackProgress({
           `student-track-progress/enrollment/${enrollmentId}`
         );
 
-        if (apiError) {
-          throw new Error("API error fetching course progress");
-        }
+        if (apiError) throw new Error("API error fetching course progress");
+
         const {
           modules,
           studentTrackProgresses,
           progress: progressPercentage,
         } = data.data;
+
         setOriginalModules(modules);
-        console.log(modules, "estos son los modules");
         setProgressPercentage(progressPercentage);
 
         const progressObj = studentTrackProgresses.reduce((acc, track) => {
@@ -51,27 +50,31 @@ export default function CourseTrackProgress({
         }, {});
         setProgressMap(progressObj);
 
+        let globalCounter = 0;
         const resources = modules.flatMap((mod) =>
-          mod.props.lessons.currentItems.map((lesson, index) => {
-            const videoUrls = lesson.props.videoUrls || [];
-            const resourcesUrls = lesson.props.resources || [];
-
-            return {
+          mod.props.lessons.currentItems.flatMap((lesson) => {
+            const videoResources = (lesson.props.videoUrls || []).map((v) => ({
               lessonId: lesson._id.value,
-              title: lesson.props.title.props.title,
+              title: `${lesson.props.title.props.title} - Video`,
               description: lesson.props.description.props.description,
-              videoUrls,
-              resources: resourcesUrls,
-              type:
-                videoUrls.length > 0
-                  ? "video"
-                  : resourcesUrls.some((r) => r.url.endsWith(".pdf"))
-                    ? "pdf"
-                    : "link",
-              globalIndex: index,
-            };
+              url: v.props.url,
+              type: "video",
+              globalIndex: globalCounter++,
+            }));
+
+            const fileResources = (lesson.props.resources || []).map((r) => ({
+              lessonId: lesson._id.value,
+              title: `${lesson.props.title.props.title} - ${r.props.name}`,
+              description: lesson.props.description.props.description,
+              url: r.props.url,
+              type: r.props.url.endsWith(".pdf") ? "pdf" : "link",
+              globalIndex: globalCounter++,
+            }));
+
+            return [...videoResources, ...fileResources];
           })
         );
+
         setModules(resources);
 
         const initialIndex = getInitialResourceIndex(resources, progressObj);
@@ -87,7 +90,6 @@ export default function CourseTrackProgress({
   }, [enrollmentId]);
 
   const handleSelectResource = useCallback((index) => {
-    console.log("Seleccionado:", index, "modules length:", modules.length);
     setCurrentResourceIndex(index);
   }, []);
 
@@ -105,7 +107,7 @@ export default function CourseTrackProgress({
             resource.type === "video"
               ? [
                   {
-                    url: resource.videoUrls?.[0] || resource.url,
+                    url: resource.url,
                     watchedSeconds: resource.duration || 0,
                     completed: true,
                   },
@@ -119,14 +121,12 @@ export default function CourseTrackProgress({
           completedAt: new Date().toISOString(),
         };
 
-        const { data, error: apiError } = await ApiPut(
+        const { error: apiError } = await ApiPut(
           `/student-track-progress/${progress.id}`,
           payload
         );
 
-        if (apiError) {
-          return;
-        }
+        if (apiError) return;
 
         setProgressMap((prev) => ({
           ...prev,
@@ -145,6 +145,10 @@ export default function CourseTrackProgress({
     [modules, currentResourceIndex]
   );
 
+  const modulesWithResources = useMemo(() => {
+    return mapModulesWithCompletion(originalModules, modules);
+  }, [originalModules, modules]);
+
   if (loading)
     return <p className="text-center mt-4">Loading course content...</p>;
   if (error) return <p className="text-center text-red-500 mt-4">{error}</p>;
@@ -159,7 +163,7 @@ export default function CourseTrackProgress({
       />
       <CourseContentTrackBar
         progress={progressPercentage}
-        originalModules={originalModules}
+        originalModules={modulesWithResources}
         resources={modules}
         currentIndex={currentResourceIndex}
         onSelectResource={handleSelectResource}
@@ -172,10 +176,15 @@ function getInitialResourceIndex(resources, progressObj) {
   if (!resources.length) return 0;
 
   const completedIndices = resources
-    .map((res, index) => ({
-      index,
-      completed: progressObj[res.lessonId]?.completed,
-    }))
+    .map((res, index) => {
+      const prog = progressObj[res.lessonId];
+      const isCompleted =
+        res.type === "video"
+          ? prog?.videoProgresses?.some((v) => v.url === res.url && v.completed)
+          : prog?.resourcesCompleted?.some((r) => r.url === res.url);
+
+      return { index, completed: isCompleted };
+    })
     .filter((r) => r.completed)
     .map((r) => r.index);
 
@@ -187,4 +196,26 @@ function getInitialResourceIndex(resources, progressObj) {
   const nextIndex = lastCompletedIndex + 1;
 
   return nextIndex < resources.length ? nextIndex : lastCompletedIndex;
+}
+
+function mapModulesWithCompletion(originalModules, flatResources) {
+  return originalModules.map((module) => {
+    const lessons = module.props.lessons.currentItems.map((lesson) => {
+      const resourcesForLesson = flatResources.filter(
+        (res) => res.lessonId === lesson._id.value
+      );
+
+      return {
+        id: lesson._id.value,
+        title: lesson.props.title.props.title,
+        completed: resourcesForLesson.every((res) => res.type === "video"),
+        resources: resourcesForLesson,
+      };
+    });
+
+    return {
+      title: module.props.title.props.title,
+      lessons,
+    };
+  });
 }

@@ -22,7 +22,10 @@ export default function LessonGroup({
         <span>{lesson.title}</span>
         <span className="flex items-center gap-2">
           {lesson.completed && (
-            <Icon icon={"checkSyllabus"} className="text-green-500" />
+            <Icon
+              icon={"checkSyllabus"}
+              className="text-green-500 w-5 h-5 border-green-500"
+            />
           )}
         </span>
       </div>
@@ -33,7 +36,6 @@ export default function LessonGroup({
             <ResourceItem
               key={res.lessonId + res.title}
               resource={res}
-              globalIndex={res.globalIndex}
               isActive={currentIndex === res.globalIndex}
               onSelectResource={onSelectResource}
             />

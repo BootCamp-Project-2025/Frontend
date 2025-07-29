@@ -17,12 +17,10 @@ export default function ModuleGroup({
   return (
     <details open={isOpen} onToggle={handleToggle}>
       <summary className="flex justify-between items-center p-2 cursor-pointer font-semibold text-sm bg-gray-100 border-b">
-        <button type="button" className="mr-2">
-          <Icon
-            icon={isOpen ? "uparrow" : "downarrow"}
-            className="w-6 h-6 text-gray-700"
-          />
-        </button>
+        <Icon
+          icon={isOpen ? "uparrow" : "downarrow"}
+          className="w-6 h-6 text-gray-700 mr-2"
+        />
         <span>{`Module ${moduleIndex + 1}: ${module.title}`}</span>
         <span>{module.lessons.length} Lessons</span>
       </summary>

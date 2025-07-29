@@ -5,39 +5,28 @@ import LessonExtraInfo from "../organisms/LessonExtraInfo";
 
 export default function CourseContentVisualizer({ resource, onComplete }) {
   if (!resource) {
-    return <p className="p-4 text-gray-500">No resource selected</p>;
+    return <p className="p-4 text-gray-500">No resource</p>;
   }
 
-  const { type, title, videoUrls = [], resources = [], description } = resource;
-
-  const mainUrl =
-    type === "video"
-      ? videoUrls[0]
-      : type === "pdf"
-        ? resources.find((r) => r.url.endsWith(".pdf"))?.url
-        : null;
+  const { type, title, url, description } = resource;
 
   return (
     <div className="flex flex-col gap-4 p-4 w-full">
       <CourseTitleNavigation title={title} />
 
-      {type === "video" && mainUrl && (
+      {type === "video" && url && (
         <LessonPlayerRY
-          videoUrl={mainUrl}
+          videoUrl={url}
           resource={resource}
           onComplete={onComplete}
         />
       )}
 
-      {type === "pdf" && mainUrl && (
-        <PdfVisualiser
-          url={mainUrl}
-          resource={resource}
-          onComplete={onComplete}
-        />
+      {type === "pdf" && url && (
+        <PdfVisualiser url={url} resource={resource} onComplete={onComplete} />
       )}
 
-      <LessonExtraInfo description={description} resources={resources} />
+      <LessonExtraInfo description={description} resources={[]} />
     </div>
   );
 }
