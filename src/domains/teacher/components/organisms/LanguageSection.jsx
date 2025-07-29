@@ -6,7 +6,7 @@ import DeleteCardPopup from "../atoms/DeleteCardPopup";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { LanguageCard } from "../molecules/LanguageCard";
 import { LanguageForm } from "./LanguageForm";
-import { fetchFreelancerData } from "../../../../shared/api/axios/fetchFreelancerData";
+import { fetchData } from "../../../../shared/api/axios/fetchData";
 import { getFreelancerResource } from "../../../../shared/api/freelancers/getFreelancerResource";
 import { useFreelancerResources } from "../../../../shared/hooks/useFreelancerResources";
 import PropTypes from "prop-types";
@@ -17,7 +17,7 @@ export const LanguageSection = ({ freelancerId }) => {
   const { openPopup, closePopup } = usePopup();
 
   useEffect(() => {
-    fetchFreelancerData({
+    fetchData({
       method: getFreelancerResource,
       args: [freelancerId, "languages"],
       setState: setRecordList,

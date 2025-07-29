@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import RequestCardInfo from "../molecules/RequestCardInfo";
 import RequestCardButtons from "../molecules/RequestCardButtons";
-import { useContext } from "react";
 
 export default function RequestCard({ deleteRequest, request }) {
-  const handleDelete = useContext(() => deleteRequest(request.id), []);
+  const handleDelete = () => deleteRequest(request.id);
   return (
     <div className="flex justify-between gap-6 border-1 border-gray-300 p-6 shadow-[0_4px_4px_rgba(0,0,0,0.30)] my-6">
       <RequestCardInfo

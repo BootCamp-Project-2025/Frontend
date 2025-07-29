@@ -10,9 +10,9 @@ vi.mock("../../../../src/shared/hooks/usePopup.jsx", () => ({
   }),
 }));
 
-// Mock de fetchFreelancerData
-vi.mock("../../../../src/shared/api/axios/fetchFreelancerData.js", () => ({
-  fetchFreelancerData: ({ setState }) => {
+// Mock de fetchData
+vi.mock("../../../../src/shared/api/axios/fetchData.js", () => ({
+  fetchData: ({ setState }) => {
     setState([
       {
         id: "cert-1",

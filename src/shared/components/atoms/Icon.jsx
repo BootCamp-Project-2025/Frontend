@@ -25,6 +25,7 @@ import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
+import CheckSyllabusIcon from "../../../assets/checkSyllabus.svg?react";
 import Search from "../../../assets/search.svg?react";
 import msgDelivered from "../../../assets/chat-icons/msg-delivered.svg?react";
 import msgError from "../../../assets/chat-icons/msg-error.svg?react";
@@ -33,6 +34,7 @@ import msgSent from "../../../assets/chat-icons/msg-sent.svg?react";
 import userOffline from "../../../assets/chat-icons/user-offline.svg?react";
 import userOnline from "../../../assets/chat-icons/user-online.svg?react";
 import newMessage from "../../../assets/chat-icons/new-message.svg?react";
+import Send from "../../../assets/chat-icons/send.svg?react";
 import CheckCircle from "../../../assets/checkCircle.svg?react";
 import ErrorCircle from "../../../assets/errorCircle.svg?react";
 import InfoCircle from "../../../assets/infoCircle.svg?react";
@@ -44,7 +46,10 @@ import CoursesIcon from "../../../assets/courses.svg?react";
 import AnalyticsIcon from "../../../assets/analytics.svg?react";
 import AssignmentIcon from "../../../assets/assignment.svg?react";
 import MoreVert from "../../../assets/moreVert.svg?react";
-
+import Facebook from "../../../assets/facebook.svg?react";
+import Instagram from "../../../assets/instagram.svg?react";
+import Linkedin from "../../../assets/linkedin.svg?react";
+import Youtube from "../../../assets/youtube.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -75,6 +80,7 @@ const icons = {
   dashboard: DashboardIcon,
   teacher: TeacherIcon,
   check: CheckIcon,
+  checkSyllabus: CheckSyllabusIcon,
   search: Search,
   msgDelivered: msgDelivered,
   msgError: msgError,
@@ -94,6 +100,11 @@ const icons = {
   analytics: AnalyticsIcon,
   assignment: AssignmentIcon,
   moreVert: MoreVert,
+  send: Send,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  youtube: Youtube,
 };
 
 export function Icon({ icon, className }) {

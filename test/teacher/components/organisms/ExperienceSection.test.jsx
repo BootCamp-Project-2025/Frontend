@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, vi, expect } from "vitest";
 import { ExperienceSection } from "../../../../src/domains/teacher/components/organisms/ExperienceSection";
 
-vi.mock("../../../../shared/api/axios/fetchFreelancerData", () => ({
-  fetchFreelancerData: ({ setState }) => {
+vi.mock("../../../../shared/api/axios/fetchData", () => ({
+  fetchData: ({ setState }) => {
     setState([
       {
         id: "1",

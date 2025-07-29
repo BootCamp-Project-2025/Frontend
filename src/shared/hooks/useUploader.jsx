@@ -14,7 +14,7 @@ export function useUploader(onUpload) {
         cloudName: "ltcrowd-cdn",
         uploadPreset: "ltcrowd_preset",
         resourceType: "raw",
-        clientAllowedFormats: ["pdf", "doc", "docx"],
+        clientAllowedFormats: ["pdf", "doc", "docx", "png", "jpg"],
         multiple: false,
       },
       (error, result) => {
