@@ -10,9 +10,7 @@ describe("CourseDetailsModule", () => {
   ];
 
   it("should render title and lesson count", () => {
-    render(
-      <CourseDetailsModule title="Module A" lessons={mockLessons} />
-    );
+    render(<CourseDetailsModule title="Module A" lessons={mockLessons} />);
     expect(
       screen.getByText((content, element) => {
         return element?.textContent === "Module A";
@@ -24,18 +22,14 @@ describe("CourseDetailsModule", () => {
   });
 
   it("should not display lessons initially", () => {
-    render(
-      <CourseDetailsModule title="Module A" lessons={mockLessons} />
-    );
+    render(<CourseDetailsModule title="Module A" lessons={mockLessons} />);
     mockLessons.forEach((lesson) => {
       expect(screen.queryByText(lesson)).not.toBeInTheDocument();
     });
   });
 
   it("should display lessons after clicking the toggle button", () => {
-    render(
-      <CourseDetailsModule title="Module A" lessons={mockLessons} />
-    );
+    render(<CourseDetailsModule title="Module A" lessons={mockLessons} />);
     const button = screen.getByRole("button");
     fireEvent.click(button);
     screen.debug();
@@ -45,9 +39,7 @@ describe("CourseDetailsModule", () => {
   });
 
   it("should hide lessons after clicking again (toggle)", () => {
-    render(
-      <CourseDetailsModule title="Module A" lessons={mockLessons} />
-    );
+    render(<CourseDetailsModule title="Module A" lessons={mockLessons} />);
     const button = screen.getByRole("button");
 
     fireEvent.click(button);
