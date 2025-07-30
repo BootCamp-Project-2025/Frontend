@@ -3,7 +3,11 @@ import PdfVisualiser from "../molecules/PdfVisualiser";
 import CourseTitleNavigation from "../organisms/CourseTitleNavigation";
 import LessonExtraInfo from "../organisms/LessonExtraInfo";
 
-export default function CourseContentVisualizer({ resource, onComplete }) {
+export default function CourseContentVisualizer({
+  courseName,
+  resource,
+  onComplete,
+}) {
   if (!resource) {
     return <p className="p-4 text-gray-500">No resource</p>;
   }
@@ -15,7 +19,7 @@ export default function CourseContentVisualizer({ resource, onComplete }) {
     <div className="flex flex-col gap-4 w-full">
       <div>
         <CourseTitleNavigation
-          title={resource.courseTitle}
+          title={courseName}
           moduleTitle={resource.modTitle}
           lessonTitle={resource.title}
         />

@@ -11,6 +11,7 @@ export default function CourseTrackProgress({
   /* const { enrollmentId } = useParams(); */
 
   const [modules, setModules] = useState([]);
+  const [courseName, setCourseName] = useState();
   const [originalModules, setOriginalModules] = useState([]);
   const [progressMap, setProgressMap] = useState({});
   const [loading, setLoading] = useState(true);
@@ -29,12 +30,14 @@ export default function CourseTrackProgress({
         if (apiError) throw new Error("API error fetching course progress");
 
         const {
+          courseName,
           modules,
           studentTrackProgresses,
           progress: progressPercentage,
         } = data.data;
 
         console.log(modules);
+        setCourseName(courseName);
         setOriginalModules(modules);
         setProgressPercentage(progressPercentage);
 
@@ -62,7 +65,6 @@ export default function CourseTrackProgress({
               type: "video",
               globalIndex: globalCounter++,
               modTitle: mod.props.title.props.title,
-              courseTitle: "Angular course",
             }));
 
             const fileResources = (lesson.props.resources || []).map((r) => ({
@@ -73,7 +75,6 @@ export default function CourseTrackProgress({
               type: r.props.url.endsWith(".pdf") ? "pdf" : "link",
               globalIndex: globalCounter++,
               modTitle: mod.props.title.props.title,
-              courseTitle: "Angular course",
             }));
 
             return [...videoResources, ...fileResources];
@@ -117,7 +118,7 @@ export default function CourseTrackProgress({
                     completed: true,
                   },
                 ]
-              : progress.videoProgresses,
+              : [progress.videoProgresses[0].props],
           resourcesCompleted:
             resource.type !== "video"
               ? [...progress.resourcesCompleted, { url: resource.url }]
@@ -126,6 +127,7 @@ export default function CourseTrackProgress({
           completedAt: new Date().toISOString(),
         };
 
+        console.log(progress.id, payload, "data sent");
         const { error: apiError } = await ApiPut(
           `/student-track-progress/${progress.id}`,
           payload
@@ -163,6 +165,7 @@ export default function CourseTrackProgress({
   return (
     <div className="flex flex-row w-full">
       <CourseContentVisualizer
+        courseName={courseName}
         resource={currentResource}
         onComplete={handleCompleteResource}
       />
