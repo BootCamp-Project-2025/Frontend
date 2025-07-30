@@ -9,7 +9,6 @@ import PostForm from "./PostForm";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 
 /**
- *
  * @param {*} post Data of the post
  * @param {*} edit Edit function in format edit(type, data)
  * @param {*} erase Erase function in format erase(type, id)
@@ -38,8 +37,13 @@ export default function P2PPostCard({ post, edit, erase }) {
 
   return (
     <div className="p2pCard-template p2pCard-shadow-default">
-      <P2PCardButtons edit={handleEdit} erase={handleErase} />
-      <Title color="default">{post.title}</Title>
+      <div className="flex justify-between">
+        <Title color="default">{post.title}</Title>
+        <P2PCardButtons
+          edit={edit ? handleEdit : undefined}
+          erase={erase ? handleErase : undefined}
+        />
+      </div>
       <P2PPostDescription text={post.description} />
       <P2PPostResource url={post.url} />
     </div>
