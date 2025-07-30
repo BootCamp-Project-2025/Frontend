@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 
 /**
- * Renders buttons that have a function, if a button doesnt have a function it doesnt render
+ * Renders buttons that have a function, if a button was not send a function it will not render
  * @param edit Edit function, shows as a pencil
  * @param erase Erase function, shows as a trash can
  * @param complete Complete function, shows as a check
