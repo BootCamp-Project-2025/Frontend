@@ -3,9 +3,9 @@ import { Icon } from "../../../../shared/components/atoms/Icon";
 
 /**
  * Renders buttons that have a function, if a button doesnt have a function it doesnt render
- * @param {*} edit Edit function, shows as a pencil
- * @param {*} erase Erase function, shows as a trash can
- * @param {*} complete Complete function, shows as a check
+ * @param edit Edit function, shows as a pencil
+ * @param erase Erase function, shows as a trash can
+ * @param complete Complete function, shows as a check
  */
 export default function P2PCardButtons({ edit, erase, complete }) {
   return (
