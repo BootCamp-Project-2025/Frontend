@@ -7,7 +7,14 @@ import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
 import { useForm } from "react-hook-form";
 import { isAvalidateUrl } from "../../utils/Validations";
 
-export default function PostForm({ saveOrEdit, closePopup, post, type }) {
+/**
+ *
+ * @param {*} saveOrEdit Function that is executed on submit of the form. Can be a save function to create an new post or a edit function to update an alredy existing post
+ * @param {*} closePopup Function to close the pop up that the form was design for
+ * @param {*} post Data of the post. Optional field, passed only if you intent to edit a post
+ * @returns
+ */
+export default function PostForm({ saveOrEdit, closePopup, post }) {
   const description = useRef("");
   const [descriptionError, setDescriptionError] = useState("");
   const [error, setError] = useState("");
@@ -146,6 +153,6 @@ PostForm.propTypes = {
     url: PropTypes.string.isRequired,
     creationDate: PropTypes.instanceOf(Date).isRequired,
   }).isRequired,
-  saveOrEdit: PropTypes.func,
-  closePopup: PropTypes.func,
+  saveOrEdit: PropTypes.func.isRequired,
+  closePopup: PropTypes.func.isRequired,
 };
