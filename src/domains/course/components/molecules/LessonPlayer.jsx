@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import YouTube from "react-youtube";
+import PropTypes from "prop-types";
 
 export default function LessonPlayerRY({ videoUrl, resource, onComplete }) {
   const playerRef = useRef(null);
@@ -59,3 +60,25 @@ function extractYouTubeVideoId(url) {
     return null;
   }
 }
+
+export const ResourcePropType = PropTypes.shape({
+  lessonId: PropTypes.string.isRequired,
+  lessonTitle: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  url: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["video", "pdf", "link"]).isRequired,
+  globalIndex: PropTypes.number.isRequired,
+  moduleTitle: PropTypes.string,
+  trackId: PropTypes.string.isRequired,
+  enrollmentId: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  watchedSeconds: PropTypes.number,
+  name: PropTypes.string,
+  duration: PropTypes.number,
+});
+
+LessonPlayerRY.propTypes = {
+  videoUrl: PropTypes.string.isRequired,
+  resource: ResourcePropType.isRequired,
+  onComplete: PropTypes.func.isRequired,
+};

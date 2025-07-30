@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function LessonExtraInfo({ description, resources }) {
   return (
     <div className="flex flex-col gap-4">
@@ -30,3 +32,13 @@ export default function LessonExtraInfo({ description, resources }) {
     </div>
   );
 }
+
+LessonExtraInfo.propTypes = {
+  description: PropTypes.string,
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
+};

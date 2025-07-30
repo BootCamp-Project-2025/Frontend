@@ -1,4 +1,6 @@
+import { LessonPropType } from "./LessonGroup";
 import ModuleGroup from "./ModulesGroup";
+import PropTypes from "prop-types";
 
 export default function ContentBar({
   originalModules,
@@ -19,3 +21,22 @@ export default function ContentBar({
     </div>
   );
 }
+
+ContentBar.propTypes = {
+  originalModules: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      lessons: PropTypes.arrayOf(LessonPropType).isRequired,
+    })
+  ).isRequired,
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      lessonId: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  currentIndex: PropTypes.number.isRequired,
+  onSelectResource: PropTypes.func.isRequired,
+};

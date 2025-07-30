@@ -1,6 +1,8 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import ResourceItem from "../molecules/ResourceItem";
 import { Icon } from "../../../../shared/components/atoms/Icon";
+import { ResourcePropType } from "../molecules/ResourceItem";
 
 export default function LessonGroup({
   lesson,
@@ -9,7 +11,6 @@ export default function LessonGroup({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  /* console.log(lesson, "this is the lesson"); */
   return (
     <li>
       <div
@@ -46,3 +47,15 @@ export default function LessonGroup({
     </li>
   );
 }
+
+export const LessonPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  resources: PropTypes.arrayOf(ResourcePropType).isRequired,
+});
+LessonGroup.propTypes = {
+  lesson: LessonPropType.isRequired,
+  currentIndex: PropTypes.number.isRequired,
+  onSelectResource: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 
 export default function ResourceItem({ resource, isActive, onSelectResource }) {
@@ -91,3 +92,19 @@ export default function ResourceItem({ resource, isActive, onSelectResource }) {
     </li>
   );
 }
+
+export const ResourcePropType = PropTypes.shape({
+  lessonId: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  globalIndex: PropTypes.number.isRequired,
+});
+
+ResourceItem.propTypes = {
+  resource: ResourcePropType.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onSelectResource: PropTypes.func.isRequired,
+};

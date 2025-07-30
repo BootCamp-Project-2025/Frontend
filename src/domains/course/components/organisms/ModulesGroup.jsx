@@ -1,6 +1,8 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import LessonGroup from "./LessonGroup";
 import { Icon } from "../../../../shared/components/atoms/Icon";
+import { LessonPropType } from "./LessonGroup";
 
 export default function ModuleGroup({
   module,
@@ -42,3 +44,13 @@ export default function ModuleGroup({
     </details>
   );
 }
+
+ModulesGroup.propTypes = {
+  module: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    lessons: PropTypes.arrayOf(LessonPropType).isRequired,
+  }).isRequired,
+  moduleIndex: PropTypes.number.isRequired,
+  currentIndex: PropTypes.number.isRequired,
+  onSelectResource: PropTypes.func.isRequired,
+};

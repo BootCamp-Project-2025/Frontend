@@ -1,5 +1,6 @@
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function CourseTitleNavigation({
   title,
@@ -27,3 +28,9 @@ export default function CourseTitleNavigation({
     </div>
   );
 }
+
+CourseTitleNavigation.propTypes = {
+  title: PropTypes.string.isRequired,
+  moduleTitle: PropTypes.string,
+  lessonTitle: PropTypes.string.isRequired,
+};

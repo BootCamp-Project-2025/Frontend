@@ -1,3 +1,6 @@
+import PropTypes from "prop-types";
+import { ResourcePropType } from "./LessonPlayer";
+
 export default function PdfVisualiser({ url, resource, onComplete }) {
   const handleLoad = () => {
     onComplete({
@@ -18,3 +21,9 @@ export default function PdfVisualiser({ url, resource, onComplete }) {
     </div>
   );
 }
+
+PdfVisualiser.propTypes = {
+  url: PropTypes.string.isRequired,
+  resource: ResourcePropType.isRequired,
+  onComplete: PropTypes.func.isRequired,
+};

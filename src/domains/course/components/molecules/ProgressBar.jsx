@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function ProgressBar({ progress }) {
   const clampedProgress = Math.min(Math.max(progress, 0), 1);
 
@@ -15,3 +17,7 @@ export default function ProgressBar({ progress }) {
     </div>
   );
 }
+
+ProgressBar.propTypes = {
+  progress: PropTypes.number.isRequired, // Espera un número entre 0 y 1
+};
