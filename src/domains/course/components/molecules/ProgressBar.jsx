@@ -19,5 +19,5 @@ export default function ProgressBar({ progress }) {
 }
 
 ProgressBar.propTypes = {
-  progress: PropTypes.number.isRequired, // Espera un número entre 0 y 1
+  progress: PropTypes.number,
 };

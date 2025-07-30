@@ -45,7 +45,7 @@ export default function ModuleGroup({
   );
 }
 
-ModulesGroup.propTypes = {
+ModuleGroup.propTypes = {
   module: PropTypes.shape({
     title: PropTypes.string.isRequired,
     lessons: PropTypes.arrayOf(LessonPropType).isRequired,
