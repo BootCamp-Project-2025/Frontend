@@ -38,7 +38,6 @@ export const CourseCardList = () => {
                   description={course.description}
                   imageURL={course.imgSrc}
                   name={course.name}
-                  rating={course.rating}
                 ></CourseCard>
               );
             })}
