@@ -8,6 +8,7 @@ export default function CourseContentTrackBar({
   currentIndex,
   onSelectResource,
 }) {
+  console.log(originalModules);
   return (
     <div className="flex flex-col w-130 border-l border-gray-200 bg-white">
       <ProgressBar progress={progress} />

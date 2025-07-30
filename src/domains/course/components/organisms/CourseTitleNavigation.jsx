@@ -19,7 +19,7 @@ export default function CourseTitleNavigation({
         </button>
       </div>
       <div className=" flex flex-col">
-        <spam className="text-white text-3xl font-extrabold">{title}</spam>
+        <span className="text-white text-3xl font-extrabold">{title}</span>
         <span className="text-blue-400 text-base mt-1">
           {moduleTitle} &gt; {lessonTitle}
         </span>

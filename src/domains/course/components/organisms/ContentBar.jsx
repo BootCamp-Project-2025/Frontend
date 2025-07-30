@@ -9,7 +9,7 @@ export default function ContentBar({
     <div className="flex flex-col overflow-y-auto max-h-[calc(100vh-2rem)]">
       {originalModules.map((module, moduleIndex) => (
         <ModuleGroup
-          key={module.id}
+          key={moduleIndex}
           module={module}
           moduleIndex={moduleIndex}
           currentIndex={currentIndex}

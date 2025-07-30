@@ -5,14 +5,14 @@ import CourseContentVisualizer from "../templates/CourseContentVisualizer";
 import { ApiGet } from "../../api/ApiGet";
 import { ApiPut } from "../../api/ApiPut";
 
-export default function CourseTrackProgress({
-  enrollmentId = "53a42078-2b49-4d10-80bc-55f9c752103b",
-}) {
+export default function CourseTrackProgress() {
+  const { enrollmentId } = useParams();
   const [courseData, setCourseData] = useState(null);
   const [flatResources, setFlatResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
+  const [progress, setProgress] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,10 +25,8 @@ export default function CourseTrackProgress({
         if (apiError) throw new Error("API error fetching course progress");
 
         const courseInfo = data.data;
-        console.log(courseInfo, "esta es la info");
         setCourseData(courseInfo);
-
-        // Crear lista plana de recursos con toda la información necesaria
+        setProgress(courseInfo.progress);
         let globalCounter = 0;
         const resources = courseInfo.modules.flatMap((module) =>
           module.lessons.flatMap((lesson) => {
@@ -72,8 +70,7 @@ export default function CourseTrackProgress({
         );
 
         setFlatResources(resources);
-
-        // Encontrar el índice inicial (primer recurso no completado)
+        console.log(resources);
         const initialIndex = resources.findIndex((r) => !r.completed) || 0;
         setCurrentResourceIndex(initialIndex);
       } catch (err) {
@@ -96,14 +93,12 @@ export default function CourseTrackProgress({
       if (!courseData) return;
 
       try {
-        // Encontrar la lección actual
         const currentLesson = courseData.modules
           .flatMap((m) => m.lessons)
           .find((l) => l.id === resource.lessonId);
 
         if (!currentLesson) return;
 
-        // Preparar el payload según el tipo de recurso
         const updatedVideoProgresses = [
           ...currentLesson.progress.videoProgresses,
         ];
@@ -135,7 +130,6 @@ export default function CourseTrackProgress({
           }
         }
 
-        // Verificar si todos los recursos están completos
         const allVideosCompleted = currentLesson.videos.every((v) =>
           updatedVideoProgresses.some((vp) => vp.url === v.url && vp.completed)
         );
@@ -165,7 +159,6 @@ export default function CourseTrackProgress({
           return;
         }
 
-        // Actualizar el estado local
         const updatedCourseData = { ...courseData };
         const moduleIndex = updatedCourseData.modules.findIndex((m) =>
           m.lessons.some((l) => l.id === resource.lessonId)
@@ -184,7 +177,6 @@ export default function CourseTrackProgress({
             : currentLesson.progress.completedAt,
         };
 
-        // Recalcular el progreso general
         const totalLessons = updatedCourseData.modules.reduce(
           (sum, m) => sum + m.lessons.length,
           0
@@ -198,7 +190,6 @@ export default function CourseTrackProgress({
 
         setCourseData(updatedCourseData);
 
-        // Actualizar la lista plana
         const updatedResources = flatResources.map((r) => {
           if (r.lessonId === resource.lessonId && r.url === resource.url) {
             return { ...r, completed: true };
@@ -218,7 +209,6 @@ export default function CourseTrackProgress({
     [flatResources, currentResourceIndex]
   );
 
-  // Preparar los módulos para el TrackBar
   const modulesWithResources = useMemo(() => {
     if (!courseData) return [];
 
@@ -247,11 +237,11 @@ export default function CourseTrackProgress({
         onComplete={handleCompleteResource}
       />
       <CourseContentTrackBar
-        progress={courseData.progress * 100} // Convertir a porcentaje
         originalModules={modulesWithResources}
         resources={flatResources}
         currentIndex={currentResourceIndex}
         onSelectResource={handleSelectResource}
+        progress={progress}
       />
     </div>
   );

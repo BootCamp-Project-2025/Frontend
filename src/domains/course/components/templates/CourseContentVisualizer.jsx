@@ -12,16 +12,15 @@ export default function CourseContentVisualizer({
     return <p className="p-4 text-gray-500">No resource</p>;
   }
 
-  console.log(resource);
-  const { type, title, url, description } = resource;
+  const { type, url, description } = resource;
 
   return (
     <div className="flex flex-col gap-4 w-full">
       <div>
         <CourseTitleNavigation
           title={courseName}
-          moduleTitle={resource.modTitle}
-          lessonTitle={resource.title}
+          moduleTitle={resource.moduleTitle}
+          lessonTitle={resource.lessonTitle}
         />
 
         {type === "video" && url && (

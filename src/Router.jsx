@@ -119,7 +119,10 @@ export default function Router() {
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
-        <Route path="course-track-progres" element={<CourseTrackProgress />} />
+        <Route
+          path="course-track-progres/:enrollmentId"
+          element={<CourseTrackProgress />}
+        />
 
         <Route
           path="*"

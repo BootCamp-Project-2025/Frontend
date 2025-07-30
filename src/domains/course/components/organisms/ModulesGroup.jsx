@@ -8,7 +8,7 @@ export default function ModuleGroup({
   currentIndex,
   onSelectResource,
 }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = (e) => {
     setIsOpen(e.target.open);
@@ -17,12 +17,16 @@ export default function ModuleGroup({
   return (
     <details open={isOpen} onToggle={handleToggle}>
       <summary className="flex justify-between items-center p-2 cursor-pointer font-semibold text-sm bg-gray-100 border-b">
-        <Icon
-          icon={isOpen ? "uparrow" : "downarrow"}
-          className="w-6 h-6 text-gray-700 mr-2"
-        />
-        <span>{`Module ${moduleIndex + 1}: ${module.title}`}</span>
-        <span>{module.lessons.length} Lessons</span>
+        <div className="flex flex-row">
+          <Icon
+            icon={isOpen ? "uparrow" : "downarrow"}
+            className="w-6 h-6 text-gray-700 mr-2"
+          />
+          <span>{`Module ${moduleIndex + 1}: ${module.title}`}</span>
+        </div>
+        <span className="font-light text-sm">
+          {module.lessons.length} Lessons
+        </span>
       </summary>
 
       <ul className="px-4">
