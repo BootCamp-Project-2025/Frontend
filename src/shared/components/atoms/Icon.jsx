@@ -50,6 +50,8 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
+import Calendar from "../../../assets/calendar.svg?react";
+import Clock from "../../../assets/clock.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -105,6 +107,8 @@ const icons = {
   instagram: Instagram,
   linkedin: Linkedin,
   youtube: Youtube,
+  calendar: Calendar,
+  clock: Clock,
 };
 
 export function Icon({ icon, className }) {
