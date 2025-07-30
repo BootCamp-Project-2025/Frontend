@@ -24,7 +24,6 @@ export const useCheckEnrollment = (courseId) => {
         } else {
           setError(err);
           setIsEnrolled(null);
-          console.error(err);
         }
       } finally {
         setLoading(false);
