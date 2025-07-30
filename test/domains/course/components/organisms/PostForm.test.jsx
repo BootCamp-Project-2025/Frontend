@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { beforeAll, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import PostForm from "../../../../../src/domains/course/components/organisms/PostForm";
 import userEvent from "@testing-library/user-event";
 
@@ -16,7 +16,8 @@ vi.mock("../../../../../src/shared/components/molecules/TextEditor", () => ({
 }));
 
 describe("PostForm organism", () => {
-  beforeAll(() => {
+  afterEach(() => {
+    cleanup();
     vi.clearAllMocks();
   });
   const saveOrEditMock = vi.fn();

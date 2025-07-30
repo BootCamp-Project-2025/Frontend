@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import P2PPostCard from "../../../../../src/domains/course/components/organisms/P2PPostCard";
 import userEvent from "@testing-library/user-event";
@@ -14,6 +14,7 @@ vi.mock("../../../../../src/shared/hooks/usePopup", () => ({
 }));
 
 beforeEach(() => {
+  cleanup();
   vi.clearAllMocks();
 });
 

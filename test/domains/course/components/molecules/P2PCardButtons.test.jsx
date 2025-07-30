@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import P2PCardButtons from "../../../../../src/domains/course/components/molecules/P2PCardButtons";
 
@@ -8,6 +8,7 @@ describe("P2PCardButtons molecule", () => {
   const complete = vi.fn();
 
   beforeEach(() => {
+    cleanup();
     vi.clearAllMocks();
   });
   it("renders all the buttons", async () => {
