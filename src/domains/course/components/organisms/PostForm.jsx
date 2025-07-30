@@ -15,7 +15,7 @@ import { isAvalidateUrl } from "../../utils/Validations";
  * @returns
  */
 export default function PostForm({ saveOrEdit, closePopup, post }) {
-  const description = useRef("");
+  const description = useRef(post ? post.description : "");
   const [descriptionError, setDescriptionError] = useState("");
   const [error, setError] = useState("");
   const {
@@ -24,8 +24,8 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: post.title || "",
-      url: post.url || "",
+      title: post ? post.title : "",
+      url: post ? post.url : "",
     },
   });
 
@@ -48,7 +48,7 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
     [cleanDescription, post]
   );
 
-  const handleEdit = useCallback(
+  const handleSave = useCallback(
     (data) => {
       if (descriptionError) {
         return;
@@ -92,7 +92,7 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
 
   return (
     <form
-      onSubmit={handleSubmit(handleEdit)}
+      onSubmit={handleSubmit(handleSave)}
       className="flex flex-col w-2xl p-5 gap-5"
     >
       <Title className="text-center" color="default">
@@ -104,8 +104,14 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
         label="Title:"
         {...register("title", {
           required: "Title is required",
-          minLength: { value: 5, message: "Minimum 2 characters" },
-          maxLength: { value: 50, message: "Maximum 100 characters" },
+          minLength: {
+            value: 5,
+            message: "Title should be more than 5 characters",
+          },
+          maxLength: {
+            value: 50,
+            message: "Title should be less than 100 characters",
+          },
         })}
         errorMessage={errors.title?.message}
       />
@@ -114,6 +120,7 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
           Description:
         </Title>
         <TextEditor
+          placeholder="Enter a description"
           value={description.current}
           onChange={handleOnChangeDescription}
         />
