@@ -11,21 +11,33 @@ export default function P2PCardButtons({ edit, erase, complete }) {
   return (
     <div className="flex ">
       {edit ? (
-        <button onClick={edit} className="hover:cursor-pointer mr-4">
+        <button
+          data-testid="edit"
+          onClick={edit}
+          className="hover:cursor-pointer mr-4"
+        >
           <Icon className="w-5 h-5" icon={"edit"} />
         </button>
       ) : (
         <></>
       )}
       {erase ? (
-        <button onClick={erase} className="hover:cursor-pointer mr-4">
+        <button
+          data-testid="erase"
+          onClick={erase}
+          className="hover:cursor-pointer mr-4"
+        >
           <Icon className="w-5 h-5" icon={"delete"} />
         </button>
       ) : (
         <></>
       )}
       {complete ? (
-        <button onClick={complete} className="hover:cursor-pointer  ml-auto">
+        <button
+          data-testid="complete"
+          onClick={complete}
+          className="hover:cursor-pointer  ml-auto"
+        >
           <Icon className="w-5 h-5" icon={"checkSyllabus"} />
         </button>
       ) : (
