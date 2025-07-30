@@ -1,0 +1,151 @@
+import { useCallback, useRef, useState } from "react";
+import { Button } from "../../../../shared/components/atoms/Button";
+import PropTypes from "prop-types";
+import { Title } from "../../../../shared/components/atoms/Title";
+import { TextInput } from "../../../../shared/components/molecules/TextInput";
+import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
+import { useForm } from "react-hook-form";
+import { isAvalidateUrl } from "../../utils/Validations";
+
+export default function PostForm({ saveOrEdit, closePopup, post, type }) {
+  const description = useRef("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: post.title || "",
+      url: post.url || "",
+    },
+  });
+
+  const cleanDescription = useCallback((description) => {
+    return description.replaceAll(/<[^>]*>/g, "").trim();
+  }, []);
+
+  const createPost = useCallback(
+    (newData) => {
+      const newPost = post ? { ...post } : {};
+      if (cleanDescription(newData.description)) {
+        newPost.description = newData.description;
+      }
+      if (newData.url) {
+        newPost.url = newData.url;
+      }
+      newPost.title = newData.title;
+      return newPost;
+    },
+    [cleanDescription, post]
+  );
+
+  const handleEdit = useCallback(
+    (data) => {
+      if (descriptionError) {
+        return;
+      }
+      if (!cleanDescription(description.current) && !data.url) {
+        setError("A description or resource is needed");
+        return;
+      }
+
+      const postToSave = createPost({
+        ...data,
+        description: description.current,
+      });
+
+      saveOrEdit("POST", postToSave);
+      closePopup();
+    },
+    [descriptionError, cleanDescription, createPost, saveOrEdit, closePopup]
+  );
+
+  const handleOnChangeDescription = useCallback((e) => {
+    description.current = e.trim();
+    const cleanDescription = description.current
+      .replaceAll(/<[^>]*>/g, "")
+      .trim();
+    setError("");
+    if (cleanDescription.length === 0) {
+      setDescriptionError("");
+      return;
+    }
+    if (cleanDescription.length < 10) {
+      setDescriptionError("Description should be more than 10 characters");
+      return;
+    }
+    if (description.current.length > 1000) {
+      setDescriptionError("Description to long");
+      return;
+    }
+    setDescriptionError("");
+  }, []);
+
+  return (
+    <form
+      onSubmit={handleSubmit(handleEdit)}
+      className="flex flex-col w-2xl p-5 gap-5"
+    >
+      <Title className="text-center" color="default">
+        Post
+      </Title>
+      <TextInput
+        id="title"
+        placeholder="Add a title to the post"
+        label="Title:"
+        {...register("title", {
+          required: "Title is required",
+          minLength: { value: 5, message: "Minimum 2 characters" },
+          maxLength: { value: 50, message: "Maximum 100 characters" },
+        })}
+        errorMessage={errors.title?.message}
+      />
+      <div>
+        <Title size="sm" color="default">
+          Description:
+        </Title>
+        <TextEditor
+          value={description.current}
+          onChange={handleOnChangeDescription}
+        />
+        <p className="text-sm  text-pink-500">{descriptionError}</p>
+      </div>
+      <TextInput
+        id="url"
+        placeholder="Add an aditional link"
+        label="Resources:"
+        {...register("url", {
+          validate: (value) => {
+            if (isAvalidateUrl(value) || value === "") {
+              return true;
+            }
+            return "Not a valid url";
+          },
+        })}
+        errorMessage={errors.url?.message}
+      />
+
+      <p className="text-sm  text-pink-500">{error}</p>
+      <div className="flex justify-center gap-5">
+        <Button color="secondary" variant="bordered" onClick={closePopup}>
+          Cancel
+        </Button>
+        <Button type="submit">Save</Button>
+      </div>
+    </form>
+  );
+}
+
+PostForm.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    creationDate: PropTypes.instanceOf(Date).isRequired,
+  }).isRequired,
+  saveOrEdit: PropTypes.func,
+  closePopup: PropTypes.func,
+};
