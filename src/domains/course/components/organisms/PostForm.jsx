@@ -62,33 +62,40 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
         ...data,
         description: description.current,
       });
-
-      saveOrEdit("POST", postToSave);
+      saveOrEdit(postToSave);
       closePopup();
     },
     [descriptionError, cleanDescription, createPost, saveOrEdit, closePopup]
   );
 
-  const handleOnChangeDescription = useCallback((e) => {
-    description.current = e.trim();
-    const cleanDescription = description.current
-      .replaceAll(/<[^>]*>/g, "")
-      .trim();
-    setError("");
-    if (cleanDescription.length === 0) {
+  const validateDescriptionLength = useCallback((description) => {
+    if (description.length === 0) {
       setDescriptionError("");
       return;
     }
-    if (cleanDescription.length < 10) {
+    if (description.length < 10) {
       setDescriptionError("Description should be more than 10 characters");
       return;
     }
-    if (description.current.length > 1000) {
+    if (description.length > 1000) {
       setDescriptionError("Description to long");
       return;
     }
     setDescriptionError("");
   }, []);
+
+  const handleOnChangeDescription = useCallback(
+    (e) => {
+      description.current = e.trim();
+      const cleanDescription = description.current
+        .replaceAll(/<[^>]*>/g, "")
+        .trim();
+
+      setError("");
+      validateDescriptionLength(cleanDescription);
+    },
+    [validateDescriptionLength]
+  );
 
   return (
     <form
