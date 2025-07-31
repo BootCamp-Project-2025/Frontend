@@ -3,10 +3,7 @@ import P2PPostDescription from "../molecules/P2PPostDescription";
 import P2PPostResource from "../molecules/P2PPostResource";
 import P2PCardButtons from "../molecules/P2PCardButtons";
 import { useCallback } from "react";
-import usePopup from "../../../../shared/hooks/usePopup";
 import PropTypes from "prop-types";
-import PostForm from "./PostForm";
-import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 
 /**
  * @param {*} post Data of the post
@@ -14,26 +11,13 @@ import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
  * @param {*} erase Erase function in format erase(type, id)
  */
 export default function P2PPostCard({ post, edit, erase }) {
-  const { openPopup, closePopup } = usePopup();
-
   const handleEdit = useCallback(() => {
-    openPopup(PostForm, { closePopup, saveOrEdit: edit, post }, false);
-  }, [openPopup, closePopup, edit, post]);
-
-  const deleteAction = useCallback(
-    (id) => {
-      erase("POST", id);
-    },
-    [erase]
-  );
+    edit("POST", post);
+  }, [edit, post]);
 
   const handleErase = useCallback(() => {
-    openPopup(
-      DeleteCardPopup,
-      { closePopup, deleteAction: deleteAction, id: post.id },
-      true
-    );
-  }, [openPopup, closePopup, deleteAction, post.id]);
+    erase("POST", post.id);
+  }, [erase, post.id]);
 
   return (
     <div className="p2pCard-template p2pCard-shadow-default">
