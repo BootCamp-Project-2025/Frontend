@@ -4,6 +4,7 @@ import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
 import { StartDateField } from "../molecules/StartDateField";
+import PropTypes from "prop-types";
 
 export default function ProposalForm({
   requestTitle = "DefoultTitle",
@@ -57,3 +58,22 @@ export default function ProposalForm({
     </div>
   );
 }
+
+ProposalForm.propTypes = {
+  requestTitle: PropTypes.string,
+  description: PropTypes.string,
+  setDescription: PropTypes.func.isRequired,
+  sessions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      hour: PropTypes.string.isRequired,
+    })
+  ),
+  setSessions: PropTypes.func.isRequired,
+  startDate: PropTypes.string.isRequired,
+  setStartDate: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSend: PropTypes.func.isRequired,
+};
