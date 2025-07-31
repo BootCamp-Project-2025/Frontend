@@ -6,11 +6,12 @@ export default function ContentSection({
   postList,
   filePostList,
   edit,
+  save,
   erase,
 }) {
   return (
     <div className="px-4">
-      <P2PNavbar />
+      <P2PNavbar save={save} />
       <Outlet context={{ postList, filePostList, erase, edit }} />
     </div>
   );
@@ -37,4 +38,5 @@ ContentSection.propTypes = {
 
   edit: PropTypes.func,
   erase: PropTypes.func,
+  save: PropTypes.func,
 };
