@@ -3,7 +3,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
-import { useReducer, useCallback, useEffect } from "react";
+import { useReducer } from "react";
 import PropTypes from "prop-types";
 
 const proposalReducer = (state, action) => {
@@ -40,14 +40,7 @@ export default function ProposalForm({
 
   function handleSend() {
     console.log("Sending proposal data:", formData);
-
-    if (onSendSuccess) {
-      onSendSuccess(formData);
-    }
-
     dispatch({ type: "RESET_FORM", payload: initialData });
-
-    closePopup();
   }
 
   return (
