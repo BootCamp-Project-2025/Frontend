@@ -27,8 +27,6 @@ export default function PopupRoot() {
     }, 300);
   }, [closePopup]);
 
-  console.log(componentProps);
-
   if (!isOpen || !Component) return null;
 
   const modalRoot = document.getElementById("modal-root");
