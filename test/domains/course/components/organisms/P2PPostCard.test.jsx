@@ -3,16 +3,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import P2PPostCard from "../../../../../src/domains/course/components/organisms/P2PPostCard";
 import userEvent from "@testing-library/user-event";
 
-const openPopupMock = vi.fn();
-const closePopupMock = vi.fn();
-
-vi.mock("../../../../../src/shared/hooks/usePopup", () => ({
-  default: () => ({
-    openPopup: openPopupMock,
-    closePopup: closePopupMock,
-  }),
-}));
-
 beforeEach(() => {
   cleanup();
   vi.clearAllMocks();
@@ -48,13 +38,13 @@ describe("P2PPostCard component", () => {
     render(<P2PPostCard edit={mockEdit} post={testPost} />);
     const buttons = await screen.queryAllByRole("button");
     await userEvent.click(buttons[0]);
-    expect(openPopupMock).toHaveBeenCalled();
+    expect(mockEdit).toHaveBeenCalled();
   });
 
   it("Renders call edit correctly", async () => {
     render(<P2PPostCard erase={mockErase} post={testPost} />);
     const buttons = await screen.queryAllByRole("button");
     await userEvent.click(buttons[0]);
-    expect(openPopupMock).toHaveBeenCalled();
+    expect(mockErase).toHaveBeenCalled();
   });
 });
