@@ -1,0 +1,38 @@
+[
+  {
+    "id": 2,
+    "imageURL": "/defaultImage2.png",
+    "name": "Advanced JavaScript",
+    "description": "Dive deep into closures, async programming, modules, and design patterns.",
+    "rating": 4.8,
+    "author": "Carlos Ramírez",
+    "enrollmentDate": "2024-05-28"
+  },
+  {
+    "id": 1,
+    "imageURL": "/defaultImage3.png",
+    "name": "Introduction to React",
+    "description": "Learn the fundamentals of React, including JSX, components, and state.",
+    "rating": 4.7,
+    "author": "Laura Gómez",
+    "enrollmentDate": "2024-03-12"
+  },
+  {
+    "id": 3,
+    "imageURL": "/defaultImage1.png",
+    "name": "UX/UI Design",
+    "description": "Comprehensive course on user-centered design, accessibility, and wireframing.",
+    "rating": 4.6,
+    "author": "UX Academy",
+    "enrollmentDate": "2024-01-10"
+  },
+  {
+    "id": 4,
+    "imageURL": "/defaultImage2.png",
+    "name": "Node.js for Beginners",
+    "description": "Create servers with Express and work with MongoDB databases.",
+    "rating": 4.5,
+    "author": "José Martínez",
+    "enrollmentDate": "2023-11-25"
+  }
+]
