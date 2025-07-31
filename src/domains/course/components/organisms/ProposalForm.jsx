@@ -22,12 +22,20 @@ const proposalReducer = (state, action) => {
 export default function ProposalForm({
   requestTitle = "DefoultTitle",
   initialData = {
-    description: "this will be a large description",
+    description: "",
     sessions: [],
   },
+  student = false,
   onClose,
 }) {
-  const [formData, dispatch] = useReducer(proposalReducer, initialData);
+  console.log(initialData);
+  const [formData, dispatch] = useReducer(
+    proposalReducer,
+    initialData,
+    (init) => ({
+      ...init,
+    })
+  );
 
   const setDescription = (description) => {
     dispatch({ type: "SET_DESCRIPTION", payload: description });
@@ -60,22 +68,26 @@ export default function ProposalForm({
         Proposal
       </Title>
 
-      <div className="px-6">
-        <div className="mb-4">
-          <span className="text-base text-gray-600">Request: </span>
-          <span className="text-base font-medium">{`"${requestTitle}"`}</span>
+      {formData && (
+        <div className="px-6">
+          <div className="mb-4">
+            <span className="text-base text-gray-600">Request: </span>
+            <span className="text-base font-medium">{`"${requestTitle}"`}</span>
+          </div>
+
+          <DescriptionField
+            value={formData.description}
+            onChange={setDescription}
+            student={student}
+          />
+
+          <SessionsSchedule
+            sessions={formData.sessions}
+            onSessionsChange={setSessions}
+            student={student}
+          />
         </div>
-
-        <DescriptionField
-          value={formData.description}
-          onChange={setDescription}
-        />
-
-        <SessionsSchedule
-          sessions={formData.sessions}
-          onSessionsChange={setSessions}
-        />
-      </div>
+      )}
 
       <div className="flex gap-8 justify-center pt-4">
         <Button onClick={onClose} color="default">
@@ -102,5 +114,6 @@ ProposalForm.propTypes = {
       })
     ).isRequired,
   }),
+  student: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
 };
