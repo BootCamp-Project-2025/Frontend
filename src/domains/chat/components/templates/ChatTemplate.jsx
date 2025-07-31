@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useChat } from "../../hooks/useChat";
 import { useAuth } from "../../../../shared/hooks/useAuth";
+import { ProposalChatAlert } from "../atoms/ProposalChatAlert";
 
 export default function ChatTemplate({ chatIdProp = null }) {
-  // const [chatReducer, dispatch] = useReducer(reducer);
   const params = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
@@ -42,6 +42,16 @@ export default function ChatTemplate({ chatIdProp = null }) {
             participantsIds={chat.participantsIds.filter((id) => id != userId)}
             chatName={chat.name}
           />
+          {chat.status == "PROPOSAL" || chat.status == "CLOSED" ? (
+            <ProposalChatAlert
+              chatInfo={{
+                chatId: chat.id,
+                proposalTimestamp: new Date(),
+                status: chat.status,
+              }}
+              userId={user.id}
+            />
+          ) : null}
           <ChatMessageList ownerId={userId} messages={chat.messages} />
           <ChatInput
             disabled={chat.status == "CLOSED"}
