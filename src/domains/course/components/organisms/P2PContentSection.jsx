@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import P2PNavbar from "../molecules/P2PNavbar";
 import PropTypes from "prop-types";
 
-export default function ContentSection({
+export default function P2PContentSection({
   postList,
   filePostList,
   edit,
@@ -17,7 +17,7 @@ export default function ContentSection({
   );
 }
 
-ContentSection.propTypes = {
+P2PContentSection.propTypes = {
   postList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
