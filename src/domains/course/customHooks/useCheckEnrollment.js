@@ -4,27 +4,23 @@ import { baseAPI } from "../../../shared/api/axios/AxiosConnection";
 export const useCheckEnrollment = (courseId) => {
   const [isEnrolled, setIsEnrolled] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchIsEnrolled = async () => {
+      setLoading(true);
       try {
         const { data: dataFetch } = await baseAPI.get(
           `enrollments/course/${courseId}`
         );
-        setIsEnrolled(
-          dataFetch?.data?.isEnrolled &&
-            dataFetch?.data?.enrollment.status !== "CANCELED"
-        );
-        setError(false);
+        const enrollment = dataFetch?.data?.enrollment;
+        const enrolled =
+          dataFetch?.data?.isEnrolled && enrollment?.status !== "CANCELED";
+        setIsEnrolled(enrolled);
+        setError(null);
       } catch (err) {
-        if (err.response?.status === 404) {
-          setIsEnrolled(false);
-          setError(false);
-        } else {
-          setError(err);
-          setIsEnrolled(null);
-        }
+        setError(err);
+        setIsEnrolled(null);
       } finally {
         setLoading(false);
       }

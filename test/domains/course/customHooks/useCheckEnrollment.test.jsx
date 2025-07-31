@@ -29,24 +29,46 @@ describe("useCheckEnrollment", () => {
     await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.isEnrolled).toBe(true);
-    expect(result.current.error).toBe(false);
+    expect(result.current.error).toBe(null);
   });
 
-  it("should return isEnrolled false and error false if the response is 404", async () => {
-    const error404 = {
-      response: { status: 404 },
-    };
-    baseAPI.get.mockRejectedValueOnce(error404);
+  it("should return isEnrolled false and enrollment null if user is not enrolled", async () => {
+    baseAPI.get.mockResolvedValueOnce({
+      data: {
+        data: {
+          isEnrolled: false,
+          enrollment: null,
+        },
+      },
+    });
 
     const { result } = renderHook(() => useCheckEnrollment("123"));
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.isEnrolled).toBe(false);
-    expect(result.current.error).toBe(false);
+    expect(result.current.error).toBe(null);
   });
 
-  it("should handle errors other than 404", async () => {
+  it("should return isEnrolled false if status is CANCELED", async () => {
+    baseAPI.get.mockResolvedValueOnce({
+      data: {
+        data: {
+          isEnrolled: true,
+          enrollment: { status: "CANCELED" },
+        },
+      },
+    });
+
+    const { result } = renderHook(() => useCheckEnrollment("123"));
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    expect(result.current.isEnrolled).toBe(false);
+    expect(result.current.error).toBe(null);
+  });
+
+  it("should handle unexpected errors", async () => {
     const someError = new Error("Some error");
     someError.response = { status: 500 };
     baseAPI.get.mockRejectedValueOnce(someError);
