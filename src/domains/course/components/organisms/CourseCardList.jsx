@@ -88,7 +88,7 @@ function CourseCardList({ style = {}, className = "" }) {
         <Alert
           type="error"
           title="Failed to load courses"
-          description="An unexpected error occurred while fetching your courses,Try later."
+          description="An unexpected error occurred while fetching your courses. Please try again later."
         />
       )}
       {!loading && !error && (
