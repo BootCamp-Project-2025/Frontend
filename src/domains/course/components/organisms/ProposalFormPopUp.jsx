@@ -5,10 +5,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import ProposalForm from "./ProposalForm";
 
 export default function ProposalFormPopUp({
-  initialData = {
-    description: "this will be a large description",
-    sessions: [],
-  },
+  initialData,
   requestTitle = "New Request",
 }) {
   const { openPopup, closePopup } = usePopup();
