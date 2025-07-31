@@ -43,7 +43,10 @@ export default function ChatTemplate({ chatIdProp = null }) {
             chatName={chat.name}
           />
           <ChatMessageList ownerId={userId} messages={chat.messages} />
-          <ChatInput handleSubmit={handleSendMessage} />
+          <ChatInput
+            disabled={chat.status == "CLOSED"}
+            handleSubmit={handleSendMessage}
+          />
         </>
       ) : (
         <div>Loading...</div>

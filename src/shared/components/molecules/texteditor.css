@@ -83,8 +83,17 @@ h1 {
 
 .no-toolbar {
   border-radius: 8px;
-  max-height: 48px;
+  height: fit-content;
+  /* height: 48px; */
   padding: auto 16px auto 16px;
+  overflow-y: hidden;
+  .editor-input {
+    min-height: 100%;
+    max-height: fit-content;
+    .editor-paragraph {
+      margin: auto 0;
+    }
+  }
 }
 
 .editor-input {
