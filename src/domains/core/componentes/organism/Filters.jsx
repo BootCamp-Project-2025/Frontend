@@ -1,47 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import PropTypes from "prop-types";
 import { FilterChip } from "../atoms/FilterChip";
 import { Button } from "../../../../shared/components/atoms/Button";
 
 export const Filters = ({
+  total = 0,
   activeFilters = ["language", "rating", "category", "subcategory"],
+  setFilters = () => {},
 }) => {
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [filters, setFilters] = useState([]);
+  const [sortOrder, setSortOrder] = useState("rating:desc");
+  const [filtersState, setFiltersState] = useState({});
 
-  const handleSelectFilter = (type, filter) => {
-    setFilters((prev) => {
-      const existingIndex = prev.findIndex((f) => f.type === type);
-
-      if (existingIndex === -1) {
-        return [...prev, { type, filter }];
-      }
-
-      if (prev[existingIndex].filter !== filter) {
-        const updated = [...prev];
-        updated[existingIndex] = { type, filter };
-        return updated;
-      }
-
-      return prev;
-    });
-
-    console.log(filters);
+  const handleSelectFilter = (type, value) => {
+    setFiltersState((prev) => ({
+      ...prev,
+      [type]: value === "all" ? null : value,
+    }));
   };
 
-  const handleRemoveFilter = (filter) => {
-    setFilters((prev) => prev.filter((f) => f.filter !== filter));
+  const handleRemoveFilter = (type) => {
+    setFiltersState((prev) => {
+      const updated = { ...prev };
+      delete updated[type];
+      return updated;
+    });
   };
 
   const handleClearFilters = () => {
-    setFilters([]);
-    console.log("Filters cleared");
+    setFiltersState({});
+    setSortOrder("rating:desc");
   };
 
-  const handleSort = (order) => {
-    setSortOrder(order);
+  const handleSort = (value) => {
+    const [sort, order] = value.split(":");
+    setFiltersState((prev) => ({
+      ...prev,
+      sort,
+      order,
+    }));
+    setSortOrder(value);
   };
+
+  useEffect(() => {
+    if (filtersState && Object.keys(filtersState).length > 0) {
+      console.log("Setting filters:", filtersState);
+      setFilters(filtersState);
+    } else {
+      console.log("Clearing filters");
+      setFilters({
+        category: null,
+        subcategory: null,
+        language: null,
+        rating: null,
+        order: null,
+        sort: null,
+      });
+    }
+  }, [filtersState, setFilters]);
 
   const options = {
     language: [
@@ -83,11 +99,11 @@ export const Filters = ({
   };
 
   const sortOptions = [
-    { value: "most", label: "Most Popular" },
-    { value: "new", label: "Newest first" },
-    { value: "old", label: "Oldest First" },
-    { value: "asc", label: "Name A → Z" },
-    { value: "desc", label: "Name Z → A" },
+    { value: "rating:desc", label: "Most Popular" },
+    { value: "createdAt:desc", label: "Newest first" },
+    { value: "createdAt:asc", label: "Oldest First" },
+    { value: "title.keyword:asc", label: "Name A → Z" },
+    { value: "title.keyword:desc", label: "Name Z → A" },
   ];
 
   return (
@@ -95,36 +111,29 @@ export const Filters = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-2 md:gap-5 flex-wrap">
           {activeFilters &&
-            activeFilters.map(function (filter) {
-              return (
-                <SelectInput
-                  key={filter}
-                  options={options[filter]}
-                  placeHolder={filter}
-                  className="rounded-md border-gray-300 capitalize font-semibold"
-                  value={filter}
-                  onChange={function (e) {
-                    handleSelectFilter(filter, e.target.value);
-                  }}
-                />
-              );
-            })}
+            activeFilters.map((filter) => (
+              <SelectInput
+                key={filter}
+                options={options[filter]}
+                placeHolder={filter}
+                className="rounded-md border-gray-300 capitalize font-semibold"
+                value={filtersState[filter] || ""}
+                onChange={(e) => handleSelectFilter(filter, e.target.value)}
+              />
+            ))}
         </div>
         <div className="mt-4 flex items-center gap-3 flex-wrap md:h-10">
-          {filters.length > 0 &&
-            filters.map(function (filter) {
-              return (
-                <FilterChip
-                  key={filter.type}
-                  label={filter.filter}
-                  onClick={function () {
-                    handleRemoveFilter(filter.filter);
-                  }}
-                />
-              );
-            })}
+          {Object.entries(filtersState)
+            .filter(([key]) => !["sort", "order"].includes(key))
+            .map(([type, value]) => (
+              <FilterChip
+                key={type}
+                label={`${type}: ${value}`}
+                onClick={() => handleRemoveFilter(type)}
+              />
+            ))}
 
-          {filters.length > 0 && (
+          {Object.keys(filtersState).length > 0 && (
             <Button variant="ghost" onClick={handleClearFilters}>
               Clear filters
             </Button>
@@ -132,14 +141,12 @@ export const Filters = ({
         </div>
       </div>
       <div className="flex justify-between items-center mt-[3em] flex-wrap">
-        <p className="text-gray-400">5000+ results</p>
+        <p className="text-gray-400">{total} results</p>
         <div className="flex items-center">
           <p className="mr-2 text-gray-400">Order by:</p>
           <SelectInput
             value={sortOrder}
-            onChange={function (e) {
-              handleSort(e.target.value);
-            }}
+            onChange={(e) => handleSort(e.target.value)}
             options={sortOptions}
             placeHolder="Sort"
             className="bg-gray-200 border-gray-200 outline-gray-200"
@@ -151,5 +158,7 @@ export const Filters = ({
 };
 
 Filters.propTypes = {
+  total: PropTypes.number,
   activeFilters: PropTypes.arrayOf(PropTypes.string),
+  setFilters: PropTypes.func,
 };
