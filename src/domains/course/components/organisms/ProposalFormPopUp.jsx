@@ -1,4 +1,5 @@
 import { useReducer, useCallback } from "react";
+import PropTypes from "prop-types";
 import usePopup from "../../../../shared/hooks/usePopup";
 import { Button } from "../../../../shared/components/atoms/Button";
 import ProposalForm from "./ProposalForm";
@@ -88,3 +89,20 @@ export default function ProposalFormPopUp({
     </div>
   );
 }
+
+ProposalFormPopUp.propTypes = {
+  initialData: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    sessions: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        hour: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    startDate: PropTypes.string.isRequired,
+  }),
+  requestTitle: PropTypes.string,
+  onSendSuccess: PropTypes.func,
+};
