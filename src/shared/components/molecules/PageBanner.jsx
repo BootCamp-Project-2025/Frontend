@@ -1,23 +1,31 @@
 import { Button } from "../atoms/Button";
-import { Icon } from "../atoms/Icon";
-import { TextInput } from "./TextInput";
+import Banner from "/banner.jpg";
+import { useNavigate } from "react-router-dom";
 
 export const PageBanner = () => {
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate("/courses");
+  };
+
   return (
-    <div className="flex flex-col justify-end  min-h-[13rem] sm:min-h-[18.25rem] bg-gray-300  py-7   ">
-      <div className="flex flex-col w-[90%] m-auto gap-7 ">
-        <p className="text-xl font-[700] text-white">
+    <div className="flex flex-col justify-end  min-h-[13rem] sm:min-h-[20rem] bg-gray-300 py-7 relative overflow-hidden wrapper">
+      <img
+        src={Banner}
+        alt="Background"
+        className="absolute top-0 left-0 w-full h-full object-cover blur-xs"
+      />
+      <div className="flex flex-col items-center w-[90%] m-auto gap-7 z-1">
+        <p
+          className="text-xl font-[700] text-white text-center"
+          style={{ textShadow: "1px 1px 2px black" }}
+        >
           Empower Your Learning Journey – Discover Expert Freelancers and
           Engaging Courses Tailored for You!
         </p>
         <div className="flex items-center gap-4">
-          <TextInput
-            placeholder="Find your next mentor, course, or project.."
-            id="bannerTextInput"
-          ></TextInput>
-          <Button>
-            <Icon icon={"search"} className={"w-[1.3rem] h-[1.3rem]"}></Icon>
-          </Button>
+          <Button onClick={handleRedirect}>Discover courses</Button>
         </div>
       </div>
     </div>

@@ -57,7 +57,7 @@ export default function StaticCourseHomePageForm() {
     <ToastProvider>
       <form
         onSubmit={handleSubmit(updateCourse)}
-        className="flex flex-col w-full gap-4 max-w-[90rem] px-8 py-4 mx-auto"
+        className="wrapper flex flex-col w-full gap-4 px-8 py-4 mx-auto"
       >
         <Title className="border-b-1" color="default">
           Home page course

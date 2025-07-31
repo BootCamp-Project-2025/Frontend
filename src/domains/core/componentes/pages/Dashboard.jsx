@@ -11,12 +11,10 @@ export const Dashboard = () => {
 
   return (
     <main
+      className="wrapper"
       style={{
         display: "flex",
         justifyContent: "space-between",
-        margin: "0",
-        maxWidth: "100%",
-        padding: 0,
       }}
     >
       <div className="w-full px-8 pb-8 xl:px-24 2xl:px-60">

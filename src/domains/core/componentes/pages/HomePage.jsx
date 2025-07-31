@@ -9,7 +9,7 @@ export const HomePage = () => {
   return (
     <>
       <PageBanner></PageBanner>
-      <main className="max-w-[90rem] px-8 py-4 mx-auto">
+      <main className="wrapper px-8 py-4 mx-auto">
         <div className="flex flex-col gap-12">
           <Title className="text-gray-900" size="lg">
             Categories

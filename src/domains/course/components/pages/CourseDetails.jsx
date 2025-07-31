@@ -42,7 +42,7 @@ export const CourseDetails = () => {
   }
 
   return (
-    <>
+    <main className="wrapper">
       <CourseHeroSection {...basicInfo} />
 
       <div className="flex flex-col w-[80rem] max-w-[90%] m-auto py-10 gap-9">
@@ -89,6 +89,6 @@ export const CourseDetails = () => {
           )}
         </div>
       </div>
-    </>
+    </main>
   );
 };
