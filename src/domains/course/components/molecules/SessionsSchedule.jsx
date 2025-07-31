@@ -1,6 +1,6 @@
-import React from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
+import PropTypes from "prop-types";
 
 export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
   const addSession = () => {
@@ -108,4 +108,16 @@ export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
       </div>
     </div>
   );
+};
+
+SessionsSchedule.propTypes = {
+  sessions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      hour: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onSessionsChange: PropTypes.func.isRequired,
 };

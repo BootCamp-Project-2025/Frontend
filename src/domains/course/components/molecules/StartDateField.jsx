@@ -1,5 +1,5 @@
-import React from "react";
 import { Calendar } from "lucide-react";
+import PropTypes from "prop-types";
 
 export const StartDateField = ({ value, onChange }) => {
   return (
@@ -21,4 +21,9 @@ export const StartDateField = ({ value, onChange }) => {
       </div>
     </div>
   );
+};
+
+StartDateField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

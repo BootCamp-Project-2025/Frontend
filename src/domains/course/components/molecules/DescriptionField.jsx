@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 export const DescriptionField = ({ value, onChange }) => {
   return (
@@ -15,4 +15,9 @@ export const DescriptionField = ({ value, onChange }) => {
       />
     </div>
   );
+};
+
+DescriptionField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

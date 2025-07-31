@@ -3,7 +3,6 @@ import usePopup from "../../../../shared/hooks/usePopup";
 import { Button } from "../../../../shared/components/atoms/Button";
 import ProposalForm from "./ProposalForm";
 
-// Reducer para manejar el estado del formulario
 const proposalReducer = (state, action) => {
   switch (action.type) {
     case "SET_DESCRIPTION":
@@ -20,7 +19,6 @@ const proposalReducer = (state, action) => {
 };
 
 export default function ProposalFormPopUp({
-  // Props opcionales con valores por defecto
   initialData = {
     description: "this will be a large description",
     sessions: [],
@@ -31,10 +29,8 @@ export default function ProposalFormPopUp({
 }) {
   const { openPopup, closePopup } = usePopup();
 
-  // Estado inicial del formulario
   const [formData, dispatch] = useReducer(proposalReducer, initialData);
 
-  // Funciones para actualizar el estado
   const setDescription = (description) => {
     dispatch({ type: "SET_DESCRIPTION", payload: description });
   };
@@ -71,12 +67,10 @@ export default function ProposalFormPopUp({
   function handleSend() {
     console.log("Sending proposal data:", formData);
 
-    // Callback opcional cuando se envía exitosamente
     if (onSendSuccess) {
       onSendSuccess(formData);
     }
 
-    // Resetear el formulario después del envío
     dispatch({ type: "RESET_FORM", payload: initialData });
 
     closePopup();
