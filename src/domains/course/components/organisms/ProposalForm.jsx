@@ -37,7 +37,7 @@ export default function ProposalForm({
       <div className="px-6">
         <div className="mb-4">
           <span className="text-sm text-gray-600">Request: </span>
-          <span className="text-sm font-medium">"{requestTitle}"</span>
+          <span className="text-sm font-medium">{`"${requestTitle}"`}</span>
         </div>
 
         <DescriptionField value={description} onChange={setDescription} />

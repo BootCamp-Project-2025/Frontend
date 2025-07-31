@@ -53,7 +53,7 @@ export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
           </div>
         </div>
 
-        {sessions.map((session, index) => (
+        {sessions.map((session) => (
           <div
             key={session.id}
             className="flex items-center border-t border-gray-300 bg-white"
