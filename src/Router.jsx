@@ -26,7 +26,7 @@ import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
 import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
-import ProposalForm from "./domains/course/components/organisms/ProposalForm.jsx";
+import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
 
 export default function Router() {
   return (
@@ -124,7 +124,7 @@ export default function Router() {
           path="course-track-progress/:enrollmentId"
           element={<CourseTrackProgress />}
         />
-        <Route path="proposal-form" element={<ProposalForm />} />
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"
