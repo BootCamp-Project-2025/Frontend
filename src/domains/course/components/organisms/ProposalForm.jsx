@@ -3,20 +3,53 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
-import { StartDateField } from "../molecules/StartDateField";
+import { useReducer, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
+
+const proposalReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_DESCRIPTION":
+      return { ...state, description: action.payload };
+    case "SET_SESSIONS":
+      return { ...state, sessions: action.payload };
+    case "RESET_FORM":
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
 export default function ProposalForm({
   requestTitle = "DefoultTitle",
-  description = "this will be a large description",
-  setDescription,
-  sessions = [],
-  setSessions,
-  startDate,
-  setStartDate,
+  initialData = {
+    description: "this will be a large description",
+    sessions: [],
+  },
   onClose,
-  onSend,
 }) {
+  const [formData, dispatch] = useReducer(proposalReducer, initialData);
+
+  const setDescription = (description) => {
+    dispatch({ type: "SET_DESCRIPTION", payload: description });
+  };
+
+  const setSessions = (sessions) => {
+    console.log(sessions);
+    dispatch({ type: "SET_SESSIONS", payload: sessions });
+  };
+
+  function handleSend() {
+    console.log("Sending proposal data:", formData);
+
+    if (onSendSuccess) {
+      onSendSuccess(formData);
+    }
+
+    dispatch({ type: "RESET_FORM", payload: initialData });
+
+    closePopup();
+  }
+
   return (
     <div className="flex flex-col relative gap-4">
       <Button
@@ -36,22 +69,26 @@ export default function ProposalForm({
 
       <div className="px-6">
         <div className="mb-4">
-          <span className="text-sm text-gray-600">Request: </span>
-          <span className="text-sm font-medium">{`"${requestTitle}"`}</span>
+          <span className="text-base text-gray-600">Request: </span>
+          <span className="text-base font-medium">{`"${requestTitle}"`}</span>
         </div>
 
-        <DescriptionField value={description} onChange={setDescription} />
+        <DescriptionField
+          value={formData.description}
+          onChange={setDescription}
+        />
 
-        <SessionsSchedule sessions={sessions} onSessionsChange={setSessions} />
-
-        <StartDateField value={startDate} onChange={setStartDate} />
+        <SessionsSchedule
+          sessions={formData.sessions}
+          onSessionsChange={setSessions}
+        />
       </div>
 
       <div className="flex gap-8 justify-center pt-4">
         <Button onClick={onClose} color="default">
           Cancel
         </Button>
-        <Button onClick={onSend} color="primary" variant="solid">
+        <Button onClick={handleSend} color="primary" variant="solid">
           Send
         </Button>
       </div>
@@ -61,19 +98,16 @@ export default function ProposalForm({
 
 ProposalForm.propTypes = {
   requestTitle: PropTypes.string,
-  description: PropTypes.string,
-  setDescription: PropTypes.func.isRequired,
-  sessions: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      hour: PropTypes.string.isRequired,
-    })
-  ),
-  setSessions: PropTypes.func.isRequired,
-  startDate: PropTypes.string.isRequired,
-  setStartDate: PropTypes.func.isRequired,
+  initialData: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    sessions: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        hour: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }),
   onClose: PropTypes.func.isRequired,
-  onSend: PropTypes.func.isRequired,
 };

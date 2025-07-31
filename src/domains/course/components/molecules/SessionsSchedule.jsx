@@ -1,6 +1,7 @@
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
 export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
   const addSession = () => {
@@ -25,6 +26,10 @@ export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
     onSessionsChange(filteredSessions);
   };
 
+  useEffect(() => {
+    console.log("sessions updated:", sessions);
+  }, [sessions]);
+
   return (
     <div className="mb-6">
       <div className="bg-gray-100 rounded-lg overflow-hidden shadow-sm">
@@ -40,7 +45,7 @@ export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
           </div>
           <div className="w-16 px-4 py-3 flex justify-center">
             <Button
-              onClick={addSession}
+              onClick={() => addSession()}
               color="primary"
               radius="full"
               square
@@ -90,18 +95,16 @@ export const SessionsSchedule = ({ sessions, onSessionsChange }) => {
               />
             </div>
             <div className="w-16 px-4 py-3 flex justify-center">
-              {sessions.length > 1 && (
-                <Button
-                  onClick={() => removeSession(session.id)}
-                  color="danger"
-                  variant="ghost"
-                  square
-                  className="w-6 h-6 p-1"
-                  aria-label="Remove session"
-                >
-                  <Icon icon="trash" />
-                </Button>
-              )}
+              <Button
+                onClick={() => removeSession(session.id)}
+                color="danger"
+                variant="ghost"
+                square
+                className="px-0 py-0"
+                aria-label="Remove session"
+              >
+                <Icon icon="trashCan" />
+              </Button>
             </div>
           </div>
         ))}
