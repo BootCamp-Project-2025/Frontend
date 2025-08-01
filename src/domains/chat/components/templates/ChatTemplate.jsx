@@ -12,8 +12,15 @@ export default function ChatTemplate({ chatIdProp = null }) {
   const params = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  const { userId, chat, setUserId, joinChat, sendMessage, leaveChat } =
-    useChat();
+  const {
+    userId,
+    chat,
+    setUserId,
+    joinChat,
+    sendMessage,
+    leaveChat,
+    closeChat,
+  } = useChat();
   const chatId = chatIdProp ?? params.chatId;
 
   useEffect(() => {
@@ -33,6 +40,10 @@ export default function ChatTemplate({ chatIdProp = null }) {
   const handleSendMessage = (content, type) => {
     sendMessage(content, type);
   };
+
+  const handleCancelProposal = () => {
+    closeChat();
+  };
   return (
     // Container height to fill screen must be: h-[calc(100vh-<header heigh>)], hide footer
     <div className="h-full flex flex-col overflow-y-hidden">
@@ -50,6 +61,7 @@ export default function ChatTemplate({ chatIdProp = null }) {
                 status: chat.status,
               }}
               userId={user.id}
+              handleCancelProposal={handleCancelProposal}
             />
           ) : null}
           <ChatMessageList ownerId={userId} messages={chat.messages} />

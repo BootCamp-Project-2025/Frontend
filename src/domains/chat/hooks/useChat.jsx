@@ -87,6 +87,20 @@ const reducer = (state, action) => {
         },
       };
     }
+    case "UPDATE_CHAT": {
+      if (state.chat) {
+        const { chat } = action.payload;
+        return {
+          ...state,
+          chat: {
+            ...state.chat,
+            name: chat.name,
+            status: chat.status,
+          },
+        };
+      }
+      return state;
+    }
 
     default:
       console.error("Unknown action type - useChat");
@@ -121,6 +135,14 @@ export const useChat = () => {
             {
               dispatch({
                 type: "ADD_ACTIVE_CHAT",
+                payload: { chat: data.data.chat },
+              });
+            }
+            break;
+          case "update-chat":
+            {
+              dispatch({
+                type: "UPDATE_CHAT",
                 payload: { chat: data.data.chat },
               });
             }
@@ -189,6 +211,16 @@ export const useChat = () => {
     });
   };
 
+  const closeChat = () => {
+    socket.emit("close-chat", {
+      chat: {
+        ...state.chat,
+        status: "CLOSED",
+        messages: [],
+      },
+    });
+  };
+
   const fetchActiveChats = (userId) => {
     socket.emit("active-chats", { userId }, (res) => {
       dispatch({ type: "FETCH_ACTIVE_CHATS", payload: { chats: res.chats } });
@@ -201,7 +233,7 @@ export const useChat = () => {
       content: content,
       type: type,
       timestamp: new Date().toISOString(),
-      senderId: state.userId, //UserId
+      senderId: state.userId,
       status: "SENT",
       chatId: state.chat.id,
     };
@@ -226,5 +258,6 @@ export const useChat = () => {
     leaveChat,
     sendMessage,
     fetchActiveChats,
+    closeChat,
   };
 };

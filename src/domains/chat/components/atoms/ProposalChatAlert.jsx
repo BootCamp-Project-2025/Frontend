@@ -9,7 +9,7 @@ export default ProposalChatAlert;
 const baseStyle = "p-4 flex justify-between";
 // chatInfo = {chatId: string, proposalTimestamp: Date, status: ChatStatusEnum}
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-export function ProposalChatAlert({ chatInfo, userId }) {
+export function ProposalChatAlert({ chatInfo, userId, handleCancelProposal }) {
   const [proposal, setProposal] = useState(null);
   function fetchProposalInfo() {
     axios
@@ -22,7 +22,7 @@ export function ProposalChatAlert({ chatInfo, userId }) {
   }
   useEffect(() => {
     fetchProposalInfo();
-  }, []);
+  }, [chatInfo]);
 
   const isOwnProposal = () => {
     return proposal.userId == userId;
@@ -36,7 +36,12 @@ export function ProposalChatAlert({ chatInfo, userId }) {
             {isOwnProposal() ? (
               <Button size="sm">Create proposal</Button>
             ) : null}
-            <Button size="sm" variant="bordered" color="secondary">
+            <Button
+              size="sm"
+              variant="bordered"
+              color="secondary"
+              onClick={handleCancelProposal}
+            >
               Close chat
             </Button>
           </>
@@ -50,7 +55,12 @@ export function ProposalChatAlert({ chatInfo, userId }) {
               <Button size="sm">Review proposal</Button>
             )}
 
-            <Button size="sm" variant="bordered" color="secondary">
+            <Button
+              size="sm"
+              variant="bordered"
+              color="secondary"
+              onClick={handleCancelProposal}
+            >
               Close chat
             </Button>
           </>
@@ -101,4 +111,5 @@ export function ProposalChatAlert({ chatInfo, userId }) {
 ProposalChatAlert.propTypes = {
   chatInfo: PropTypes.object,
   userId: PropTypes.string,
+  handleCancelProposal: PropTypes.func,
 };
