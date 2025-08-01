@@ -11,7 +11,7 @@ import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import About from "../organisms/About";
 import { patchRequest } from "../../../../shared/api/patchRequest";
 
-const ProfileInfo = ({ user }) => {
+const ProfileInfo = ({ user, handleUpdateUser }) => {
   const { openPopup, closePopup } = usePopup();
   const [localUser, setLocalUser] = useState(user || null);
   const { showToast } = useToastContext();
@@ -29,6 +29,8 @@ const ProfileInfo = ({ user }) => {
       const res = await patchRequest(`/users/${localUser.id}`, {
         [field]: value,
       });
+
+      handleUpdateUser(res.data.data);
 
       if (res.success) {
         setLocalUser(updatedUser);
@@ -121,4 +123,5 @@ ProfileInfo.propTypes = {
     profilePicture: PropTypes.string,
     about: PropTypes.string,
   }),
+  handleUpdateUser: PropTypes.func,
 };

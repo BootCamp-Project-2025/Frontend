@@ -10,7 +10,8 @@ import GridAccountDetail from "../components/molecules/GridAccountDetail";
 import GridSocialLinksDetail from "../components/molecules/GridSocialLinksDetail";
 
 const StudentProfile = () => {
-  const { user } = useAuth();
+  const { user, handleUpdateUser } = useAuth();
+
   const [client, setClient] = useState(null);
   const { showToast } = useToastContext();
 
@@ -30,7 +31,7 @@ const StudentProfile = () => {
   return (
     <main className="flex flex-col gap-16">
       <ProfileTitle title="Student Profile" />
-      {user && <ProfileInfo user={user} />}
+      {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
 
       {client && (
         <div className="flex flex-wrap gap-8 md:p-12 md:px-40">

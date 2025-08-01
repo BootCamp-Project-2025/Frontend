@@ -40,6 +40,8 @@ function authReducer(state, action) {
       return { ...initialState, isLoading: false };
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
+    case "UPDATE_USER":
+      return { ...state, user: { ...state.user, ...action.payload } };
     default:
       return state;
   }
@@ -168,6 +170,10 @@ export function AuthProvider({ children }) {
     return () => clearInterval(refreshIntervalRef.current);
   }, [setupLoginFlow]);
 
+  const handleUpdateUser = useCallback((updatedFields) => {
+    dispatch({ type: "UPDATE_USER", payload: updatedFields });
+  }, []);
+
   const contextValue = useMemo(
     () => ({
       ...state,
@@ -175,8 +181,16 @@ export function AuthProvider({ children }) {
       handleLogout,
       handleSignUp,
       updateSessionRoles,
+      handleUpdateUser,
     }),
-    [state, handleLogin, handleLogout, handleSignUp, updateSessionRoles]
+    [
+      state,
+      handleLogin,
+      handleLogout,
+      handleSignUp,
+      updateSessionRoles,
+      handleUpdateUser,
+    ]
   );
 
   return (

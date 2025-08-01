@@ -10,12 +10,12 @@ import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
 
 const TeacherProfile = () => {
-  const { user } = useAuth();
+  const { user, handleUpdateUser } = useAuth();
 
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16 max-w-[90rem] px-8 py-4 mx-auto">
       <ProfileTitle title="Teacher Profile" />
-      {user && <ProfileInfo user={user} />}
+      {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
       <div className="flex:col md:flex gap-24 md:gap-0 justify-around items-center w-full">
         {/* <About /> */}
         <div className="flex flex-col justify-center gap-4 border-2 border-[color:var(--color-primary-600)] rounded-lg p-4 max-h-min max-w-min mt-8 md:mt:0">
