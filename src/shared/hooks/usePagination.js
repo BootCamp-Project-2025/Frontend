@@ -122,6 +122,7 @@ export function usePagination({ url }) {
 
     const pageNum = parseInt(params.page);
     if (!isNaN(pageNum)) setPage(pageNum);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
