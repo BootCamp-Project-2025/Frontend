@@ -1,7 +1,6 @@
 import { Button } from "../../../../shared/components/atoms/Button";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 
 export const SessionsSchedule = ({ sessions, onSessionsChange, student }) => {
   const addSession = () => {
