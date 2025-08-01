@@ -17,13 +17,14 @@ export const SearchRequestPage = () => {
     previousPage,
     setFilters,
     setSearchQuery,
+    setPageIndex,
   } = usePagination({
     url: "/requests/search",
   });
 
   const handleBackward = () => previousPage();
   const handleForward = () => nextPage();
-  const handleSelected = () => {};
+  const handleSelected = (page) => setPageIndex(page);
 
   return (
     <div className="p-12 flex flex-col gap-2 justify-center">
