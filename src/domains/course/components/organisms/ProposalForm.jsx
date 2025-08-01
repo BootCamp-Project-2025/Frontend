@@ -19,24 +19,52 @@ const proposalReducer = (state, action) => {
   }
 };
 
+function createInitialState(initialData) {
+  const sessions = initialData.sessions.map((session) => {
+    const { date, hour } = getDateInfo(session.datetime);
+    return {
+      name: session.title,
+      date,
+      hour,
+    };
+  });
+  return { ...initialData, sessions };
+}
+
 export default function ProposalForm({
-  requestTitle = "DefoultTitle",
+  requestTitle = "DefaultTitle",
   initialData = {
-    description: "",
-    sessions: [],
+    id: "3c88401e-64f9-4643-85fb-c4356a1dd61c",
+    userId: "27b60ea3-5bd0-44ba-8ea1-3efcf128c1d3",
+    requestId: "127b094b-93ce-4efa-9fd3-f79eba6a9679",
+    description: "My awesome description for an awesome proposal 222",
+    sessions: [
+      {
+        title: "First session222",
+        datetime: "2026-07-31T03:52:20.461Z",
+      },
+      {
+        title: "Second session222",
+        datetime: "2026-08-31T03:52:33.140Z",
+      },
+      {
+        title: "Second session222",
+        datetime: "2026-09-31T03:52:33.140Z",
+      },
+    ],
+    createdAt: "2025-07-31T03:40:24.846Z",
+    status: "SENT",
   },
   student = false,
   onClose,
 }) {
-  console.log(initialData);
+  console.log(initialData.sessions);
   const [formData, dispatch] = useReducer(
     proposalReducer,
-    initialData,
-    (init) => ({
-      ...init,
-    })
+    createInitialState(initialData)
   );
 
+  console.log(formData);
   const setDescription = (description) => {
     dispatch({ type: "SET_DESCRIPTION", payload: description });
   };
@@ -47,8 +75,10 @@ export default function ProposalForm({
   };
 
   function handleSend() {
-    console.log("Sending proposal data:", formData);
-    dispatch({ type: "RESET_FORM", payload: initialData });
+    // data to create or update
+    const proposalData = createSendData(formData);
+    console.log("Sending proposal data:", proposalData);
+    dispatch({ type: "RESET_FORM", payload: createInitialState(initialData) });
   }
 
   return (
@@ -101,16 +131,47 @@ export default function ProposalForm({
   );
 }
 
+const createSendData = (formData) => {
+  const sessions = formData.sessions.map((session) => {
+    const datetime = setDateInfo(session.date, session.hour);
+    return {
+      title: session.name,
+      datetime,
+    };
+  });
+  return { ...formData, sessions };
+};
+
+const getDateInfo = (dateInput = "2026-07-31T03:52:20.461Z") => {
+  const auxDate = new Date(dateInput);
+  const year = auxDate.getUTCFullYear();
+  const month = auxDate.getUTCMonth() + 1;
+  const day = auxDate.getUTCDate();
+  const hours = auxDate.getUTCHours();
+  const minutes = auxDate.getUTCMinutes();
+  const date = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  const hour = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+
+  return { date, hour };
+};
+
+const setDateInfo = (date, hours) => {
+  return `${date}T${hours}:00.000Z`;
+};
+
 ProposalForm.propTypes = {
   requestTitle: PropTypes.string,
   initialData: PropTypes.shape({
+    id: PropTypes.string,
+    userId: PropTypes.string,
+    requestId: PropTypes.string,
     description: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    createdAt: PropTypes.string,
     sessions: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        hour: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        datetime: PropTypes.string.isRequired,
       })
     ).isRequired,
   }),
