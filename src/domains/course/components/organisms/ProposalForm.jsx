@@ -3,20 +3,71 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
-import { StartDateField } from "../molecules/StartDateField";
+import { useReducer } from "react";
 import PropTypes from "prop-types";
 
+const proposalReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_DESCRIPTION":
+      return { ...state, description: action.payload };
+    case "SET_SESSIONS":
+      return { ...state, sessions: action.payload };
+    case "RESET_FORM":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+function createInitialState(initialData) {
+  const sessions = initialData.sessions.map((session) => {
+    const { date, hour } = getDateInfo(session.datetime);
+    return {
+      id: session.datetime,
+      name: session.title,
+      date,
+      hour,
+    };
+  });
+  return { ...initialData, sessions };
+}
+
 export default function ProposalForm({
-  requestTitle = "DefoultTitle",
-  description = "this will be a large description",
-  setDescription,
-  sessions = [],
-  setSessions,
-  startDate,
-  setStartDate,
+  requestTitle = "DefaultTitle",
+  initialData = {
+    id: "",
+    userId: "",
+    requestId: "",
+    description: "",
+    sessions: [],
+    createdAt: "",
+    status: "",
+  },
+  student = false,
   onClose,
-  onSend,
 }) {
+  console.log(initialData.sessions);
+  const [formData, dispatch] = useReducer(
+    proposalReducer,
+    createInitialState(initialData)
+  );
+
+  const setDescription = (description) => {
+    dispatch({ type: "SET_DESCRIPTION", payload: description });
+  };
+
+  const setSessions = (sessions) => {
+    dispatch({ type: "SET_SESSIONS", payload: sessions });
+  };
+
+  function handleSend() {
+    // data to create or update
+    const proposalData = createSendData(formData);
+    console.log("Sending proposal data:", proposalData);
+    dispatch({ type: "RESET_FORM", payload: createInitialState(initialData) });
+    onClose();
+  }
+
   return (
     <div className="flex flex-col relative gap-4">
       <Button
@@ -34,24 +85,32 @@ export default function ProposalForm({
         Proposal
       </Title>
 
-      <div className="px-6">
-        <div className="mb-4">
-          <span className="text-sm text-gray-600">Request: </span>
-          <span className="text-sm font-medium">{`"${requestTitle}"`}</span>
+      {formData && (
+        <div className="px-6">
+          <div className="mb-4">
+            <span className="text-base text-gray-600">Request: </span>
+            <span className="text-base font-medium">{`"${requestTitle}"`}</span>
+          </div>
+
+          <DescriptionField
+            value={formData.description}
+            onChange={setDescription}
+            student={student}
+          />
+
+          <SessionsSchedule
+            sessions={formData.sessions}
+            onSessionsChange={setSessions}
+            student={student}
+          />
         </div>
-
-        <DescriptionField value={description} onChange={setDescription} />
-
-        <SessionsSchedule sessions={sessions} onSessionsChange={setSessions} />
-
-        <StartDateField value={startDate} onChange={setStartDate} />
-      </div>
+      )}
 
       <div className="flex gap-8 justify-center pt-4">
         <Button onClick={onClose} color="default">
           Cancel
         </Button>
-        <Button onClick={onSend} color="primary" variant="solid">
+        <Button onClick={handleSend} color="primary" variant="solid">
           Send
         </Button>
       </div>
@@ -59,21 +118,50 @@ export default function ProposalForm({
   );
 }
 
+const createSendData = (formData) => {
+  const sessions = formData.sessions.map((session) => {
+    const datetime = setDateInfo(session.date, session.hour);
+    return {
+      title: session.name,
+      datetime,
+    };
+  });
+  return { ...formData, sessions };
+};
+
+const getDateInfo = (dateInput = "2026-07-31T03:52:20.461Z") => {
+  const auxDate = new Date(dateInput);
+  const year = auxDate.getUTCFullYear();
+  const month = auxDate.getUTCMonth() + 1;
+  const day = auxDate.getUTCDate();
+  const hours = auxDate.getUTCHours();
+  const minutes = auxDate.getUTCMinutes();
+  const date = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  const hour = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+
+  return { date, hour };
+};
+
+const setDateInfo = (date, hours) => {
+  return `${date}T${hours}:00.000Z`;
+};
+
 ProposalForm.propTypes = {
   requestTitle: PropTypes.string,
-  description: PropTypes.string,
-  setDescription: PropTypes.func.isRequired,
-  sessions: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      hour: PropTypes.string.isRequired,
-    })
-  ),
-  setSessions: PropTypes.func.isRequired,
-  startDate: PropTypes.string.isRequired,
-  setStartDate: PropTypes.func.isRequired,
+  initialData: PropTypes.shape({
+    id: PropTypes.string,
+    userId: PropTypes.string,
+    requestId: PropTypes.string,
+    description: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    createdAt: PropTypes.string,
+    sessions: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        datetime: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }),
+  student: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onSend: PropTypes.func.isRequired,
 };
