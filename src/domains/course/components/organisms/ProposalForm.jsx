@@ -3,8 +3,11 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 const proposalReducer = (state, action) => {
   switch (action.type) {
@@ -33,7 +36,6 @@ function createInitialState(initialData) {
 }
 
 export default function ProposalForm({
-  requestTitle = "DefaultTitle",
   initialData = {
     id: "",
     userId: "",
@@ -44,9 +46,12 @@ export default function ProposalForm({
     status: "",
   },
   student = false,
-  onClose,
+  onClose = () => {},
+  handleSendProposal,
+  showOptions = true,
+  showCloseButton = true,
 }) {
-  console.log(initialData.sessions);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, dispatch] = useReducer(
     proposalReducer,
     createInitialState(initialData)
@@ -61,25 +66,48 @@ export default function ProposalForm({
   };
 
   function handleSend() {
-    // data to create or update
+    handleSubmit("SENT");
+  }
+
+  function handleAccept() {
+    handleSubmit("ACCEPTED");
+  }
+
+  function handleSubmit(status) {
+    setIsLoading(true);
     const proposalData = createSendData(formData);
-    console.log("Sending proposal data:", proposalData);
-    dispatch({ type: "RESET_FORM", payload: createInitialState(initialData) });
-    onClose();
+    const proposal = { ...proposalData, status: status };
+    axios
+      .put(`${API_URL}/proposals/${initialData.id}`, proposal)
+      .then((response) => response.data.data)
+      .then((proposalResponse) => {
+        handleSendProposal(proposalResponse);
+        dispatch({
+          type: "RESET_FORM",
+          payload: createInitialState(proposalResponse),
+        });
+        setIsLoading(false);
+        onClose();
+      })
+      .catch((error) =>
+        console.error("Something went wrong updating proposal", error)
+      );
   }
 
   return (
-    <div className="flex flex-col relative gap-4">
-      <Button
-        aria-label="Close form"
-        color="default"
-        radius="full"
-        onClick={onClose}
-        square
-        className={"absolute top-1 right-1 bg-[color:var(--color-default-300)]"}
-      >
-        <Icon icon="close" />
-      </Button>
+    <div className="flex flex-col relative gap-4 max-w-lg">
+      {showCloseButton ? (
+        <Button
+          aria-label="Close form"
+          color="default"
+          radius="full"
+          onClick={onClose}
+          square
+          className={"absolute top-1 right-1 bg-default-100"}
+        >
+          <Icon icon="close" />
+        </Button>
+      ) : null}
 
       <Title color="default" className="pt-6 text-center">
         Proposal
@@ -87,11 +115,6 @@ export default function ProposalForm({
 
       {formData && (
         <div className="px-6">
-          <div className="mb-4">
-            <span className="text-base text-gray-600">Request: </span>
-            <span className="text-base font-medium">{`"${requestTitle}"`}</span>
-          </div>
-
           <DescriptionField
             value={formData.description}
             onChange={setDescription}
@@ -105,15 +128,36 @@ export default function ProposalForm({
           />
         </div>
       )}
-
-      <div className="flex gap-8 justify-center pt-4">
-        <Button onClick={onClose} color="default">
-          Cancel
-        </Button>
-        <Button onClick={handleSend} color="primary" variant="solid">
-          Send
-        </Button>
-      </div>
+      {showOptions ? (
+        <div className="flex gap-8 justify-center pt-4">
+          {student ? (
+            <Button
+              onClick={handleAccept}
+              color="primary"
+              variant="solid"
+              isSpinning={isLoading}
+              disabled={isLoading}
+            >
+              Accept proposal
+            </Button>
+          ) : (
+            <>
+              <Button onClick={onClose} color="default">
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSend}
+                color="primary"
+                variant="solid"
+                isSpinning={isLoading}
+                disabled={isLoading}
+              >
+                Send
+              </Button>
+            </>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -164,4 +208,8 @@ ProposalForm.propTypes = {
   }),
   student: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
+  handleSendProposal: PropTypes.func,
+  handleAcceptProposal: PropTypes.func,
+  showOptions: PropTypes.bool,
+  showCloseButton: PropTypes.bool,
 };

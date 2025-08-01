@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import axios from "axios";
 import PropTypes from "prop-types";
+import ProposalFormPopUp from "../../../course/components/organisms/ProposalFormPopUp";
 import clsx from "clsx";
 
 export default ProposalChatAlert;
@@ -9,7 +10,7 @@ export default ProposalChatAlert;
 const baseStyle = "p-4 flex justify-between";
 // chatInfo = {chatId: string, proposalTimestamp: Date, status: ChatStatusEnum}
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-export function ProposalChatAlert({ chatInfo, userId, handleCancelProposal }) {
+export function ProposalChatAlert({ chatInfo, userId, handleSendMessage }) {
   const [proposal, setProposal] = useState(null);
   function fetchProposalInfo() {
     axios
@@ -28,13 +29,31 @@ export function ProposalChatAlert({ chatInfo, userId, handleCancelProposal }) {
     return proposal.userId == userId;
   };
 
+  const handleSendForm = (data) => {
+    handleSendMessage(data, "PROPOSAL");
+  };
+
+  const handleCancelProposal = () => {
+    const rejectedProposal = { ...proposal, status: "REJECTED" };
+    axios
+      .put(`${API_URL}/proposals/${proposal.id}`, rejectedProposal)
+      .then((response) => response.data.data)
+      .then((proposalResponse) => {
+        handleSendMessage(proposalResponse, "PROPOSAL");
+      })
+      .catch((error) => console.error(error));
+  };
+
   const getOptions = (status) => {
     switch (status) {
       case "NEW":
         return (
           <>
             {isOwnProposal() ? (
-              <Button size="sm">Create proposal</Button>
+              <ProposalFormPopUp
+                handleSendProposal={handleSendForm}
+                initialData={proposal}
+              />
             ) : null}
             <Button
               size="sm"
@@ -50,9 +69,20 @@ export function ProposalChatAlert({ chatInfo, userId, handleCancelProposal }) {
         return (
           <>
             {isOwnProposal() ? (
-              <Button size="sm">Edit proposal</Button>
+              <ProposalFormPopUp
+                key={proposal.id}
+                handleSendProposal={handleSendForm}
+                buttonLabel="Edit proposal"
+                initialData={proposal}
+              />
             ) : (
-              <Button size="sm">Review proposal</Button>
+              <ProposalFormPopUp
+                key={proposal.id}
+                handleSendProposal={handleSendForm}
+                buttonLabel="Review last proposal"
+                readOnly
+                initialData={proposal}
+              />
             )}
 
             <Button
@@ -112,4 +142,5 @@ ProposalChatAlert.propTypes = {
   chatInfo: PropTypes.object,
   userId: PropTypes.string,
   handleCancelProposal: PropTypes.func,
+  handleSendMessage: PropTypes.func,
 };
