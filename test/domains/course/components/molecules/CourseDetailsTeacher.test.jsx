@@ -19,33 +19,33 @@ const renderWithRouter = (ui) => render(<BrowserRouter>{ui}</BrowserRouter>);
 
 describe("CourseDetailsTeacher", () => {
   const props = {
-    avatarURL: "https://example.com/avatar.jpg",
-    name: "Jane Doe",
+    profilePicture: "https://example.com/avatar.jpg",
+    userName: "Jane Doe",
     rating: 4.8,
     students: 1234,
     courses: 12,
-    aboutMe: "Experienced React teacher",
-    teacherId: "abc123",
+    about: "Experienced React teacher",
+    freelancerId: "abc123",
   };
 
   it("renders image with correct src and alt", () => {
     renderWithRouter(<CourseDetailsTeacher {...props} />);
     const img = screen.getByAltText("teacher image");
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute("src", props.avatarURL);
+    expect(img).toHaveAttribute("src", props.profilePicture);
   });
 
   it("renders links with correct href", () => {
     renderWithRouter(<CourseDetailsTeacher {...props} />);
     const links = screen.getAllByRole("link");
     links.forEach((link) => {
-      expect(link).toHaveAttribute("href", `/teachers/${props.teacherId}`);
+      expect(link).toHaveAttribute("href", `/teachers/${props.freelancerId}`);
     });
   });
 
   it("renders teacher name", () => {
     renderWithRouter(<CourseDetailsTeacher {...props} />);
-    expect(screen.getByText(props.name)).toBeInTheDocument();
+    expect(screen.getByText(props.userName)).toBeInTheDocument();
   });
 
   it("renders rating, students and courses with icons", () => {
@@ -62,7 +62,7 @@ describe("CourseDetailsTeacher", () => {
 
   it("renders aboutMe text via ExpandableText", () => {
     renderWithRouter(<CourseDetailsTeacher {...props} />);
-    expect(screen.getByText(props.aboutMe)).toBeInTheDocument();
+    expect(screen.getByText(props.about)).toBeInTheDocument();
   });
 
   it("uses default props when none provided", () => {
