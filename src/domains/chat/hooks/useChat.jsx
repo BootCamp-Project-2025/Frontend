@@ -175,11 +175,12 @@ export const useChat = () => {
     dispatch({ type: "SET_USERID", payload: { userId } });
   };
 
-  const createChat = (participantsIds) => {
+  const createChat = (participantsIds, status = "ACTIVE") => {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
       const chat = {
         participantsIds,
+        status,
       };
 
       socket.emit("create-chat", { chat, userId: state.userId }, (response) => {
