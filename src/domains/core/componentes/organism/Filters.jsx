@@ -6,6 +6,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 
 export const Filters = ({
   activeFilters = ["language", "rating", "category", "subcategory"],
+  resultQuantity,
 }) => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [filters, setFilters] = useState([]);
@@ -132,7 +133,9 @@ export const Filters = ({
         </div>
       </div>
       <div className="flex justify-between items-center mt-[3em] flex-wrap">
-        <p className="text-gray-400">5000+ results</p>
+        <p className="text-gray-400">
+          {resultQuantity > 99 ? "99+" : resultQuantity} results
+        </p>
         <div className="flex items-center">
           <p className="mr-2 text-gray-400">Order by:</p>
           <SelectInput
@@ -152,4 +155,5 @@ export const Filters = ({
 
 Filters.propTypes = {
   activeFilters: PropTypes.arrayOf(PropTypes.string),
+  resultQuantity: PropTypes.number.isRequired,
 };

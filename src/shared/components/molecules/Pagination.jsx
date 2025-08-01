@@ -7,6 +7,7 @@ export const Pagination = ({
   backwardFn,
   selectedFn,
   indexedDB,
+  page,
 }) => {
   return (
     <div className="flex items-center justify-center mt-5">
@@ -22,7 +23,16 @@ export const Pagination = ({
         ></Icon>
       </Button>
       {indexedDB.map((row, idx) => (
-        <Button key={idx} onClick={() => selectedFn(row)} variant="ghost">
+        <Button
+          key={idx}
+          onClick={() => selectedFn(row)}
+          variant="ghost"
+          className={
+            page == row
+              ? "ring-2 ring-blue-700 bg-[color:var(--color-primary-700)]"
+              : ""
+          }
+        >
           {row}
         </Button>
       ))}

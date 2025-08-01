@@ -46,5 +46,191 @@
     "title": "Eighth Request",
     "description": "This is the eighth request description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "student": "Fiona Green"
+  },
+  {
+    "id": 9,
+    "title": "Angular Class Request",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Isabella Rios"
+  },
+  {
+    "id": 10,
+    "title": "Looking for Angular Tutor",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Olivia Davis"
+  },
+  {
+    "id": 11,
+    "title": "Need Help with Angular",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Liam Martinez"
+  },
+  {
+    "id": 12,
+    "title": "Seeking Angular Guidance",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Liam Gonzalez"
+  },
+  {
+    "id": 13,
+    "title": "Angular Mentorship",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Liam Rios"
+  },
+  {
+    "id": 14,
+    "title": "Angular One-on-One Lessons",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Emma Lopez"
+  },
+  {
+    "id": 15,
+    "title": "Private Angular Training",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Lucas Smith"
+  },
+  {
+    "id": 16,
+    "title": "Angular for Beginners",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Michael Smith"
+  },
+  {
+    "id": 17,
+    "title": "Intermediate Angular Help",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Sophia Johnson"
+  },
+  {
+    "id": 18,
+    "title": "Want to Master Angular",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "David Clark"
+  },
+  {
+    "id": 19,
+    "title": "Professional Angular Coaching",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Isabella Lee"
+  },
+  {
+    "id": 20,
+    "title": "Custom Angular Curriculum",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Isabella Rios"
+  },
+  {
+    "id": 21,
+    "title": "Angular for Frontend Development",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Liam Davis"
+  },
+  {
+    "id": 22,
+    "title": "Learn Angular Step-by-Step",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Sophia Garcia"
+  },
+  {
+    "id": 23,
+    "title": "Comprehensive Angular Guide",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Laura Martinez"
+  },
+  {
+    "id": 24,
+    "title": "Angular Bootcamp Request",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Isabella Gonzalez"
+  },
+  {
+    "id": 25,
+    "title": "Angular Expert Needed",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Sophia Rios"
+  },
+  {
+    "id": 26,
+    "title": "Understand Angular in Depth",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Lucas Martinez"
+  },
+  {
+    "id": 27,
+    "title": "Angular Weekly Tutoring",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Emma Lopez"
+  },
+  {
+    "id": 28,
+    "title": "Build Angular Projects Together",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Mia Martinez"
+  },
+  {
+    "id": 29,
+    "title": "Code Review in Angular",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Lucas Garcia"
+  },
+  {
+    "id": 30,
+    "title": "Learn Angular the Right Way",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Emma Gonzalez"
+  },
+  {
+    "id": 31,
+    "title": "Angular for Real Projects",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Olivia Davis"
+  },
+  {
+    "id": 32,
+    "title": "Looking for Angular Classes",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Liam Smith"
+  },
+  {
+    "id": 33,
+    "title": "Personal Angular Learning Plan",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Mateo Martinez"
+  },
+  {
+    "id": 34,
+    "title": "Angular from Scratch",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Sophia Martinez"
+  },
+  {
+    "id": 35,
+    "title": "Become Angular Developer",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Lucas Lopez"
+  },
+  {
+    "id": 36,
+    "title": "Understanding Angular Concepts",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Emma Lee"
+  },
+  {
+    "id": 37,
+    "title": "Fix My Angular Code",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Mia Brown"
+  },
+  {
+    "id": 38,
+    "title": "Angular Code Walkthrough",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "David Clark"
+  },
+  {
+    "id": 39,
+    "title": "From JS to Angular",
+    "description": "I'm looking for a teacher who can guide me through learning Angular, from the basics to more advanced topics. I’m particularly interested in building real-world applications, understanding core concepts like components, routing, services, and using Angular CLI. A strong focus on hands-on learning is a plus.",
+    "student": "Olivia Johnson"
   }
 ]
