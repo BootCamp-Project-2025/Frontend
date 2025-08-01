@@ -64,6 +64,7 @@ export default function StudentRequests() {
     },
     [manageToast]
   );
+  console.log(requestList, "RRRRR");
 
   const handleDeleteRequestPopUp = useCallback(
     (requestId) => {
@@ -80,7 +81,21 @@ export default function StudentRequests() {
     },
     [openPopup, closePopup, deleteUserRequest]
   );
-
+  const handleEditRequestPopUp = useCallback(
+    (requestId) => {
+      openPopup(
+        DeleteCardPopup, //here
+        {
+          title: "Delete Card",
+          msg: "This action is irreversible. Please confirm to proceed.",
+          closePopup,
+          deleteAction: () => deleteUserRequest(requestId),
+        },
+        false
+      );
+    },
+    [openPopup, closePopup, deleteUserRequest]
+  );
   const handleCreateRequest = useCallback(() => {
     openPopup(RequestForm, { saveRequest, closePopup }, false);
   }, [openPopup, saveRequest, closePopup]);
@@ -96,6 +111,7 @@ export default function StudentRequests() {
         <RequestList
           deleteRequest={handleDeleteRequestPopUp}
           handleCreateRequest={handleCreateRequest}
+          editRequest={handleEditRequestPopUp}
           requestList={requestList}
         />
       )}

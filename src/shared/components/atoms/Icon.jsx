@@ -23,6 +23,7 @@ import MessageIcon from "../../../assets/message.svg?react";
 import UserIcon from "../../../assets/user.svg?react";
 import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
+import ProposalIcon from "../../../assets/proposal.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
 import CheckSyllabusIcon from "../../../assets/checkSyllabus.svg?react";
@@ -49,6 +50,7 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
+import ArrowBack from "../../../assets/arrow-back.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -77,6 +79,7 @@ const icons = {
   user: UserIcon,
   course: CourseIcon,
   dashboard: DashboardIcon,
+  proposal: ProposalIcon,
   teacher: TeacherIcon,
   check: CheckIcon,
   checkSyllabus: CheckSyllabusIcon,
@@ -103,6 +106,7 @@ const icons = {
   instagram: Instagram,
   linkedin: Linkedin,
   youtube: Youtube,
+  arrowBack: ArrowBack,
 };
 
 export function Icon({ icon, className }) {

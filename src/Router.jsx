@@ -24,6 +24,8 @@ import { ChatShowcase } from "./shared/components/templates/ChatShowcase.jsx";
 import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
+import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
+import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
 
 export default function Router() {
   return (
@@ -52,6 +54,11 @@ export default function Router() {
             path="/teacher/search-requests"
             element={<SearchRequestPage />}
           />
+          <Route path="/teacher/my-proposals" element={<TeacherProposals />} />
+          <Route
+            path="/teacher/requests/:requestId"
+            element={<RequestDetail />}
+          />
           <Route path="/teacher/dashboard" element={<Dashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
 
@@ -76,10 +83,6 @@ export default function Router() {
           <Route path="/teacher/chats">
             <Route index element={<ChatPage />} />
           </Route>
-          <Route
-            path="/teacher/search-requests"
-            element={<h1>Search Resquest</h1>}
-          />
         </Route>
 
         <Route path="student" element={<StudentLayout />}>
@@ -87,6 +90,10 @@ export default function Router() {
           <Route path="/student/profile" element={<StudentProfile />} />
           <Route path="/student/courses" element={<h1>Student courses </h1>} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
+          <Route
+            path="/student/requests/:requestId"
+            element={<RequestDetail />}
+          />
           <Route path="chats" element={<ChatPage />} />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />
