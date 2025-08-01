@@ -23,6 +23,7 @@ function createInitialState(initialData) {
   const sessions = initialData.sessions.map((session) => {
     const { date, hour } = getDateInfo(session.datetime);
     return {
+      id: session.datetime,
       name: session.title,
       date,
       hour,
