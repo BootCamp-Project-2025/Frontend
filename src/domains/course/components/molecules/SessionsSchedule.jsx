@@ -26,11 +26,6 @@ export const SessionsSchedule = ({ sessions, onSessionsChange, student }) => {
     onSessionsChange(filteredSessions);
   };
 
-  console.log("sessions updated:", sessions);
-  useEffect(() => {
-    console.log("sessions updated:", sessions);
-  }, [sessions]);
-
   return (
     <div className="mb-6">
       <div className="bg-gray-100 rounded-lg overflow-hidden shadow-sm">
