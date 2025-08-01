@@ -35,26 +35,13 @@ function createInitialState(initialData) {
 export default function ProposalForm({
   requestTitle = "DefaultTitle",
   initialData = {
-    id: "3c88401e-64f9-4643-85fb-c4356a1dd61c",
-    userId: "27b60ea3-5bd0-44ba-8ea1-3efcf128c1d3",
-    requestId: "127b094b-93ce-4efa-9fd3-f79eba6a9679",
-    description: "My awesome description for an awesome proposal 222",
-    sessions: [
-      {
-        title: "First session222",
-        datetime: "2026-07-31T03:52:20.461Z",
-      },
-      {
-        title: "Second session222",
-        datetime: "2026-08-31T03:52:33.140Z",
-      },
-      {
-        title: "Second session222",
-        datetime: "2026-09-31T03:52:33.140Z",
-      },
-    ],
-    createdAt: "2025-07-31T03:40:24.846Z",
-    status: "SENT",
+    id: "",
+    userId: "",
+    requestId: "",
+    description: "",
+    sessions: [],
+    createdAt: "",
+    status: "",
   },
   student = false,
   onClose,
@@ -65,13 +52,11 @@ export default function ProposalForm({
     createInitialState(initialData)
   );
 
-  console.log(formData);
   const setDescription = (description) => {
     dispatch({ type: "SET_DESCRIPTION", payload: description });
   };
 
   const setSessions = (sessions) => {
-    console.log(sessions);
     dispatch({ type: "SET_SESSIONS", payload: sessions });
   };
 
@@ -80,6 +65,7 @@ export default function ProposalForm({
     const proposalData = createSendData(formData);
     console.log("Sending proposal data:", proposalData);
     dispatch({ type: "RESET_FORM", payload: createInitialState(initialData) });
+    onClose();
   }
 
   return (
