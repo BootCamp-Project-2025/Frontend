@@ -1,53 +1,43 @@
-import { useEffect, useState } from "react";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
+import { useEffect, useRef, useState } from "react";
+import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 import PropTypes from "prop-types";
 import { FilterChip } from "../atoms/FilterChip";
 import { Button } from "../../../../shared/components/atoms/Button";
+import {
+  educationCategories,
+  educationSubCategories,
+  languages,
+} from "../../../course/utils/CourseSelectData";
 
 export const Filters = ({
   total = 0,
   activeFilters = ["language", "rating", "category", "subcategory"],
   setFilters = () => {},
 }) => {
-  const [sortOrder, setSortOrder] = useState("rating:desc");
   const [filtersState, setFiltersState] = useState({});
+  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
 
-  const handleSelectFilter = (type, value) => {
-    setFiltersState((prev) => ({
-      ...prev,
-      [type]: value === "all" ? null : value,
-    }));
-  };
-
-  const handleRemoveFilter = (type) => {
-    setFiltersState((prev) => {
-      const updated = { ...prev };
-      delete updated[type];
-      return updated;
-    });
-  };
-
-  const handleClearFilters = () => {
-    setFiltersState({});
-    setSortOrder("rating:desc");
-  };
-
-  const handleSort = (value) => {
-    const [sort, order] = value.split(":");
-    setFiltersState((prev) => ({
-      ...prev,
-      sort,
-      order,
-    }));
-    setSortOrder(value);
-  };
+  const dropdownRefs = useRef({});
 
   useEffect(() => {
-    if (filtersState && Object.keys(filtersState).length > 0) {
-      console.log("Setting filters:", filtersState);
+    const cat = filtersState.category;
+    if (cat) {
+      const subs = educationSubCategories[cat] || [];
+      setSubCategoryOptions(subs);
+      setFiltersState((prev) => ({
+        ...prev,
+        subcategory: null,
+      }));
+      dropdownRefs.current["subcategory"]?.reset?.();
+    } else {
+      setSubCategoryOptions([]);
+    }
+  }, [filtersState.category]);
+
+  useEffect(() => {
+    if (Object.keys(filtersState).length > 0) {
       setFilters(filtersState);
     } else {
-      console.log("Clearing filters");
       setFilters({
         category: null,
         subcategory: null,
@@ -59,16 +49,44 @@ export const Filters = ({
     }
   }, [filtersState, setFilters]);
 
+  const handleSelectFilter = (type, value) => {
+    setFiltersState((prev) => ({
+      ...prev,
+      [type]: value === "all" ? null : (value.label ?? value),
+    }));
+  };
+
+  const handleRemoveFilter = (type) => {
+    setFiltersState((prev) => {
+      const copy = { ...prev };
+      delete copy[type];
+      return copy;
+    });
+    dropdownRefs.current[type]?.reset?.();
+  };
+
+  const handleClearFilters = () => {
+    setFiltersState({});
+
+    Object.values(dropdownRefs.current).forEach((ref) => {
+      if (ref && typeof ref.reset === "function") {
+        ref.reset();
+      }
+    });
+  };
+
+  const handleSort = (option) => {
+    const value = option.value;
+    const [sort, order] = value.split(":");
+    setFiltersState((prev) => ({
+      ...prev,
+      sort,
+      order,
+    }));
+  };
+
   const options = {
-    language: [
-      { value: "english", label: "English" },
-      { value: "spanish", label: "Spanish" },
-      { value: "french", label: "French" },
-      { value: "german", label: "German" },
-      { value: "italian", label: "Italian" },
-      { value: "portuguese", label: "Portuguese" },
-      { value: "japanese", label: "Japanese" },
-    ],
+    language: languages,
     rating: [
       { value: "all", label: "All" },
       { value: 5, label: "5" },
@@ -77,29 +95,14 @@ export const Filters = ({
       { value: 2, label: "2" },
       { value: 1, label: "1" },
     ],
-    subcategory: [
-      { value: "all", label: "All" },
-      { value: "artificial-intelligence", label: "Artificial Intelligence" },
-      { value: "cybersecurity", label: "Cybersecurity" },
-      { value: "cloud-computing", label: "Cloud Computing" },
-      { value: "internet-of-things", label: "Internet of Things (IoT)" },
-      { value: "blockchain", label: "Blockchain" },
-      { value: "deep-learning", label: "Deep Learning" },
-      { value: "computer-vision", label: "Computer Vision" },
-    ],
-    category: [
-      { value: "all", label: "All" },
-      { value: "technology", label: "Technology" },
-      { value: "programming", label: "Programming" },
-      { value: "design", label: "Design" },
-      { value: "business", label: "Business" },
-      { value: "finance", label: "Finance" },
-      { value: "photography", label: "Photography" },
-    ],
+    category: educationCategories,
+    subcategory: subCategoryOptions,
   };
 
   const sortOptions = [
-    { value: "rating:desc", label: "Most Popular" },
+    ...(activeFilters.includes("rating")
+      ? [{ value: "rating:desc", label: "Most Popular" }]
+      : []),
     { value: "createdAt:desc", label: "Newest first" },
     { value: "createdAt:asc", label: "Oldest First" },
     { value: "title.keyword:asc", label: "Name A → Z" },
@@ -110,26 +113,32 @@ export const Filters = ({
     <div className="flex flex-col">
       <div className="flex flex-col">
         <div className="flex items-center gap-2 md:gap-5 flex-wrap">
-          {activeFilters &&
-            activeFilters.map((filter) => (
-              <SelectInput
-                key={filter}
-                options={options[filter]}
-                placeHolder={filter}
-                className="rounded-md border-gray-300 capitalize font-semibold"
-                value={filtersState[filter] || ""}
-                onChange={(e) => handleSelectFilter(filter, e.target.value)}
-              />
-            ))}
+          {activeFilters.map((filterType) => (
+            <Dropdown
+              key={filterType}
+              ref={(el) => (dropdownRefs.current[filterType] = el)}
+              options={options[filterType]}
+              label={filterType}
+              className="rounded-md border-gray-300 capitalize font-semibold w-48 border-2"
+              onSelect={(option) => handleSelectFilter(filterType, option)}
+              variant="secondary"
+            />
+          ))}
         </div>
+
         <div className="mt-4 flex items-center gap-3 flex-wrap md:h-10">
           {Object.entries(filtersState)
-            .filter(([key]) => !["sort", "order"].includes(key))
-            .map(([type, value]) => (
+            .filter(
+              ([key, val]) =>
+                !["sort", "order"].includes(key) &&
+                val !== null &&
+                val !== undefined
+            )
+            .map(([key, val]) => (
               <FilterChip
-                key={type}
-                label={`${type}: ${value}`}
-                onClick={() => handleRemoveFilter(type)}
+                key={key}
+                label={`${key}: ${val}`}
+                onClick={() => handleRemoveFilter(key)}
               />
             ))}
 
@@ -140,16 +149,18 @@ export const Filters = ({
           )}
         </div>
       </div>
+
       <div className="flex justify-between items-center mt-[3em] flex-wrap">
         <p className="text-gray-400">{total} results</p>
         <div className="flex items-center">
           <p className="mr-2 text-gray-400">Order by:</p>
-          <SelectInput
-            value={sortOrder}
-            onChange={(e) => handleSort(e.target.value)}
+          <Dropdown
+            ref={(el) => (dropdownRefs.current["sortOrder"] = el)}
+            onSelect={handleSort}
             options={sortOptions}
-            placeHolder="Sort"
-            className="bg-gray-200 border-gray-200 outline-gray-200"
+            label={"Newest first"}
+            className="bg-gray-200 border-gray-200 outline-gray-200 w-40"
+            variant="secondary"
           />
         </div>
       </div>
