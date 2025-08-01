@@ -56,4 +56,5 @@ Pagination.propTypes = {
   backwardFn: PropTypes.func,
   selectedFn: PropTypes.func,
   indexedDB: PropTypes.array,
+  page: PropTypes.number,
 };
