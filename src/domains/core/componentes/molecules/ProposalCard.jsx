@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 const ProposalCard = ({ proposal }) => {
   return (
     <Link
-      to={`/teacher/requests/${proposal.id}`}
+      to={`/teacher/requests/${proposal.requestId}`}
       className="flex flex-col justify-center gap-2 shadow-md rounded-sm p-4 hover:shadow-lg transition-shadow border border-gray-300 hover:border-gray-400 my-2"
     >
       <div className="flex justify-between">
-        <h2 className="font-bold">{proposal.title}</h2>
+        <h2 className="font-bold">{proposal.requestTitle}</h2>
         <div className="flex gap-16">
           <p
             className="self-center font-medium"
@@ -38,10 +38,11 @@ export default ProposalCard;
 
 ProposalCard.propTypes = {
   proposal: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    requestTitle: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     chatId: PropTypes.string.isRequired,
+    requestId: PropTypes.string.isRequired,
   }),
 };

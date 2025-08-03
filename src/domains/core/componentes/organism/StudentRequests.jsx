@@ -64,7 +64,6 @@ export default function StudentRequests() {
     },
     [manageToast]
   );
-  console.log(requestList, "RRRRR");
 
   const handleDeleteRequestPopUp = useCallback(
     (requestId) => {
