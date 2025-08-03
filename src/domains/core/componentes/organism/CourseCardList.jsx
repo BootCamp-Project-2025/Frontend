@@ -33,11 +33,10 @@ export const CourseCardList = () => {
               return (
                 <CourseCard
                   key={course.id ? course.id : idx}
-                  author={course.author}
+                  id={course.id}
                   description={course.description}
                   imageURL={course.imgSrc}
                   name={course.name}
-                  rating={course.rating}
                 ></CourseCard>
               );
             })}

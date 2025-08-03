@@ -2,6 +2,7 @@ import { Card } from "../atoms/Card";
 import PropTypes from "prop-types";
 import { Icon } from "../atoms/Icon";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 export const CourseCard = ({
   id = "idCourse",
@@ -10,23 +11,85 @@ export const CourseCard = ({
   description = "Description course",
   rating = "0.0",
   author = "Author name",
+  showAuthor = true,
+  showDescription = true,
+  showRating = true,
+  redirecTo = "",
+  showDropOption = false,
+  onDropCourse = () => {},
   ...props
 }) => {
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
+
+  const handleCardClick = () => {
+    if (!showMenu) navigate(redirecTo || `/courses/${id}`);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  const handleMenuToggle = (e) => {
+    e.stopPropagation();
+    setShowMenu((prev) => !prev);
+  };
+
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleDropCourse = () => {
+    setShowMenu(false);
+    onDropCourse(id);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <Card
-      className="border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 gap-1.5"
+      className="relative border-gray-300 bg-white flex flex-col hover:cursor-pointer hover:border-primary-500 hover:bg-primary-50 gap-1.5"
       bordered
       borderWidth="thin"
       radius="small"
       color="secondary"
       shadow="custom"
       padding="md"
-      onClick={() => {
-        navigate(`/courses/${id}`);
-      }}
+      onClick={handleCardClick}
       {...props}
     >
+      {showDropOption && (
+        <div className="absolute top-2 right-2 z-1" ref={menuRef}>
+          <button
+            onClick={handleMenuToggle}
+            className="text-gray-600 hover:text-gray-900 px-1.5 py-2 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded-sm"
+          >
+            <Icon icon="moreVert" className="w-5 h-5 fill-gray-900" />
+          </button>
+          {showMenu && (
+            <div
+              onClick={handleMenuClick}
+              className="absolute right-0 mt-1 w-32 bg-white border border-gray-200 rounded shadow-md z-20"
+            >
+              <button
+                className="w-full text-left px-4 py-2 text-sm font-medium hover:bg-gray-200 cursor-pointer"
+                onClick={handleDropCourse}
+              >
+                Drop course
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="overflow-hidden rounded-sm flex justify-center items-center bg-gray-300 text-xs aspect-[1/0.6]">
         <img src={imageURL} alt="Course Image" className="h-full w-full" />
       </div>
@@ -35,22 +98,28 @@ export const CourseCard = ({
           <p className="text-base font-bold text-gray-900 line-clamp-2 flex-1">
             {name}
           </p>
-          <div className="flex justify-center items-start  p-0.5">
-            <p className="text-xs font-normal text-gray-900 flex items-center gap-0.5">
-              {rating}
-              <Icon
-                icon={"star"}
-                className={"w-[1.5rem] h-[1.5rem] text-yellow-500"}
-              ></Icon>
-            </p>
-          </div>
+          {showRating && (
+            <div className="flex justify-center items-start p-0.5">
+              <p className="text-xs font-normal text-gray-900 flex items-center gap-0.5">
+                {rating}
+                <Icon
+                  icon="star"
+                  className="w-[1.5rem] h-[1.5rem] text-yellow-500"
+                />
+              </p>
+            </div>
+          )}
         </div>
-        <p className="line-clamp-3 text-xs font-[500]  text-gray-900">
-          {description}
-        </p>
-        <p className="line-clamp-1 text-xs uppercase font-[400]  text-gray-950 mt-auto">
-          {author}
-        </p>
+        {showDescription && (
+          <p className="line-clamp-3 text-xs font-[500] text-gray-900">
+            {description}
+          </p>
+        )}
+        {showAuthor && (
+          <p className="line-clamp-1 text-xs uppercase font-[400] text-gray-950 mt-auto">
+            {author}
+          </p>
+        )}
       </div>
     </Card>
   );
@@ -63,4 +132,10 @@ CourseCard.propTypes = {
   description: PropTypes.string,
   author: PropTypes.string,
   rating: PropTypes.string,
+  showAuthor: PropTypes.bool,
+  showDescription: PropTypes.bool,
+  showRating: PropTypes.bool,
+  redirecTo: PropTypes.string,
+  showDropOption: PropTypes.bool,
+  onDropCourse: PropTypes.func,
 };

@@ -46,6 +46,10 @@ import ChatIcon from "../../../assets/chat.svg?react";
 import CoursesIcon from "../../../assets/courses.svg?react";
 import AnalyticsIcon from "../../../assets/analytics.svg?react";
 import AssignmentIcon from "../../../assets/assignment.svg?react";
+import MoreVert from "../../../assets/moreVert.svg?react";
+import ArticleIcon from "../../../assets/article.svg?react";
+import QuizIcon from "../../../assets/quiz.svg?react";
+import DocumentIcon from "../../../assets/document.svg?react";
 import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
@@ -101,11 +105,15 @@ const icons = {
   courses: CoursesIcon,
   analytics: AnalyticsIcon,
   assignment: AssignmentIcon,
+  moreVert: MoreVert,
   send: Send,
   facebook: Facebook,
   instagram: Instagram,
   linkedin: Linkedin,
   youtube: Youtube,
+  article: ArticleIcon,
+  quiz: QuizIcon,
+  document: DocumentIcon,
   arrowBack: ArrowBack,
 };
 

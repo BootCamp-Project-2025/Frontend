@@ -1,12 +1,12 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Icon } from "../../../../shared/components/atoms/Icon";
-
 export const CourseDetailsModule = ({
-  titleModule = "title accordion",
+  title = "title accordion",
   lessons = [],
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <div className="flex w-full">
@@ -22,25 +22,55 @@ export const CourseDetailsModule = ({
               ></Icon>
               <div className="flex w-full gap-1 items-center ">
                 <p className="w-full text-lg sm:text-xl text-gray-600 font-bold text-start">
-                  {titleModule}
+                  {title}
                 </p>
                 <p className=" text-base sm:text-lg text-gray-400 font-light text-nowrap">
-                  {lessons.length} lessons
+                  {lessons.length > 1
+                    ? `${lessons.length} lessons`
+                    : "1 lesson"}
                 </p>
               </div>
             </div>
           </button>
           {isOpen &&
-            lessons.map((lesson, index) => {
-              return (
-                <p
-                  key={index}
-                  className="w-full flex  bg-gray-50   py-5 px-5 border-b border-gray-500  text-gray-600 font-medium"
-                >
-                  {lesson}
-                </p>
-              );
-            })}
+            lessons.length > 0 &&
+            lessons.map((lesson, index) => (
+              <div
+                key={index}
+                className="w-full flex flex-col  bg-gray-50   py-5 px-5 border-b border-gray-500  text-gray-600 font-medium"
+              >
+                <p className="font-medium">{lesson.title}</p>
+
+                {lesson.videoUrls && lesson.videoUrls.length > 0 && (
+                  <div className="flex items-start gap-3 mt-2">
+                    <Icon
+                      icon={"youtube"}
+                      className={"mt-1 h-[1.25rem] w-[1.25rem]"}
+                    ></Icon>
+                    <ul>
+                      {lesson.videoUrls.map((url, idx) => (
+                        <li key={idx}>
+                          <p>{url}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {lesson.resources && lesson.resources.length > 0 && (
+                  <div className="flex items-start gap-3 mt-2">
+                    <Icon icon={"document"} className={"mt-1"}></Icon>
+                    <ul>
+                      {lesson.resources.map((resource, idx) => (
+                        <li key={idx}>
+                          <p>{resource.name}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
         </div>
       </div>
     </>
@@ -48,7 +78,6 @@ export const CourseDetailsModule = ({
 };
 
 CourseDetailsModule.propTypes = {
-  titleModule: PropTypes.string,
+  title: PropTypes.string,
   lessons: PropTypes.array,
-  children: PropTypes.element,
 };
