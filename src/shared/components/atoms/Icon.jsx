@@ -55,6 +55,7 @@ import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
 import Calendar from "../../../assets/calendar.svg?react";
 import Clock from "../../../assets/clock.svg?react";
+import AddNoFill from "../../../assets/addNoFill.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -115,6 +116,7 @@ const icons = {
   document: DocumentIcon,
   calendar: Calendar,
   clock: Clock,
+  addNoFill: AddNoFill,
 };
 
 export function Icon({ icon, className }) {

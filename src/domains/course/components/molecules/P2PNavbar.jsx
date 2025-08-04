@@ -3,6 +3,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { useCallback, useRef } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import PropTypes from "prop-types";
+import { Icon } from "../../../../shared/components/atoms/Icon";
 
 export default function P2PNavbar({ save }) {
   const postRef = useRef();
@@ -34,15 +35,17 @@ export default function P2PNavbar({ save }) {
           Files
         </Title>
       </NavLink>
-      {save ?? (
+      {save ? (
         <Button
           onClick={handleSave}
-          className="ml-auto"
+          className="ml-auto border-none !p-0"
           radius="full"
           variant="bordered"
         >
-          +
+          <Icon className="fill-blue-500" icon={"addNoFill"} />
         </Button>
+      ) : (
+        <></>
       )}
     </div>
   );

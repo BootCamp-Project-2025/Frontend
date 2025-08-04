@@ -4,6 +4,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import SessionCard from "./SessionCard";
 import PropTypes from "prop-types";
 import { Alert } from "../../../../shared/components/molecules/Alert";
+import { Icon } from "../../../../shared/components/atoms/Icon";
 
 export default function SessionList({
   sessionList,
@@ -44,19 +45,21 @@ export default function SessionList({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex">
-        <Title className="" size="xl" color="default">
+        <Title className="p-0" size="xl" color="default">
           Sessions
         </Title>
-        <span className="my-auto ml-3">Pending: {remainingSession}</span>
-        {save ?? (
+        <span className="mt-auto mb-0.5 ml-3">Pending: {remainingSession}</span>
+        {save ? (
           <Button
             onClick={handleSave}
-            className="ml-auto"
+            className="ml-auto border-none !p-0"
             radius="full"
             variant="bordered"
           >
-            +
+            <Icon className="fill-blue-500" icon={"addNoFill"} />
           </Button>
+        ) : (
+          <></>
         )}
       </div>
       {sessionList.length === 0 ? (
