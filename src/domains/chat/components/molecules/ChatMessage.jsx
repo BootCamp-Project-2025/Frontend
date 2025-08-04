@@ -108,4 +108,5 @@ ChatMessage.propTypes = {
   marginBottom: PropTypes.bool,
   content: PropTypes.string,
   sendMessage: PropTypes.func,
+  chatStatus: PropTypes.string,
 };
