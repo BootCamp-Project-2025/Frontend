@@ -14,6 +14,7 @@ export default function SessionForm({ saveOrEdit, closePopup, session }) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -52,24 +53,43 @@ export default function SessionForm({ saveOrEdit, closePopup, session }) {
     [isAM]
   );
 
+  const isAOldTime = useCallback(
+    (completeTime) => {
+      console.log(completeTime);
+      if (new Date() >= completeTime) {
+        setError("hours", {
+          message: "This time has passed",
+        });
+        return true;
+      }
+      return false;
+    },
+    [setError]
+  );
+
   const handleSave = useCallback(
     (data) => {
       const minutes = formatDoubleDigits(data.minutes);
       const hours = formatDoubleDigits(data.hours);
-      const completeTimeString = `${data.dateOfTheSession}T${hours}:${minutes}:00`;
+      const completeTime = new Date(
+        `${data.dateOfTheSession}T${hours}:${minutes}:00`
+      );
+      if (isAOldTime(completeTime)) {
+        return;
+      }
       saveOrEdit(
         {
           ...session,
           id: session ? session.id : null,
           url: data.url,
           creationDate: session ? session.creationDate : new Date(),
-          dateOfTheSession: new Date(completeTimeString),
+          dateOfTheSession: new Date(completeTime),
         },
         "sessions"
       );
       closePopup();
     },
-    [closePopup, formatDoubleDigits, saveOrEdit, session]
+    [closePopup, formatDoubleDigits, isAOldTime, saveOrEdit, session]
   );
 
   return (
