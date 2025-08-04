@@ -28,6 +28,13 @@ export const SearchRequestPage = () => {
   const handleForward = () => nextPage();
   const handleSelected = (page) => setPageIndex(page);
 
+  const requestSortOptions = [
+    { value: "createdAt:desc", label: "Newest first" },
+    { value: "createdAt:asc", label: "Oldest First" },
+    { value: "title.keyword:asc", label: "Name A → Z" },
+    { value: "title.keyword:desc", label: "Name Z → A" },
+  ];
+
   return (
     <div className="p-12 flex flex-col gap-2 justify-center">
       <h1 className="text-3xl font-bold mb-6 text-center">Students requests</h1>
@@ -40,6 +47,7 @@ export const SearchRequestPage = () => {
         total={total}
         activeFilters={activeFilters}
         setFilters={setFilters}
+        sortOptions={requestSortOptions}
       />
       {!isLoading && (
         <>
