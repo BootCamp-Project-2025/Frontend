@@ -24,9 +24,17 @@ export const SearchRequestPage = () => {
     url: "/requests/search",
   });
 
-  const handleBackward = () => previousPage();
-  const handleForward = () => nextPage();
-  const handleSelected = (page) => setPageIndex(page);
+  function handleBackward() {
+    previousPage();
+  }
+
+  function handleForward() {
+    nextPage();
+  }
+
+  function handleSelected(page) {
+    setPageIndex(page);
+  }
 
   const requestSortOptions = [
     { value: "createdAt:desc", label: "Newest first" },

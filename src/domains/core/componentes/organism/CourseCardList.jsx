@@ -66,7 +66,14 @@ export const CourseCardList = ({
 };
 
 CourseCardList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+      imgSrc: PropTypes.string,
+    })
+  ),
   page: PropTypes.number,
   size: PropTypes.number,
   total: PropTypes.number,

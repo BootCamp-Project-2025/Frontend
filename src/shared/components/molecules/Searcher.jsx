@@ -19,13 +19,17 @@ export const Searcher = ({
     setSearchQuery(localQuery);
   };
 
+  const handleChange = (e) => {
+    setLocalQuery(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-4">
       <TextInput
         placeholder={placeholder}
         id="courseTextInput"
         value={localQuery}
-        onChange={(e) => setLocalQuery(e.target.value)}
+        onChange={handleChange}
       />
       <Button type="submit">
         <span

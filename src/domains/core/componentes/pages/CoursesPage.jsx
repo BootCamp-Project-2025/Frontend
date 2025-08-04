@@ -24,9 +24,17 @@ export const CoursesPage = () => {
     url: "/courses/search",
   });
 
-  const handleBackward = () => previousPage();
-  const handleForward = () => nextPage();
-  const handleSelected = (newPage) => setPageIndex(newPage);
+  function handleBackward() {
+    previousPage();
+  }
+
+  function handleForward() {
+    nextPage();
+  }
+
+  function handleSelected(page) {
+    setPageIndex(page);
+  }
 
   const courseSortOptions = [
     { value: "name.keyword:asc", label: "Name A → Z" },
