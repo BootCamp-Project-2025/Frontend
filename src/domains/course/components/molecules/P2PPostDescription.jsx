@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import { Title } from "../../../../shared/components/atoms/Title";
+import DOMPurify from "dompurify";
 
 /**
  * If there is no text, it returns an empty fragment
  */
 export default function P2PPostDescription({ text }) {
+  const sanitizedContent = DOMPurify.sanitize(text);
   if (!text) {
     return <></>;
   }
@@ -13,7 +15,10 @@ export default function P2PPostDescription({ text }) {
       <Title color="default" size="md">
         Description
       </Title>
-      <p className="p-1">{text}</p>
+      <div
+        className="p-1"
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+      />
     </div>
   );
 }
