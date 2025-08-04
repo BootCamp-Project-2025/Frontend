@@ -12,6 +12,7 @@ export function usePagination({ url }) {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [filters, setFiltersState] = useState({
     category: null,
     subcategory: null,
@@ -22,6 +23,7 @@ export function usePagination({ url }) {
   });
 
   const fetchData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await baseAPI.get(url, {
         params: {
@@ -41,6 +43,8 @@ export function usePagination({ url }) {
       setTotal(res.data.data.total);
     } catch (err) {
       showToast(`Failed to fetch data ${err.message}`, "error");
+    } finally {
+      setIsLoading(false);
     }
   }, [url, page, size, filters, query, showToast]);
 
@@ -156,6 +160,7 @@ export function usePagination({ url }) {
     size,
     filters,
     query,
+    isLoading,
     fetchData,
     nextPage,
     previousPage,
