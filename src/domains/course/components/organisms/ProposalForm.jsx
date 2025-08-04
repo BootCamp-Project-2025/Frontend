@@ -3,7 +3,7 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { DescriptionField } from "../molecules/DescriptionField";
 import { SessionsSchedule } from "../molecules/SessionsSchedule";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -57,6 +57,14 @@ export default function ProposalForm({
     createInitialState(initialData)
   );
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    if (!student) {
+      setIsFormValid(formIsValid());
+    }
+  }, [formData.description, formData.sessions]);
+
   const setDescription = (description) => {
     dispatch({ type: "SET_DESCRIPTION", payload: description });
   };
@@ -71,6 +79,35 @@ export default function ProposalForm({
 
   function handleAccept() {
     handleSubmit("ACCEPTED");
+  }
+
+  function formIsValid() {
+    const { description, sessions } = formData;
+
+    if (!description || description.trim() === "") return false;
+
+    if (!sessions || sessions.length === 0) return false;
+
+    const now = new Date();
+    const seenTitles = new Set();
+    const seenDateTimes = new Set();
+
+    for (const session of sessions) {
+      const { name, date, hour } = session;
+
+      if (name.trim() === "" || date === "" || hour === "") return false;
+
+      if (seenTitles.has(name)) return false;
+      seenTitles.add(name);
+
+      const sessionDateTime = new Date(`${date}T${hour}:00Z`);
+      if (sessionDateTime <= now) return false;
+
+      const datetimeKey = `${date}-${hour}`;
+      if (seenDateTimes.has(datetimeKey)) return false;
+      seenDateTimes.add(datetimeKey);
+    }
+    return true;
   }
 
   function handleSubmit(status) {
@@ -89,9 +126,10 @@ export default function ProposalForm({
         setIsLoading(false);
         onClose();
       })
-      .catch((error) =>
-        console.error("Something went wrong updating proposal", error)
-      );
+      .catch((error) => {
+        console.error("Something went wrong updating proposal", error);
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -150,7 +188,7 @@ export default function ProposalForm({
                 color="primary"
                 variant="solid"
                 isSpinning={isLoading}
-                disabled={isLoading}
+                disabled={!isFormValid}
               >
                 Send
               </Button>
