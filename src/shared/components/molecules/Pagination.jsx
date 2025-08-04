@@ -65,7 +65,7 @@ export const Pagination = ({
           radius="full"
           aria-label="Previous Page"
         >
-          <Icon icon="arrowForwardBlue" className="h-3 w-3 rotate-180" />
+          <Icon icon="arrowForwardBlue" className="h-3 w-3" />
         </Button>
       )}
       {visiblePages.map((page, index) => {

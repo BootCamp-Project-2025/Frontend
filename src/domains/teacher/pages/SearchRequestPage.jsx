@@ -3,6 +3,7 @@ import { Filters } from "../../core/componentes/organism/Filters";
 import { Pagination } from "../../../shared/components/molecules/Pagination";
 import RequestCard from "../components/molecules/RequestCard";
 import { usePagination } from "../../../shared/hooks/usePagination";
+import { Loading } from "../../../shared/components/molecules/Loading";
 
 export const SearchRequestPage = () => {
   const activeFilters = ["category", "subcategory", "language"];
@@ -13,6 +14,7 @@ export const SearchRequestPage = () => {
     page,
     size,
     query,
+    isLoading,
     nextPage,
     previousPage,
     setFilters,
@@ -39,19 +41,24 @@ export const SearchRequestPage = () => {
         activeFilters={activeFilters}
         setFilters={setFilters}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-        {data.map((request) => (
-          <RequestCard key={request.id} request={request} />
-        ))}
-      </div>
-      <Pagination
-        backwardFn={handleBackward}
-        forwardFn={handleForward}
-        selectedFn={handleSelected}
-        currentPage={page}
-        size={size}
-        total={total}
-      />
+      {!isLoading && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {data.map((request) => (
+              <RequestCard key={request.id} request={request} />
+            ))}
+          </div>
+          <Pagination
+            backwardFn={handleBackward}
+            forwardFn={handleForward}
+            selectedFn={handleSelected}
+            currentPage={page}
+            size={size}
+            total={total}
+          />
+        </>
+      )}
+      {isLoading && <Loading />}
     </div>
   );
 };
