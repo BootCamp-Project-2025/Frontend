@@ -3,6 +3,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 import { Title } from "../../../../shared/components/atoms/Title";
 import SessionCard from "./SessionCard";
 import PropTypes from "prop-types";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export default function SessionList({
   sessionList,
@@ -37,7 +38,7 @@ export default function SessionList({
     [sessionList]
   );
 
-  const handleCreate = useCallback(() => {
+  const handleSave = useCallback(() => {
     save("SESSION");
   }, [save]);
   return (
@@ -46,18 +47,20 @@ export default function SessionList({
         <Title className="" size="xl" color="default">
           Sessions
         </Title>
-        <span className="my-auto ml-5">Pending: {remainingSession}</span>
-        <Button
-          onClick={handleCreate}
-          className="ml-auto"
-          radius="full"
-          variant="bordered"
-        >
-          +
-        </Button>
+        <span className="my-auto ml-3">Pending: {remainingSession}</span>
+        {save ?? (
+          <Button
+            onClick={handleSave}
+            className="ml-auto"
+            radius="full"
+            variant="bordered"
+          >
+            +
+          </Button>
+        )}
       </div>
       {sessionList.length === 0 ? (
-        <div className={"p2pCard-template"}>No content yet</div>
+        <Alert type="info" title="No sessions" />
       ) : (
         <></>
       )}

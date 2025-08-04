@@ -8,7 +8,7 @@ export default function P2PNavbar({ save }) {
   const postRef = useRef();
   const filesRef = useRef();
 
-  const handleCreate = useCallback(() => {
+  const handleSave = useCallback(() => {
     if (postRef.current.ariaCurrent !== null) {
       save("POST");
     }
@@ -34,14 +34,16 @@ export default function P2PNavbar({ save }) {
           Files
         </Title>
       </NavLink>
-      <Button
-        onClick={handleCreate}
-        className="ml-auto"
-        radius="full"
-        variant="bordered"
-      >
-        +
-      </Button>
+      {save ?? (
+        <Button
+          onClick={handleSave}
+          className="ml-auto"
+          radius="full"
+          variant="bordered"
+        >
+          +
+        </Button>
+      )}
     </div>
   );
 }
