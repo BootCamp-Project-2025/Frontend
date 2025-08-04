@@ -1,17 +1,23 @@
-// import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { ChatsList } from "../organisms/ChatsList";
 import ChatTemplate from "../templates/ChatTemplate";
-import { useState } from "react";
-// import CreateChatButtonTest from "../molecules/CreateChatButtonTest";
+import { useEffect, useState } from "react";
 
 export function ChatPage() {
-  //   const { chatId } = useParams();
   const [currentChat, setCurrentChat] = useState(null);
+
+  //? When a chat must be focused at the first render, send the chatId using state in useNavigate()
+  const location = useLocation();
+  const { chatId } = location.state || {};
+
+  useEffect(() => {
+    if (chatId) setCurrentChat(chatId);
+  }, []);
+
   return (
     <div className="grid grid-cols-12 h-[calc(100vh-5.625rem)]">
       <div className="col-span-3 h-full overflow-y-scroll">
-        {/* <CreateChatButtonTest /> */}
         <ChatsList selectChat={setCurrentChat} selectedChat={currentChat} />
       </div>
       <div className="col-span-9 overflow-y-hidden">
@@ -33,9 +39,6 @@ export function ChatPage() {
           </div>
         )}
       </div>
-      {/* <div className="col-span-3 h-full overflow-y-scroll">
-        <ChatsList selectChat={setCurrentChat} selectedChat={currentChat} />
-      </div> */}
     </div>
   );
 }
