@@ -23,7 +23,7 @@ import { patchRequest } from "../../../../shared/api/patchRequest";
 
 export default function P2PCourse() {
   const { showToast } = useToastContext();
-  const { openWidget } = useUploader(saveFilePost);
+  const { openWidget } = useUploader(saveFilePost, "ltcrowd_preset_temp");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [course, setCourse] = useState(null);
@@ -42,6 +42,8 @@ export default function P2PCourse() {
       return;
     }
 
+    console.log(response);
+
     setCourse(response.data.data);
   }, [params.p2pCourseId]);
 
@@ -51,7 +53,6 @@ export default function P2PCourse() {
 
   const handleResponse = useCallback(
     (response) => {
-      console.log(response);
       if (response.success) {
         loadData();
         showToast(response.data?.message ?? "Success", "success");
@@ -62,10 +63,10 @@ export default function P2PCourse() {
     [loadData, showToast]
   );
 
-  async function saveFilePost(url) {
+  async function saveFilePost(cndData) {
     const response = await postRequest(
       `/p2pCourses/${params.p2pCourseId}/files`,
-      { url, creationDate: new Date() }
+      { url: cndData.url, creationDate: new Date() }
     );
     handleResponse(response);
   }

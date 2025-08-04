@@ -10,7 +10,12 @@ export default function P2PPostResource({ url }) {
       <Title color="default" size="md">
         Resource
       </Title>
-      <a className="p-1" target="_blank" rel="noreferrer" href={url}>
+      <a
+        className="text-blue-500 p-1"
+        target="_blank"
+        rel="noreferrer"
+        href={url}
+      >
         {url}
       </a>
     </div>
