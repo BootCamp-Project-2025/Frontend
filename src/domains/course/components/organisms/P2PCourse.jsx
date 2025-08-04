@@ -204,6 +204,11 @@ export default function P2PCourse() {
     [closePopup, erase, openPopup]
   );
 
+  const handleChatVisibility = useCallback(
+    () => setShowChat((show) => !show),
+    []
+  );
+
   if (loading) {
     return <Loading />;
   }
@@ -250,7 +255,7 @@ export default function P2PCourse() {
         >
           <ChatTemplate chatIdProp={course.chatId} />
           <button
-            onClick={() => setShowChat((show) => !show)}
+            onClick={handleChatVisibility}
             className="h-5 w-5 sticky left-[95%] bottom-[93%] hover:cursor-pointer"
           >
             <Icon icon={"vectorDown"} />
@@ -258,7 +263,7 @@ export default function P2PCourse() {
         </div>
       ) : (
         <button
-          onClick={() => setShowChat((show) => !show)}
+          onClick={handleChatVisibility}
           className={
             "fixed float-start bottom-4 right-10 w-[30%]  bg-white border-1 hover:cursor-pointer"
           }

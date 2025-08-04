@@ -17,26 +17,19 @@ export default function P2PNavbar({ save }) {
     }
   }, [save]);
 
+  const getClassName = useCallback(
+    ({ isActive }) => (isActive ? "p2pNavbar-active border-b-2 px-5" : "px-5"),
+    []
+  );
+
   return (
     <div className="flex mb-4">
-      <NavLink
-        ref={postRef}
-        className={({ isActive }) =>
-          isActive ? "p2pNavbar-active border-b-2 px-5" : "px-5"
-        }
-        to={"posts"}
-      >
+      <NavLink ref={postRef} className={getClassName} to={"posts"}>
         <Title color="default" size="xl">
           Publications
         </Title>
       </NavLink>
-      <NavLink
-        ref={filesRef}
-        className={({ isActive }) =>
-          isActive ? "p2pNavbar-active border-b-2 px-5" : "px-5"
-        }
-        to={"files"}
-      >
+      <NavLink ref={filesRef} className={getClassName} to={"files"}>
         <Title color="default" size="xl">
           Files
         </Title>
