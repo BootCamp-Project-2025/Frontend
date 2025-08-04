@@ -13,6 +13,7 @@ export const Filters = ({
   total = 0,
   activeFilters = ["language", "rating", "category", "subcategory"],
   setFilters = () => {},
+  sortOptions = [],
 }) => {
   const [filtersState, setFiltersState] = useState({});
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
@@ -99,16 +100,6 @@ export const Filters = ({
     subcategory: subCategoryOptions,
   };
 
-  const sortOptions = [
-    ...(activeFilters.includes("rating")
-      ? [{ value: "rating:desc", label: "Most Popular" }]
-      : []),
-    { value: "createdAt:desc", label: "Newest first" },
-    { value: "createdAt:asc", label: "Oldest First" },
-    { value: "title.keyword:asc", label: "Name A → Z" },
-    { value: "title.keyword:desc", label: "Name Z → A" },
-  ];
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-col">
@@ -172,4 +163,10 @@ Filters.propTypes = {
   total: PropTypes.number,
   activeFilters: PropTypes.arrayOf(PropTypes.string),
   setFilters: PropTypes.func,
+  sortOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
 };
