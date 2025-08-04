@@ -56,8 +56,6 @@ export const Pagination = ({
 
   const visiblePages = getVisiblePages();
 
-  let ellipsisCount = 0;
-
   return (
     <div className="flex items-center justify-center mt-5 gap-2">
       {currentPage > 1 && (
@@ -70,12 +68,12 @@ export const Pagination = ({
           <Icon icon="arrowForwardBlue" className="h-3 w-3" />
         </Button>
       )}
-      {visiblePages.map((page) => {
+
+      {visiblePages.map((page, index) => {
         if (page === "...") {
-          ellipsisCount++;
           return (
             <span
-              key={`ellipsis-${ellipsisCount}`}
+              key={`ellipsis-${index}`}
               className="px-3 py-1 text-sm text-gray-500"
             >
               ...
