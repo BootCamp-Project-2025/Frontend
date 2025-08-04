@@ -9,13 +9,13 @@ vi.mock("react-router-dom", () => ({
 }));
 
 describe("UserSidebar", () => {
-  it("renders AvatarIcon with correct props", () => {
+  it("renders AvatarIcon with correct props", async () => {
     render(
       <AuthProvider>
         <UserSidebar />
       </AuthProvider>
     );
-    const avatarButton = screen.getByRole("button");
+    const avatarButton = await screen.findByRole("button");
     expect(avatarButton).toHaveTextContent("U");
   });
 });
