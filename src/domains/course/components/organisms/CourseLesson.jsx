@@ -6,7 +6,6 @@ import { TextEditor } from "../../../../shared/components/molecules/TextEditor";
 import SyllabusExpansionWrapper from "./SyllabusExpansionWrapper";
 import usePopup from "../../../../shared/hooks/usePopup";
 import EraseConfirmation from "../molecules/EraseConfirmation";
-import { UploadModal } from "../../../../shared/components/molecules/UploadModal";
 import { ApiPost } from "../../api/ApiPost";
 import { ApiDelete } from "../../api/ApiDelete";
 import UploadVideoUrl from "../molecules/UploadVideoUrl";
@@ -14,6 +13,7 @@ import { ApiPut } from "../../api/ApiPut";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { useBeforeUnload } from "react-router-dom";
 import Module from "../../classes/Module";
+import { useUploader } from "../../../../shared/hooks/useUploader";
 
 export default function CourseLesson({
   modules,
@@ -25,13 +25,7 @@ export default function CourseLesson({
   const { showToast } = useToastContext();
   const { openPopup, closePopup } = usePopup();
   const [descriptionError, setDescriptionError] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const lesson = modules[moduleIndex].lessons[lessonIndex];
-
-  const buttons = [
-    { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
-    { text: "Resource", onClick: () => setModalOpen(true) },
-  ];
 
   useBeforeUnload((event) => {
     if (lesson.isEdited || lesson.isNew) {
@@ -80,6 +74,7 @@ export default function CourseLesson({
 
   const addResource = useCallback(
     (name, url, resourcePosition) => {
+      console.log({ name, url, resourcePosition });
       dispatch({
         moduleIndex,
         lessonIndex,
@@ -95,16 +90,27 @@ export default function CourseLesson({
   const handleFileUpload = useCallback(
     (file) => {
       if (
-        lesson.resources.filter((savedFile) => savedFile.name === file.name)
-          .length > 0
+        lesson.resources.filter(
+          (savedFile) => savedFile.name === file.original_filename
+        ).length > 0
       ) {
         showToast("Error: File name repeated, it will not be saved", "error");
         return;
       }
-      addResource(file.name, file.name, lesson.resources.length);
+      addResource(file.original_filename, file.url, lesson.resources.length);
     },
     [addResource, lesson.resources, showToast]
   );
+
+  const { openWidget } = useUploader(handleFileUpload, "ltcrowd_preset_temp");
+  const handleOpenWidget = useCallback(() => {
+    openWidget();
+  }, [openWidget]);
+
+  const buttons = [
+    { text: "Video Content", onClick: () => uploadVideoUrlPopUp() },
+    { text: "Resource", onClick: handleOpenWidget },
+  ];
 
   function saveVideo(url) {
     if (lesson.videoUrls.filter((savedUrl) => savedUrl === url).length > 0) {
@@ -208,6 +214,7 @@ export default function CourseLesson({
         moduleIndex,
         lessonIndex,
         id: response.data.id,
+        resources: response.data.resources,
         type: "SAVE_LESSON",
       });
       showToast("The lesson was saved successfully", "success");
@@ -240,11 +247,7 @@ export default function CourseLesson({
     },
     [saveDescription]
   );
-
-  const closeFileModal = useCallback(() => {
-    setModalOpen(false);
-  }, []);
-
+  console.log("courseLesson", { modules, lesson });
   return (
     <SyllabusExpansionWrapper
       {...props}
@@ -264,12 +267,6 @@ export default function CourseLesson({
         onChange={handleTextEditorChange}
       />
       <span className="text-pink-500">{descriptionError}</span>
-      <UploadModal
-        isOpen={modalOpen}
-        onClose={closeFileModal}
-        onFileSelect={handleFileUpload}
-        isDragOver={false}
-      />
       <ButtonSection buttonProps={buttons} />
       <LessonContentGroup
         eraseResource={eraseVideo}

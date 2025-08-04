@@ -1,4 +1,5 @@
 import { Button } from "../../../../shared/components/atoms/Button";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 import { CourseDetailsCategory } from "../molecules/CourseDetailsCategory";
 import { CourseDetailsCreatedBy } from "../molecules/CourseDetailsCreatedBy";
 import { CourseDetailsLanguage } from "../molecules/CourseDetailsLanguage";
@@ -6,15 +7,19 @@ import { CourseDetailsStats } from "../molecules/CourseDetailsStats";
 import PropTypes from "prop-types";
 
 export const CourseHeroSection = ({
-  title = "Course Title",
-  teacher = "Teacher Name",
+  name = "Course Title",
+  userName = "Teacher Name",
   language = "Language name",
   category = "Category",
   subCategory = "SubCategory",
-  courseImage = "/defaultImage3.png",
+  imgSrc = "/defaultImage3.png",
   raters = 0,
   students = 0,
   rating = 0,
+  isEnrolled = false,
+  loadingIsEnrolled = false,
+  loadingEnrollIn = false,
+  handleEnroll = () => {},
 }) => {
   return (
     <div className=" md:bg-[#2D2D2F]  ">
@@ -25,40 +30,57 @@ export const CourseHeroSection = ({
             subCategory={subCategory}
           ></CourseDetailsCategory>
           <div className="flex md:hidden  w-full rounded-lg overflow-hidden">
-            <img src={courseImage} alt="course image" className="w-full" />
+            <img src={imgSrc} alt="course image" className="w-full" />
           </div>
-          <p className=" font-bold text-3xl line-clamp-2">{title}</p>
+          <p className=" font-bold text-3xl line-clamp-2">{name}</p>
           <CourseDetailsStats
             rating={rating}
             raters={raters}
             students={students}
           ></CourseDetailsStats>
-          <CourseDetailsCreatedBy teacher={teacher}></CourseDetailsCreatedBy>
+          <CourseDetailsCreatedBy teacher={userName}></CourseDetailsCreatedBy>
           <CourseDetailsLanguage language={language}></CourseDetailsLanguage>
-          <Button className="flex md:hidden justify-center">Enroll In</Button>
+          <Button
+            className="flex md:hidden justify-center"
+            onClick={handleEnroll}
+          >
+            {!loadingIsEnrolled && !loadingEnrollIn && (
+              <>{isEnrolled ? "Go to Course" : "Enroll In"}</>
+            )}
+            {(loadingIsEnrolled || loadingEnrollIn) && (
+              <Loading hideText size="xs" />
+            )}
+          </Button>
         </div>
         <div className="hidden md:flex flex-col w-[21rem] min-w-[21rem] p-3 gap-3.5 bg-white rounded-xl">
           <div className="flex w-full rounded-lg overflow-hidden aspect-[1/0.6] bg-gray-200">
-            <img
-              src={courseImage}
-              alt="course image"
-              className="w-full h-full"
-            />
+            <img src={imgSrc} alt="course image" className="w-full h-full" />
           </div>
-          <Button className="flex justify-center">Enroll In</Button>
+          <Button className="flex justify-center" onClick={handleEnroll}>
+            {!loadingIsEnrolled && !loadingEnrollIn && (
+              <>{isEnrolled ? "Go to Course" : "Enroll In"}</>
+            )}
+            {(loadingIsEnrolled || loadingEnrollIn) && (
+              <Loading hideText size="xs" />
+            )}
+          </Button>
         </div>
       </div>
     </div>
   );
 };
 CourseHeroSection.propTypes = {
-  title: PropTypes.string,
-  teacher: PropTypes.string,
+  name: PropTypes.string,
+  userName: PropTypes.string,
   language: PropTypes.string,
   category: PropTypes.string,
   subCategory: PropTypes.string,
-  courseImage: PropTypes.string,
+  imgSrc: PropTypes.string,
   raters: PropTypes.number,
   students: PropTypes.number,
   rating: PropTypes.number,
+  isEnrolled: PropTypes.bool,
+  loadingIsEnrolled: PropTypes.bool,
+  handleEnroll: PropTypes.func,
+  loadingEnrollIn: PropTypes.bool,
 };
