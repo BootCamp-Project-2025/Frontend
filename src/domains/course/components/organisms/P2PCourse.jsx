@@ -82,7 +82,7 @@ export default function P2PCourse() {
 
   const saveOrEdit = useCallback(
     async (data, resource) => {
-      let response;
+      let response = null;
       if (data.id) {
         response = await putRequest(
           `/p2pCourses/${params.p2pCourseId}/${resource}/${data.id}`,
@@ -115,7 +115,7 @@ export default function P2PCourse() {
    * @param data: A object that holds the information we are trying to save.
    */
   const handleSavePopUp = useCallback(
-    async (type) => {
+    (type) => {
       switch (type) {
         case "SESSION": {
           openPopup(SessionForm, { closePopup, saveOrEdit }, false);
@@ -128,13 +128,15 @@ export default function P2PCourse() {
         case "FILE":
           openWidget();
           break;
+        default:
+          break;
       }
     },
     [closePopup, openPopup, openWidget, saveOrEdit]
   );
 
   const handleEditPopUp = useCallback(
-    async (type, data) => {
+    (type, data) => {
       switch (type) {
         case "SESSION": {
           openPopup(
@@ -148,6 +150,8 @@ export default function P2PCourse() {
           openPopup(PostForm, { closePopup, saveOrEdit, post: data }, false);
           break;
         }
+        default:
+          break;
       }
     },
     [closePopup, openPopup, saveOrEdit]
@@ -159,7 +163,11 @@ export default function P2PCourse() {
         case "SESSION": {
           openPopup(
             DeleteCardPopup,
-            { closePopup, deleteAction: (id) => erase(id, "sessions"), id },
+            {
+              closePopup,
+              deleteAction: (sessionId) => erase(sessionId, "sessions"),
+              id,
+            },
             true
           );
           break;
@@ -167,7 +175,11 @@ export default function P2PCourse() {
         case "POST": {
           openPopup(
             DeleteCardPopup,
-            { closePopup, deleteAction: (id) => erase(id, "posts"), id },
+            {
+              closePopup,
+              deleteAction: (postId) => erase(postId, "posts"),
+              id,
+            },
             true
           );
           break;
@@ -175,11 +187,17 @@ export default function P2PCourse() {
         case "FILE": {
           openPopup(
             DeleteCardPopup,
-            { closePopup, deleteAction: (id) => erase(id, "files"), id },
+            {
+              closePopup,
+              deleteAction: (fileId) => erase(fileId, "files"),
+              id,
+            },
             true
           );
           break;
         }
+        default:
+          break;
       }
     },
     [closePopup, erase, openPopup]
@@ -225,7 +243,9 @@ export default function P2PCourse() {
 
       {showChat ? (
         <div
-          className={`fixed bottom-4 right-10 max-w-2/3 max-h-2/3 overflow-auto bg-white border-1`}
+          className={
+            "fixed bottom-4 right-10 max-w-2/3 max-h-2/3 overflow-auto bg-white border-1"
+          }
         >
           <ChatTemplate chatIdProp={course.chatId} />
           <button
@@ -236,12 +256,14 @@ export default function P2PCourse() {
           </button>
         </div>
       ) : (
-        <div
+        <button
           onClick={() => setShowChat((show) => !show)}
-          className={`fixed float-start bottom-4 right-10 w-[30%]  bg-white border-1 hover:cursor-pointer`}
+          className={
+            "fixed float-start bottom-4 right-10 w-[30%]  bg-white border-1 hover:cursor-pointer"
+          }
         >
           <ChatHeader participantsIds={[course.studentId, course.teacherId]} />
-        </div>
+        </button>
       )}
     </div>
   );

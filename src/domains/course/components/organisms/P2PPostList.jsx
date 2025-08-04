@@ -6,7 +6,7 @@ export default function P2PPostList() {
   return (
     <div className="flex flex-col gap-5">
       {postList.length === 0 ? (
-        <div className={`p2pCard-template p2pCard-shadow-default`}>
+        <div className={"p2pCard-template p2pCard-shadow-default"}>
           No content yet
         </div>
       ) : (

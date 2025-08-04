@@ -5,7 +5,7 @@ export default function P2PFilesList() {
   return (
     <div className="flex flex-col gap-5">
       {filePostList.length === 0 ? (
-        <div className={`p2pCard-template p2pCard-shadow-default`}>
+        <div className={"p2pCard-template p2pCard-shadow-default"}>
           No Files yet
         </div>
       ) : (

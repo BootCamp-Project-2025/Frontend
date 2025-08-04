@@ -15,7 +15,7 @@ import { isAvalidateUrl } from "../../utils/Validations";
  * @returns
  */
 export default function PostForm({ saveOrEdit, closePopup, post }) {
-  const description = useRef(post && post.description ? post.description : "");
+  const description = useRef(post.description ? post.description : "");
   const [descriptionError, setDescriptionError] = useState("");
   const [error, setError] = useState("");
   const {
@@ -29,8 +29,8 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
     },
   });
 
-  const cleanDescription = useCallback((description) => {
-    return description.replaceAll(/<[^>]*>/g, "").trim();
+  const cleanDescription = useCallback((descriptionToClean) => {
+    return descriptionToClean.replaceAll(/<[^>]*>/g, "").trim();
   }, []);
 
   const createPost = useCallback(
@@ -69,16 +69,16 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
     [descriptionError, cleanDescription, createPost, saveOrEdit, closePopup]
   );
 
-  const validateDescriptionLength = useCallback((description) => {
-    if (description.length === 0) {
+  const validateDescriptionLength = useCallback((descriptionToValidate) => {
+    if (descriptionToValidate.length === 0) {
       setDescriptionError("");
       return;
     }
-    if (description.length < 10) {
+    if (descriptionToValidate.length < 10) {
       setDescriptionError("Description should be more than 10 characters");
       return;
     }
-    if (description.length > 1000) {
+    if (descriptionToValidate.length > 1000) {
       setDescriptionError("Description to long");
       return;
     }
@@ -88,12 +88,12 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
   const handleOnChangeDescription = useCallback(
     (e) => {
       description.current = e.trim();
-      const cleanDescription = description.current
+      const cleanedDescription = description.current
         .replaceAll(/<[^>]*>/g, "")
         .trim();
 
       setError("");
-      validateDescriptionLength(cleanDescription);
+      validateDescriptionLength(cleanedDescription);
     },
     [validateDescriptionLength]
   );

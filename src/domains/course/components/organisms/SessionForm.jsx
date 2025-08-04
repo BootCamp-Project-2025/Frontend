@@ -9,18 +9,18 @@ import { NumberInput } from "../../../../shared/components/molecules/NumberInput
 import { Title } from "../../../../shared/components/atoms/Title";
 
 export default function SessionForm({ saveOrEdit, closePopup, session }) {
-  const date = getDate();
-  const [isAM, setIsAM] = useState(date.getHours() < 12);
+  const sessionDate = getDate();
+  const [isAM, setIsAM] = useState(sessionDate.getHours() < 12);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      dateOfTheSession: getDateString(date),
+      dateOfTheSession: getDateString(sessionDate),
       url: session ? session.url : "",
-      hours: session ? date.getHours() - (isAM ? 0 : 12) : "",
-      minutes: session ? date.getMinutes() : "",
+      hours: session ? sessionDate.getHours() - (isAM ? 0 : 12) : "",
+      minutes: session ? sessionDate.getMinutes() : "",
     },
   });
 

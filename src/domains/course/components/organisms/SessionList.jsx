@@ -57,7 +57,7 @@ export default function SessionList({
         </Button>
       </div>
       {sessionList.length === 0 ? (
-        <div className={`p2pCard-template`}>No content yet</div>
+        <div className={"p2pCard-template"}>No content yet</div>
       ) : (
         <></>
       )}
