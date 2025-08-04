@@ -11,7 +11,7 @@ import PostForm from "./PostForm";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 import SessionForm from "./SessionForm";
 import { useUploader } from "../../../../shared/hooks/useUploader";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getRequest } from "../../../../shared/api/getRequest";
 import { Loading } from "../../../../shared/components/molecules/Loading";
 import { Alert } from "../../../../shared/components/molecules/Alert";
@@ -30,6 +30,8 @@ export default function P2PCourse() {
   const [showChat, setShowChat] = useState(false);
   const { openPopup, closePopup } = usePopup();
   const params = useParams();
+  const location = useLocation();
+  const isTeacher = location.pathname.includes("/teacher");
 
   const loadData = useCallback(async () => {
     const response = await getRequest(
@@ -37,13 +39,9 @@ export default function P2PCourse() {
     );
     setLoading(false);
     if (!response.success) {
-      console.log(response.data);
       setError(true);
       return;
     }
-
-    console.log(response);
-
     setCourse(response.data.data);
   }, [params.p2pCourseId]);
 
@@ -51,6 +49,10 @@ export default function P2PCourse() {
     loadData();
   }, [loadData]);
 
+  /**
+   * Shows a diferent toast depending of the success of the request and refresh the data
+   * @param response return of the api call to the backend
+   */
   const handleResponse = useCallback(
     (response) => {
       if (response.success) {
@@ -71,6 +73,11 @@ export default function P2PCourse() {
     handleResponse(response);
   }
 
+  /**
+   * Call a delete request on a resource with the id
+   * @param id identifier of the resource to be erased
+   * @param resource what is the resource to be saved or edit. it can be "sessions", "files", "posts"
+   */
   const erase = useCallback(
     async (id, resource) => {
       const response = await deleteRequest(
@@ -81,6 +88,11 @@ export default function P2PCourse() {
     [handleResponse, params.p2pCourseId]
   );
 
+  /**
+   * Call a post request if there is no id in the data, or an update if there is. The request varies depending on the resource
+   * @param data data to be saved. If it countains an id it means that it alredy existed so it needs an updated
+   * @param resource what is the resource to be saved or edit. it can be "sessions", "files", "posts"
+   */
   const saveOrEdit = useCallback(
     async (data, resource) => {
       let response = null;
@@ -100,6 +112,10 @@ export default function P2PCourse() {
     [handleResponse, params.p2pCourseId]
   );
 
+  /**
+   * Mark a session as completed
+   * @param id: session to be completed
+   */
   const complete = useCallback(
     async (id) => {
       const response = await patchRequest(
@@ -111,9 +127,8 @@ export default function P2PCourse() {
   );
 
   /**
-   * Calls an API post, it changes the endpoint depending on the type.
+   * Open a different pop up depending on the type
    * @param type: It defines what type of create whe whan, it can be SESSION, POST, FILE.
-   * @param data: A object that holds the information we are trying to save.
    */
   const handleSavePopUp = useCallback(
     (type) => {
@@ -136,6 +151,11 @@ export default function P2PCourse() {
     [closePopup, openPopup, openWidget, saveOrEdit]
   );
 
+  /**
+   * Open a different pop up depending on the type
+   * @param type: It defines what type of create whe whan, it can be SESSION, POST, FILE.
+   * @param data: Initial data that will have the pop up. Is the data to be edited
+   */
   const handleEditPopUp = useCallback(
     (type, data) => {
       switch (type) {
@@ -158,6 +178,11 @@ export default function P2PCourse() {
     [closePopup, openPopup, saveOrEdit]
   );
 
+  /**
+   * Open a different delete pop up depending on the type
+   * @param type: It defines what type of create whe whan, it can be SESSION, POST, FILE.
+   * @param id: Id of the element to be deleted
+   */
   const handleErasePopUp = useCallback(
     (type, id) => {
       switch (type) {
@@ -166,6 +191,8 @@ export default function P2PCourse() {
             DeleteCardPopup,
             {
               closePopup,
+              title: "Delete the session",
+              msg: "Are you sure you want to delete the session",
               deleteAction: (sessionId) => erase(sessionId, "sessions"),
               id,
             },
@@ -178,6 +205,8 @@ export default function P2PCourse() {
             DeleteCardPopup,
             {
               closePopup,
+              title: "Delete the post",
+              msg: "Are you sure you want to delete the post",
               deleteAction: (postId) => erase(postId, "posts"),
               id,
             },
@@ -190,6 +219,8 @@ export default function P2PCourse() {
             DeleteCardPopup,
             {
               closePopup,
+              title: "Delete the file",
+              msg: "Are you sure you want to delete the file, you will not be able to recover the file after it's deleted",
               deleteAction: (fileId) => erase(fileId, "files"),
               id,
             },
@@ -217,6 +248,7 @@ export default function P2PCourse() {
     return (
       <Alert
         type="error"
+        title="Error"
         description="There was an error loading the data"
       ></Alert>
     );
@@ -229,19 +261,19 @@ export default function P2PCourse() {
       </Title>
       <div className="mt-5 grid grid-cols-[65%_30%] gap-x-[5%]">
         <P2PContentSection
-          save={handleSavePopUp}
-          edit={handleEditPopUp}
-          erase={handleErasePopUp}
+          save={isTeacher ?? handleSavePopUp}
+          edit={isTeacher ?? handleEditPopUp}
+          erase={isTeacher ?? handleErasePopUp}
           postList={course.posts}
           filePostList={course.files}
           className="col-start-0"
         />
         <SessionList
           remainingSession={course.remainingSession}
-          save={handleSavePopUp}
-          edit={handleEditPopUp}
-          erase={handleErasePopUp}
-          complete={complete}
+          save={isTeacher ?? handleSavePopUp}
+          edit={isTeacher ?? handleEditPopUp}
+          erase={isTeacher ?? handleErasePopUp}
+          complete={isTeacher ?? complete}
           sessionList={course.sessions}
           className="col-start-1"
         />
