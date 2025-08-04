@@ -257,23 +257,23 @@ export default function P2PCourse() {
   return (
     <div className="static mx-10">
       <Title className="text-center" size="xxl" color="default">
-        Course Name
+        {course.name}
       </Title>
       <div className="mt-5 grid grid-cols-[65%_30%] gap-x-[5%]">
         <P2PContentSection
-          save={isTeacher ?? handleSavePopUp}
-          edit={isTeacher ?? handleEditPopUp}
-          erase={isTeacher ?? handleErasePopUp}
+          save={isTeacher ? handleSavePopUp : undefined}
+          edit={isTeacher ? handleEditPopUp : undefined}
+          erase={isTeacher ? handleErasePopUp : undefined}
           postList={course.posts}
           filePostList={course.files}
           className="col-start-0"
         />
         <SessionList
           remainingSession={course.remainingSession}
-          save={isTeacher ?? handleSavePopUp}
-          edit={isTeacher ?? handleEditPopUp}
-          erase={isTeacher ?? handleErasePopUp}
-          complete={isTeacher ?? complete}
+          save={isTeacher ? handleSavePopUp : undefined}
+          edit={isTeacher ? handleEditPopUp : undefined}
+          erase={isTeacher ? handleErasePopUp : undefined}
+          complete={isTeacher ? complete : undefined}
           sessionList={course.sessions}
           className="col-start-1"
         />
