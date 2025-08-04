@@ -10,7 +10,7 @@ export default function P2PContentSection({
   erase,
 }) {
   return (
-    <div className="px-4">
+    <div>
       <P2PNavbar save={save} />
       <Outlet context={{ postList, filePostList, erase, edit }} />
     </div>
