@@ -25,6 +25,7 @@ import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
+import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
 import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
 import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
 
@@ -125,6 +126,10 @@ export default function Router() {
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
+        <Route
+          path="course-track-progres/:enrollmentId"
+          element={<CourseTrackProgress />}
+        />
 
         <Route
           path="*"

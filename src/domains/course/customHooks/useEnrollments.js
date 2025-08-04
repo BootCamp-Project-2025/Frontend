@@ -9,9 +9,7 @@ export const useEnrollments = (userId) => {
   useEffect(() => {
     const fetchEnrollments = async () => {
       try {
-        const { data: enrollmentList } = await baseAPI.get(
-          `users/${userId}/enrollments`
-        );
+        const { data: enrollmentList } = await baseAPI.get(`enrollments/user`);
 
         const courseRequests = enrollmentList.data.map((enrollment) =>
           baseAPI.get(`courses/${enrollment.courseId}`)

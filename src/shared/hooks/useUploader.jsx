@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function useUploader(onUpload) {
+export function useUploader(onUpload, preset) {
   const widgetRef = useRef(null);
 
   useEffect(() => {
@@ -12,19 +12,21 @@ export function useUploader(onUpload) {
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
         cloudName: "ltcrowd-cdn",
-        uploadPreset: "ltcrowd_preset",
+        uploadPreset: preset || "ltcrowd_preset",
         resourceType: "raw",
-        clientAllowedFormats: ["pdf", "doc", "docx", "png", "jpg"],
+        clientAllowedFormats: ["pdf", "doc", "docx", "jpg", "jpeg", "png"],
         multiple: false,
+        sources: ["local"],
+        maxFileSize: 10000000,
       },
       (error, result) => {
         if (!error && result.event === "success") {
           console.log("PDF subido:", result.info);
-          onUpload(result.info.secure_url);
+          onUpload(result.info);
         }
       }
     );
-  }, [onUpload]);
+  }, [onUpload, preset]);
 
   const openWidget = () => {
     widgetRef.current?.open();

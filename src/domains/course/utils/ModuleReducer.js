@@ -156,6 +156,7 @@ export const moduleReducer = (state, action) => {
       const newState = [...state];
       const module = newState[action.moduleIndex].clone();
       const lesson = module.lessons[action.lessonIndex].clone();
+      lesson.setResources(action.resources);
       lesson.save(action.id);
       module.lessons[action.lessonIndex] = lesson;
       newState[action.moduleIndex] = module;
