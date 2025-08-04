@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { CourseHeroSection } from "../../../../../src/domains/course/components/organisms/CourseHeroSection";
 
+// Mocks
 vi.mock(
   "../../../../../src/domains/course/components/molecules/CourseDetailsCategory",
   () => ({
@@ -42,9 +43,15 @@ vi.mock(
 );
 
 vi.mock("../../../../../src/shared/components/atoms/Button", () => ({
-  Button: ({ children, className }) => (
-    <button className={className}>{children}</button>
+  Button: ({ children, className, onClick }) => (
+    <button className={className} onClick={onClick}>
+      {children}
+    </button>
   ),
+}));
+
+vi.mock("../../../../../src/shared/components/molecules/Loading", () => ({
+  Loading: () => <div data-testid="loading-spinner">Loading...</div>,
 }));
 
 describe("CourseHeroSection", () => {
@@ -54,18 +61,25 @@ describe("CourseHeroSection", () => {
     language: "English",
     category: "Programming",
     subCategory: "Frontend",
-    courseImage: "/react.png",
+    imgSrc: "/react.png",
     raters: 100,
     students: 200,
     rating: 4.7,
+    isEnrolled: false,
+    loadingIsEnrolled: false,
+    loadingEnrollIn: false,
+    handleEnroll: vi.fn(),
   };
 
   it("renders the name and course image", () => {
     render(<CourseHeroSection {...props} />);
     expect(screen.getByText(props.name)).toBeInTheDocument();
+
     const images = screen.getAllByAltText("course image");
     expect(images.length).toBeGreaterThanOrEqual(1);
-    images.forEach((img) => expect(img).toHaveAttribute("src"));
+    images.forEach((img) => {
+      expect(img).toHaveAttribute("src", props.imgSrc);
+    });
   });
 
   it("passes props correctly to child components", () => {
@@ -80,10 +94,36 @@ describe("CourseHeroSection", () => {
     );
   });
 
-  it("renders both enroll buttons", () => {
+  it('shows "Enroll In" when user is not enrolled and not loading', () => {
     render(<CourseHeroSection {...props} />);
-    const buttons = screen.getAllByRole("button", { name: /Enroll In/i });
+    const buttons = screen.getAllByRole("button", { name: "Enroll In" });
     expect(buttons.length).toBe(2);
+  });
+
+  it('shows "Go to Course" when user is enrolled', () => {
+    render(<CourseHeroSection {...props} isEnrolled={true} />);
+    const buttons = screen.getAllByRole("button", { name: "Go to Course" });
+    expect(buttons.length).toBe(2);
+  });
+
+  it("shows loading spinner when loading states are true", () => {
+    render(
+      <CourseHeroSection
+        {...props}
+        loadingIsEnrolled={true}
+        loadingEnrollIn={true}
+      />
+    );
+    expect(screen.getAllByTestId("loading-spinner").length).toBeGreaterThan(0);
+  });
+
+  it("calls handleEnroll when button is clicked", () => {
+    render(<CourseHeroSection {...props} />);
+    const buttons = screen.getAllByRole("button", { name: "Enroll In" });
+    buttons.forEach((btn) => {
+      fireEvent.click(btn);
+    });
+    expect(props.handleEnroll).toHaveBeenCalledTimes(2);
   });
 
   it("renders default props when none are provided", () => {
