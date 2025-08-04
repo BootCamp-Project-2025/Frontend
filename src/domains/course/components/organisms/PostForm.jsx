@@ -15,7 +15,7 @@ import { isAvalidateUrl } from "../../utils/Validations";
  * @returns
  */
 export default function PostForm({ saveOrEdit, closePopup, post }) {
-  const description = useRef(post ? post.description : "");
+  const description = useRef(post && post.description ? post.description : "");
   const [descriptionError, setDescriptionError] = useState("");
   const [error, setError] = useState("");
   const {
@@ -36,8 +36,8 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
   const createPost = useCallback(
     (newData) => {
       const newPost = post ? { ...post } : {};
-      if (cleanDescription(newData.description)) {
-        newPost.description = newData.description;
+      if (cleanDescription(description.current)) {
+        newPost.description = description.current;
       }
       if (newData.url) {
         newPost.url = newData.url;
@@ -62,7 +62,8 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
         ...data,
         description: description.current,
       });
-      saveOrEdit(postToSave);
+      const completeData = { ...postToSave, creationDate: new Date() };
+      saveOrEdit(completeData, "posts");
       closePopup();
     },
     [descriptionError, cleanDescription, createPost, saveOrEdit, closePopup]
@@ -98,64 +99,68 @@ export default function PostForm({ saveOrEdit, closePopup, post }) {
   );
 
   return (
-    <form
-      onSubmit={handleSubmit(handleSave)}
-      className="flex flex-col w-2xl p-5 gap-5"
-    >
-      <Title className="text-center" color="default">
-        Post
-      </Title>
-      <TextInput
-        id="title"
-        placeholder="Add a title to the post"
-        label="Title:"
-        {...register("title", {
-          required: "Title is required",
-          minLength: {
-            value: 5,
-            message: "Title should be more than 5 characters",
-          },
-          maxLength: {
-            value: 50,
-            message: "Title should be less than 100 characters",
-          },
-        })}
-        errorMessage={errors.title?.message}
-      />
-      <div>
-        <Title size="sm" color="default">
-          Description:
+    <div>
+      <form
+        onSubmit={handleSubmit(handleSave)}
+        className="flex flex-col w-2xl p-5 gap-5"
+      >
+        <Title className="text-center" color="default">
+          Post
         </Title>
-        <TextEditor
-          placeholder="Enter a description"
-          value={description.current}
-          onChange={handleOnChangeDescription}
+        <TextInput
+          id="title"
+          placeholder="Add a title to the post"
+          label="Title:"
+          {...register("title", {
+            required: "Title is required",
+            minLength: {
+              value: 5,
+              message: "Title should be more than 5 characters",
+            },
+            maxLength: {
+              value: 50,
+              message: "Title should be less than 100 characters",
+            },
+          })}
+          errorMessage={errors.title?.message}
         />
-        <p className="text-sm  text-pink-500">{descriptionError}</p>
-      </div>
-      <TextInput
-        id="url"
-        placeholder="Add an aditional link"
-        label="Resources:"
-        {...register("url", {
-          validate: (value) => {
-            if (isAvalidateUrl(value) || value === "") {
-              return true;
-            }
-            return "Not a valid url";
-          },
-        })}
-        errorMessage={errors.url?.message}
-      />
 
-      <p className="text-sm  text-pink-500">{error}</p>
-      <div className="flex justify-center gap-5">
-        <Button color="secondary" variant="bordered" onClick={closePopup}>
-          Cancel
-        </Button>
-        <Button type="submit">Save</Button>
-      </div>
-    </form>
+        <div className="textEditor">
+          <Title size="sm" color="default">
+            Description:
+          </Title>
+          <TextEditor
+            placeholder="Enter a description"
+            value={description.current}
+            onChange={handleOnChangeDescription}
+          />
+          <p className="text-sm  text-pink-500">{descriptionError}</p>
+        </div>
+
+        <TextInput
+          id="url"
+          placeholder="Add an aditional link"
+          label="Resources:"
+          {...register("url", {
+            validate: (value) => {
+              if (isAvalidateUrl(value) || value === "") {
+                return true;
+              }
+              return "Not a valid url";
+            },
+          })}
+          errorMessage={errors.url?.message}
+        />
+
+        <p className="text-sm  text-pink-500">{error}</p>
+        <div className="flex justify-center gap-5">
+          <Button color="secondary" variant="bordered" onClick={closePopup}>
+            Cancel
+          </Button>
+          <Button type="submit">Save</Button>
+        </div>
+      </form>
+    </div>
   );
 }
 
