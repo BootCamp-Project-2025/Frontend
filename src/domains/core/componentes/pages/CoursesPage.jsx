@@ -3,6 +3,7 @@ import { Searcher } from "../../../../shared/components/molecules/Searcher";
 import { usePagination } from "../../../../shared/hooks/usePagination";
 import { CourseCardList } from "../organism/CourseCardList";
 import { Filters } from "../organism/Filters";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 
 export const CoursesPage = () => {
   const activeFilters = ["category", "subcategory", "language"];
@@ -13,6 +14,7 @@ export const CoursesPage = () => {
     page,
     size,
     query,
+    isLoading,
     setSearchQuery,
     setFilters,
     nextPage,
@@ -53,15 +55,19 @@ export const CoursesPage = () => {
           sortOptions={courseSortOptions}
         />
 
-        <CourseCardList
-          data={data}
-          page={page}
-          size={size}
-          total={total}
-          backwardFn={handleBackward}
-          forwardFn={handleForward}
-          selectedFn={handleSelected}
-        />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <CourseCardList
+            data={data}
+            page={page}
+            size={size}
+            total={total}
+            backwardFn={handleBackward}
+            forwardFn={handleForward}
+            selectedFn={handleSelected}
+          />
+        )}
       </div>
     </main>
   );
