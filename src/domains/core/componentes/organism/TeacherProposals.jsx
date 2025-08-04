@@ -19,7 +19,6 @@ const TeacherProposals = () => {
         const response = await getRequest(`proposals/users/${user.id}`);
         const proposals = response.data.data;
 
-        // Enriquecer cada propuesta con el título de la request
         const enrichedProposals = await Promise.all(
           proposals.map(async (proposal) => {
             const reqRes = await getRequest(`requests/${proposal.requestId}`);
