@@ -1,7 +1,7 @@
 import RequestDetailHeader from "../molecules/RequestDetailHeader";
 import { Title } from "../../../../shared/components/atoms/Title";
 import RequestDetailCategory from "../atoms/RequestDetailCategory";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import RequestMessageCard from "../molecules/RequestMessageCard";
 import { Alert } from "../../../../shared/components/molecules/Alert";
 import { useParams } from "react-router-dom";
@@ -9,59 +9,62 @@ import { getRequest } from "../../../../shared/api/getRequest";
 import { Loading } from "../../../../shared/components/molecules/Loading";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 
-const mockChats = [
-  {
-    userName: "User name",
-    chatId: "119203u9343",
-    profilePicture: "",
-    updatedAt: 2,
-    lastMessage: "Its everything ok like this?",
-  },
-  {
-    userName: "User name22",
-    chatId: "119203u9343",
-    profilePicture: "",
-    updatedAt: 3,
-    lastMessage:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-];
 const RequestDetail = () => {
-  const [chats, setChats] = useState(mockChats);
-  const [request, setRequest] = useState({});
-  const params = useParams();
+  const [proposals, setProposals] = useState([]);
+  const [request, setRequest] = useState(null);
   const [userRequest, setUserRequest] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
   const { user } = useAuth();
 
-  useEffect(() => {
-    const fetchRequest = async () => {
-      try {
-        const response = await getRequest(`requests/${params.requestId}`);
-        setRequest(response.data.data);
-      } catch (err) {
-        console.error(err);
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const requestRes = await getRequest(`requests/${params.requestId}`);
+      const requestData = requestRes.data.data;
+      setRequest(requestData);
+
+      const userRes = await getRequest(`users/${requestData.userId}`);
+      setUserRequest(userRes.data);
+
+      if (requestData.proposals?.length) {
+        const proposalsWithDetails = await Promise.all(
+          requestData.proposals.map(async (proposal) => {
+            const userResponse = await getRequest(`users/${proposal.userId}`);
+            let lastMessage = null;
+
+            if (proposal.chatId) {
+              const chatResponse = await getRequest(
+                `chats/${proposal.chatId}/messages`
+              );
+              lastMessage = chatResponse.data;
+            }
+
+            return {
+              ...proposal,
+              userName: userResponse.data.userName,
+              profilePicture: userResponse.data.profilePicture,
+              lastMessage: lastMessage?.text ?? "No messages yet",
+            };
+          })
+        );
+        setProposals(proposalsWithDetails);
+      } else {
+        setProposals([]);
       }
-    };
-    fetchRequest();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, [params.requestId]);
 
   useEffect(() => {
-    if (!request?.userId) return;
+    fetchData();
+  }, [fetchData]);
 
-    const fetchUser = async () => {
-      try {
-        const response = await getRequest(`users/${request.userId}`);
-        setUserRequest(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchUser();
-  }, [request?.userId]);
-
-  if (!request) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return (
     <div className="wrapper flex flex-col gap-4 px-24 pb-16">
@@ -88,11 +91,11 @@ const RequestDetail = () => {
               Messages
             </Title>
           )}
-          {request.userId !== user?.id ? null : chats.length === 0 ? (
+          {request.userId !== user?.id ? null : proposals.length === 0 ? (
             <Alert type="info" title="Your request has no messages yet" />
           ) : (
-            chats.map((chat, index) => (
-              <RequestMessageCard chat={chat} key={index} />
+            proposals.map((proposal, index) => (
+              <RequestMessageCard proposal={proposal} key={index} />
             ))
           )}
         </div>

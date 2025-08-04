@@ -10,8 +10,8 @@ import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
 
 const TeacherProfile = () => {
-  const { user } = useAuth();
-
+  const { token, user } = useAuth();
+  console.log(token);
   return (
     <main className="flex flex-col justify-between h-full w-full gap-16 max-w-[90rem] px-8 py-4 mx-auto">
       <ProfileTitle title="Teacher Profile" />
