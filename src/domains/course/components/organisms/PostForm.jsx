@@ -15,7 +15,7 @@ import { isAvalidateUrl } from "../../utils/Validations";
  * @returns
  */
 export default function PostForm({ saveOrEdit, closePopup, post }) {
-  const description = useRef(post.description ? post.description : "");
+  const description = useRef(post?.description ? post.description : "");
   const [descriptionError, setDescriptionError] = useState("");
   const [error, setError] = useState("");
   const {
