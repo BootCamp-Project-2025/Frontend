@@ -15,7 +15,6 @@ export const Filters = ({
   setFilters = () => {},
   sortOptions = [],
 }) => {
-  const [sortOrder, setSortOrder] = useState(sortOptions[0]?.value || "");
   const [filtersState, setFiltersState] = useState({});
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
 
