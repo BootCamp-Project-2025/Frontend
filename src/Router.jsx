@@ -73,10 +73,7 @@ export default function Router() {
             path="/teacher/courses/syllabus"
             element={<h1>Create syllabus page</h1>}
           />
-          <Route
-            path="/teacher/p2p-course/:p2pCourseId"
-            element={<P2PCourse />}
-          >
+          <Route path="p2p-course/:p2pCourseId" element={<P2PCourse />}>
             <Route path="posts" element={<P2PPostList />} />
             <Route path="files" element={<P2PFilesList />} />
           </Route>
@@ -103,6 +100,10 @@ export default function Router() {
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
           <Route path="chat-showcase" element={<ChatShowcase />} />
+          <Route path="p2p-course/:p2pCourseId" element={<P2PCourse />}>
+            <Route path="posts" element={<P2PPostList />} />
+            <Route path="files" element={<P2PFilesList />} />
+          </Route>
         </Route>
 
         <Route
