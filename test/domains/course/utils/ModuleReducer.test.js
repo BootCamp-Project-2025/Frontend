@@ -201,6 +201,7 @@ describe("moduleReducer", () => {
     const action = {
       moduleIndex: 0,
       lessonIndex: 0,
+      resources: [],
       type: "SAVE_LESSON",
     };
     const newState = moduleReducer(initialState, action);

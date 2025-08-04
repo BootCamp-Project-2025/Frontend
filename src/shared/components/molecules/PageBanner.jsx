@@ -16,7 +16,8 @@ export const PageBanner = () => {
         alt="Background"
         className="absolute top-0 left-0 w-full h-full object-cover blur-xs"
       />
-      <div className="flex flex-col items-center w-[90%] m-auto gap-7 z-1">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[1]" />
+      <div className="flex flex-col items-center w-[90%] m-auto gap-7 z-2">
         <p
           className="text-xl font-[700] text-white text-center"
           style={{ textShadow: "1px 1px 2px black" }}

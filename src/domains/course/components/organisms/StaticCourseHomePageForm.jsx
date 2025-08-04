@@ -49,6 +49,7 @@ export default function StaticCourseHomePageForm() {
     console.log(file);
     course.name = data.name;
     course.description = data.description;
+    course.imgSrc = file;
     const { responseData, error } = await UsePut("courses", courseId, course);
     showToast(responseData.message, error ? "error" : "success");
   };
@@ -112,7 +113,6 @@ export default function StaticCourseHomePageForm() {
           buttonVariant="ghost"
           onFileUpload={selectNewCourseImage}
         ></FileUpload>
-
         <Button
           type="submit"
           disabled={isSubmitting}

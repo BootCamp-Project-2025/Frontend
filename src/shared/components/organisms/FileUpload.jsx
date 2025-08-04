@@ -3,6 +3,7 @@ import { X, Image, FileText } from "lucide-react";
 import PropTypes from "prop-types";
 import { Button } from "../../../shared/components/atoms/Button";
 import { UploadModal } from "../molecules/UploadModal";
+import { useUploader } from "../../../shared/hooks/useUploader";
 
 export const FileUpload = ({
   label = "Upload your file here",
@@ -23,6 +24,17 @@ export const FileUpload = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
+  const { openWidget } = useUploader((fileInfo) => {
+    setSelectedFile({
+      name: fileInfo.original_filename,
+      size: fileInfo.bytes, // Convert bytes to MB
+      type: "image",
+    });
+    setPreview(fileInfo.secure_url);
+    if (onFileUpload) {
+      onFileUpload(fileInfo.secure_url);
+    }
+  });
 
   const validateFile = (file) => {
     const isImage = fileType === "image";
@@ -117,10 +129,6 @@ export const FileUpload = ({
     setError("");
   };
 
-  const handleUploadClick = () => {
-    setIsModalOpen(true);
-  };
-
   const handleInputClick = () => {
     setIsModalOpen(true);
   };
@@ -207,7 +215,7 @@ export const FileUpload = ({
                   color={buttonColor}
                   variant={buttonVariant}
                   size={buttonSize}
-                  onClick={handleUploadClick}
+                  onClick={openWidget}
                   className="flex-shrink-0"
                 >
                   Upload File

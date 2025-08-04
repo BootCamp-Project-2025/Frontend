@@ -2,31 +2,36 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ExpandableText } from "../../../../shared/components/molecules/ExpandableText";
 import { Icon } from "../../../../shared/components/atoms/Icon";
+import User from "../../../../assets/profile.png";
 
 export const CourseDetailsTeacher = ({
-  avatarURL = "avatarURL",
-  name = "Teacher Name",
+  profilePicture = "avatarURL",
+  userName = "Teacher Name",
   rating = 0,
   students = 0,
   courses = 0,
-  aboutMe = "Teacher About me",
-  teacherId = "teacherId",
+  about = "Teacher About me",
+  freelancerId = "",
 }) => {
   return (
     <div className="flex flex-col items-center md:items-start  md:flex-row gap-6">
       <Link
-        to={`/teachers/${teacherId}`}
+        to={`${freelancerId === "" ? "" : `/teachers/${freelancerId}`}`}
         className="w-[9.3rem] h-[9.3rem] min-w-[9.3rem] min-h-[9.3rem] rounded-full overflow-hidden border border-gray-200"
       >
-        <img src={avatarURL} alt="teacher image" className="w-full" />
+        <img
+          src={profilePicture !== "" ? profilePicture : User}
+          alt="teacher image"
+          className="w-full"
+        />
       </Link>
       <div className="flex flex-col gap-2 items-center md:items-start">
         <div className="flex">
           <Link
-            to={`/teachers/${teacherId}`}
+            to={`${freelancerId === "" ? "" : `/teachers/${freelancerId}`}`}
             className="text-primary-600 font-bold text-xl border-b border-primary-600 py-1.5"
           >
-            {name}
+            {userName}
           </Link>
         </div>
         <div className=" flex flex-row gap-4 text-gray-600 flex-wrap justify-center">
@@ -44,18 +49,18 @@ export const CourseDetailsTeacher = ({
             <p className="text-nowrap">{courses} Courses</p>
           </div>
         </div>
-        <ExpandableText text={aboutMe}></ExpandableText>
+        <ExpandableText text={about}></ExpandableText>
       </div>
     </div>
   );
 };
 
 CourseDetailsTeacher.propTypes = {
-  avatarURL: PropTypes.string,
-  name: PropTypes.string,
+  profilePicture: PropTypes.string,
+  userName: PropTypes.string,
   rating: PropTypes.number,
   students: PropTypes.number,
   courses: PropTypes.number,
-  aboutMe: PropTypes.string,
-  teacherId: PropTypes.string,
+  about: PropTypes.string,
+  freelancerId: PropTypes.string,
 };
