@@ -13,14 +13,14 @@ export const Dashboard = () => {
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
   const { showToast } = useToastContext();
 
-  const [ data, setData ] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       const response = await getRequest("/stats");
 
       if (response.success) {
-        console.log("s", response.data.data)
+        console.log("s", response.data.data);
         setData(response.data.data);
       } else {
         showToast(response.error.message, "error");
@@ -28,7 +28,7 @@ export const Dashboard = () => {
     };
 
     getData();
-  }, [])
+  }, []);
 
   return (
     <main
@@ -90,7 +90,7 @@ export const Dashboard = () => {
 
         <PendingMessages></PendingMessages>
       </div>
-      <UserSidebar></UserSidebar>
+      <UserSidebar data={[]}></UserSidebar>
     </main>
   );
 };

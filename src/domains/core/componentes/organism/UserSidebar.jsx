@@ -1,34 +1,14 @@
 import { AvatarIcon } from "../molecules/AvatarIcon";
 import { EventCard } from "../molecules/EventCard";
-import { useEffect, useState } from "react";
-import { useToastContext } from "../../../../shared/contexts/ToastContext";
-import { getRequest } from "../../../../shared/api/getRequest";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const UserSidebar = () => {
-  const [data, setData] = useState([]);
-  const { showToast } = useToastContext();
+export const UserSidebar = (data = []) => {
   const { user, isAuthenticated } = useAuth();
 
   const location = useLocation();
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
-
-  useEffect(() => {
-    const url = isTeacherRoute ? "/proposals" : "/";
-
-    getRequest(url)
-      .then((response) => {
-        if (response.success) {
-          setData(response.data);
-        } else {
-          showToast(response.error.message, "error");
-        }
-      })
-      .catch((err) => {
-        showToast(err, "error");
-      });
-    }, []);
 
   return (
     <aside
@@ -107,4 +87,8 @@ export const UserSidebar = () => {
       ) : null}
     </aside>
   );
+};
+
+UserSidebar.prototype = {
+  data: PropTypes.array,
 };
