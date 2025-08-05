@@ -28,6 +28,7 @@ import { MyCoursesListStudent } from "./domains/course/components/pages/MyCourse
 import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
 import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
 import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
+import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
 
 export default function Router() {
   return (
@@ -127,9 +128,10 @@ export default function Router() {
         <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
         <Route
-          path="course-track-progres/:enrollmentId"
+          path="course-track-progress/:enrollmentId"
           element={<CourseTrackProgress />}
         />
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"
