@@ -39,7 +39,7 @@ export const Loading = ({
   return (
     <div
       className={clsx(
-        "flex flex-col items-center justify-center text-center gap-4 text-gray-600",
+        "flex flex-col w-full items-center justify-center text-center gap-4 text-gray-600",
         current.text,
         className
       )}

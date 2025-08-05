@@ -40,13 +40,6 @@ export const UserSidebar = () => {
       id="userSideBar"
       style={{ minHeight: "calc(100vh - 5.75rem)" }}
     >
-      <div className="min-h-[3rem] h-[3rem] w-[3rem] min-w-[3rem] ml-auto">
-        <AvatarIcon
-          avatarURL={user ? user?.avatarURL : ""}
-          userName={user ? user?.userName : "User Name"}
-        ></AvatarIcon>
-      </div>
-
       {/* <div className="mt-5">
         <em className="not-italic text-lg font-semibold">Upcoming Events</em>
         <ul className="mt-4">
@@ -61,7 +54,7 @@ export const UserSidebar = () => {
       </div> */}
 
       {user && isAuthenticated && user.isTeacher && isTeacherRoute ? (
-        <div className="mt-10">
+        <div>
           <em className="not-italic text-lg font-semibold">
             Pending Proposals
           </em>
@@ -87,7 +80,7 @@ export const UserSidebar = () => {
       ) : null}
 
       {user && isAuthenticated && (!user.isTeacher || !isTeacherRoute) ? (
-        <div className="mt-10">
+        <div>
           <em className="not-italic text-lg font-semibold">New Proposals</em>
           {data.length > 0 ? (
             data.map((row, idx) => (

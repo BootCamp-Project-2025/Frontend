@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import PropTypes from "prop-types";
+import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 
 function SearchAndCreateBar({ courses, onFiltered, onCreateCourse }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,13 +54,15 @@ function SearchAndCreateBar({ courses, onFiltered, onCreateCourse }) {
         <Button variant="ghost" onClick={handleSearch} className="p-2">
           <span className="material-symbols-outlined">search</span>
         </Button>
-        <SelectInput
-          value={sortOrder}
-          onChange={(e) => handleSort(e.target.value)}
+        <Dropdown
+          label={sortOrder}
+          variant="bordered"
+          radius="small"
+          onSelect={(e) => handleSort(e.value)}
           options={sortOptions}
-          placeHolder="Sort"
-          className="w-32"
-        />
+          color="secondary"
+          className="w-32 min-w-32"
+        ></Dropdown>
       </div>
 
       <Button

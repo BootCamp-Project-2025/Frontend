@@ -49,6 +49,7 @@ export default function StaticCourseHomePageForm() {
     console.log(file);
     course.name = data.name;
     course.description = data.description;
+    course.imgSrc = file;
     const { responseData, error } = await UsePut("courses", courseId, course);
     showToast(responseData.message, error ? "error" : "success");
   };
@@ -57,7 +58,7 @@ export default function StaticCourseHomePageForm() {
     <ToastProvider>
       <form
         onSubmit={handleSubmit(updateCourse)}
-        className="flex flex-col w-full gap-4 max-w-[90rem] px-8 py-4 mx-auto"
+        className="wrapper flex flex-col w-full gap-4 px-8 py-4 mx-auto"
       >
         <Title className="border-b-1" color="default">
           Home page course
@@ -112,7 +113,6 @@ export default function StaticCourseHomePageForm() {
           buttonVariant="ghost"
           onFileUpload={selectNewCourseImage}
         ></FileUpload>
-
         <Button
           type="submit"
           disabled={isSubmitting}

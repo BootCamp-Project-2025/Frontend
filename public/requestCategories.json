@@ -1,77 +1,117 @@
 [
   {
     "id": 1,
-    "imageURL": "/defaultImage1.png",
-    "category": "Technology"
+    "imageURL": "/arts.jpg",
+    "category": "Arts and Humanities"
   },
   {
     "id": 2,
-    "imageURL": "/defaultImage2.png",
-    "category": "Business"
+    "imageURL": "/management.jpg",
+    "category": "Business and Management"
   },
   {
     "id": 3,
-    "imageURL": "/defaultImage3.png",
-    "category": "Design"
+    "imageURL": "/it.jpg",
+    "category": "Computer Science and IT"
   },
   {
     "id": 4,
-    "imageURL": "/defaultImage1.png",
-    "category": "Cooking"
+    "imageURL": "/education.jpg",
+    "category": "Education and Teaching"
   },
   {
     "id": 5,
-    "imageURL": "/defaultImage2.png",
-    "category": "Languages"
+    "imageURL": "/technology.jpg",
+    "category": "Engineering and Technology"
   },
   {
     "id": 6,
-    "imageURL": "/defaultImage3.png",
-    "category": "Art"
+    "imageURL": "/medicine.jpg",
+    "category": "Health and Medicine"
   },
   {
     "id": 7,
-    "imageURL": "/defaultImage1.png",
-    "category": "Music"
+    "imageURL": "/law.jpg",
+    "category": "Law and Legal Studies"
   },
   {
     "id": 8,
-    "imageURL": "/defaultImage2.png",
-    "category": "Marketing"
+    "imageURL": "/math.jpg",
+    "category": "Mathematics and Statistics"
   },
   {
     "id": 9,
-    "imageURL": "/defaultImage3.png",
-    "category": "Finance"
+    "imageURL": "/natural-sciences.jpg",
+    "category": "Natural Sciences"
   },
   {
     "id": 10,
-    "imageURL": "/defaultImage1.png",
-    "category": "Fitness"
+    "imageURL": "/social-sciences.jpg",
+    "category": "Social Sciences"
   },
   {
     "id": 11,
-    "imageURL": "/defaultImage2.png",
-    "category": "Photography"
+    "imageURL": "/agriculture.jpg",
+    "category": "Agriculture and Environmental Sciences"
   },
   {
     "id": 12,
-    "imageURL": "/defaultImage3.png",
-    "category": "Psychology"
+    "imageURL": "/architecture.jpg",
+    "category": "Architecture and Construction"
   },
   {
     "id": 13,
-    "imageURL": "/defaultImage1.png",
-    "category": "Programming"
+    "imageURL": "/media.jpg",
+    "category": "Communications and Media"
   },
   {
     "id": 14,
-    "imageURL": "/defaultImage2.png",
-    "category": "Sciences"
+    "imageURL": "/economics.jpg",
+    "category": "Economics and Finance"
   },
   {
     "id": 15,
-    "imageURL": "/defaultImage3.png",
-    "category": "Entrepreneurship"
+    "imageURL": "/tourism.jpg",
+    "category": "Hospitality and Tourism"
+  },
+  {
+    "id": 16,
+    "imageURL": "/languages.jpg",
+    "category": "Languages and Linguistics"
+  },
+  {
+    "id": 17,
+    "imageURL": "/religion.jpg",
+    "category": "Philosophy and Religion"
+  },
+  {
+    "id": 18,
+    "imageURL": "/international.jpg",
+    "category": "Political Science and International Relations"
+  },
+  {
+    "id": 19,
+    "imageURL": "/psychology.jpg",
+    "category": "Psychology"
+  },
+  {
+    "id": 20,
+    "imageURL": "/policy.jpg",
+    "category": "Public Administration and Policy"
+  },
+  {
+    "id": 21,
+    "imageURL": "/vocational-education.jpg",
+    "category": "Vocational and Technical Education"
+  },
+  {
+    "id": 22,
+    "imageURL": "/sports.jpg",
+    "category": "Sports and Physical Education"
+  },
+  {
+    "id": 23,
+    "imageURL": "/logistics.jpg",
+    "category": "Transportation and Logistics"
   }
 ]

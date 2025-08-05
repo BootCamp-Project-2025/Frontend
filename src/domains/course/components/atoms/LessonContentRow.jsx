@@ -16,7 +16,7 @@ export default function LessonContentRow({
   );
   return (
     <li className={`${className} flex justify-between mt-2`} {...props}>
-      <a href={url} className="text-blue-500">
+      <a href={url} className="text-blue-500" target="_blank" rel="noreferrer">
         {name}
       </a>
       <Button

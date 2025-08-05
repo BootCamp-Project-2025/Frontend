@@ -11,6 +11,7 @@ beforeEach(() => {
 
 const openPopupMock = vi.fn();
 const closePopupMock = vi.fn();
+const openWidgetMock = vi.fn();
 
 vi.mock("react-router-dom", () => ({
   useParams: () => ({ courseId: "course-123" }),
@@ -31,6 +32,12 @@ vi.mock("../../../../../src/shared/hooks/usePopup", () => ({
   default: () => ({
     openPopup: openPopupMock,
     closePopup: closePopupMock,
+  }),
+}));
+
+vi.mock("../../../../../src/shared/hooks/useUploader", () => ({
+  useUploader: () => ({
+    openWidget: openWidgetMock,
   }),
 }));
 
@@ -56,20 +63,7 @@ describe("CourseLesson test component", () => {
     );
     expect(screen.getByTestId("textEditor")).toBeInTheDocument();
   });
-  it("calls  add resource correctly", () => {
-    render(
-      <CourseLesson
-        lessonIndex={0}
-        moduleIndex={0}
-        dispatch={dispatch}
-        modules={modules}
-      />
-    );
-    const addResourceButton = screen.getByText("Resource");
-    addResourceButton.click();
-    render().rerender();
-    expect(screen.getByTestId("uploadFile")).toBeInTheDocument();
-  });
+
   it("calls  add video correctly", () => {
     render(
       <CourseLesson
@@ -83,5 +77,32 @@ describe("CourseLesson test component", () => {
     addResourceButton.click();
     render().rerender();
     expect(openPopupMock).toHaveBeenCalled();
+  });
+
+  it("calls uploader when clicking on Resource button", () => {
+    const dispatch = vi.fn();
+
+    const modules = [
+      Module.builder()
+        .position(0)
+        .lessons([
+          Lesson.builder().position(0).title("testTitle").position(0).build(),
+        ])
+        .build(),
+    ];
+
+    render(
+      <CourseLesson
+        lessonIndex={0}
+        moduleIndex={0}
+        dispatch={dispatch}
+        modules={modules}
+      />
+    );
+
+    const resourceButton = screen.getByText("Resource");
+    resourceButton.click();
+
+    expect(openWidgetMock).toHaveBeenCalled();
   });
 });

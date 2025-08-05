@@ -25,6 +25,11 @@ import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
+import P2PCourse from "./domains/course/components/organisms/P2PCourse.jsx";
+import P2PFilesList from "./domains/course/components/organisms/P2PFilesList.jsx";
+import P2PPostList from "./domains/course/components/organisms/P2PPostList.jsx";
+import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
+import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
 
 export default function Router() {
   return (
@@ -70,6 +75,10 @@ export default function Router() {
             path="/teacher/courses/syllabus"
             element={<h1>Create syllabus page</h1>}
           />
+          <Route path="p2p-course/:p2pCourseId" element={<P2PCourse />}>
+            <Route path="posts" element={<P2PPostList />} />
+            <Route path="files" element={<P2PFilesList />} />
+          </Route>
           <Route
             path="/teacher/courses/:courseId/syllabus"
             element={<CourseSyllabus />}
@@ -93,6 +102,10 @@ export default function Router() {
           <Route path="title-showcase" element={<TitleShowcase />} />
           <Route path="doc-component" element={<DocComponent />} />
           <Route path="chat-showcase" element={<ChatShowcase />} />
+          <Route path="p2p-course/:p2pCourseId" element={<P2PCourse />}>
+            <Route path="posts" element={<P2PPostList />} />
+            <Route path="files" element={<P2PFilesList />} />
+          </Route>
         </Route>
 
         <Route
@@ -118,6 +131,11 @@ export default function Router() {
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
+        <Route
+          path="course-track-progress/:enrollmentId"
+          element={<CourseTrackProgress />}
+        />
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"

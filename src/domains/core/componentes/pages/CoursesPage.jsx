@@ -5,8 +5,8 @@ import { Filters } from "../organism/Filters";
 
 export const CoursesPage = () => {
   return (
-    <main>
-      <div className="flex flex-col gap-10">
+    <main className="wrapper">
+      <div className="flex flex-col gap-10 mt-8">
         <Title className="text-gray-900 text-center" size="lg">
           Explore Our Courses
         </Title>
