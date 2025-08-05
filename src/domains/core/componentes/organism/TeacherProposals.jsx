@@ -16,7 +16,7 @@ const TeacherProposals = () => {
 
     const fetchProposals = async () => {
       try {
-        const response = await getRequest(`proposals/users/${user.id}`);
+        const response = await getRequest(`proposals/${user.id}`);
         const proposals = response.data.data;
 
         const enrichedProposals = await Promise.all(
