@@ -133,7 +133,7 @@ export const CourseDetails = () => {
   }
 
   return (
-    <>
+    <main className="wrapper">
       <CourseHeroSection
         {...course}
         userName={teacher?.userName}
@@ -205,6 +205,6 @@ export const CourseDetails = () => {
           )}
         </div>
       </div>
-    </>
+    </main>
   );
 };

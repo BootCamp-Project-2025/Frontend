@@ -1,0 +1,139 @@
+{
+  "id": "course-1",
+  "name": "Web Development Basics",
+  "field": "Software Engineering",
+  "requirements": "Basic computer skills",
+  "time": 40,
+  "description": "Learn the foundations of building websites using HTML, CSS and JavaScript.",
+  "language": "English",
+  "category": "Development",
+  "subCategory": "Web",
+  "imgSrc": "https://example.com/web-dev.png",
+  "published": true,
+  "userId": "user-1",
+  "modules": [
+    {
+      "id": "module-1",
+      "position": 1,
+      "title": "HTML Fundamentals",
+      "courseId": "course-1",
+      "lessons": [
+        {
+          "id": "lesson-1",
+          "position": 1,
+          "moduleId": "module-1",
+          "title": "What is HTML?",
+          "description": "Introduction to HTML and its structure.",
+          "videoUrls": ["https://videos.example.com/html-intro"],
+          "resources": [
+            {
+              "id": "resource-1",
+              "lessonId": "lesson-1",
+              "name": "HTML Cheat Sheet",
+              "url": "https://resources.example.com/html-cheatsheet.pdf"
+            }
+          ]
+        },
+        {
+          "id": "lesson-2",
+          "position": 2,
+          "moduleId": "module-1",
+          "title": "HTML Tags",
+          "description": "Understanding common HTML tags and their uses.",
+          "videoUrls": ["https://videos.example.com/html-tags"],
+          "resources": [
+            {
+              "id": "resource-2",
+              "lessonId": "lesson-2",
+              "name": "HTML Tags Reference",
+              "url": "https://resources.example.com/html-tags.pdf"
+            }
+          ]
+        }
+      ],
+      "quizzes": []
+    },
+    {
+      "id": "module-2",
+      "position": 2,
+      "title": "CSS Fundamentals",
+      "courseId": "course-1",
+      "lessons": [
+        {
+          "id": "lesson-3",
+          "position": 1,
+          "moduleId": "module-2",
+          "title": "What is CSS?",
+          "description": "Introduction to CSS and styling HTML elements.",
+          "videoUrls": ["https://videos.example.com/css-intro"],
+          "resources": [
+            {
+              "id": "resource-3",
+              "lessonId": "lesson-3",
+              "name": "CSS Basics Guide",
+              "url": "https://resources.example.com/css-basics.pdf"
+            }
+          ]
+        },
+        {
+          "id": "lesson-4",
+          "position": 2,
+          "moduleId": "module-2",
+          "title": "Selectors and Properties",
+          "description": "Learning CSS selectors and common properties.",
+          "videoUrls": ["https://videos.example.com/css-selectors"],
+          "resources": [
+            {
+              "id": "resource-4",
+              "lessonId": "lesson-4",
+              "name": "CSS Selectors Reference",
+              "url": "https://resources.example.com/css-selectors.pdf"
+            }
+          ]
+        }
+      ],
+      "quizzes": []
+    },
+    {
+      "id": "module-3",
+      "position": 3,
+      "title": "JavaScript Fundamentals",
+      "courseId": "course-1",
+      "lessons": [
+        {
+          "id": "lesson-5",
+          "position": 1,
+          "moduleId": "module-3",
+          "title": "Intro to JavaScript",
+          "description": "Learn what JavaScript is and how it works in the browser.",
+          "videoUrls": ["https://videos.example.com/js-intro"],
+          "resources": [
+            {
+              "id": "resource-5",
+              "lessonId": "lesson-5",
+              "name": "JavaScript Cheat Sheet",
+              "url": "https://resources.example.com/js-cheatsheet.pdf"
+            }
+          ]
+        },
+        {
+          "id": "lesson-6",
+          "position": 2,
+          "moduleId": "module-3",
+          "title": "Variables and Data Types",
+          "description": "Understand variables, constants, and data types in JavaScript.",
+          "videoUrls": ["https://videos.example.com/js-variables"],
+          "resources": [
+            {
+              "id": "resource-6",
+              "lessonId": "lesson-6",
+              "name": "JavaScript Variables Guide",
+              "url": "https://resources.example.com/js-variables.pdf"
+            }
+          ]
+        }
+      ],
+      "quizzes": []
+    }
+  ]
+}

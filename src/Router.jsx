@@ -28,6 +28,8 @@ import { MyCoursesListStudent } from "./domains/course/components/pages/MyCourse
 import P2PCourse from "./domains/course/components/organisms/P2PCourse.jsx";
 import P2PFilesList from "./domains/course/components/organisms/P2PFilesList.jsx";
 import P2PPostList from "./domains/course/components/organisms/P2PPostList.jsx";
+import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
+import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
 
 export default function Router() {
   return (
@@ -129,6 +131,11 @@ export default function Router() {
         <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
         <Route path="file-upload" element={<FileUploadExample />} />
         <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
+        <Route
+          path="course-track-progress/:enrollmentId"
+          element={<CourseTrackProgress />}
+        />
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"

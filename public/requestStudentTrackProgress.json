@@ -1,0 +1,47 @@
+{
+  "progress": 50,
+  "trackProgress": [
+    {
+      "id": "track-lesson-1",
+      "enrollmentId": "enrollment-1",
+      "lessonId": "lesson-1",
+      "videoProgress": [
+        {
+          "url": "https://videos.example.com/html-intro",
+          "completed": true
+        }
+      ],
+      "resourcesCompleted": ["resource-1"],
+      "completed": true,
+      "completedAt": "2025-07-23T10:00:00Z"
+    },
+    {
+      "id": "track-lesson-2",
+      "enrollmentId": "enrollment-1",
+      "lessonId": "lesson-2",
+      "videoProgress": [
+        {
+          "url": "https://videos.example.com/html-tags",
+          "completed": false
+        }
+      ],
+      "resourcesCompleted": [],
+      "completed": false,
+      "completedAt": null
+    },
+    {
+      "id": "track-lesson-3",
+      "enrollmentId": "enrollment-1",
+      "lessonId": "lesson-3",
+      "videoProgress": [
+        {
+          "url": "https://videos.example.com/css-intro",
+          "completed": true
+        }
+      ],
+      "resourcesCompleted": ["resource-3"],
+      "completed": true,
+      "completedAt": "2025-07-24T08:00:00Z"
+    }
+  ]
+}

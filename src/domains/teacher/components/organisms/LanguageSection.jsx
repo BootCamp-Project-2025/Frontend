@@ -29,6 +29,7 @@ export const LanguageSection = ({ freelancerId }) => {
       PopupFormLayout,
       {
         title: "Add Language",
+        dropdown: true,
         children: <LanguageForm addCard={addCard} />,
         onClose: closePopup,
       },
@@ -41,6 +42,7 @@ export const LanguageSection = ({ freelancerId }) => {
       PopupFormLayout,
       {
         title: "Edit Language",
+        dropdown: true,
         children: (
           <LanguageForm
             id={lang.id}

@@ -92,7 +92,7 @@ export default function CourseSyllabus() {
   }, [checkIfModuleHasChanges]);
 
   return (
-    <div className="flex flex-col mx-5">
+    <div className="wrapper flex flex-col mx-5">
       <Title className="border-b-1 my-3" color="black">
         Syllabus
       </Title>
@@ -108,6 +108,7 @@ export default function CourseSyllabus() {
               "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
             }
             variant="bordered"
+            size="sm"
           >
             <div className="flex w-full items-center">
               <Icon icon={"plus"} />
@@ -130,6 +131,7 @@ export default function CourseSyllabus() {
         radius="small"
         className={"w-40 my-4 text-center self-start"}
         variant="bordered"
+        size="sm"
       >
         <div className="flex w-full items-center">
           <Icon icon={"plus"} />
@@ -141,6 +143,7 @@ export default function CourseSyllabus() {
         onClick={save}
         radius="small"
         className={"self-center w-40 my-4 text-center"}
+        size="sm"
       >
         <p className="w-full">Save</p>
       </Button>

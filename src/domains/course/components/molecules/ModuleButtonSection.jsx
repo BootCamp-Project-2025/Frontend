@@ -12,6 +12,7 @@ export default function ButtonSection({ buttonProps, ...props }) {
           onClick={buttonData.onClick}
           className={`w-40 text-center self-end ${buttonData.className ?? ""}`}
           variant="bordered"
+          size="sm"
         >
           <div className="flex w-full items-center">
             <Icon icon={"plus"} />

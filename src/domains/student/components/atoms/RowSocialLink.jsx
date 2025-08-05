@@ -47,7 +47,7 @@ const RowSocialLink = ({
           <div className="flex items-center justify-between gap-2 bg-[color:var(--color-default-100)] p-2 rounded-md">
             <input
               type="text"
-              className="border rounded px-2 py-1 text-sm w-full text-[color:var(--color-default-800)]"
+              className="outline-none rounded px-2 py-1 text-sm w-full text-[color:var(--color-default-800)]"
               value={editedUrl}
               onChange={(e) => setEditedUrl(e.target.value)}
               autoFocus
@@ -58,7 +58,7 @@ const RowSocialLink = ({
                 onClick={handleCancelClick}
                 className="p-2 rounded-full bg-[color:var(--color-danger-500)] hover:bg-[color:var(--color-danger-600)] cursor-pointer"
               >
-                <Icon icon="close" className="w-4 h-4" />
+                <Icon icon="close" className="w-4 h-4 text-white" />
               </button>
               <button
                 onClick={handleConfirmClick}
@@ -69,7 +69,7 @@ const RowSocialLink = ({
             </div>
           </div>
         ) : (
-          <div className="min-h-8 w-full hover:bg-[color:var(--color-default-100)] py-2 rounded-md">
+          <div className="min-h-8 w-full hover:bg-[color:var(--color-default-100)] bg-[color:var(--color-default-50)] p-2  rounded-md">
             <Link
               to={url}
               target="_blank"

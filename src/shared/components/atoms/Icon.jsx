@@ -56,6 +56,8 @@ import Youtube from "../../../assets/youtube.svg?react";
 import Calendar from "../../../assets/calendar.svg?react";
 import Clock from "../../../assets/clock.svg?react";
 import AddNoFill from "../../../assets/addNoFill.svg?react";
+import Uparrow from "../../../assets/uparrow.svg?react";
+import Downarrow from "../../../assets/downarrow.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -117,6 +119,8 @@ const icons = {
   calendar: Calendar,
   clock: Clock,
   addNoFill: AddNoFill,
+  uparrow: Uparrow,
+  downarrow: Downarrow,
 };
 
 export function Icon({ icon, className }) {
