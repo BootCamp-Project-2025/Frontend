@@ -6,6 +6,7 @@ import { UserSidebar } from "../organism/UserSidebar";
 import { useEffect, useState } from "react";
 import { getRequest } from "../../../../shared/api/getRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 
 export const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
@@ -14,17 +15,23 @@ export const Dashboard = () => {
   const { showToast } = useToastContext();
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      const response = await getRequest("/stats");
+      setLoading(true);
 
+      const url = isTeacherRoute ? "/stats/teacher" : "/stats/student";
+      const response = await getRequest(url);
+
+      console.log("s", response.data.data);
       if (response.success) {
-        console.log("s", response.data.data);
         setData(response.data.data);
       } else {
         showToast(response.error.message, "error");
       }
+
+      setLoading(false);
     };
 
     getData();
@@ -37,6 +44,7 @@ export const Dashboard = () => {
         justifyContent: "space-between",
       }}
     >
+      {loading && <Loading text="Loading courses..." />}
       <div className="w-full lg:w-[42rem] xl:w-[55rem] m-auto px-8 pb-8 xl:px-24">
         <div>
           <p className="text-lg font-semibold">
@@ -54,10 +62,11 @@ export const Dashboard = () => {
           icon={user && (!user.isTeacher || !isTeacherRoute) ? "search" : "add"}
           path={
             user && (!user.isTeacher || !isTeacherRoute)
-              ? "/courses"
+              ? "/student/courses"
               : "/teacher/courses"
           }
-          data={[data.courses]}
+          data={data.courses}
+          dataChart={data.coursesChart}
         ></InfoTabs>
 
         <InfoTabs
@@ -69,25 +78,26 @@ export const Dashboard = () => {
           icon={user && (!user.isTeacher || !isTeacherRoute) ? "add" : "search"}
           path={
             user && (!user.isTeacher || !isTeacherRoute)
-              ? "/requests"
-              : "/courses"
+              ? "/student/my-requests"
+              : "/teacher/search-requests"
           }
           data={data.p2pCourses}
+          dataChart={data.p2pCoursesChart}
         ></InfoTabs>
 
         {user && (!user.isTeacher || !isTeacherRoute) ? (
           <InfoTabs
             title={"My requests"}
             icon="add"
-            path="/requests"
+            path="/student/my-requests"
             tabs={false}
-            data={[data.request]}
+            data={data.requests}
           ></InfoTabs>
         ) : null}
 
         <PendingMessages></PendingMessages>
       </div>
-      <UserSidebar data={[]}></UserSidebar>
+      <UserSidebar data={data.proposals}></UserSidebar>
     </main>
   );
 };

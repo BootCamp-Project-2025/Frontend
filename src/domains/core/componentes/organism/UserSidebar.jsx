@@ -1,8 +1,8 @@
-import { AvatarIcon } from "../molecules/AvatarIcon";
 import { EventCard } from "../molecules/EventCard";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export const UserSidebar = (data = []) => {
   const { user, isAuthenticated } = useAuth();
@@ -16,19 +16,6 @@ export const UserSidebar = (data = []) => {
       id="userSideBar"
       style={{ minHeight: "calc(100vh - 5.75rem)" }}
     >
-      {/* <div className="mt-5">
-        <em className="not-italic text-lg font-semibold">Upcoming Events</em>
-        <ul className="mt-4">
-          <li className="flex items-center">
-            <Icon icon={"home"}></Icon>
-            <div className="flex flex-col ml-2">
-              <em className="not-italic font-semibold">Meeting with Rodrigo</em>
-              <span className="text-sm">Wed, 15:00 P.M</span>
-            </div>
-          </li>
-        </ul>
-      </div> */}
-
       {user && isAuthenticated && user.isTeacher && isTeacherRoute ? (
         <div>
           <em className="not-italic text-lg font-semibold">
@@ -50,7 +37,13 @@ export const UserSidebar = (data = []) => {
               </EventCard>
             ))
           ) : (
-            <p className="text-sm mt-4">Do not have proposals</p>
+            <div className="mt-3">
+              <Alert
+                type="info"
+                title="No proposals found"
+                description="You don't have any proposals yet."
+              />
+            </div>
           )}
         </div>
       ) : null}
@@ -74,7 +67,13 @@ export const UserSidebar = (data = []) => {
               </EventCard>
             ))
           ) : (
-            <p className="text-sm mt-4">Do not have proposals</p>
+            <div className="mt-3">
+              <Alert
+                type="info"
+                title="No proposals found"
+                description="You don't have any proposals yet."
+              />
+            </div>
           )}
         </div>
       ) : null}

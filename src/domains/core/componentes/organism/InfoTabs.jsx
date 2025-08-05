@@ -6,6 +6,7 @@ import { Tabs } from "../molecules/Tabs";
 import { useState } from "react";
 import { Chart } from "../molecules/Chart";
 import { Link } from "react-router-dom";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export const InfoTabs = ({
   title,
@@ -13,6 +14,7 @@ export const InfoTabs = ({
   path = "",
   tabs = true,
   data = [],
+  dataChart = [],
 }) => {
   const [selected, setSelected] = useState("table");
 
@@ -36,14 +38,29 @@ export const InfoTabs = ({
         </Link>
       </div>
       <div>
-        {selected === "table" && data.length > 0 ? (
-          <Table>
-            {data.map((row, idx) => (
-              <TableItem key={idx} title={row.title} value={row.value} />
-            ))}
-          </Table>
-        ) : null}
-        {selected === "graphic" ? <Chart></Chart> : null}
+        {selected === "table" ? (
+          data.length > 0 ? (
+            <Table>
+              {data.map((row, idx) => (
+                <TableItem key={idx} title={row.title} value={row.value} />
+              ))}
+            </Table>
+          ) : (
+            <Alert
+              type="info"
+              title="No courses found"
+              description="You are not enrolled in any courses yet."
+            />
+          )
+        ) : dataChart.length > 0 ? (
+          <Chart data={dataChart} />
+        ) : (
+          <Alert
+            type="info"
+            title="No courses found"
+            description="You are not enrolled in any courses yet."
+          />
+        )}
       </div>
     </div>
   );
@@ -54,5 +71,6 @@ InfoTabs.propTypes = {
   icon: PropTypes.string,
   path: PropTypes.string,
   data: PropTypes.array,
+  dataChart: PropTypes.array,
   tabs: PropTypes.bool,
 };

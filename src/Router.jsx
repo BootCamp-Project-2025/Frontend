@@ -86,10 +86,6 @@ export default function Router() {
           <Route path="/teacher/chats">
             <Route index element={<ChatPage />} />
           </Route>
-          <Route
-            path="/teacher/search-requests"
-            element={<h1>Search Resquest</h1>}
-          />
         </Route>
 
         <Route path="student" element={<StudentLayout />}>
@@ -108,22 +104,6 @@ export default function Router() {
           </Route>
         </Route>
 
-        <Route
-          path="/dashboard/teacher/profile"
-          element={
-            <main>
-              <TeacherProfile />
-            </main>
-          }
-        />
-        <Route
-          path="/student/requests"
-          element={
-            <main>
-              <StudentRequests />
-            </main>
-          }
-        />
         <Route path="health-check" element={<HealthCheck />} />
         <Route path="course-select" element={<CourseTypeSelection />} />
         <Route path="teacher-profile" element={<TeacherProfile />} />
