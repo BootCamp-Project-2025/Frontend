@@ -1,57 +1,55 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, vi, expect, beforeEach } from "vitest";
 import { MemoryRouter } from "react-router-dom";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import RequestMessageCard from "../../../../../src/domains/core/componentes/molecules/RequestMessageCard";
 
-vi.mock("../../../../../src/shared/hooks/useAuth", () => ({
-  useAuth: () => ({ user: { id: "user-1" } }),
+const mockNavigate = vi.fn();
+
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
+
+vi.mock("../../../../shared/utils/formatDateLabel", () => ({
+  formatDateLabel: (date) => `formatted-${date}`,
 }));
 
-vi.mock("../../../../../src/shared/providers/AuthProvider", () => ({
-  AuthProvider: ({ children }) => <div>{children}</div>,
+vi.mock("../../../../shared/utils/getStatusColor", () => ({
+  getStatusColor: (status) => `color-for-${status}`,
 }));
 
-const mockGetRequest = vi.fn();
-vi.mock("../../../../../src/shared/api/getRequest", () => ({
-  getRequest: (...args) => mockGetRequest(...args),
-}));
-
-import RequestDetail from "../../../../../src/domains/core/componentes/organism/RequestDetail";
-
-describe("RequestDetail", () => {
+describe("RequestMessageCard", () => {
   beforeEach(() => {
-    mockGetRequest.mockReset();
+    mockNavigate.mockClear();
   });
 
-  it("renders request details and chats", async () => {
-    // Primera llamada: request
-    mockGetRequest
-      .mockResolvedValueOnce({
-        data: {
-          data: {
-            title: "Req 1",
-            userId: "user-1",
-            category: "Math",
-            subCategory: "Algebra",
-            description: "Need help",
-          },
-        },
-      })
+  const proposal = {
+    userName: "Test User",
+    profilePicture: "",
+    chatId: "chat123",
+    lastMessage: "This is the last message",
+    updatedAt: "2025-08-04T21:00:00Z",
+    createdAt: "2025-08-01T10:00:00Z",
+    status: "pending",
+  };
 
-      .mockResolvedValueOnce({ data: { userName: "Alice" } });
-
+  it("renders correctly and navigates on button click", () => {
     render(
       <MemoryRouter>
-        <RequestDetail />
+        <RequestMessageCard proposal={proposal} />
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(screen.getByText("Req 1")).toBeInTheDocument();
-      expect(screen.getByText("Math")).toBeInTheDocument();
-      expect(screen.getByText("Algebra")).toBeInTheDocument();
-      expect(screen.getByText("Need help")).toBeInTheDocument();
-    });
+    expect(screen.getByText("Test User")).toBeDefined();
+    expect(screen.getByText("pending")).toBeDefined();
+    expect(screen.getByText(/Updated at:/)).toBeDefined();
+    expect(screen.getByText("This is the last message")).toBeDefined();
 
-    expect(screen.getAllByText(/Open Chat/i).length).toBeGreaterThan(0);
+    const button = screen.getByRole("button", { name: /open chat/i });
+    fireEvent.click(button);
+    expect(mockNavigate).toHaveBeenCalledWith("/chats/chat123");
   });
 });

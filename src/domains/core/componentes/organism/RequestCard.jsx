@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function RequestCard({ deleteRequest, editRequest, request }) {
   const navigate = useNavigate();
-  const handleEdit = () => editRequest(); //here is missing
+  const handleEdit = () => editRequest(request);
   const handleOpen = () => navigate(`/student/requests/${request.id}`);
   const handleDelete = () => deleteRequest(request.id);
   return (
@@ -14,7 +14,7 @@ export default function RequestCard({ deleteRequest, editRequest, request }) {
         className={"flex flex-col gap-2"}
         title={request.title}
         description={request.description}
-        details={`Time estimation: ${request.estimation} hours`}
+        details={`Time estimation: ${request.estimation} hour`}
       />
       <RequestCardButtons
         editRequest={handleEdit}

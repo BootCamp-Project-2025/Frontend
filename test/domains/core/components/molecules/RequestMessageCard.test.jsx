@@ -1,45 +1,63 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi, beforeEach } from "vitest";
+import { useNavigate } from "react-router-dom";
 import RequestMessageCard from "../../../../../src/domains/core/componentes/molecules/RequestMessageCard";
+import profileDefault from "../../../../../src/assets/profile.png";
+import { formatDateLabel } from "../../../../../src/shared/utils/formatDateLabel";
 
-const navigateMock = vi.fn();
-vi.mock("react-router-dom", async () => {
-  const mod = await vi.importActual("react-router-dom");
-  return {
-    ...mod,
-    useNavigate: () => navigateMock,
-  };
-});
+vi.mock("react-router-dom", () => ({
+  useNavigate: vi.fn(),
+}));
+vi.mock("../../../../../src/shared/utils/formatDateLabel");
 
 describe("RequestMessageCard", () => {
-  const chat = {
-    chatId: "chat-123",
-    userName: "Bob",
-    updatedAt: 5,
-    lastMessage: "Hello",
+  const mockNavigate = vi.fn();
+  const baseProposal = {
+    chatId: "chat123",
+    profilePicture: "http://example.com/image.png",
+    userName: "Jane Doe",
+    updatedAt: "2025-08-05T10:00:00Z",
+    createdAt: "2025-08-04T09:00:00Z",
+    lastMessage: "Hello there",
+    status: "OPEN",
   };
 
-  it("renders chat details", () => {
-    render(
-      <MemoryRouter>
-        <RequestMessageCard chat={chat} />
-      </MemoryRouter>
-    );
-
-    expect(screen.getByText("Bob")).toBeInTheDocument();
-    expect(screen.getByText(/5 days ago/i)).toBeInTheDocument();
-    expect(screen.getByText("Hello")).toBeInTheDocument();
+  beforeEach(() => {
+    vi.clearAllMocks();
+    useNavigate.mockReturnValue(mockNavigate);
+    formatDateLabel.mockReturnValue("05/08/2025");
   });
 
-  it("navigates to chat on button click", () => {
-    render(
-      <MemoryRouter>
-        <RequestMessageCard chat={chat} />
-      </MemoryRouter>
-    );
+  it("renders user info and last message", () => {
+    render(<RequestMessageCard proposal={baseProposal} />);
+    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+    expect(screen.getByText("Hello there")).toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByText("Open Chat"));
-    expect(navigateMock).toHaveBeenCalledWith("/chats/chat-123");
+  it("uses default profile image when none is provided", () => {
+    const proposalWithoutImage = { ...baseProposal, profilePicture: "" };
+
+    render(<RequestMessageCard proposal={proposalWithoutImage} />);
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", profileDefault);
+  });
+
+  it("calls navigate with chat route when clicking Open Chat button", () => {
+    render(<RequestMessageCard proposal={baseProposal} />);
+    const button = screen.getByText("Open Chat");
+    fireEvent.click(button);
+    expect(mockNavigate).toHaveBeenCalledWith("/chats/chat123");
+  });
+
+  it.each([
+    ["ACCEPTED", "var(--color-success-500)"],
+    ["REJECTED", "var(--color-danger-500)"],
+    ["NEW", "var(--color-warning-500)"],
+    ["SENT", "var(--color-warning-500)"],
+    ["ANYTHING_ELSE", "var(--color-secondary-500)"],
+  ])("applies correct color for status %s", (status, expectedColor) => {
+    render(<RequestMessageCard proposal={{ ...baseProposal, status }} />);
+    const statusText = screen.getByText(status);
+    expect(statusText.parentElement).toHaveStyle({ color: expectedColor });
   });
 });

@@ -6,13 +6,25 @@ import DropdownSection from "../../../course/components/organisms/DropdownSectio
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
 
-export default function RequestForm({ closePopup, saveRequest }) {
+export default function RequestForm({
+  closePopup,
+  saveRequest,
+  initialValues,
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: initialValues?.title || "",
+      description: initialValues?.description || "",
+      estimation: initialValues?.estimation || 1,
+    },
+  });
+
   const courseInfo = { category: "", subCategory: "", language: "" };
+
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
@@ -24,10 +36,10 @@ export default function RequestForm({ closePopup, saveRequest }) {
       className="flex sm:w-3xl overflow-clip flex-col gap-8 py-6 px-10"
     >
       <Title className="self-center" color="secondary">
-        Create your request
+        {initialValues ? "Edit your request" : "Create your request"}
       </Title>
       <TextInput
-        id={"title"}
+        id="title"
         register={register("title", {
           required: "This field is required",
           minLength: {
@@ -35,13 +47,12 @@ export default function RequestForm({ closePopup, saveRequest }) {
             message: "The title must be at least 10 characters",
           },
         })}
-        errorMessage={errors?.name?.message}
+        errorMessage={errors?.title?.message}
         label="Request title:"
         placeholder="Enter a title"
       />
-
       <TextAreaInput
-        id={"description"}
+        id="description"
         register={register("description", {
           required: "This field is required",
           minLength: {
@@ -55,7 +66,7 @@ export default function RequestForm({ closePopup, saveRequest }) {
         placeholder="Enter a description"
       />
       <div>
-        <p className="mb-3 text-gray-600  font-semibold text-lg">
+        <p className="mb-3 text-gray-600 font-semibold text-lg">
           Basic information:
         </p>
         <DropdownSection course={courseInfo} />
@@ -64,7 +75,9 @@ export default function RequestForm({ closePopup, saveRequest }) {
         <Button color="secondary" onClick={closePopup} variant="bordered">
           Cancel
         </Button>
-        <Button type="submit">Publish your request</Button>
+        <Button type="submit">
+          {initialValues ? "Update request" : "Publish your request"}
+        </Button>
       </div>
     </form>
   );
@@ -73,4 +86,10 @@ export default function RequestForm({ closePopup, saveRequest }) {
 RequestForm.propTypes = {
   closePopup: PropTypes.func,
   saveRequest: PropTypes.func,
+  initialValues: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    estimation: PropTypes.number,
+    id: PropTypes.string,
+  }),
 };
