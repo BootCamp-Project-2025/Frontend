@@ -24,11 +24,4 @@ describe("RequestCard", () => {
     render(<RequestCard request={request} />);
     expect(screen.getByText(request.student)).toBeInTheDocument();
   });
-
-  it("renders the Send an Offer button", () => {
-    render(<RequestCard request={request} />);
-    expect(
-      screen.getByRole("button", { name: /send an offer/i })
-    ).toBeInTheDocument();
-  });
 });

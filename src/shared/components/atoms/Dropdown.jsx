@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
@@ -112,21 +118,37 @@ const buttonVariantsByColor = {
   },
 };
 
-export function Dropdown({
-  label = "Select an option",
-  options = [],
-  onSelect = () => {},
-  color = "primary",
-  variant = "solid",
-  size = "md",
-  radius = "large",
-  square = false,
-  disabled = false,
-  className = "",
-}) {
+export const Dropdown = forwardRef(function Dropdown(
+  {
+    label = "Select an option",
+    options = [],
+    onSelect = () => {},
+    color = "primary",
+    variant = "solid",
+    size = "md",
+    radius = "large",
+    square = false,
+    disabled = false,
+    className = "",
+  },
+  ref
+) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const dropdownRef = useRef();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      reset: () => {
+        setSelected(null);
+        setIsOpen(false);
+      },
+      getSelected: () => selected,
+      setSelected: (option) => setSelected(option),
+    }),
+    [selected]
+  );
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -233,7 +255,7 @@ export function Dropdown({
       </ul>
     </div>
   );
-}
+});
 
 Dropdown.propTypes = {
   label: PropTypes.string,
