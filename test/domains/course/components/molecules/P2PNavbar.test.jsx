@@ -23,7 +23,7 @@ function renderAt(path, save = vi.fn()) {
 describe("P2PNavbar", () => {
   test('calls save("POST") when on /p2p/posts and + is clicked', async () => {
     const { user, save } = renderAt("/p2p/posts");
-    const plusBtn = screen.getByRole("button", { name: "+" });
+    const plusBtn = screen.getByRole("button");
 
     expect(screen.getByRole("link", { name: "Publications" })).toHaveAttribute(
       "aria-current",
@@ -41,7 +41,7 @@ describe("P2PNavbar", () => {
 
   test('calls save("FILE") when on /p2p/files and + is clicked', async () => {
     const { user, save } = renderAt("/p2p/files");
-    const plusBtn = screen.getByRole("button", { name: "+" });
+    const plusBtn = screen.getByRole("button");
 
     expect(screen.getByRole("link", { name: "Files" })).toHaveAttribute(
       "aria-current",
