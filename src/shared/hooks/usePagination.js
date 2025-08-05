@@ -72,6 +72,17 @@ export function usePagination({ url }) {
     [resetPagination]
   );
 
+  const removeFilter = useCallback(
+    (filterKey) => {
+      setFiltersState((prev) => ({
+        ...prev,
+        [filterKey]: null,
+      }));
+      resetPagination();
+    },
+    [resetPagination]
+  );
+
   const clearFilters = useCallback(() => {
     setFiltersState({
       category: null,
@@ -122,7 +133,10 @@ export function usePagination({ url }) {
 
     if (params.query) setQuery(params.query);
     if (Object.keys(restoredFilters).length > 0)
-      setFiltersState(restoredFilters);
+      setFiltersState((prev) => ({
+        ...prev,
+        ...restoredFilters,
+      }));
 
     const pageNum = parseInt(params.page);
     if (!isNaN(pageNum)) setPage(pageNum);
@@ -130,23 +144,23 @@ export function usePagination({ url }) {
   }, []);
 
   useEffect(() => {
-    const newParams = {
-      ...filters,
-      query,
-      page,
-    };
+    const newParams = new URLSearchParams();
 
-    const filteredParams = Object.entries(newParams).reduce(
-      (acc, [key, val]) => {
-        if (val !== null && val !== undefined && val !== "") {
-          acc[key] = val;
-        }
-        return acc;
-      },
-      {}
-    );
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== "") {
+        newParams.set(key, value);
+      }
+    });
 
-    setSearchParams(filteredParams);
+    if (query && query.trim() !== "") {
+      newParams.set("query", query);
+    }
+
+    if (page > 1) {
+      newParams.set("page", page.toString());
+    }
+
+    setSearchParams(newParams, { replace: true });
   }, [filters, query, page, setSearchParams]);
 
   useEffect(() => {
@@ -166,6 +180,7 @@ export function usePagination({ url }) {
     previousPage,
     resetPagination,
     setFilters,
+    removeFilter,
     clearFilters,
     setPageSize,
     setPageIndex,

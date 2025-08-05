@@ -20,6 +20,7 @@ export const CoursesPage = () => {
     nextPage,
     previousPage,
     setPageIndex,
+    removeFilter,
   } = usePagination({
     url: "/courses/search",
   });
@@ -61,6 +62,7 @@ export const CoursesPage = () => {
           activeFilters={activeFilters}
           setFilters={setFilters}
           sortOptions={courseSortOptions}
+          removeFilter={removeFilter}
         />
 
         {isLoading ? (
