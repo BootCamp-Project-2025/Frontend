@@ -9,7 +9,12 @@ describe("SessionTime molecule", () => {
   it("Shows time correctly", async () => {
     render(<SessionTime timestamp={TIME} />);
     const dateText = await screen.findByText(date.toLocaleDateString());
-    const timeText = await screen.findByText("03:54 p.m.");
+    const timeText = await screen.findByText(
+      date.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
 
     expect(dateText).toBeInTheDocument();
     expect(timeText).toBeInTheDocument();
