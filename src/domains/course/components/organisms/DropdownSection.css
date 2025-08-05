@@ -18,3 +18,10 @@
 .dropdownSection > div > ul {
   top: 100%;
 }
+
+.dropdownSection > div > button:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 1;
+}
