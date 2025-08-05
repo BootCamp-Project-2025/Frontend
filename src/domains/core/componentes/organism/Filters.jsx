@@ -14,6 +14,7 @@ export const Filters = ({
   activeFilters = ["language", "rating", "category", "subcategory"],
   setFilters = () => {},
   sortOptions = [],
+  removeFilter = () => {},
 }) => {
   const [filtersState, setFiltersState] = useState({});
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
@@ -64,6 +65,7 @@ export const Filters = ({
       return copy;
     });
     dropdownRefs.current[type]?.reset?.();
+    removeFilter(type);
   };
 
   const handleClearFilters = () => {
@@ -169,4 +171,5 @@ Filters.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
+  removeFilter: PropTypes.func,
 };
