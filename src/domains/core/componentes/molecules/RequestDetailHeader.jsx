@@ -5,19 +5,40 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { Loading } from "../../../../shared/components/molecules/Loading";
+import { postRequest } from "../../../../shared/api/postRequest";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 const RequestDetailHeader = ({ request, userName, requestId }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { showToast } = useToastContext();
+
   const handleNavigate = () => {
     navigate(-1);
   };
+  const handleClick = async () => {
+    try {
+      const body = {
+        name: `Chat for request ${request.title}`,
+        status: "PROPOSAL",
+        participantsIds: [user.id, request.userId],
+      };
 
-  const handleClick = () => {
-    //handle proposal here
-    console.log("studentId: ", request.userId);
-    console.log("teacherId: ", user.id);
-    console.log("requestId: ", requestId);
+      const response = await postRequest("chats", body);
+
+      if (response.success) {
+        navigate(`/chats/${response.data.id}`);
+      } else {
+        showToast("Error sending message", "error");
+        console.error("Error creating chat:", response.error);
+      }
+      // console.log("studentId: ", request.userId);
+      // console.log("teacherId: ", user.id);
+      // console.log("requestId: ", requestId);
+    } catch (error) {
+      showToast("Unexpected error creating chat", "error");
+      console.error("Unexpected error:", error);
+    }
   };
 
   if (!user) return <Loading />;

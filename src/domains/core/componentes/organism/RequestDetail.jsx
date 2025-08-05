@@ -5,9 +5,13 @@ import { useEffect, useState, useCallback } from "react";
 import RequestMessageCard from "../molecules/RequestMessageCard";
 import { Alert } from "../../../../shared/components/molecules/Alert";
 import { useParams } from "react-router-dom";
-import { getRequest } from "../../../../shared/api/getRequest";
 import { Loading } from "../../../../shared/components/molecules/Loading";
 import { useAuth } from "../../../../shared/hooks/useAuth";
+import {
+  fetchProposalsWithDetails,
+  fetchRequestById,
+} from "../../../../shared/api/fetchRequestById";
+import { fetchUserById } from "../../../../shared/api/fetchUserById";
 
 const RequestDetail = () => {
   const [proposals, setProposals] = useState([]);
@@ -21,38 +25,17 @@ const RequestDetail = () => {
     try {
       setLoading(true);
 
-      const requestRes = await getRequest(`requests/${params.requestId}`);
-      const requestData = requestRes.data.data;
+      const requestData = await fetchRequestById(params.requestId);
       setRequest(requestData);
 
-      const userRes = await getRequest(`users/${requestData.userId}`);
-      setUserRequest(userRes.data);
+      const userRes = await fetchUserById(requestData.userId);
+      setUserRequest(userRes);
 
-      if (requestData.proposals?.length) {
-        const proposalsWithDetails = await Promise.all(
-          requestData.proposals.map(async (proposal) => {
-            const userResponse = await getRequest(`users/${proposal.userId}`);
-            let lastMessage = null;
+      const proposals = requestData.proposals?.length
+        ? await fetchProposalsWithDetails(requestData.proposals)
+        : [];
 
-            if (proposal.chatId) {
-              const chatResponse = await getRequest(
-                `chats/${proposal.chatId}/messages`
-              );
-              lastMessage = chatResponse.data;
-            }
-
-            return {
-              ...proposal,
-              userName: userResponse.data.userName,
-              profilePicture: userResponse.data.profilePicture,
-              lastMessage: lastMessage?.text ?? "No messages yet",
-            };
-          })
-        );
-        setProposals(proposalsWithDetails);
-      } else {
-        setProposals([]);
-      }
+      setProposals(proposals);
     } catch (err) {
       console.error(err);
     } finally {
@@ -65,7 +48,6 @@ const RequestDetail = () => {
   }, [fetchData]);
 
   if (loading) return <Loading />;
-
   return (
     <div className="wrapper flex flex-col gap-4 px-24 pb-16">
       <RequestDetailHeader
