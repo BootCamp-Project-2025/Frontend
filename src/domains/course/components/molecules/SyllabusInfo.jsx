@@ -5,7 +5,7 @@ export default function SyllabusInfo({ className = "", ...props }) {
   return (
     <div
       data-testid={"SyllabusInfo"}
-      className={`${className} flex border-1 gap-4 mx-80 py-3 px-6 rounded-lg`}
+      className={`${className} flex border-1 gap-4 w-[80%] lg:mx-50 xl:mx-80 py-3 px-6 rounded-lg`}
       {...props}
     >
       <Icon className={"w-100 self-center"} icon="syllabusAlert" />
