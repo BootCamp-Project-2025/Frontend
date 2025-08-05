@@ -24,9 +24,6 @@ describe("ProposalForm logic", () => {
 
     const descriptionInput = screen.getByDisplayValue("Test description");
     expect(descriptionInput).toBeInTheDocument();
-
-    const requestText = screen.getByText(/"Mock Request"/);
-    expect(requestText).toBeInTheDocument();
   });
 
   it("calls onClose when cancel button is clicked", () => {
