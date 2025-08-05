@@ -46,7 +46,9 @@ describe("RequestMessageCard", () => {
     render(<RequestMessageCard proposal={baseProposal} />);
     const button = screen.getByText("Open Chat");
     fireEvent.click(button);
-    expect(mockNavigate).toHaveBeenCalledWith("/chats/chat123");
+    expect(mockNavigate).toHaveBeenCalledWith(`/student/chats`, {
+      state: { chatId: "chat123" },
+    });
   });
 
   it.each([

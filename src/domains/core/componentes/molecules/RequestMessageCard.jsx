@@ -10,7 +10,9 @@ import { getStatusColor } from "../../../../shared/utils/getStatusColor";
 const RequestMessageCard = ({ proposal }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/chats/${proposal.chatId}`);
+    navigate(`/student/chats`, {
+      state: { chatId: proposal.chatId },
+    });
   };
   return (
     <div className="flex justify-between shadow-md rounded-sm p-4 hover:shadow-lg transition-shadow border border-gray-300 hover:border-gray-400">

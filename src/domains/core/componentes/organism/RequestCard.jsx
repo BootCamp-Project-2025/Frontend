@@ -14,7 +14,6 @@ export default function RequestCard({ deleteRequest, editRequest, request }) {
         className={"flex flex-col gap-2"}
         title={request.title}
         description={request.description}
-        details={`Time estimation: ${request.estimation} hour`}
       />
       <RequestCardButtons
         editRequest={handleEdit}
@@ -33,6 +32,5 @@ RequestCard.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    estimation: PropTypes.number.isRequired,
   }).isRequired,
 };

@@ -5,14 +5,9 @@ import RequestCardInfo from "../../../../../src/domains/core/componentes/molecul
 describe("RequestCardInfo", () => {
   it("renders", () => {
     render(
-      <RequestCardInfo
-        title={"testTitle"}
-        details={"testDetails"}
-        description={"testDescription"}
-      />
+      <RequestCardInfo title={"testTitle"} description={"testDescription"} />
     );
     expect(screen.getByText("testTitle")).toBeInTheDocument();
-    expect(screen.getByText("testDetails")).toBeInTheDocument();
     expect(screen.getByText("testDescription")).toBeInTheDocument();
   });
 });
