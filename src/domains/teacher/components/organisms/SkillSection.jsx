@@ -36,6 +36,7 @@ export default function SkillSection({ freelancerId }) {
       PopupFormLayout,
       {
         title: "Skill Form",
+        dropdown: false,
         children: <SkillForm addCard={addCard} closePopup={closePopup} />,
         onClose: closePopup,
       },
@@ -48,6 +49,7 @@ export default function SkillSection({ freelancerId }) {
       PopupFormLayout,
       {
         title: "Skill Form",
+        dropdown: true,
         children: (
           <SkillForm
             id={skill.id}

@@ -56,7 +56,7 @@ export const SkillForm = ({
       })}
       className="flex flex-col gap-2 items-center"
     >
-      <div className="flex flex-row gap-7">
+      <div className="flex flex-col gap-7 w-full">
         <TextInput
           register={register("name", {
             required: "This field is required",

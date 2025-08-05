@@ -35,12 +35,9 @@ export const Dashboard = () => {
       style={{
         display: "flex",
         justifyContent: "space-between",
-        margin: "0",
-        maxWidth: "100%",
-        padding: 0,
       }}
     >
-      <div className="w-full px-8 pb-8 xl:px-24 2xl:px-60">
+      <div className="w-full lg:w-[42rem] xl:w-[55rem] m-auto px-8 pb-8 xl:px-24">
         <div>
           <p className="text-lg font-semibold">
             Hello, {isAuthenticated && user ? user.userName : ""} welcome back!

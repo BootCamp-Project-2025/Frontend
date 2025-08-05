@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import PropTypes from "prop-types";
 import { FilterChip } from "../atoms/FilterChip";
 import { Button } from "../../../../shared/components/atoms/Button";
+import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
 
 export const Filters = ({
   activeFilters = ["language", "rating", "category", "subcategory"],
@@ -97,16 +98,15 @@ export const Filters = ({
           {activeFilters &&
             activeFilters.map(function (filter) {
               return (
-                <SelectInput
+                <Dropdown
                   key={filter}
+                  label={filter}
+                  variant="bordered"
+                  radius="small"
+                  onSelect={(e) => handleSelectFilter(filter, e.value)}
                   options={options[filter]}
-                  placeHolder={filter}
-                  className="rounded-md border-gray-300 capitalize font-semibold"
-                  value={filter}
-                  onChange={function (e) {
-                    handleSelectFilter(filter, e.target.value);
-                  }}
-                />
+                  color="secondary"
+                ></Dropdown>
               );
             })}
         </div>
@@ -117,9 +117,7 @@ export const Filters = ({
                 <FilterChip
                   key={filter.type}
                   label={filter.filter}
-                  onClick={function () {
-                    handleRemoveFilter(filter.filter);
-                  }}
+                  onClick={() => handleRemoveFilter(filter.filter)}
                 />
               );
             })}
@@ -135,15 +133,15 @@ export const Filters = ({
         <p className="text-gray-400">5000+ results</p>
         <div className="flex items-center">
           <p className="mr-2 text-gray-400">Order by:</p>
-          <SelectInput
-            value={sortOrder}
-            onChange={function (e) {
-              handleSort(e.target.value);
-            }}
+          <Dropdown
+            label={sortOptions[3].label}
+            variant="bordered"
+            radius="small"
+            onSelect={(e) => handleSort(e.value)}
             options={sortOptions}
-            placeHolder="Sort"
-            className="bg-gray-200 border-gray-200 outline-gray-200"
-          />
+            color="secondary"
+            className="bg-gray-200 border-gray-200 outline-gray-200 w-32 min-w-32"
+          ></Dropdown>
         </div>
       </div>
     </div>
