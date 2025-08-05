@@ -105,6 +105,7 @@ function CourseCardList({ style = {}, className = "" }) {
                 courseId={course.id}
                 courseName={course.name}
                 courseDescription={course.description}
+                published={course.published}
                 courseImage={course.imgSrc}
                 onEditClick={handleEditClick(course)}
                 onDeleteClick={handleDeleteClick(course)}

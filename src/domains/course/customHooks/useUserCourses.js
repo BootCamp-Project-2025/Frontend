@@ -24,6 +24,7 @@ export const useUserCourses = (userId) => {
           time: course.time || 0,
           requirements: course.requirements || "None",
           userId: course.userId,
+          published: course.published,
         }));
 
         setCourses(parsedCourses);
