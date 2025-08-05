@@ -44,7 +44,7 @@ export const SearchRequestPage = () => {
   ];
 
   return (
-    <div className="p-12 flex flex-col gap-2 justify-center">
+    <div className="wrapper p-12 flex flex-col gap-2 justify-center">
       <h1 className="text-3xl font-bold mb-6 text-center">Students requests</h1>
       <Searcher
         placeholder="Search requests just for you"

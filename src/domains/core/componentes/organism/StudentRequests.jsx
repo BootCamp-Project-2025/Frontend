@@ -86,7 +86,7 @@ export default function StudentRequests() {
   }, [openPopup, saveRequest, closePopup]);
 
   return (
-    <div className="max-w-[90rem] w-full px-8 py-4 mx-auto">
+    <div className="wrapper w-full px-8 py-4 mx-auto">
       <SearchBar seach={search} ref={inputRef} placeholder="Find by title" />
       {requestList.length === 0 ? (
         <StudentEmptyRequestsMessage

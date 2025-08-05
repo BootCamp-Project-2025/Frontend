@@ -85,6 +85,7 @@ export default function TextEditorToolbarPlugin() {
   return (
     <div className="toolbar" ref={toolbarRef}>
       <button
+        type="button"
         disabled={!canUndo}
         onClick={() => {
           editor.dispatchCommand(UNDO_COMMAND, undefined);
@@ -95,6 +96,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format undo" />
       </button>
       <button
+        type="button"
         disabled={!canRedo}
         onClick={() => {
           editor.dispatchCommand(REDO_COMMAND, undefined);
@@ -106,6 +108,7 @@ export default function TextEditorToolbarPlugin() {
       </button>
       <Divider />
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
         }}
@@ -115,6 +118,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format bold" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic");
         }}
@@ -124,6 +128,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format italic" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline");
         }}
@@ -133,6 +138,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format underline" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough");
         }}
@@ -143,6 +149,7 @@ export default function TextEditorToolbarPlugin() {
       </button>
       <Divider />
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
         }}
@@ -152,6 +159,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format left-align" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
         }}
@@ -161,6 +169,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format center-align" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
         }}
@@ -170,6 +179,7 @@ export default function TextEditorToolbarPlugin() {
         <i className="format right-align" />
       </button>
       <button
+        type="button"
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
         }}

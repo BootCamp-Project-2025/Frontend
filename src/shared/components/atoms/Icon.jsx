@@ -53,6 +53,9 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
+import Calendar from "../../../assets/calendar.svg?react";
+import Clock from "../../../assets/clock.svg?react";
+import AddNoFill from "../../../assets/addNoFill.svg?react";
 import Uparrow from "../../../assets/uparrow.svg?react";
 import Downarrow from "../../../assets/downarrow.svg?react";
 import PropTypes from "prop-types";
@@ -87,13 +90,13 @@ const icons = {
   check: CheckIcon,
   checkSyllabus: CheckSyllabusIcon,
   search: Search,
-  msgDelivered: msgDelivered,
-  msgError: msgError,
-  msgRead: msgRead,
-  msgSent: msgSent,
-  userOffline: userOffline,
-  userOnline: userOnline,
-  newMessage: newMessage,
+  msgDelivered,
+  msgError,
+  msgRead,
+  msgSent,
+  userOffline,
+  userOnline,
+  newMessage,
   checkCircle: CheckCircle,
   errorCircle: ErrorCircle,
   infoCircle: InfoCircle,
@@ -113,6 +116,9 @@ const icons = {
   article: ArticleIcon,
   quiz: QuizIcon,
   document: DocumentIcon,
+  calendar: Calendar,
+  clock: Clock,
+  addNoFill: AddNoFill,
   uparrow: Uparrow,
   downarrow: Downarrow,
 };
