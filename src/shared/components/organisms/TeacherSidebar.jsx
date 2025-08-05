@@ -20,7 +20,8 @@ export const TeacherSidebar = () => {
   useEffect(() => {
     const isCourseRoute =
       location.pathname.includes("homePage") ||
-      location.pathname.includes("syllabus");
+      location.pathname.includes("syllabus") ||
+      location.pathname.includes("configuration");
     setCourseOpen(isCourseRoute);
   }, [location.pathname, courseId]);
 
@@ -91,6 +92,15 @@ export const TeacherSidebar = () => {
                     >
                       <span className="text-base text-gray-700 px-5 py-1 font-normal">
                         Syllabus
+                      </span>
+                    </NavLink>
+
+                    <NavLink
+                      to={`${courseId ? `courses/${courseId}/configuration?name=${courseName}` : "courses/configuration"}`}
+                      className={getStyleNavLink}
+                    >
+                      <span className="text-base text-gray-700 px-5 py-1 font-normal">
+                        Configuration
                       </span>
                     </NavLink>
                   </>
