@@ -1,38 +1,34 @@
-/* eslint-disable no-unused-vars */
-import PropTypes from "prop-types";
 import { AvatarIcon } from "../molecules/AvatarIcon";
 import { EventCard } from "../molecules/EventCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { getRequest } from "../../../../shared/api/getRequest";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { useLocation } from "react-router-dom";
 
 export const UserSidebar = () => {
-  const [data, setData] = useState([
-    { title: "Angular", user: "Pepe" },
-    { title: "React", user: "Jorge" },
-    { title: "DDD", user: "Jose" },
-  ]);
+  const [data, setData] = useState([]);
   const { showToast } = useToastContext();
   const { user, isAuthenticated } = useAuth();
 
   const location = useLocation();
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
 
-  // useEffect(() => {
-  //   getRequest(get)
-  //     .then((response) => {
-  //       if(response.success) {
-  //         setData(response.data);
-  //       } else {
-  //         showToast(response.error.message, "error");
-  //       }
-  //     })
-  //     .catch(err, () => {
-  //       showToast(err, "error");
-  //     });
-  //   }, []);
+  useEffect(() => {
+    const url = isTeacherRoute ? "/proposals" : "/";
+
+    getRequest(url)
+      .then((response) => {
+        if (response.success) {
+          setData(response.data);
+        } else {
+          showToast(response.error.message, "error");
+        }
+      })
+      .catch((err) => {
+        showToast(err, "error");
+      });
+    }, []);
 
   return (
     <aside

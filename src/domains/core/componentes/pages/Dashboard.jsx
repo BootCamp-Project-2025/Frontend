@@ -3,11 +3,32 @@ import { useAuth } from "../../../../shared/hooks/useAuth";
 import { InfoTabs } from "../organism/InfoTabs";
 import { PendingMessages } from "../organism/PendingMessages";
 import { UserSidebar } from "../organism/UserSidebar";
+import { useEffect, useState } from "react";
+import { getRequest } from "../../../../shared/api/getRequest";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
   const location = useLocation();
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
+  const { showToast } = useToastContext();
+
+  const [ data, setData ] = useState([])
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getRequest("/stats");
+
+      if (response.success) {
+        console.log("s", response.data.data)
+        setData(response.data.data);
+      } else {
+        showToast(response.error.message, "error");
+      }
+    };
+
+    getData();
+  }, [])
 
   return (
     <main
@@ -39,7 +60,7 @@ export const Dashboard = () => {
               ? "/courses"
               : "/teacher/courses"
           }
-          get={""}
+          data={[data.courses]}
         ></InfoTabs>
 
         <InfoTabs
@@ -54,7 +75,7 @@ export const Dashboard = () => {
               ? "/requests"
               : "/courses"
           }
-          get={""}
+          data={data.p2pCourses}
         ></InfoTabs>
 
         {user && (!user.isTeacher || !isTeacherRoute) ? (
@@ -62,8 +83,8 @@ export const Dashboard = () => {
             title={"My requests"}
             icon="add"
             path="/requests"
-            get={""}
             tabs={false}
+            data={[data.request]}
           ></InfoTabs>
         ) : null}
 
