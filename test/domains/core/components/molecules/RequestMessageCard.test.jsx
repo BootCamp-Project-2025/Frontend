@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { useNavigate } from "react-router-dom";
 import RequestMessageCard from "../../../../../src/domains/core/componentes/molecules/RequestMessageCard";
@@ -40,6 +40,15 @@ describe("RequestMessageCard", () => {
     render(<RequestMessageCard proposal={proposalWithoutImage} />);
     const img = screen.getByRole("img");
     expect(img).toHaveAttribute("src", profileDefault);
+  });
+
+  it("calls navigate with chat route when clicking Open Chat button", () => {
+    render(<RequestMessageCard proposal={baseProposal} />);
+    const button = screen.getByText("Open Chat");
+    fireEvent.click(button);
+    expect(mockNavigate).toHaveBeenCalledWith(`/student/chats`, {
+      state: { chatId: "chat123" },
+    });
   });
 
   it.each([

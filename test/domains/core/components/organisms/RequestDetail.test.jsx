@@ -50,6 +50,8 @@ describe("RequestMessageCard", () => {
 
     const button = screen.getByRole("button", { name: /open chat/i });
     fireEvent.click(button);
-    expect(mockNavigate).toHaveBeenCalledWith("/chats/chat123");
+    expect(mockNavigate).toHaveBeenCalledWith(`/student/chats`, {
+      state: { chatId: "chat123" },
+    });
   });
 });
