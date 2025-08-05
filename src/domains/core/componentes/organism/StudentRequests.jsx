@@ -9,6 +9,7 @@ import { postRequest } from "../../../../shared/api/postRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { deleteRequest } from "../../../../shared/api/deleteRequest";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
+import { putRequest } from "../../../../shared/api/putRequest";
 
 export default function StudentRequests() {
   const { showToast } = useToastContext();
@@ -57,6 +58,18 @@ export default function StudentRequests() {
     [manageToast]
   );
 
+  const updateRequest = useCallback(
+    async (requestId, data) => {
+      const response = await putRequest(`/requests/${requestId}`, {
+        ...data,
+        status: "AVAILABLE",
+      });
+      manageToast(response.success, "update");
+      return response;
+    },
+    [manageToast]
+  );
+
   const deleteUserRequest = useCallback(
     async (requestId) => {
       const response = await deleteRequest(`/requests/${requestId}`);
@@ -80,6 +93,20 @@ export default function StudentRequests() {
     },
     [openPopup, closePopup, deleteUserRequest]
   );
+  const handleEditRequestPopUp = useCallback(
+    (request) => {
+      openPopup(
+        RequestForm,
+        {
+          initialValues: request,
+          saveRequest: (data) => updateRequest(request.id, data),
+          closePopup,
+        },
+        false
+      );
+    },
+    [openPopup, updateRequest, closePopup]
+  );
 
   const handleCreateRequest = useCallback(() => {
     openPopup(RequestForm, { saveRequest, closePopup }, false);
@@ -96,6 +123,7 @@ export default function StudentRequests() {
         <RequestList
           deleteRequest={handleDeleteRequestPopUp}
           handleCreateRequest={handleCreateRequest}
+          editRequest={handleEditRequestPopUp}
           requestList={requestList}
         />
       )}

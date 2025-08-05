@@ -33,6 +33,7 @@ describe("TeacherSidebar", () => {
       "Teacher Profile",
       "Courses",
       "Search Request",
+      "My Proposals",
       "Chats",
     ]);
   });

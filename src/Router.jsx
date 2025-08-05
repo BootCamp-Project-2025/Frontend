@@ -29,6 +29,8 @@ import P2PCourse from "./domains/course/components/organisms/P2PCourse.jsx";
 import P2PFilesList from "./domains/course/components/organisms/P2PFilesList.jsx";
 import P2PPostList from "./domains/course/components/organisms/P2PPostList.jsx";
 import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
+import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
+import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
 import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
 
 export default function Router() {
@@ -58,6 +60,11 @@ export default function Router() {
             path="/teacher/search-requests"
             element={<SearchRequestPage />}
           />
+          <Route path="/teacher/my-proposals" element={<TeacherProposals />} />
+          <Route
+            path="/teacher/requests/:requestId"
+            element={<RequestDetail />}
+          />
           <Route path="/teacher/dashboard" element={<Dashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
 
@@ -86,10 +93,6 @@ export default function Router() {
           <Route path="/teacher/chats">
             <Route index element={<ChatPage />} />
           </Route>
-          <Route
-            path="/teacher/search-requests"
-            element={<h1>Search Resquest</h1>}
-          />
         </Route>
 
         <Route path="student" element={<StudentLayout />}>
@@ -97,6 +100,10 @@ export default function Router() {
           <Route path="/student/profile" element={<StudentProfile />} />
           <Route path="/student/courses" element={<MyCoursesListStudent />} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
+          <Route
+            path="/student/requests/:requestId"
+            element={<RequestDetail />}
+          />
           <Route path="chats" element={<ChatPage />} />
           <Route path="card-showcase" element={<CardShowcase />} />
           <Route path="title-showcase" element={<TitleShowcase />} />

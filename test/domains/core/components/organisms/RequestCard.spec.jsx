@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import RequestCard from "../../../../../src/domains/core/componentes/organism/RequestCard";
-
+import { MemoryRouter } from "react-router-dom";
 vi.mock(
   "../../../../../src/domains/core/componentes/molecules/RequestCardButtons",
   () => ({
@@ -24,7 +24,15 @@ const request = {
 
 describe("RequestCard", () => {
   it("renders", () => {
-    render(<RequestCard request={request} />);
+    render(
+      <MemoryRouter>
+        <RequestCard
+          deleteRequest={vi.fn()}
+          editRequest={vi.fn()}
+          request={request}
+        />
+      </MemoryRouter>
+    );
     const buttons = screen.getByTestId("cardButtons");
     const info = screen.getByTestId("cardInfo");
     expect(buttons).toBeInTheDocument();
