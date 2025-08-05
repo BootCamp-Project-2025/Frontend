@@ -8,7 +8,7 @@ import { Loading } from "../../../../shared/components/molecules/Loading";
 import { postRequest } from "../../../../shared/api/postRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
-const RequestDetailHeader = ({ request, userName, requestId }) => {
+const RequestDetailHeader = ({ request, userName }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { showToast } = useToastContext();
@@ -32,9 +32,6 @@ const RequestDetailHeader = ({ request, userName, requestId }) => {
         showToast("Error sending message", "error");
         console.error("Error creating chat:", response.error);
       }
-      // console.log("studentId: ", request.userId);
-      // console.log("teacherId: ", user.id);
-      // console.log("requestId: ", requestId);
     } catch (error) {
       showToast("Unexpected error creating chat", "error");
       console.error("Unexpected error:", error);
@@ -78,5 +75,4 @@ RequestDetailHeader.propTypes = {
     chatId: PropTypes.string.isRequired,
   }),
   userName: PropTypes.string.isRequired,
-  requestId: PropTypes.string.isRequired,
 };

@@ -7,14 +7,19 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import PropTypes from "prop-types";
 
 vi.mock("../../../../../src/shared/hooks/useAuth", () => ({
   useAuth: () => ({ user: { id: "teacher-1" } }),
 }));
 
-vi.mock("../../../../../src/shared/providers/AuthProvider", () => ({
-  AuthProvider: ({ children }) => <div>{children}</div>,
-}));
+vi.mock("../../../../../src/shared/providers/AuthProvider", () => {
+  const AuthProvider = ({ children }) => <div>{children}</div>;
+  AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+  return { AuthProvider };
+});
 
 const mockGetRequest = vi.fn();
 vi.mock("../../../../../src/shared/api/getRequest", () => ({

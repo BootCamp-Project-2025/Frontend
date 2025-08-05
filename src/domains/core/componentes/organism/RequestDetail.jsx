@@ -53,7 +53,6 @@ const RequestDetail = () => {
       <RequestDetailHeader
         request={request}
         userName={userRequest?.userName || ""}
-        requestId={params.requestId}
       />
       <div className="flex gap-4">
         <RequestDetailCategory category={request.category} />
