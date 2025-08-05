@@ -18,6 +18,7 @@ export const SearchRequestPage = () => {
     nextPage,
     previousPage,
     setFilters,
+    removeFilter,
     setSearchQuery,
     setPageIndex,
   } = usePagination({
@@ -48,7 +49,9 @@ export const SearchRequestPage = () => {
         activeFilters={activeFilters}
         setFilters={setFilters}
         sortOptions={requestSortOptions}
+        removeFilter={removeFilter}
       />
+
       {!isLoading && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
