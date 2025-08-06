@@ -26,7 +26,7 @@ export function ChatHeader({ chat, ownerId }) {
 
   useEffect(() => {
     if (participantId) fetchUserInfo();
-  }, []);
+  }, [chat.participantsIds]);
 
   const isOnline = (participantId) => {
     return onlineUsers.includes(participantId);

@@ -284,7 +284,7 @@ export default function P2PCourse() {
       {showChat ? (
         <div
           className={
-            "fixed bottom-4 right-10 max-w-2/3 max-h-2/3 overflow-auto bg-white border-1"
+            "fixed bottom-4 right-10 w-2/4 h-2/3 overflow-y-hidden bg-white border-1"
           }
         >
           <ChatTemplate chatIdProp={course.chatId} />
