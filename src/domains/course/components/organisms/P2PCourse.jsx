@@ -20,6 +20,7 @@ import { putRequest } from "../../../../shared/api/putRequest";
 import { deleteRequest } from "../../../../shared/api/deleteRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { patchRequest } from "../../../../shared/api/patchRequest";
+import { useAuth } from "../../../../shared/hooks/useAuth";
 
 export default function P2PCourse() {
   const { showToast } = useToastContext();
@@ -32,6 +33,7 @@ export default function P2PCourse() {
   const params = useParams();
   const location = useLocation();
   const isTeacher = location.pathname.includes("/teacher");
+  const { user } = useAuth();
 
   const loadData = useCallback(async () => {
     const response = await getRequest(
@@ -282,7 +284,7 @@ export default function P2PCourse() {
       {showChat ? (
         <div
           className={
-            "fixed bottom-4 right-10 max-w-2/3 max-h-2/3 overflow-auto bg-white border-1"
+            "fixed bottom-4 right-10 w-2/4 h-2/3 overflow-y-hidden bg-white border-1"
           }
         >
           <ChatTemplate chatIdProp={course.chatId} />
@@ -300,7 +302,14 @@ export default function P2PCourse() {
             "fixed float-start bottom-4 right-10 w-[30%]  bg-white border-1 hover:cursor-pointer"
           }
         >
-          <ChatHeader participantsIds={[course.studentId, course.teacherId]} />
+          <ChatHeader
+            chat={{
+              name: "",
+              participantsIds: [course.studentId, course.teacherId],
+              status: "P2P",
+            }}
+            ownerId={user ? user.id : ""}
+          />
         </button>
       )}
     </div>

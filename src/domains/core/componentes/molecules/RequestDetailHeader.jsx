@@ -7,30 +7,48 @@ import { useAuth } from "../../../../shared/hooks/useAuth";
 import { Loading } from "../../../../shared/components/molecules/Loading";
 import { postRequest } from "../../../../shared/api/postRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { useChat } from "../../../chat/hooks/useChat";
+import { useEffect } from "react";
 
 const RequestDetailHeader = ({ request, userName }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { showToast } = useToastContext();
+  const { createChat, setUserId } = useChat();
+
+  useEffect(() => {
+    if (user) setUserId(user.id);
+  }, [user]);
 
   const handleNavigate = () => {
     navigate(-1);
   };
   const handleClick = async () => {
     try {
-      const body = {
-        name: `Chat for request ${request.title}`,
+      const chat = {
+        name: request.title,
         status: "PROPOSAL",
         participantsIds: [user.id, request.userId],
       };
 
-      const response = await postRequest("chats", body);
+      const newChat = await createChat(chat);
 
-      if (response.success) {
-        navigate(`/chats/${response.data.id}`);
+      const proposal = {
+        requestId: request.id,
+        userId: user.id,
+        chatId: newChat.id,
+        description: "",
+        status: "NEW",
+        sessions: [],
+      };
+      const proposalResponse = await postRequest("proposals", proposal);
+      const newProposal = proposalResponse.data.data;
+
+      if (proposalResponse.success) {
+        navigate(`/teacher/chats`, { state: { chatId: newProposal.chatId } });
       } else {
         showToast("Error sending message", "error");
-        console.error("Error creating chat:", response.error);
+        console.error("Error creating chat:", proposalResponse.error);
       }
     } catch (error) {
       showToast("Unexpected error creating chat", "error");
@@ -69,6 +87,7 @@ const RequestDetailHeader = ({ request, userName }) => {
 export default RequestDetailHeader;
 RequestDetailHeader.propTypes = {
   request: PropTypes.shape({
+    id: PropTypes.string,
     title: PropTypes.string.isRequired,
     userId: PropTypes.string,
     description: PropTypes.string.isRequired,

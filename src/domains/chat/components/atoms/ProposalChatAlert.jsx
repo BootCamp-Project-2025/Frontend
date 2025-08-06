@@ -98,9 +98,9 @@ export function ProposalChatAlert({ chatInfo, userId, handleSendMessage }) {
       case "ACCEPTED":
         return (
           <>
-            <Button size="sm" color="success" variant="faded">
+            {/* <Button size="sm" color="success" variant="faded">
               Go to P2P course
-            </Button>
+            </Button> */}
           </>
         );
       case "REJECTED":

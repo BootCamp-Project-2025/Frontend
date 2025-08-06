@@ -8,6 +8,7 @@ import { useChat } from "../../hooks/useChat";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { ProposalChatAlert } from "../atoms/ProposalChatAlert";
 import { formatInitialP2P } from "../../../../shared/utils/formatInitialP2P";
+import { postRequest } from "../../../../shared/api/postRequest";
 
 export default function ChatTemplate({ chatIdProp = null }) {
   const params = useParams();
@@ -39,20 +40,33 @@ export default function ChatTemplate({ chatIdProp = null }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, chatIdProp]);
 
-  const handleSendMessage = (content, type) => {
+  const handleSendMessage = async (content, type) => {
     sendMessage(content, type);
     if (type == "PROPOSAL") {
       if (content.status == "ACCEPTED") {
-        createChat(chat.participantsIds).then((newChat) => {
-          const newP2PCourse = formatInitialP2P(
+        try {
+          const newChat = await createChat({
+            name: chat.name,
+            participantsIds: chat.participantsIds,
+            status: "P2P",
+          });
+
+          const newP2PCourseInfo = formatInitialP2P(
             chat,
             user.id,
             content,
             newChat.id
           );
-          console.log(newP2PCourse);
+
+          const p2pResponse = await postRequest("p2pCourses", newP2PCourseInfo);
+          const newP2p = p2pResponse.data.data;
           closeChat();
-        });
+          setTimeout(() => {
+            navigate(`../p2p-course/${newP2p.id}/posts`);
+          }, 3000);
+        } catch (error) {
+          console.error(error);
+        }
       }
       if (content.status == "REJECTED") closeChat();
     }
@@ -63,15 +77,11 @@ export default function ChatTemplate({ chatIdProp = null }) {
     <div className="h-full flex flex-col overflow-y-hidden">
       {chat ? (
         <>
-          <ChatHeader
-            participantsIds={chat.participantsIds.filter((id) => id != userId)}
-            chatName={chat.name}
-          />
+          <ChatHeader chat={chat} ownerId={user.id} />
           {chat.status == "PROPOSAL" || chat.status == "CLOSED" ? (
             <ProposalChatAlert
               chatInfo={{
                 id: chat.id,
-                proposalTimestamp: new Date(),
                 status: chat.status,
                 messagesCount: chat.messages.length,
               }}
