@@ -23,6 +23,7 @@ import MessageIcon from "../../../assets/message.svg?react";
 import UserIcon from "../../../assets/user.svg?react";
 import CourseIcon from "../../../assets/course.svg?react";
 import DashboardIcon from "../../../assets/dashboard.svg?react";
+import ProposalIcon from "../../../assets/proposal.svg?react";
 import TeacherIcon from "../../../assets/teacher.svg?react";
 import CheckIcon from "../../../assets/check.svg?react";
 import CheckSyllabusIcon from "../../../assets/checkSyllabus.svg?react";
@@ -53,8 +54,12 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Instagram from "../../../assets/instagram.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import Youtube from "../../../assets/youtube.svg?react";
+import Calendar from "../../../assets/calendar.svg?react";
+import Clock from "../../../assets/clock.svg?react";
+import AddNoFill from "../../../assets/addNoFill.svg?react";
 import Uparrow from "../../../assets/uparrow.svg?react";
 import Downarrow from "../../../assets/downarrow.svg?react";
+import ArrowBack from "../../../assets/arrow-back.svg?react";
 import PropTypes from "prop-types";
 
 const icons = {
@@ -83,17 +88,18 @@ const icons = {
   user: UserIcon,
   course: CourseIcon,
   dashboard: DashboardIcon,
+  proposal: ProposalIcon,
   teacher: TeacherIcon,
   check: CheckIcon,
   checkSyllabus: CheckSyllabusIcon,
   search: Search,
-  msgDelivered: msgDelivered,
-  msgError: msgError,
-  msgRead: msgRead,
-  msgSent: msgSent,
-  userOffline: userOffline,
-  userOnline: userOnline,
-  newMessage: newMessage,
+  msgDelivered,
+  msgError,
+  msgRead,
+  msgSent,
+  userOffline,
+  userOnline,
+  newMessage,
   checkCircle: CheckCircle,
   errorCircle: ErrorCircle,
   infoCircle: InfoCircle,
@@ -113,8 +119,12 @@ const icons = {
   article: ArticleIcon,
   quiz: QuizIcon,
   document: DocumentIcon,
+  calendar: Calendar,
+  clock: Clock,
+  addNoFill: AddNoFill,
   uparrow: Uparrow,
   downarrow: Downarrow,
+  arrowBack: ArrowBack,
 };
 
 export function Icon({ icon, className }) {

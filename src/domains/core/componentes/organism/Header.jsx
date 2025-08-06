@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { updateRoles } from "../../../../shared/api/AuthApi";
 import PropTypes from "prop-types";
+import { useToastContext } from "../../../../shared/contexts/ToastContext";
 
 export const Header = ({ complete = true }) => {
   const {
@@ -25,6 +26,7 @@ export const Header = ({ complete = true }) => {
 
   const navigate = useNavigate();
   const { openPopup, closePopup } = usePopup();
+  const { showToast } = useToastContext();
 
   const handleOpenPopup = () => {
     openPopup(
@@ -44,9 +46,14 @@ export const Header = ({ complete = true }) => {
   };
   const acceptBecomeTeacher = async () => {
     closePopup();
-    await updateRoles("FREELANCER");
-    await updateSessionRoles();
-    navigate("/dashboard/teacher/profile");
+    try {
+      await updateRoles("FREELANCER");
+      await updateSessionRoles();
+      navigate("/teacher/profile");
+    } catch (error) {
+      showToast("Error updating roles", "error");
+      console.error("Error updating roles:", error);
+    }
   };
   const [menuOpen, setMenuOpen] = useState(false);
 

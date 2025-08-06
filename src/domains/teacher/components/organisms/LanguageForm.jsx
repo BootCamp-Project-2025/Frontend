@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import { TextInput } from "../../../../shared/components/molecules/TextInput";
-import { SelectInput } from "../../../../shared/components/atoms/SelectInput";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { v4 as uuidv4 } from "uuid";
+import { Dropdown } from "../../../../shared/components/atoms/Dropdown";
+import Label from "../atoms/Label";
 
 export const LanguageForm = ({
   id = "",
@@ -20,17 +21,24 @@ export const LanguageForm = ({
     handleSubmit,
   } = useForm({ defaultValues: { name, level } });
 
-  const [newLevel, setLevel] = useState(level);
+  const [newLevel, setLevel] = useState(level !== "" ? level : "basic");
   const changeLevel = (e) => {
-    setLevel(e.target.value);
+    setLevel(e.value);
   };
+
+  const languageLevel = [
+    { value: "basic", label: "Basic" },
+    { value: "intermediate", label: "Intermediate" },
+    { value: "advanced", label: "Advanced" },
+    { value: "native", label: "Native" },
+  ];
 
   const onSave = async (data) => {
     if (id) {
-      updateCard({ ...data, id });
+      updateCard({ ...data, level: newLevel, id });
     } else {
       let newId = uuidv4();
-      addCard({ ...data, id: newId });
+      addCard({ ...data, level: newLevel, id: newId });
     }
     closeForm();
   };
@@ -46,20 +54,15 @@ export const LanguageForm = ({
         maxLength={50}
       />
 
-      <SelectInput
-        id="level"
-        label="Level"
-        value={newLevel}
-        onChange={changeLevel}
-        register={register("level", { required: "Required" })}
-        options={[
-          { value: "basic", label: "Basic" },
-          { value: "intermediate", label: "Intermediate" },
-          { value: "advanced", label: "Advanced" },
-          { value: "native", label: "Native" },
-        ]}
-        errorMessage={errors.level?.message}
-      />
+      <Label>Level</Label>
+      <Dropdown
+        label={newLevel}
+        variant="bordered"
+        radius="small"
+        options={languageLevel}
+        onSelect={changeLevel}
+        color="secondary"
+      ></Dropdown>
 
       <div className="flex justify-center gap-3 mt-4">
         <Button

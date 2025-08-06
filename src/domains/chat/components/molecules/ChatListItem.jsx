@@ -53,6 +53,10 @@ export function ChatListItem({
             }}
           ></div>
         );
+      case "PROPOSAL":
+        return (
+          <div className="ms-1 font-semibold underline">Sent a proposal</div>
+        );
 
       default:
         return <div className="text-danger-500">Unknown type of message</div>;

@@ -129,6 +129,7 @@ export function TextEditor({
   placeholder = "",
   // eslint-disable-next-line no-unused-vars
   value,
+  disabled = false,
 }) {
   const editorConfig = {
     html: {
@@ -136,6 +137,7 @@ export function TextEditor({
       import: constructImportMap(),
     },
     namespace: "React.js Demo",
+    editable: !disabled,
     nodes: [ParagraphNode, TextNode],
     onError(error) {
       throw error;
@@ -214,4 +216,5 @@ TextEditor.propTypes = {
   showToolbar: PropTypes.bool,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  disabled: PropTypes.bool,
 };

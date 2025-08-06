@@ -12,6 +12,7 @@ export function useUploader(onUpload, preset) {
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
         cloudName: "ltcrowd-cdn",
+        folder: "temp",
         uploadPreset: preset || "ltcrowd_preset",
         resourceType: "raw",
         clientAllowedFormats: ["pdf", "doc", "docx", "jpg", "jpeg", "png"],

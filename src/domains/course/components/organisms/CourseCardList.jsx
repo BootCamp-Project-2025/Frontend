@@ -72,7 +72,7 @@ function CourseCardList({ style = {}, className = "" }) {
   return (
     <div
       style={style}
-      className={`mx-auto w-full max-w-[90rem] p-4 flex flex-col gap-6 ${className}`}
+      className={`mx-auto wrapper p-4 flex flex-col gap-6 ${className}`}
     >
       <Title
         size="xxl"

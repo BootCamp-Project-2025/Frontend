@@ -97,7 +97,7 @@ export default function CourseSyllabus() {
   }, [checkIfModuleHasChanges]);
 
   return (
-    <div className="flex flex-col w-full gap-2 max-w-[90rem] px-8 py-4 mx-auto">
+    <div className="wrapper flex flex-col mx-5">
       <Title className="border-b-1 my-3" color="black">
         Syllabus
       </Title>
@@ -163,6 +163,7 @@ export default function CourseSyllabus() {
             radius="small"
             className={"w-40 my-4 text-center self-start"}
             variant="bordered"
+            size="sm"
           >
             <div className="flex w-full items-center">
               <Icon icon={"plus"} />

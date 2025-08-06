@@ -114,6 +114,12 @@ export const TeacherSidebar = () => {
               ></SidebarRow>
 
               <SidebarRow
+                name={"My Proposals"}
+                route={"/teacher/my-proposals"}
+                icon={"proposal"}
+              ></SidebarRow>
+
+              <SidebarRow
                 name={"Chats"}
                 route={"/teacher/chats"}
                 icon={"chat"}

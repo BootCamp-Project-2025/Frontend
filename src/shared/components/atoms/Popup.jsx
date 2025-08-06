@@ -62,7 +62,7 @@ export default function PopupRoot() {
           rounded-2xl
           p-4 
           max-w-[90vw] max-h-[90vh] 
-          overflow-auto 
+          ${componentProps && componentProps.dropdown ? "overflow-visible" : "overflow-auto"} 
           inline-block 
           transform transition-all duration-300 ease-out 
           ${isClosing ? "opacity-0 scale-95" : "opacity-100 scale-100"}
