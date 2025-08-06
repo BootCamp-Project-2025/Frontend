@@ -12,22 +12,7 @@ export const useUserCourses = (userId) => {
         const { data } = await baseAPI.get(`/users/${userId}/courses`);
         const courseList = data?.data || [];
 
-        const parsedCourses = courseList.map((course) => ({
-          id: course.id,
-          name: course.name || "Untitled",
-          description: course.description || "",
-          imgSrc: course.imgSrc || "/default-course.png",
-          category: course.category || "",
-          subCategory: course.subCategory || "",
-          language: course.language || "Unknown",
-          field: course.field || "",
-          time: course.time || 0,
-          requirements: course.requirements || "None",
-          userId: course.userId,
-          published: course.published,
-        }));
-
-        setCourses(parsedCourses);
+        setCourses(courseList);
         setError(null);
       } catch (err) {
         setError(err);

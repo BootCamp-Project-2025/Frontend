@@ -31,8 +31,8 @@ function CourseCardList({ style = {}, className = "" }) {
   }, [data]);
 
   const addNewCourse = (newCourse) => {
-    setCourses((prev) => [...prev, newCourse]);
-    setFiltered((prev) => [...prev, newCourse]);
+    setCourses((prev) => [newCourse, ...prev]);
+    setFiltered((prev) => [newCourse, ...prev]);
   };
 
   const handleNewCourse = () => {
@@ -109,6 +109,9 @@ function CourseCardList({ style = {}, className = "" }) {
                 courseImage={course.imgSrc}
                 onEditClick={handleEditClick(course)}
                 onDeleteClick={handleDeleteClick(course)}
+                category={course.category}
+                subCategory={course.subCategory}
+                language={course.language}
               />
             ))}
           </div>

@@ -113,7 +113,7 @@ export const StaticCourseConfiguration = () => {
           </div>
           <div className="flex gap-3.5 items-center ">
             <Toggle
-              label="Course visibility:"
+              label="Published:"
               enabled={published}
               onToggle={handleToggle}
               disabled={updating}

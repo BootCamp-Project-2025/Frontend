@@ -53,8 +53,6 @@ export default function StaticCourseHomePageForm() {
     showToast(responseData.message, error ? "error" : "success");
   };
 
-  console.log("Render");
-
   return (
     <ToastProvider>
       <form

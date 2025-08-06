@@ -11,13 +11,18 @@ const colorStyles = {
   pink: "bg-pink-100 text-pink-800 ring-pink-800/30",
 };
 
-export const Badge = ({ color = "gray", children, className = "" }) => {
+export const Badge = ({
+  color = "gray",
+  children,
+  className = "",
+  ...props
+}) => {
   const baseClasses =
     "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset";
   const colorClass = colorStyles[color] || colorStyles.gray;
 
   return (
-    <span className={`${baseClasses} ${colorClass} ${className}`}>
+    <span className={`${baseClasses} ${colorClass} ${className}`} {...props}>
       {children}
     </span>
   );
