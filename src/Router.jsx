@@ -32,6 +32,7 @@ import CourseTrackProgress from "./domains/course/components/pages/CourseTrackPr
 import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
 import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
 import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
+import { StaticCourseConfiguration } from "./domains/course/components/organisms/StaticCourseConfiguration.jsx";
 
 export default function Router() {
   return (
@@ -89,6 +90,10 @@ export default function Router() {
           <Route
             path="/teacher/courses/:courseId/syllabus"
             element={<CourseSyllabus />}
+          />
+          <Route
+            path="/teacher/courses/:courseId/configuration"
+            element={<StaticCourseConfiguration />}
           />
           <Route path="/teacher/chats">
             <Route index element={<ChatPage />} />

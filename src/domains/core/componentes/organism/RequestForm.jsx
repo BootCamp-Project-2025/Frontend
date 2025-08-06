@@ -5,6 +5,8 @@ import { TextAreaInput } from "../../../../shared/components/molecules/TextAreaI
 import DropdownSection from "../../../course/components/organisms/DropdownSection";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export default function RequestForm({
   closePopup,
@@ -23,11 +25,30 @@ export default function RequestForm({
     },
   });
 
-  const courseInfo = { category: "", subCategory: "", language: "" };
+  const [courseInfo, setCourseInfo] = useState({
+    category: "",
+    subCategory: "",
+    language: "",
+  });
+  const [customError, setCustomError] = useState("");
 
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
+        const missingFields = [];
+
+        if (!courseInfo.language) missingFields.push("Language");
+        if (!courseInfo.category) missingFields.push("Category");
+        if (!courseInfo.subCategory) missingFields.push("Subcategory");
+
+        if (missingFields.length > 0) {
+          const formattedFields = missingFields.join(", ");
+          setCustomError(`Please select: ${formattedFields}.`);
+          return;
+        }
+
+        setCustomError("");
+
         const response = await saveRequest({ ...data, ...courseInfo });
         if (response.success) {
           closePopup();
@@ -69,7 +90,12 @@ export default function RequestForm({
         <p className="mb-3 text-gray-600 font-semibold text-lg">
           Basic information:
         </p>
-        <DropdownSection course={courseInfo} />
+        {customError && (
+          <div className="my-2.5">
+            <Alert type="error" title={customError} />
+          </div>
+        )}
+        <DropdownSection course={courseInfo} setCourse={setCourseInfo} />
       </div>
       <div className="flex justify-center gap-6">
         <Button color="secondary" onClick={closePopup} variant="bordered">

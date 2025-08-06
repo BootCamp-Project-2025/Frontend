@@ -52,6 +52,7 @@ export default function CourseForm({
             className={`flex-1 border rounded-lg px-3 py-2 transition outline-none focus:ring-2 focus:ring-blue-400 ${
               errors.name ? "border-red-500" : "border-gray-300"
             }`}
+            maxLength={100}
           />
         </div>
         {errors.name && (
@@ -81,6 +82,7 @@ export default function CourseForm({
             className={`flex-1 border rounded-lg px-3 py-2 transition outline-none focus:ring-2 focus:ring-blue-400 ${
               errors.description ? "border-red-500" : "border-gray-300"
             }`}
+            maxLength={2000}
           />
         </div>
         {errors.description && (

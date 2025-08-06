@@ -103,7 +103,7 @@ body {
 .wrapper {
   width: 60rem;
   min-width: 60rem;
-  margin: auto;
+  margin: 0px auto;
 }
 
 @media screen and (max-width: 1000px) {
