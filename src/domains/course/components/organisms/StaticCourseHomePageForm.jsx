@@ -46,7 +46,7 @@ export default function StaticCourseHomePageForm() {
   const isPublished = responseData?.data?.published === true;
 
   const updateCourse = async (data) => {
-    if (course.category != "" && course.subCategory == "") {
+    if (course.category !== "" && course.subCategory === "") {
       showToast("A subcategory is required.", "error");
       return;
     }
@@ -54,14 +54,12 @@ export default function StaticCourseHomePageForm() {
     newCourse.name = data.name;
     newCourse.description = data.description;
     newCourse.imgSrc = file;
-    const { responseData, error } = await UsePut(
-      "courses",
-      courseId,
-      newCourse
-    );
+    const { responseData: responseDataUpdate, error: errorUpdate } =
+      await UsePut("courses", courseId, newCourse);
     showToast(
-      responseData?.message || "An error has occurred. Please try again later.",
-      error ? "error" : "success"
+      responseDataUpdate?.message ||
+        "An error has occurred. Please try again later.",
+      errorUpdate ? "error" : "success"
     );
   };
 
