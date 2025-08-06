@@ -1,7 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { MemoryRouter, useNavigate } from "react-router-dom";
 import { describe, it, expect, vi } from "vitest";
 import ProposalCard from "../../../../../src/domains/core/componentes/molecules/ProposalCard";
+
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useNavigate: vi.fn(),
+  };
+});
 
 vi.mock("../../../../shared/utils/getStatusColor", () => ({
   getStatusColor: vi.fn(() => "red"),
@@ -32,14 +40,20 @@ describe("ProposalCard", () => {
   });
 
   it("links to request and chat correctly", () => {
+    const mockNavigate = vi.fn();
+    useNavigate.mockReturnValue(mockNavigate);
+
     render(
       <MemoryRouter>
         <ProposalCard proposal={proposal} />
       </MemoryRouter>
     );
 
-    const links = screen.getAllByRole("link");
-    expect(links[0]).toHaveAttribute("href", "/teacher/requests/123");
-    expect(links[1]).toHaveAttribute("href", "/teacher/chats/chat-456");
+    const button = screen.getByRole("button", { name: /open chat/i });
+    fireEvent.click(button);
+
+    expect(mockNavigate).toHaveBeenCalledWith("/teacher/chats", {
+      state: { chatId: "chat-456" },
+    });
   });
 });
