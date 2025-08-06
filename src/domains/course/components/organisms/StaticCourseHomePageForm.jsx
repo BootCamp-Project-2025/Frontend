@@ -20,6 +20,7 @@ import { Alert } from "../../../../shared/components/molecules/Alert";
 export default function StaticCourseHomePageForm() {
   const { courseId } = useParams();
   const { responseData, loading, error } = UseGet("courses", courseId);
+  const [course, setCourse] = useState(null);
   const {
     register,
     handleSubmit,
@@ -38,19 +39,30 @@ export default function StaticCourseHomePageForm() {
     if (responseData) {
       setValue("name", responseData.data.name ?? "");
       setValue("description", responseData.data.description ?? "");
-      console.log(responseData);
+      setCourse(responseData.data);
     }
   }, [responseData, setValue]);
 
-  const course = responseData?.data;
   const isPublished = responseData?.data?.published === true;
 
   const updateCourse = async (data) => {
-    course.name = data.name;
-    course.description = data.description;
-    course.imgSrc = file;
-    const { responseData, error } = await UsePut("courses", courseId, course);
-    showToast(responseData.message, error ? "error" : "success");
+    if (course.category != "" && course.subCategory == "") {
+      showToast("A subcategory is required.", "error");
+      return;
+    }
+    let newCourse = { ...course };
+    newCourse.name = data.name;
+    newCourse.description = data.description;
+    newCourse.imgSrc = file;
+    const { responseData, error } = await UsePut(
+      "courses",
+      courseId,
+      newCourse
+    );
+    showToast(
+      responseData?.message || "An error has occurred. Please try again later.",
+      error ? "error" : "success"
+    );
   };
 
   return (
@@ -79,7 +91,7 @@ export default function StaticCourseHomePageForm() {
           />
         )}
 
-        {!loading && !error && (
+        {!loading && !error && course && (
           <>
             <section>
               <TextInput
@@ -109,7 +121,10 @@ export default function StaticCourseHomePageForm() {
                 register={register("description", {
                   required: "Course name is required",
                   minLength: { value: 1, message: "Minimum 2 characters" },
-                  maxLength: { value: 200, message: "Maximum 200 characters" },
+                  maxLength: {
+                    value: 2000,
+                    message: "Maximum 2000 characters",
+                  },
                 })}
                 disabled={isPublished}
               />
@@ -121,7 +136,11 @@ export default function StaticCourseHomePageForm() {
             <p className="text-gray-600 font-semibold text-lg ">
               Basic information:
             </p>
-            <DropdownSection course={course} disabled={isPublished} />
+            <DropdownSection
+              course={course}
+              disabled={isPublished}
+              setCourse={setCourse}
+            />
             <p className="text-gray-600 font-semibold text-lg ">
               Image of course:
             </p>
@@ -130,7 +149,7 @@ export default function StaticCourseHomePageForm() {
               initialPreview={responseData?.data?.imgSrc}
               label="Select the image for your course"
               description="Upload your course image here. The image must meet the quality standards for course images."
-              guidelines="Important guidelines: 000 x 000 pixels; format .jpg, .jpeg, .gif, or .png."
+              guidelines="Format .jpg, .jpeg, or .png."
               buttonVariant="ghost"
               onFileUpload={selectNewCourseImage}
               disabled={isPublished}

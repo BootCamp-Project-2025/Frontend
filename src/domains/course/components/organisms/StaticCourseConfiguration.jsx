@@ -67,7 +67,7 @@ export const StaticCourseConfiguration = () => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-5 max-w-[90rem] px-8 py-4 mx-auto">
+    <div className="wrapper flex flex-col w-full gap-5 px-8 py-4 mx-auto">
       <Title className="border-b-1" color="default">
         Configuration
       </Title>

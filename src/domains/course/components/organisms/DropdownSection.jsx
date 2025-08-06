@@ -8,20 +8,31 @@ import {
 } from "../../utils/CourseSelectData";
 import { useState } from "react";
 
-export default function DropdownSection({ course, disabled = false }) {
+export default function DropdownSection({
+  course,
+  disabled = false,
+  setCourse = () => {},
+}) {
   const [subCategory, setSubCategory] = useState(
     educationSubCategories[course.category]
   );
   const handleSubCategory = (option) => {
-    course.subCategory = option.label;
+    setCourse((prev) => ({ ...prev, subCategory: option.label }));
   };
   const handleLanguage = (option) => {
-    course.language = option.label;
+    setCourse((prev) => ({ ...prev, language: option.label }));
   };
   const handleCategory = (option) => {
-    course.category = option.label;
-    setSubCategory(educationSubCategories[option.label]);
+    if (option.label != course.category) {
+      setCourse((prev) => ({
+        ...prev,
+        category: option.label,
+        subCategory: "",
+      }));
+      setSubCategory(educationSubCategories[option.label]);
+    }
   };
+
   return (
     <section className="  dropdownSection ">
       <Dropdown
@@ -43,6 +54,7 @@ export default function DropdownSection({ course, disabled = false }) {
         disabled={disabled}
       ></Dropdown>
       <Dropdown
+        key={course.category}
         type="button"
         label={
           course.subCategory !== ""
@@ -63,4 +75,5 @@ export default function DropdownSection({ course, disabled = false }) {
 DropdownSection.propTypes = {
   course: PropTypes.object,
   disabled: PropTypes.bool,
+  setCourse: PropTypes.func,
 };
