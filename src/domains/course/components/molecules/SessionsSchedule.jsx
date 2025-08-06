@@ -43,13 +43,12 @@ export const SessionsSchedule = ({ sessions, onSessionsChange, student }) => {
               <Button
                 onClick={() => addSession()}
                 color="primary"
-                radius="full"
                 square
-                className="w-10 h-10"
                 contentClassName="text-white justify-center items-center text-2xl"
                 aria-label="Add session"
+                className="p-0"
               >
-                +
+                <Icon icon={"add"} className="w-3 h-3" />
               </Button>
             </div>
           )}

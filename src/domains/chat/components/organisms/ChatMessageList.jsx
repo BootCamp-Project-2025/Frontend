@@ -6,7 +6,12 @@ import { Title } from "../../../../shared/components/atoms/Title";
 import { ChatDateDivider } from "../atoms/ChatDateDivider";
 import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
 
-export function ChatMessageList({ ownerId, messages = [] }) {
+export function ChatMessageList({
+  ownerId,
+  messages = [],
+  sendMessage = () => {},
+  chatStatus,
+}) {
   let lastLabel = null;
   return (
     <ScrollToBottom
@@ -36,6 +41,8 @@ export function ChatMessageList({ ownerId, messages = [] }) {
                     index == messages.length - 1 ||
                     message.senderId != messages[index + 1].senderId
                   }
+                  sendMessage={sendMessage}
+                  chatStatus={chatStatus}
                 />
               </>
             );
@@ -55,4 +62,6 @@ export function ChatMessageList({ ownerId, messages = [] }) {
 ChatMessageList.propTypes = {
   ownerId: PropTypes.string,
   messages: PropTypes.arrayOf(PropTypes.string),
+  sendMessage: PropTypes.func,
+  chatStatus: PropTypes.string,
 };

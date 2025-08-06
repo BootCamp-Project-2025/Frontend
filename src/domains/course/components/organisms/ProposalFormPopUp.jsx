@@ -7,6 +7,9 @@ import ProposalForm from "./ProposalForm";
 export default function ProposalFormPopUp({
   initialData,
   requestTitle = "New Request",
+  handleSendProposal,
+  buttonLabel = "Create proposal",
+  readOnly = false,
 }) {
   const { openPopup, closePopup } = usePopup();
 
@@ -15,8 +18,10 @@ export default function ProposalFormPopUp({
       requestTitle,
       initialData,
       onClose: closePopup,
+      handleSendProposal,
+      student: readOnly,
     });
-  }, [openPopup, closePopup, requestTitle]);
+  }, [openPopup, closePopup, requestTitle, initialData]);
 
   return (
     <div>
@@ -24,9 +29,10 @@ export default function ProposalFormPopUp({
         onClick={handleOpenProposalForm}
         variant="solid"
         color="primary"
+        size="sm"
         className={"self-center"}
       >
-        Create Proposal
+        {buttonLabel}
       </Button>
     </div>
   );
@@ -37,12 +43,13 @@ ProposalFormPopUp.propTypes = {
     description: PropTypes.string.isRequired,
     sessions: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        hour: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        datetime: PropTypes.string.isRequired,
       })
     ).isRequired,
   }),
   requestTitle: PropTypes.string,
+  handleSendProposal: PropTypes.func,
+  buttonLabel: PropTypes.string,
+  readOnly: PropTypes.bool,
 };

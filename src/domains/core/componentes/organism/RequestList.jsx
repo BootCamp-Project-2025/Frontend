@@ -4,6 +4,7 @@ import { Button } from "../../../../shared/components/atoms/Button";
 
 export default function RequestList({
   deleteRequest,
+  editRequest,
   requestList,
   handleCreateRequest,
 }) {
@@ -19,6 +20,7 @@ export default function RequestList({
       {requestList.map((request) => (
         <RequestCard
           deleteRequest={deleteRequest}
+          editRequest={editRequest}
           key={request.id}
           request={request}
         />
@@ -38,4 +40,5 @@ RequestList.propTypes = {
   ).isRequired,
   handleCreateRequest: PropTypes.func.isRequired,
   deleteRequest: PropTypes.func.isRequired,
+  editRequest: PropTypes.func.isRequired,
 };
