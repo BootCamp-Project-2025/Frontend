@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ProfileTitle from "../../../shared/components/atoms/ProfileTitle";
 import ProfileInfo from "../components/molecules/ProfileInfo";
 import { EducationSection } from "../components/organisms/EducationSection";
@@ -8,12 +7,13 @@ import SkillSection from "../components/organisms/SkillSection";
 // import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const TeacherProfile = () => {
   const { user, handleUpdateUser } = useAuth();
 
   return (
-    <main className="flex flex-col justify-between h-full w-full gap-16 max-w-[90rem] px-8 py-4 mx-auto">
+    <main className="wrapper flex flex-col justify-between h-full w-full gap-16 px-8 py-4 mx-auto">
       <ProfileTitle title="Teacher Profile" />
       {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
       <div className="flex:col md:flex gap-24 md:gap-0 justify-around items-center w-full">

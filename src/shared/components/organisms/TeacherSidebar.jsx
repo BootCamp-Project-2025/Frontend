@@ -20,7 +20,8 @@ export const TeacherSidebar = () => {
   useEffect(() => {
     const isCourseRoute =
       location.pathname.includes("homePage") ||
-      location.pathname.includes("syllabus");
+      location.pathname.includes("syllabus") ||
+      location.pathname.includes("configuration");
     setCourseOpen(isCourseRoute);
   }, [location.pathname, courseId]);
 
@@ -93,6 +94,15 @@ export const TeacherSidebar = () => {
                         Syllabus
                       </span>
                     </NavLink>
+
+                    <NavLink
+                      to={`${courseId ? `courses/${courseId}/configuration?name=${courseName}` : "courses/configuration"}`}
+                      className={getStyleNavLink}
+                    >
+                      <span className="text-base text-gray-700 px-5 py-1 font-normal">
+                        Configuration
+                      </span>
+                    </NavLink>
                   </>
                 ) : null}
               </div>
@@ -101,6 +111,12 @@ export const TeacherSidebar = () => {
                 name={"Search Request"}
                 route={"/teacher/search-requests"}
                 icon={"search"}
+              ></SidebarRow>
+
+              <SidebarRow
+                name={"My Proposals"}
+                route={"/teacher/my-proposals"}
+                icon={"proposal"}
               ></SidebarRow>
 
               <SidebarRow

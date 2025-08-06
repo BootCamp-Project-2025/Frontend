@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Title } from "../../../../shared/components/atoms/Title";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import usePopup from "../../../../shared/hooks/usePopup";
@@ -67,42 +68,72 @@ const ProfileInfo = ({ user, handleUpdateUser }) => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex gap-8 items-center">
-        <AvatarProfile
-          profilePicture={localUser.profilePicture}
-          updateProfilePicture={(picture) =>
-            handlePatchField("profilePicture", picture)
-          }
-        />
+      <div className="flex flex-row justify-between">
+        <div className="flex gap-8 items-center">
+          <AvatarProfile
+            profilePicture={localUser.profilePicture}
+            updateProfilePicture={(picture) =>
+              handlePatchField("profilePicture", picture)
+            }
+          />
 
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <Title
-              size="xl"
-              color="default"
-              className="2xl:text-4xl font-extrabold"
-            >
-              {localUser.userName}
-            </Title>
-            <Button
-              color="default"
-              radius="full"
-              square
-              size="sm"
-              onClick={handleOpenPopup}
-              className={
-                "p-0 w-2 flex justify-center bg-[color:var(--color-secondary-100)]"
-              }
-            >
-              <Icon icon={"edit"} className={"min-w-4"} />
-            </Button>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <Title
+                size="xl"
+                color="default"
+                className="2xl:text-4xl font-extrabold"
+              >
+                {localUser.userName}
+              </Title>
+              <Button
+                color="default"
+                radius="full"
+                square
+                size="sm"
+                onClick={handleOpenPopup}
+                className={
+                  "p-0 w-2 flex justify-center bg-[color:var(--color-secondary-100)]"
+                }
+              >
+                <Icon icon={"edit"} className={"min-w-4"} />
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <Icon icon="email" />
+              <p className="text-[var(--color-default-500)]">
+                {localUser.userEmail}
+              </p>
+            </div>
           </div>
-
-          <div className="flex items-center gap-1">
-            <Icon icon="email" />
-            <p className="text-[var(--color-default-500)]">
-              {localUser.userEmail}
-            </p>
+        </div>
+        <div className="flex:col md:flex gap-24 md:gap-0 justify-around items-center w-1/2">
+          <div className="flex flex-col justify-center gap-4 border-2 border-[color:var(--color-primary-600)] rounded-lg p-4 max-h-min max-w-min mt-8 md:mt:0">
+            <div className="flex items-center gap-16">
+              <div className="flex flex-col items-center gap-4">
+                <h3 className="text-2xl text-[color:var(--color-default-800)] font-bold">
+                  Courses
+                </h3>
+                <p className="text-xl text-[color:var(--color-default-500)] font-bold">
+                  3
+                </p>
+              </div>
+              <div className="flex flex-col items-center gap-4">
+                <h3 className="text-2xl text-[color:var(--color-default-800)] font-bold">
+                  Students
+                </h3>
+                <p className="text-xl text-[color:var(--color-default-500)] font-bold">
+                  30
+                </p>
+              </div>
+            </div>
+            <Link
+              to={"/dashboard"}
+              className="self-end text-sm text-[color:var(--color-default-400)] hover:text-[color:var(--color-default-800)]"
+            >
+              Go to dashboard
+            </Link>
           </div>
         </div>
       </div>

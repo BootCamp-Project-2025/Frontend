@@ -29,7 +29,7 @@ const StudentProfile = () => {
   }, [user]);
 
   return (
-    <main className="flex flex-col gap-16">
+    <main className="wrapper flex flex-col gap-16">
       <ProfileTitle title="Student Profile" />
       {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
 

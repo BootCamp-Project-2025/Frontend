@@ -1,18 +1,12 @@
 import { Title } from "../../../../shared/components/atoms/Title";
 import PropTypes from "prop-types";
 
-export default function RequestCardInfo({
-  title,
-  details,
-  description,
-  ...props
-}) {
+export default function RequestCardInfo({ title, description, ...props }) {
   return (
-    <div {...props}>
+    <div {...props} className="flex flex-col gap-8">
       <Title color="black" size="md">
         {title}
       </Title>
-      <span className="text-gray-700 font-semibold">{details}</span>
       <p>{description}</p>
     </div>
   );
@@ -20,6 +14,5 @@ export default function RequestCardInfo({
 
 RequestCardInfo.propTypes = {
   title: PropTypes.node,
-  details: PropTypes.node,
   description: PropTypes.node,
 };

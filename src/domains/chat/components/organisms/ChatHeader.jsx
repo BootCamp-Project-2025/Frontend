@@ -4,23 +4,29 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import SocketContext from "../../contexts/SocketContext";
 import { AvatarIcon } from "../../../core/componentes/molecules/AvatarIcon";
+import { ChatName } from "../atoms/ChatName";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-export function ChatHeader({ participantsIds = [], chatName = "" }) {
+export function ChatHeader({ chat, ownerId }) {
   //TODO Implement logic to handle multiple participants
   const { onlineUsers } = useContext(SocketContext);
   const [user, setUser] = useState();
+
   function fetchUserInfo() {
+    const userId = chat.participantsIds.filter((id) => id != ownerId)[0];
     axios
-      .get(`${API_URL}/users/${participantsIds[0]}`)
+      .get(`${API_URL}/users/${userId}`)
       .then((response) => response.data)
-      .then((userResponse) => setUser(userResponse))
+      .then((userResponse) => {
+        console.log(userResponse);
+        setUser(userResponse);
+      })
       .catch((error) => console.error(error));
   }
 
   useEffect(() => {
-    if (participantsIds.length > 0) fetchUserInfo();
-  });
+    if (chat.participantsIds) fetchUserInfo();
+  }, [chat.participantsIds]);
 
   const isOnline = (participantId) => {
     return onlineUsers.includes(participantId);
@@ -31,10 +37,14 @@ export function ChatHeader({ participantsIds = [], chatName = "" }) {
       <div className="aspect-square">
         <AvatarIcon avatarURL={user?.avatarURL} userName={user?.userName} />
       </div>
-      <div className="flex flex-col justify-center">
-        {chatName ? (
+      <div className="flex flex-col justify-center w-full">
+        {chat.name ? (
           <>
-            <div className="text-2xl">{chatName}</div>
+            <ChatName
+              chat={chat}
+              showUserName={false}
+              userName={user?.userName}
+            />
             {user ? (
               <div className="text-md flex gap-0.5">
                 <Icon
@@ -60,6 +70,10 @@ export function ChatHeader({ participantsIds = [], chatName = "" }) {
 }
 
 ChatHeader.propTypes = {
-  participantsIds: PropTypes.arrayOf(PropTypes.string),
-  chatName: PropTypes.string,
+  chat: PropTypes.shape({
+    name: PropTypes.string,
+    participantsIds: PropTypes.arrayOf(PropTypes.string),
+    status: PropTypes.oneOf(["ACTIVE", "CLOSED", "P2P", "PROPOSAL"]),
+  }),
+  ownerId: PropTypes.string,
 };

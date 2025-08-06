@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
@@ -112,21 +118,37 @@ const buttonVariantsByColor = {
   },
 };
 
-export function Dropdown({
-  label = "Select an option",
-  options = [],
-  onSelect = () => {},
-  color = "primary",
-  variant = "solid",
-  size = "md",
-  radius = "large",
-  square = false,
-  disabled = false,
-  className = "",
-}) {
+export const Dropdown = forwardRef(function Dropdown(
+  {
+    label = "Select an option",
+    options = [],
+    onSelect = () => {},
+    color = "primary",
+    variant = "solid",
+    size = "md",
+    radius = "large",
+    square = false,
+    disabled = false,
+    className = "",
+  },
+  ref
+) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const dropdownRef = useRef();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      reset: () => {
+        setSelected(null);
+        setIsOpen(false);
+      },
+      getSelected: () => selected,
+      setSelected: (option) => setSelected(option),
+    }),
+    [selected]
+  );
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -174,7 +196,8 @@ export function Dropdown({
           buttonVariantsByColor[color]?.[variant],
           square && "aspect-square",
           disabled && "opacity-50",
-          className
+          className,
+          "w-full"
         )}
       >
         <div className="flex justify-between items-center w-full">
@@ -201,12 +224,12 @@ export function Dropdown({
 
       <ul
         className={clsx(
-          "absolute max-h-40 overflow-y-auto z-10 mt-2 w-full shadow-md bg-white",
-          "transition-all duration-200 ease-out transform origin-top",
+          "absolute left-0 top-full z-50 mt-1 w-full max-h-60 overflow-y-auto shadow-md bg-white rounded-md",
           isOpen
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
             : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
         )}
+        style={{ top: "100%" }}
       >
         {options.length === 0 ? (
           <li className="px-4 py-2 text-sm text-gray-400 select-none">
@@ -232,7 +255,7 @@ export function Dropdown({
       </ul>
     </div>
   );
-}
+});
 
 Dropdown.propTypes = {
   label: PropTypes.string,

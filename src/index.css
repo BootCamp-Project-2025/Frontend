@@ -85,12 +85,12 @@ body {
   font-family: "Albert Sans";
 }
 
-main {
+/* main {
   max-width: 90rem;
   padding: 1rem 2rem;
   margin: auto;
   min-height: 100vh;
-}
+} */
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -98,4 +98,17 @@ main {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE y Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.wrapper {
+  width: 60rem;
+  min-width: 60rem;
+  margin: 0px auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: 100%;
+    min-width: 100%;
+  }
 }

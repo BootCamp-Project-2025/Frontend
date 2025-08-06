@@ -3,6 +3,7 @@ import { X, Image, FileText } from "lucide-react";
 import PropTypes from "prop-types";
 import { Button } from "../../../shared/components/atoms/Button";
 import { UploadModal } from "../molecules/UploadModal";
+import { useUploader } from "../../../shared/hooks/useUploader";
 
 export const FileUpload = ({
   label = "Upload your file here",
@@ -17,12 +18,25 @@ export const FileUpload = ({
   maxFileSize = 5 * 1024 * 1024,
   customValidation,
   initialPreview = null,
+  disabled = false,
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(initialPreview);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [error, setError] = useState("");
+
+  const { openWidget } = useUploader((fileInfo) => {
+    setSelectedFile({
+      name: fileInfo.original_filename,
+      size: fileInfo.bytes,
+      type: "image",
+    });
+    setPreview(fileInfo.secure_url);
+    if (onFileUpload) {
+      onFileUpload(fileInfo.secure_url);
+    }
+  });
 
   const validateFile = (file) => {
     const isImage = fileType === "image";
@@ -59,8 +73,9 @@ export const FileUpload = ({
   };
 
   const handleFileSelect = (file) => {
-    const validationError = validateFile(file);
+    if (disabled) return;
 
+    const validationError = validateFile(file);
     if (validationError) {
       setError(validationError);
       return;
@@ -85,19 +100,21 @@ export const FileUpload = ({
   };
 
   const handleDragOver = (e) => {
+    if (disabled) return;
     e.preventDefault();
     setIsDragOver(true);
   };
 
   const handleDragLeave = (e) => {
+    if (disabled) return;
     e.preventDefault();
     setIsDragOver(false);
   };
 
   const handleDrop = (e) => {
+    if (disabled) return;
     e.preventDefault();
     setIsDragOver(false);
-
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       handleFileSelect(files[0]);
@@ -105,37 +122,27 @@ export const FileUpload = ({
   };
 
   const removeFile = () => {
+    if (disabled) return;
     setSelectedFile(null);
-    if (initialPreview) {
-      setPreview(initialPreview);
-    } else {
-      setPreview(null);
-    }
+    setPreview(initialPreview || null);
     if (onFileUpload) {
       onFileUpload(null);
     }
     setError("");
   };
 
-  const handleUploadClick = () => {
-    setIsModalOpen(true);
-  };
-
   const handleInputClick = () => {
+    if (disabled) return;
     setIsModalOpen(true);
   };
 
   const getPlaceholderText = () => {
-    if (fileType === "image") {
-      return "Select an Image";
-    }
-    return "Select a Document";
+    return fileType === "image" ? "Select an Image" : "Select a Document";
   };
 
   return (
     <>
       <div className={`w-full ${className}`}>
-        {/* Main Upload Container */}
         <div
           className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
             isDragOver
@@ -147,7 +154,7 @@ export const FileUpload = ({
           onDrop={handleDrop}
         >
           <div className="flex flex-col lg:flex-row gap-6">
-            {/* Left side - Preview/Icon Area */}
+            {/* Preview */}
             <div className="flex-shrink-0">
               <div className="w-full lg:w-64 h-48 border border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center">
                 {preview ? (
@@ -170,7 +177,7 @@ export const FileUpload = ({
               </div>
             </div>
 
-            {/* Right side - Content and Controls */}
+            {/* Text + Input */}
             <div className="flex-1 flex flex-col justify-center">
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -180,7 +187,6 @@ export const FileUpload = ({
                 <p className="text-xs text-gray-500">{guidelines}</p>
               </div>
 
-              {/* File Input and Upload Button */}
               <div className="flex gap-3">
                 <div className="flex-1">
                   <div className="relative">
@@ -189,10 +195,15 @@ export const FileUpload = ({
                       value={selectedFile ? selectedFile.name : ""}
                       placeholder={getPlaceholderText()}
                       readOnly
-                      className="w-full bg-white py-2 px-3 rounded-md  outline-1 outline-gray-400 focus:outline-2 focus:outline-blue-500 text-sm cursor-pointer"
                       onClick={handleInputClick}
+                      disabled={disabled}
+                      className={`w-full bg-white py-2 px-3 rounded-md outline-1 outline-gray-400 focus:outline-2 focus:outline-blue-500 text-sm ${
+                        disabled
+                          ? "opacity-50 cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
                     />
-                    {selectedFile && (
+                    {selectedFile && !disabled && (
                       <button
                         onClick={removeFile}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -207,7 +218,8 @@ export const FileUpload = ({
                   color={buttonColor}
                   variant={buttonVariant}
                   size={buttonSize}
-                  onClick={handleUploadClick}
+                  onClick={!disabled ? openWidget : undefined}
+                  disabled={disabled}
                   className="flex-shrink-0"
                 >
                   Upload File
@@ -217,14 +229,14 @@ export const FileUpload = ({
           </div>
         </div>
 
-        {/* Error message */}
+        {/* Error */}
         {error && (
           <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-md">
             <p className="text-sm text-red-600">{error}</p>
           </div>
         )}
 
-        {/* File info when selected */}
+        {/* Info */}
         {selectedFile && (
           <div className="mt-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center justify-between">
@@ -250,7 +262,7 @@ export const FileUpload = ({
         )}
       </div>
 
-      {/* Upload Modal */}
+      {/* Modal */}
       <UploadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -279,4 +291,5 @@ FileUpload.propTypes = {
   maxFileSize: PropTypes.number,
   customValidation: PropTypes.func,
   initialPreview: PropTypes.string,
+  disabled: PropTypes.bool,
 };

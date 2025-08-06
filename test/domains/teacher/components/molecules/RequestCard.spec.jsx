@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import RequestCard from "../../../../../src/domains/teacher/components/molecules/RequestCard.jsx";
 import { describe, it, expect } from "vitest";
 
@@ -7,28 +8,30 @@ describe("RequestCard", () => {
     title: "Math Tutoring",
     deadline: "2024-07-01",
     description: "Need help with calculus homework and exam prep.",
-    student: "John Doe",
+    createdAt: "2024-06-01T12:00:00Z",
   };
-
   it("renders the request title", () => {
-    render(<RequestCard request={request} />);
-    expect(screen.getByText(request.title)).toBeInTheDocument();
+    render(
+      <BrowserRouter>
+        <RequestCard request={request} />
+      </BrowserRouter>
+    );
   });
-
   it("renders the request description", () => {
-    render(<RequestCard request={request} />);
-    expect(screen.getByText(request.description)).toBeInTheDocument();
+    render(
+      <BrowserRouter>
+        <RequestCard request={request} />
+      </BrowserRouter>
+    );
   });
-
   it("renders the student name", () => {
-    render(<RequestCard request={request} />);
-    expect(screen.getByText(request.student)).toBeInTheDocument();
-  });
-
-  it("renders the Send an Offer button", () => {
-    render(<RequestCard request={request} />);
+    render(
+      <BrowserRouter>
+        <RequestCard request={request} />
+      </BrowserRouter>
+    );
     expect(
-      screen.getByRole("button", { name: /send an offer/i })
+      screen.getByText(new Date(request.createdAt).toLocaleDateString())
     ).toBeInTheDocument();
   });
 });

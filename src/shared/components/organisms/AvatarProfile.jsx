@@ -198,9 +198,9 @@ const AvatarProfile = ({ profilePicture, updateProfilePicture }) => {
   const [preview, setPreview] = useState(null);
 
   const { openWidget } = useUploader((url) => {
-    setPreview(url);
+    setPreview(url.secure_url);
     if (updateProfilePicture) {
-      updateProfilePicture(url);
+      updateProfilePicture(url.secure_url);
     }
   });
 
