@@ -86,17 +86,13 @@ export const StaticCourseConfiguration = () => {
           </Title>
           <div className="flex flex-col gap-2 text-sm text-gray-700">
             <p className="pl-3.5 text-sm relative">
-              <span
-                className={`absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500`}
-              ></span>
+              <span className="absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500"></span>
               You can control the visibility of your course using the toggle
               below. When a course is <strong>published</strong>, it will appear
               in the public search and can be discovered by students.
             </p>
             <p className="pl-3.5 text-sm relative">
-              <span
-                className={`absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500`}
-              ></span>
+              <span className="absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500"></span>
               Once published,
               <strong>
                 you will no longer be able to edit the course content
@@ -104,9 +100,7 @@ export const StaticCourseConfiguration = () => {
               until it is unpublished again.
             </p>
             <p className="pl-3.5 text-sm relative">
-              <span
-                className={`absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500`}
-              ></span>
+              <span className="absolute w-1.5 h-1.5 left-0 top-2 rounded-full bg-gray-500"></span>
               To publish your course, make sure that the following required
               fields are filled in: language, category, and subcategory.
             </p>
