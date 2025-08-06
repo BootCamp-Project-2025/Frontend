@@ -1,38 +1,14 @@
-/* eslint-disable no-unused-vars */
-import PropTypes from "prop-types";
-import { AvatarIcon } from "../molecules/AvatarIcon";
 import { EventCard } from "../molecules/EventCard";
-import { useState } from "react";
-import { useToastContext } from "../../../../shared/contexts/ToastContext";
-import { getRequest } from "../../../../shared/api/getRequest";
 import { useAuth } from "../../../../shared/hooks/useAuth";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
-export const UserSidebar = () => {
-  const [data, setData] = useState([
-    { title: "Angular", user: "Pepe" },
-    { title: "React", user: "Jorge" },
-    { title: "DDD", user: "Jose" },
-  ]);
-  const { showToast } = useToastContext();
+export const UserSidebar = (data = []) => {
   const { user, isAuthenticated } = useAuth();
 
   const location = useLocation();
   const isTeacherRoute = location.pathname.startsWith("/teacher/");
-
-  // useEffect(() => {
-  //   getRequest(get)
-  //     .then((response) => {
-  //       if(response.success) {
-  //         setData(response.data);
-  //       } else {
-  //         showToast(response.error.message, "error");
-  //       }
-  //     })
-  //     .catch(err, () => {
-  //       showToast(err, "error");
-  //     });
-  //   }, []);
 
   return (
     <aside
@@ -40,19 +16,6 @@ export const UserSidebar = () => {
       id="userSideBar"
       style={{ minHeight: "calc(100vh - 5.75rem)" }}
     >
-      {/* <div className="mt-5">
-        <em className="not-italic text-lg font-semibold">Upcoming Events</em>
-        <ul className="mt-4">
-          <li className="flex items-center">
-            <Icon icon={"home"}></Icon>
-            <div className="flex flex-col ml-2">
-              <em className="not-italic font-semibold">Meeting with Rodrigo</em>
-              <span className="text-sm">Wed, 15:00 P.M</span>
-            </div>
-          </li>
-        </ul>
-      </div> */}
-
       {user && isAuthenticated && user.isTeacher && isTeacherRoute ? (
         <div>
           <em className="not-italic text-lg font-semibold">
@@ -60,7 +23,7 @@ export const UserSidebar = () => {
           </em>
           {data.length > 0 ? (
             data.map((row, idx) => (
-              <EventCard key={idx} path={``} color="yellow">
+              <EventCard key={idx} id={data.chatId} color="yellow">
                 <div
                   className={`border border-gray-100 flex flex-col items-center justify-between p-2 rounded-md w-full bg-[color:var(--color-secondary-50)] text-white hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)] h-22`}
                 >
@@ -68,13 +31,19 @@ export const UserSidebar = () => {
                     {row.title}
                   </p>
                   <span className="text-gray-800 font-semibold">
-                    {row.user}
+                    {row.value}
                   </span>
                 </div>
               </EventCard>
             ))
           ) : (
-            <p className="text-sm mt-4">Do not have proposals</p>
+            <div className="mt-3">
+              <Alert
+                type="info"
+                title="No proposals found"
+                description="You don't have any proposals yet."
+              />
+            </div>
           )}
         </div>
       ) : null}
@@ -84,7 +53,7 @@ export const UserSidebar = () => {
           <em className="not-italic text-lg font-semibold">New Proposals</em>
           {data.length > 0 ? (
             data.map((row, idx) => (
-              <EventCard key={idx} path={``} color="green">
+              <EventCard key={idx} id={data.chatId} color="green">
                 <div
                   className={`border border-gray-100 flex flex-col items-center justify-between p-2 rounded-md w-full bg-[color:var(--color-secondary-50)] text-white hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)] h-22`}
                 >
@@ -92,16 +61,26 @@ export const UserSidebar = () => {
                     {row.title}
                   </p>
                   <span className="text-gray-800 font-semibold">
-                    {row.user}
+                    {row.value}
                   </span>
                 </div>
               </EventCard>
             ))
           ) : (
-            <p className="text-sm mt-4">Do not have proposals</p>
+            <div className="mt-3">
+              <Alert
+                type="info"
+                title="No proposals found"
+                description="You don't have any proposals yet."
+              />
+            </div>
           )}
         </div>
       ) : null}
     </aside>
   );
+};
+
+UserSidebar.prototype = {
+  data: PropTypes.array,
 };

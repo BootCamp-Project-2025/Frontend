@@ -1,47 +1,26 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { Table } from "../molecules/Table";
 import { TableItem } from "../molecules/TableItem";
 import { Tabs } from "../molecules/Tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Chart } from "../molecules/Chart";
 import { Link } from "react-router-dom";
-import { getRequest } from "../../../../shared/api/getRequest";
-import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export const InfoTabs = ({
   title,
   icon = "add",
   path = "",
-  get = "",
   tabs = true,
+  data = [],
+  dataChart = [],
 }) => {
   const [selected, setSelected] = useState("table");
-  const [data, setData] = useState([
-    { title: "Courses Created", value: 3 },
-    { title: "Students", value: 3 },
-    { title: "Sessions", value: 10 },
-  ]);
-  const { showToast } = useToastContext();
 
   const handleTabs = (type) => {
     setSelected(type);
   };
-
-  // useEffect(() => {
-  //   getRequest(get)
-  //     .then((response) => {
-  //       if(response.success) {
-  //         setData(response.data);
-  //       } else {
-  //         showToast(response.error.message, "error");
-  //       }
-  //     })
-  //     .catch(err, () => {
-  //       showToast(err, "error");
-  //     });
-  // }, []);
 
   return (
     <div className="space-y-4 mt-10">
@@ -59,14 +38,29 @@ export const InfoTabs = ({
         </Link>
       </div>
       <div>
-        {selected === "table" && data.length > 0 ? (
-          <Table>
-            {data.map((row, idx) => (
-              <TableItem key={idx} title={row.title} value={row.value} />
-            ))}
-          </Table>
-        ) : null}
-        {selected === "graphic" ? <Chart></Chart> : null}
+        {selected === "table" ? (
+          data.length > 0 ? (
+            <Table>
+              {data.map((row, idx) => (
+                <TableItem key={idx} title={row.title} value={row.value} />
+              ))}
+            </Table>
+          ) : (
+            <Alert
+              type="info"
+              title="No courses found"
+              description="You are not enrolled in any courses yet."
+            />
+          )
+        ) : dataChart.length > 0 ? (
+          <Chart data={dataChart} />
+        ) : (
+          <Alert
+            type="info"
+            title="No courses found"
+            description="You are not enrolled in any courses yet."
+          />
+        )}
       </div>
     </div>
   );
@@ -76,6 +70,7 @@ InfoTabs.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.string,
   path: PropTypes.string,
-  get: PropTypes.string,
+  data: PropTypes.array,
+  dataChart: PropTypes.array,
   tabs: PropTypes.bool,
 };
