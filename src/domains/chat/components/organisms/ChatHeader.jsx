@@ -12,11 +12,10 @@ export function ChatHeader({ chat, ownerId }) {
   const { onlineUsers } = useContext(SocketContext);
   const [user, setUser] = useState();
 
-  const participantId = chat.participantsIds.filter((p) => p.id != ownerId)[0];
-
   function fetchUserInfo() {
+    const userId = chat.participantsIds.filter((id) => id != ownerId)[0];
     axios
-      .get(`${API_URL}/users/${participantId}`)
+      .get(`${API_URL}/users/${userId}`)
       .then((response) => response.data)
       .then((userResponse) => {
         console.log(userResponse);
@@ -26,7 +25,7 @@ export function ChatHeader({ chat, ownerId }) {
   }
 
   useEffect(() => {
-    if (participantId) fetchUserInfo();
+    if (chat.participantsIds) fetchUserInfo();
   }, [chat.participantsIds]);
 
   const isOnline = (participantId) => {
