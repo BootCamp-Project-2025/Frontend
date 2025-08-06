@@ -121,8 +121,8 @@ export default function CourseSyllabus() {
 
       {!loading && !error && responseData?.data?.published && (
         <div className="flex flex-col border border-gray-400 border-b-0">
-          {modules.map((mod, idx) => (
-            <CourseDetailsModule key={idx} {...mod} />
+          {modules.map((mod) => (
+            <CourseDetailsModule key={mod.id} {...mod} />
           ))}
         </div>
       )}
