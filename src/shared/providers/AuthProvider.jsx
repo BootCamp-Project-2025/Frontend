@@ -56,6 +56,8 @@ function authReducer(state, action) {
       return { ...initialState, keycloak: state.keycloak, isLoading: false };
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
+    case "UPDATE_USER":
+      return { ...state, user: { ...state.user, ...action.payload } };
     default:
       return state;
   }
@@ -561,6 +563,10 @@ export function AuthProvider({ children }) {
     saveSessionToLocalStorage,
   ]);
 
+  const handleUpdateUser = useCallback((updatedFields) => {
+    dispatch({ type: "UPDATE_USER", payload: updatedFields });
+  }, []);
+
   const contextValue = useMemo(
     () => ({
       ...state,
@@ -568,6 +574,7 @@ export function AuthProvider({ children }) {
       handleLogout,
       handleSignUp,
       updateSessionRoles,
+      handleUpdateUser,
       validateCurrentSession,
     }),
     [
@@ -576,6 +583,7 @@ export function AuthProvider({ children }) {
       handleLogout,
       handleSignUp,
       updateSessionRoles,
+      handleUpdateUser,
       validateCurrentSession,
     ]
   );
