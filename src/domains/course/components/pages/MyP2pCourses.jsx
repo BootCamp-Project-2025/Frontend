@@ -29,7 +29,7 @@ export const MyP2pCourses = () => {
         <Alert
           type="error"
           title="Error loading courses"
-          description="An error occurred while loading your enrollments. Please try again later."
+          description="An error occurred while loading your P2P courses. Please try again later."
         />
       )}
 

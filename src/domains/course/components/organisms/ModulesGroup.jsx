@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import LessonGroup from "./LessonGroup";
 import { Icon } from "../../../../shared/components/atoms/Icon";
@@ -7,10 +7,21 @@ import { LessonPropType } from "./LessonGroup";
 export default function ModuleGroup({
   module,
   moduleIndex,
+  resource,
   currentIndex,
+  onSelectLesson,
   onSelectResource,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const isModuleOpen = module.lessons.find(
+      (lesson) => lesson.id === resource.lessonId
+    )
+      ? true
+      : false;
+    setIsOpen(isModuleOpen);
+  }, [currentIndex]);
 
   const handleToggle = (e) => {
     setIsOpen(e.target.open);
@@ -36,7 +47,9 @@ export default function ModuleGroup({
           <LessonGroup
             key={lesson.id}
             lesson={lesson}
+            resource={resource}
             currentIndex={currentIndex}
+            onSelectLesson={onSelectLesson}
             onSelectResource={onSelectResource}
           />
         ))}
@@ -52,5 +65,6 @@ ModuleGroup.propTypes = {
   }).isRequired,
   moduleIndex: PropTypes.number.isRequired,
   currentIndex: PropTypes.number.isRequired,
+  onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
 };

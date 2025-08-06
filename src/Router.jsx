@@ -124,7 +124,7 @@ export default function Router() {
 
         <Route path="proposal-form" element={<ProposalFormPopUp />} />
         <Route
-          path="course-track-progress/:enrollmentId"
+          path="courses/:enrollmentId/content"
           element={<CourseTrackProgress />}
         />
 

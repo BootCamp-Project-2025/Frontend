@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 
 export default function ContentBar({
   originalModules,
+  resource,
   currentIndex,
+  onSelectLesson,
   onSelectResource,
 }) {
   return (
@@ -13,8 +15,10 @@ export default function ContentBar({
         <ModuleGroup
           key={moduleIndex}
           module={module}
+          resource={resource}
           moduleIndex={moduleIndex}
           currentIndex={currentIndex}
+          onSelectLesson={onSelectLesson}
           onSelectResource={onSelectResource}
         />
       ))}
@@ -38,5 +42,6 @@ ContentBar.propTypes = {
     })
   ).isRequired,
   currentIndex: PropTypes.number.isRequired,
+  onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
 };

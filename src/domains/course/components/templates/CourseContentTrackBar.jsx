@@ -5,18 +5,19 @@ import PropTypes from "prop-types";
 export default function CourseContentTrackBar({
   progress,
   originalModules,
-  resources,
+  resource,
   currentIndex,
+  onSelectLesson,
   onSelectResource,
 }) {
-  console.log(originalModules);
   return (
-    <div className="flex flex-col w-130 border-l border-gray-200 bg-white">
+    <div className="flex flex-col w-100 border-l border-gray-200 bg-white">
       <ProgressBar progress={progress} />
       <ContentBar
         originalModules={originalModules}
-        resources={resources}
+        resource={resource}
         currentIndex={currentIndex}
+        onSelectLesson={onSelectLesson}
         onSelectResource={onSelectResource}
       />
     </div>
@@ -55,6 +56,7 @@ CourseContentTrackBar.propTypes = {
     })
   ).isRequired,
   currentIndex: PropTypes.number.isRequired,
+  onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
   progress: PropTypes.number,
 };

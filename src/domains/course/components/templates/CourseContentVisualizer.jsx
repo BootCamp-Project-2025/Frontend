@@ -7,20 +7,21 @@ import PropTypes from "prop-types";
 export default function CourseContentVisualizer({
   courseName,
   resource,
+  lesson,
   onComplete,
 }) {
   const { type, url, description } = resource;
 
   return (
-    <div className="flex flex-col gap-4 w-auto">
+    <div className="flex flex-col gap-4 flex-1">
       <div>
         <CourseTitleNavigation
           title={courseName}
-          moduleTitle={resource.moduleTitle}
-          lessonTitle={resource.lessonTitle}
+          moduleTitle={lesson.moduleTitle}
+          lessonTitle={lesson.title}
         />
 
-        {type === "video" && url && !resource && (
+        {type === "video" && url && lesson.id === resource.lessonId && (
           <LessonPlayerRY
             videoUrl={url}
             resource={resource}
@@ -28,7 +29,7 @@ export default function CourseContentVisualizer({
           />
         )}
 
-        {type === "pdf" && url && !resource && (
+        {type === "pdf" && url && lesson.id === resource.lessonId && (
           <PdfVisualiser
             url={url}
             resource={resource}
@@ -37,7 +38,7 @@ export default function CourseContentVisualizer({
         )}
       </div>
 
-      <LessonExtraInfo description={description} resources={[]} />
+      <LessonExtraInfo description={lesson.description} resources={[]} />
     </div>
   );
 }
