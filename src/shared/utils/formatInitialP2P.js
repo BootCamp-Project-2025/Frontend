@@ -4,7 +4,7 @@ export const formatInitialP2P = (chat, userId, proposal, newChatId) => {
     teacherId: chat.participantsIds.filter((p) => p.id != userId)[0],
     chatId: newChatId,
     // TODO add endpoint to get request information
-    name: "{REPLACE ME}",
+    name: chat.name,
     remainingSession: 0,
     status: "ACTIVE",
     posts: [],

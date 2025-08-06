@@ -2,11 +2,11 @@ import axios from "axios";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { Title } from "../../../../shared/components/atoms/Title";
 import { formatTime } from "../../../../shared/utils/formatTime";
 import DOMPurify from "dompurify";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
+import { ChatName } from "../atoms/ChatName";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
@@ -98,9 +98,11 @@ export function ChatListItem({
     >
       <div>
         <div className="truncate w-full flex justify-between">
-          <Title size="md" color="default">
-            {chat.name.length > 0 ? chat.name : user ? user.userName : "..."}
-          </Title>
+          <ChatName
+            chat={chat}
+            userName={user ? user.userName : ""}
+            showUserName={true}
+          />
           <p className="text-sm self-center">
             {getFormatedDateLabel() == "Today"
               ? formatTime(lastMessage ? lastMessage.timestamp : chat.createdAt)
