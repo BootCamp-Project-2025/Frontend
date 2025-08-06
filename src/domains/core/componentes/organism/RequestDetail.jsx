@@ -51,7 +51,7 @@ const RequestDetail = () => {
   return (
     <div className="wrapper flex flex-col gap-4 px-24 pb-16">
       <RequestDetailHeader
-        request={request}
+        request={{ ...request, id: params.requestId }}
         userName={userRequest?.userName || ""}
       />
       <div className="flex gap-4">

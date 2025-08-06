@@ -20,6 +20,7 @@ import { putRequest } from "../../../../shared/api/putRequest";
 import { deleteRequest } from "../../../../shared/api/deleteRequest";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { patchRequest } from "../../../../shared/api/patchRequest";
+import { useAuth } from "../../../../shared/hooks/useAuth";
 
 export default function P2PCourse() {
   const { showToast } = useToastContext();
@@ -32,6 +33,7 @@ export default function P2PCourse() {
   const params = useParams();
   const location = useLocation();
   const isTeacher = location.pathname.includes("/teacher");
+  const { user } = useAuth();
 
   const loadData = useCallback(async () => {
     const response = await getRequest(
@@ -300,7 +302,14 @@ export default function P2PCourse() {
             "fixed float-start bottom-4 right-10 w-[30%]  bg-white border-1 hover:cursor-pointer"
           }
         >
-          <ChatHeader participantsIds={[course.studentId, course.teacherId]} />
+          <ChatHeader
+            chat={{
+              name: "",
+              participantsIds: [course.studentId, course.teacherId],
+              status: "P2P",
+            }}
+            ownerId={user ? user.id : ""}
+          />
         </button>
       )}
     </div>

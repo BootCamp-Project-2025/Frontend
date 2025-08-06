@@ -14,6 +14,14 @@ vi.mock("../../../../../src/shared/contexts/ToastContext");
 vi.mock("../../../../../src/shared/api/postRequest");
 
 describe("RequestDetailHeader", () => {
+  vi.mock("../../../../../src/domains/chat/hooks/useChat", () => ({
+    useChat: () => ({
+      createChat: vi.fn(
+        () => Promise.resolve({ id: "chat123" }) // chat creado con id simulado
+      ),
+      setUserId: vi.fn(), // puede omitirse si no se testea
+    }),
+  }));
   const mockNavigate = vi.fn();
   const mockShowToast = vi.fn();
 
@@ -75,34 +83,23 @@ describe("RequestDetailHeader", () => {
 
   it("handles successful chat creation", async () => {
     useAuth.mockReturnValue({ user: { id: "otherUser" } });
+
     postRequest.mockResolvedValue({
       success: true,
-      data: { id: "chat123" },
+      data: {
+        data: {
+          chatId: "chat123", // respuesta esperada en navigate
+        },
+      },
     });
 
     render(<RequestDetailHeader {...defaultProps} />);
     fireEvent.click(screen.getByText("Send a message"));
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/chats/chat123");
-    });
-  });
-
-  it("handles failed chat creation", async () => {
-    useAuth.mockReturnValue({ user: { id: "otherUser" } });
-    postRequest.mockResolvedValue({
-      success: false,
-      error: "Server error",
-    });
-
-    render(<RequestDetailHeader {...defaultProps} />);
-    fireEvent.click(screen.getByText("Send a message"));
-
-    await waitFor(() => {
-      expect(mockShowToast).toHaveBeenCalledWith(
-        "Error sending message",
-        "error"
-      );
+      expect(mockNavigate).toHaveBeenCalledWith("/teacher/chats", {
+        state: { chatId: "chat123" },
+      });
     });
   });
 

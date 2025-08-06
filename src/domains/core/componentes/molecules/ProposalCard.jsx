@@ -2,12 +2,16 @@ import PropTypes from "prop-types";
 import { Button } from "../../../../shared/components/atoms/Button";
 import { getStatusColor } from "../../../../shared/utils/getStatusColor";
 import { capitalize } from "../../../../shared/utils/capitalize";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProposalCard = ({ proposal }) => {
+  const navigate = useNavigate();
+  const handleOpenChatNavigation = () => {
+    navigate(`/teacher/chats`, { state: { chatId: proposal.chatId } });
+  };
   return (
-    <Link
-      to={`/teacher/requests/${proposal.requestId}`}
+    <div
+      // to={`/teacher/requests/${proposal.requestId}`}
       className="flex flex-col justify-center gap-2 shadow-md rounded-sm p-4 hover:shadow-lg transition-shadow border border-gray-300 hover:border-gray-400 my-2"
     >
       <div className="flex justify-between">
@@ -19,18 +23,19 @@ const ProposalCard = ({ proposal }) => {
           >
             {capitalize(proposal.status.toLowerCase())}
           </p>
-          <Link to={`/teacher/chats/${proposal.chatId}`}>
-            <Button
-              contentClassName={"m-auto w-fit whitespace-nowrap"}
-              variant="bordered"
-            >
-              Open chat
-            </Button>
-          </Link>
+          {/* <Link to={`/teacher/chats/${proposal.chatId}`}> */}
+          <Button
+            contentClassName={"m-auto w-fit whitespace-nowrap"}
+            variant="bordered"
+            onClick={handleOpenChatNavigation}
+          >
+            Open chat
+          </Button>
+          {/* </Link> */}
         </div>
       </div>
       <p>{proposal.description}</p>
-    </Link>
+    </div>
   );
 };
 
