@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const EventCard = ({
   children,
@@ -8,6 +8,8 @@ export const EventCard = ({
   type = "bottom",
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isTeacherRoute = location.pathname.startsWith("/teacher/");
 
   const borderColors = {
     yellow: "border-[color:var(--color-warning-300)]",
@@ -19,7 +21,8 @@ export const EventCard = ({
 
   const handleNavigate = () => {
     if (id !== "") {
-      navigate("/teacher/chat", { state: { chatId: id } });
+      const locationBegging = isTeacherRoute ? "/teacher" : "/student";
+      navigate(locationBegging + "/chat", { state: { chatId: id } });
     }
   };
 

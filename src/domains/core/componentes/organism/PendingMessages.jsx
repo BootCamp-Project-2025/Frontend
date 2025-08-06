@@ -13,15 +13,15 @@ export const PendingMessages = () => {
   const { showToast } = useToastContext();
 
   useEffect(() => {
-    console.log("user,", user);
     if (user && user.id) {
       getRequest(`/users/${user.id}/chats`)
         .then((response) => {
           if (response.success) {
-            if (response.data.data === 0) return;
+            if (response.data.data.length === 0) return;
 
             const pendingMessages = response.data.filter(
               (row) =>
+                row.messages.length > 0 &&
                 row.messages[0].senderId !== user.id &&
                 row.messages[0].status === "DELIVERED"
             );
@@ -35,17 +35,19 @@ export const PendingMessages = () => {
               const chatsData = pendingMessages.map((row, idx) => {
                 return {
                   id: row.messages[0].id,
-                  userName: result[idx].userName,
+                  userName: result[idx].data.userName,
                 };
               });
 
               setData(chatsData);
             });
           } else {
+            console.log(response);
             showToast(response.error.message, "error");
           }
         })
         .catch((err) => {
+          console.log(err);
           showToast(err, "error");
         });
     }
@@ -58,7 +60,7 @@ export const PendingMessages = () => {
         <ul className="flex items-center gap-4 flex-wrap w-full">
           {data.map((row, idx) => (
             <EventCard key={idx} id={row.id} color="blue" type="top">
-              <div className="flex items-center justify-between p-2 py-4 w-40 bg-[color:var(--color-secondary-50)] hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)]">
+              <div className="flex items-center justify-between p-2 py-4 w-50 bg-[color:var(--color-secondary-50)] hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)]">
                 <Icon
                   icon={"message"}
                   className={"min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem]"}

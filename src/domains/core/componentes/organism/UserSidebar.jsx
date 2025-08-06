@@ -23,7 +23,7 @@ export const UserSidebar = (data = []) => {
           </em>
           {data.length > 0 ? (
             data.map((row, idx) => (
-              <EventCard key={idx} path={``} color="yellow">
+              <EventCard key={idx} id={data.chatId} color="yellow">
                 <div
                   className={`border border-gray-100 flex flex-col items-center justify-between p-2 rounded-md w-full bg-[color:var(--color-secondary-50)] text-white hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)] h-22`}
                 >
@@ -31,7 +31,7 @@ export const UserSidebar = (data = []) => {
                     {row.title}
                   </p>
                   <span className="text-gray-800 font-semibold">
-                    {row.user}
+                    {row.value}
                   </span>
                 </div>
               </EventCard>
@@ -53,7 +53,7 @@ export const UserSidebar = (data = []) => {
           <em className="not-italic text-lg font-semibold">New Proposals</em>
           {data.length > 0 ? (
             data.map((row, idx) => (
-              <EventCard key={idx} path={``} color="green">
+              <EventCard key={idx} id={data.chatId} color="green">
                 <div
                   className={`border border-gray-100 flex flex-col items-center justify-between p-2 rounded-md w-full bg-[color:var(--color-secondary-50)] text-white hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)] h-22`}
                 >
@@ -61,7 +61,7 @@ export const UserSidebar = (data = []) => {
                     {row.title}
                   </p>
                   <span className="text-gray-800 font-semibold">
-                    {row.user}
+                    {row.value}
                   </span>
                 </div>
               </EventCard>
