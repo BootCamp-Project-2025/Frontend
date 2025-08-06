@@ -9,14 +9,10 @@ export default function CourseContentVisualizer({
   resource,
   onComplete,
 }) {
-  if (!resource) {
-    return <p className="p-4 text-gray-500">No resource</p>;
-  }
-
   const { type, url, description } = resource;
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 w-auto">
       <div>
         <CourseTitleNavigation
           title={courseName}
@@ -24,7 +20,7 @@ export default function CourseContentVisualizer({
           lessonTitle={resource.lessonTitle}
         />
 
-        {type === "video" && url && (
+        {type === "video" && url && !resource && (
           <LessonPlayerRY
             videoUrl={url}
             resource={resource}
@@ -32,7 +28,7 @@ export default function CourseContentVisualizer({
           />
         )}
 
-        {type === "pdf" && url && (
+        {type === "pdf" && url && !resource && (
           <PdfVisualiser
             url={url}
             resource={resource}

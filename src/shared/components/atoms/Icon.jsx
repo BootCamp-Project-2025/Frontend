@@ -59,6 +59,7 @@ import Clock from "../../../assets/clock.svg?react";
 import AddNoFill from "../../../assets/addNoFill.svg?react";
 import Uparrow from "../../../assets/uparrow.svg?react";
 import Downarrow from "../../../assets/downarrow.svg?react";
+import P2p from "../../../assets/p2p.svg?react";
 import ArrowBack from "../../../assets/arrow-back.svg?react";
 import PropTypes from "prop-types";
 
@@ -124,6 +125,7 @@ const icons = {
   addNoFill: AddNoFill,
   uparrow: Uparrow,
   downarrow: Downarrow,
+  p2p: P2p,
   arrowBack: ArrowBack,
 };
 

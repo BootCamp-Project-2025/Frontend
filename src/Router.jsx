@@ -25,6 +25,7 @@ import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
+import { MyP2pCourses } from "./domains/course/components/pages/MyP2pCourses.jsx";
 import P2PCourse from "./domains/course/components/organisms/P2PCourse.jsx";
 import P2PFilesList from "./domains/course/components/organisms/P2PFilesList.jsx";
 import P2PPostList from "./domains/course/components/organisms/P2PPostList.jsx";
@@ -105,6 +106,7 @@ export default function Router() {
           <Route path="/student/profile" element={<StudentProfile />} />
           <Route path="/student/courses" element={<MyCoursesListStudent />} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
+          <Route path="/student/p2pcourses" element={<MyP2pCourses />} />
           <Route
             path="/student/requests/:requestId"
             element={<RequestDetail />}
@@ -120,11 +122,11 @@ export default function Router() {
           </Route>
         </Route>
 
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
         <Route
           path="course-track-progress/:enrollmentId"
           element={<CourseTrackProgress />}
         />
-        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"
