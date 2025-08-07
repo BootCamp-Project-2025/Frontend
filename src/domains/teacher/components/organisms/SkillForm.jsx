@@ -58,9 +58,9 @@ export const SkillForm = ({
     <form
       onSubmit={handleSubmit(async (data) => {
         if (id != "") {
-          await saveNewRecordDB(data);
-        } else {
           await updateRecordDB(data);
+        } else {
+          await saveNewRecordDB(data);
         }
       })}
       className="flex flex-col gap-2 items-center"
