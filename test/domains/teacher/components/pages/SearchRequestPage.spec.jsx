@@ -85,9 +85,7 @@ describe("SearchRequestPage", () => {
         <SearchRequestPage />
       </MemoryRouter>
     );
-    expect(
-      screen.getByRole("heading", { name: /students requests/i })
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Search Request/i)).toBeInTheDocument();
   });
 
   it("renders the Searcher input", () => {
