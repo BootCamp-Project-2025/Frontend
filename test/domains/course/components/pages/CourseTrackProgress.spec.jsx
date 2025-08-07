@@ -1,8 +1,8 @@
 import { describe, it, vi, expect, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import CourseTrackProgress from "../../../../../src/domains/course/components/pages/CourseTrackProgres";
 import { useParams } from "react-router-dom";
 import * as ApiGetModule from "../../../../../src/domains/course/api/ApiGet";
+import CourseTrackProgress from "../../../../../src/domains/course/components/pages/CourseTrackProgres";
 
 vi.mock("react-router-dom", () => ({
   useParams: vi.fn(),
@@ -27,13 +27,28 @@ vi.mock(
   async () => await import("../../../../../src/domains/course/api/ApiGet")
 );
 
+let mockUseGetEnrollment;
+
+vi.mock(
+  "../../../../../src/domains/course/customHooks/useGetEnrollment",
+  () => ({
+    useGetEnrollment: () => mockUseGetEnrollment(),
+  })
+);
+
 describe("CourseTrackProgress", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    useParams.mockReturnValue({ enrollmentId: "123" });
+    useParams.mockReturnValue({ courseId: "123" });
   });
 
   it("should show loading and then render content on success", async () => {
+    mockUseGetEnrollment = () => ({
+      enrollment: { id: "123" },
+      loading: false,
+      error: null,
+    });
+
     vi.spyOn(ApiGetModule, "ApiGet").mockResolvedValue({
       data: {
         data: {
@@ -66,6 +81,7 @@ describe("CourseTrackProgress", () => {
     });
 
     render(<CourseTrackProgress />);
+
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
     await waitFor(() =>
@@ -75,6 +91,12 @@ describe("CourseTrackProgress", () => {
   });
 
   it("should show error message if ApiGet fails", async () => {
+    mockUseGetEnrollment = () => ({
+      enrollment: { id: "123" },
+      loading: false,
+      error: null,
+    });
+
     vi.spyOn(ApiGetModule, "ApiGet").mockResolvedValue({
       data: null,
       error: true,
