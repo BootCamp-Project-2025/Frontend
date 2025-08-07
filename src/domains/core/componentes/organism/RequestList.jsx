@@ -9,7 +9,7 @@ export default function RequestList({
   handleCreateRequest,
 }) {
   return (
-    <div className=" mt-10 flex flex-col">
+    <div className="flex flex-col">
       <Button
         onClick={handleCreateRequest}
         variant="bordered"

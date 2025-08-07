@@ -122,7 +122,7 @@ export const MyCoursesListStudent = () => {
   };
 
   return (
-    <main className="wrapper flex flex-col h-full w-full gap-5 px-8 py-4">
+    <main className="wrapper flex flex-col gap-5">
       <Title className="border-b-1" color="default">
         My Courses
       </Title>

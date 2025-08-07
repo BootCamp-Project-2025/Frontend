@@ -11,6 +11,7 @@ import { deleteRequest } from "../../../../shared/api/deleteRequest";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 import { putRequest } from "../../../../shared/api/putRequest";
 import { Loading } from "../../../../shared/components/molecules/Loading";
+import { Title } from "../../../../shared/components/atoms/Title";
 
 export default function StudentRequests() {
   const { showToast } = useToastContext();
@@ -119,7 +120,10 @@ export default function StudentRequests() {
     return <Loading text="Loading requests" />;
   }
   return (
-    <div className="wrapper w-full px-8 py-4 mx-auto">
+    <div className="wrapper flex flex-col gap-5">
+      <Title className="border-b-1" color="default">
+        Requests
+      </Title>
       <SearchBar seach={search} ref={inputRef} placeholder="Find by title" />
       {requestList.length === 0 ? (
         <StudentEmptyRequestsMessage

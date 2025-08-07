@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../../../shared/api/getRequest";
 import { useToastContext } from "../../../shared/contexts/ToastContext";
 import { useAuth } from "../../../shared/hooks/useAuth";
-import ProfileTitle from "../../../shared/components/atoms/ProfileTitle";
 import ProfileInfo from "../../teacher/components/molecules/ProfileInfo";
 import ProfileDetailCard from "../components/organisms/ProfileDetailCard";
 import GridPersonalDetail from "../components/molecules/GridPersonalDetail";
 import GridAccountDetail from "../components/molecules/GridAccountDetail";
 import GridSocialLinksDetail from "../components/molecules/GridSocialLinksDetail";
+import { Title } from "../../../shared/components/atoms/Title";
 
 const StudentProfile = () => {
   const { user, handleUpdateUser } = useAuth();
@@ -30,7 +30,9 @@ const StudentProfile = () => {
 
   return (
     <main className="wrapper flex flex-col gap-16">
-      <ProfileTitle title="Student Profile" />
+      <Title className="border-b-1" color="default">
+        Student Profile
+      </Title>
       {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
 
       {client && (

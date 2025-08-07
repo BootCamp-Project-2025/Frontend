@@ -1,4 +1,3 @@
-import ProfileTitle from "../../../shared/components/atoms/ProfileTitle";
 import ProfileInfo from "../components/molecules/ProfileInfo";
 import { EducationSection } from "../components/organisms/EducationSection";
 import { ExperienceSection } from "../components/organisms/ExperienceSection";
@@ -7,13 +6,16 @@ import SkillSection from "../components/organisms/SkillSection";
 // import About from "../components/organisms/About";
 import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
+import { Title } from "../../../shared/components/atoms/Title";
 
 const TeacherProfile = () => {
   const { user, handleUpdateUser } = useAuth();
 
   return (
-    <main className="wrapper flex flex-col justify-between h-full w-full gap-16 px-8 py-4 mx-auto">
-      <ProfileTitle title="Teacher Profile" />
+    <main className="wrapper flex flex-col gap-16">
+      <Title className="border-b-1" color="default">
+        Teacher profile
+      </Title>
       {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
 
       {user?.freelancerProfile && (
