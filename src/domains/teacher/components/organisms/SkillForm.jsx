@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 export const SkillForm = ({
   id = "",
-  skill = { name: "", level: "beginner" },
+  skill = { name: "", level: { label: "beginner" } },
   updateCard = () => {},
   addCard = () => {},
   closePopup = () => {},
@@ -33,14 +33,15 @@ export const SkillForm = ({
   };
 
   const saveNewRecordDB = async (data) => {
+    console.log(newLevel);
     let newId = uuidv4();
-    const payload = { ...data, level: newLevel, id: newId };
+    const payload = { ...data, level: newLevel.label.toLowerCase(), id: newId };
     addCard(payload);
     closePopup();
   };
 
   const updateRecordDB = async (data) => {
-    const payload = { ...data, level: newLevel, id };
+    const payload = { ...data, level: newLevel.label.toLowerCase(), id };
     updateCard(payload);
     closePopup();
   };
