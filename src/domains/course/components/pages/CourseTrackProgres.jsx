@@ -6,9 +6,15 @@ import { ApiGet } from "../../api/ApiGet";
 import { ApiPut } from "../../api/ApiPut";
 import { Loading } from "../../../../shared/components/molecules/Loading";
 import { Alert } from "../../../../shared/components/molecules/Alert";
+import { useGetEnrollment } from "../../customHooks/useGetEnrollment";
 
 export default function CourseTrackProgress() {
-  const { enrollmentId } = useParams();
+  const { courseId } = useParams();
+  const {
+    enrollment,
+    loading: loadingGetEnrollment,
+    error: errorGetEnrollment,
+  } = useGetEnrollment(courseId);
   const [courseData, setCourseData] = useState(null);
   const [flatResources, setFlatResources] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,14 +25,19 @@ export default function CourseTrackProgress() {
   const [lessonToShow, setLessonToShow] = useState();
 
   useEffect(() => {
+    if (!enrollment) {
+      return;
+    }
     async function fetchData() {
       try {
         setLoading(true);
         const { data, error: apiError } = await ApiGet(
-          `student-track-progress/enrollment/${enrollmentId}`
+          `student-track-progress/enrollment/${enrollment.id}`
         );
 
         if (apiError) throw new Error("API error fetching course progress");
+
+        console.log(data); // it is getting student-track-progress
 
         const courseInfo = data.data;
         setCourseData(courseInfo);
@@ -104,7 +115,7 @@ export default function CourseTrackProgress() {
     }
 
     fetchData();
-  }, [enrollmentId]);
+  }, [enrollment]);
 
   const handleSelectResource = useCallback((index) => {
     setCurrentResourceIndex(index);
@@ -253,10 +264,10 @@ export default function CourseTrackProgress() {
     }));
   }, [courseData, flatResources]);
 
-  if (loading && !lessonToShow)
+  if ((loading && !lessonToShow) || loadingGetEnrollment)
     return <Loading text="Loading course content.." />;
 
-  if (error)
+  if (error || errorGetEnrollment)
     return <Alert title="Error with P2P courses" description={error} />;
 
   if (!courseData) return <Alert title="No course content available." />;

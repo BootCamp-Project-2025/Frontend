@@ -58,6 +58,14 @@ function CourseCard({
     }
   };
 
+  const deleteCourse = () => {
+    if (isPublished) {
+      showToast("You must unpublish the course before deleting it", "error");
+    } else {
+      onDeleteClick();
+    }
+  };
+
   return (
     <Card radius="none" className="p-4 flex flex-col gap-4">
       <div className="flex items-start gap-4 justify-between">
@@ -108,7 +116,7 @@ function CourseCard({
             variant="bordered"
             color="default"
             className="w-24 py-2"
-            onClick={onDeleteClick}
+            onClick={deleteCourse}
             contentClassName="justify-center"
           >
             Delete
