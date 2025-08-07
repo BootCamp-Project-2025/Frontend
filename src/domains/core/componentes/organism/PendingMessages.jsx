@@ -19,7 +19,7 @@ export const PendingMessages = () => {
           if (response.success) {
             if (response.data.data.length === 0) return;
 
-            const pendingMessages = response.data.filter(
+            const pendingMessages = response.data.data.filter(
               (row) =>
                 row.messages.length > 0 &&
                 row.messages[0].senderId !== user.id &&
