@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageBanner } from "../../../../shared/components/molecules/PageBanner";
 import { Title } from "../../../../shared/components/atoms/Title";
-import { TeacherCardList } from "../organism/TeacherCardList";
 import { CategoryCardsList } from "../organism/CategoryCardsList";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { getRequest } from "../../../../shared/api/getRequest";
@@ -49,17 +48,13 @@ export const HomePage = () => {
                   imageURL={course.imgSrc}
                   name={course.name}
                   rating={course.rating}
+                  showRating={false}
                 />
               ))}
             </div>
           ) : (
             <p>Courses not found</p>
           )}
-
-          <Title className="text-gray-900" size="lg">
-            Most Rated Teachers
-          </Title>
-          <TeacherCardList />
         </div>
       </main>
     </>

@@ -45,6 +45,7 @@ export const CourseCardList = ({
                   description={course.description}
                   imageURL={course.imgSrc}
                   name={course.name}
+                  showRating={false}
                 ></CourseCard>
               );
             })}

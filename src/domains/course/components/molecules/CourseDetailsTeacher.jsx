@@ -17,7 +17,7 @@ export const CourseDetailsTeacher = ({
     <div className="flex flex-col items-center md:items-start  md:flex-row gap-6">
       <Link
         to={`${freelancerId === "" ? "" : `/teachers/${freelancerId}`}`}
-        className="w-[9.3rem] h-[9.3rem] min-w-[9.3rem] min-h-[9.3rem] rounded-full overflow-hidden border border-gray-200"
+        className=" flex w-[9.3rem] h-[9.3rem] min-w-[9.3rem] min-h-[9.3rem] rounded-full overflow-hidden border border-gray-200"
       >
         <img
           src={profilePicture !== "" ? profilePicture : User}
