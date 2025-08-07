@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Image } from "../../../../shared/components/atoms/Image";
 import { formatDateLabel } from "../../../../shared/utils/formatDateLabel";
 import { getStatusColor } from "../../../../shared/utils/getStatusColor";
+import DOMPurify from "dompurify";
 
 const RequestMessageCard = ({ proposal }) => {
   const navigate = useNavigate();
@@ -33,7 +34,12 @@ const RequestMessageCard = ({ proposal }) => {
             Updated at:{" "}
             {formatDateLabel(proposal.updatedAt || proposal.createdAt)}
           </p>
-          <p className="max-h-12 overflow-auto mt-2">{proposal.lastMessage}</p>
+          <div
+            className="max-h-12 overflow-auto mt-2"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(proposal.lastMessage),
+            }}
+          ></div>
         </div>
       </div>
       <div>
