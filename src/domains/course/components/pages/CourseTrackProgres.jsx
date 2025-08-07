@@ -267,7 +267,8 @@ export default function CourseTrackProgress() {
   if ((loading && !lessonToShow) || loadingGetEnrollment)
     return <Loading text="Loading course content.." />;
 
-  if (error || errorGetEnrollment.status >= 400)
+  console.log(error, errorGetEnrollment);
+  if (error || errorGetEnrollment)
     return <Alert title="Error with P2P courses" description={error} />;
 
   if (!courseData) return <Alert title="No course content available." />;
