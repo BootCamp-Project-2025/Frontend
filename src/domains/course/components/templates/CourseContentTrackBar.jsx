@@ -1,4 +1,5 @@
 import ProgressBar from "../molecules/ProgressBar";
+import { ResourcePropType } from "../molecules/ResourceItem";
 import ContentBar from "../organisms/ContentBar";
 import PropTypes from "prop-types";
 
@@ -47,14 +48,7 @@ CourseContentTrackBar.propTypes = {
       ).isRequired,
     })
   ).isRequired,
-  resources: PropTypes.arrayOf(
-    PropTypes.shape({
-      lessonId: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
-    })
-  ).isRequired,
+  resource: ResourcePropType,
   currentIndex: PropTypes.number.isRequired,
   onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,

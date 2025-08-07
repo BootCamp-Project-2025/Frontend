@@ -67,5 +67,7 @@ export const LessonPropType = PropTypes.shape({
 LessonGroup.propTypes = {
   lesson: LessonPropType.isRequired,
   currentIndex: PropTypes.number.isRequired,
+  resource: ResourcePropType,
+  onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
 };

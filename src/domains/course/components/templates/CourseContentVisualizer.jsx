@@ -1,5 +1,6 @@
 import LessonPlayerRY from "../molecules/LessonPlayer";
 import PdfVisualiser from "../molecules/PdfVisualiser";
+import { ResourcePropType } from "../molecules/ResourceItem";
 import CourseTitleNavigation from "../organisms/CourseTitleNavigation";
 import LessonExtraInfo from "../organisms/LessonExtraInfo";
 import PropTypes from "prop-types";
@@ -10,7 +11,7 @@ export default function CourseContentVisualizer({
   lesson,
   onComplete,
 }) {
-  const { type, url, description } = resource;
+  const { type, url } = resource;
 
   return (
     <div className="flex flex-col gap-4 flex-1">
@@ -45,9 +46,10 @@ export default function CourseContentVisualizer({
 
 CourseContentVisualizer.propTypes = {
   courseName: PropTypes.string.isRequired,
-  resource: PropTypes.shape({
-    lessonId: PropTypes.string.isRequired,
-    lessonTitle: PropTypes.string.isRequired,
+  resource: ResourcePropType,
+  lesson: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string,
     url: PropTypes.string.isRequired,
     type: PropTypes.oneOf(["video", "pdf", "link"]).isRequired,

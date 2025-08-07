@@ -31,6 +31,7 @@ describe("TeacherSidebar", () => {
     expect(rows.map((r) => r.textContent)).toEqual([
       "Dashboard",
       "Teacher Profile",
+      "P2P Courses",
       "Courses",
       "Search Request",
       "My Proposals",

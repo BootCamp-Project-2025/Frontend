@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import LessonGroup from "./LessonGroup";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import { LessonPropType } from "./LessonGroup";
+import { ResourcePropType } from "../molecules/ResourceItem";
 
 export default function ModuleGroup({
   module,
@@ -64,6 +65,7 @@ ModuleGroup.propTypes = {
     lessons: PropTypes.arrayOf(LessonPropType).isRequired,
   }).isRequired,
   moduleIndex: PropTypes.number.isRequired,
+  resource: ResourcePropType,
   currentIndex: PropTypes.number.isRequired,
   onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
