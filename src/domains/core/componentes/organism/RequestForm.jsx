@@ -54,7 +54,7 @@ export default function RequestForm({
           closePopup();
         }
       })}
-      className="flex sm:w-3xl overflow-clip flex-col gap-8 py-6 px-10"
+      className="flex sm:w-3xl flex-col gap-8 py-6 px-10"
     >
       <Title className="self-center" color="secondary">
         {initialValues ? "Edit your request" : "Create your request"}

@@ -196,7 +196,7 @@ export const FileUpload = ({
                       placeholder={getPlaceholderText()}
                       readOnly
                       onClick={handleInputClick}
-                      disabled={disabled}
+                      disabled={true}
                       className={`w-full bg-white py-2 px-3 rounded-md outline-1 outline-gray-400 focus:outline-2 focus:outline-blue-500 text-sm ${
                         disabled
                           ? "opacity-50 cursor-not-allowed"

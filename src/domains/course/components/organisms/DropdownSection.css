@@ -17,6 +17,7 @@
 
 .dropdownSection > div > ul {
   top: 100%;
+  height: 100px;
 }
 
 .dropdownSection > div > button:disabled {
