@@ -37,7 +37,8 @@ export default function CourseTrackProgress() {
 
         console.log("Course Track Progress Data:", data);
         console.log("Course Track Progress Error:", apiError);
-        if (apiError) throw new Error("API error fetching course progress");
+        if (apiError === true)
+          throw new Error("API error fetching course progress");
         console.log(data); // it is getting student-track-progress
 
         const courseInfo = data.data;
