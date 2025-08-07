@@ -1,10 +1,13 @@
 import { LessonPropType } from "./LessonGroup";
 import ModuleGroup from "./ModulesGroup";
 import PropTypes from "prop-types";
+import { ResourcePropType } from "../molecules/ResourceItem";
 
 export default function ContentBar({
   originalModules,
+  resource,
   currentIndex,
+  onSelectLesson,
   onSelectResource,
 }) {
   return (
@@ -13,8 +16,10 @@ export default function ContentBar({
         <ModuleGroup
           key={moduleIndex}
           module={module}
+          resource={resource}
           moduleIndex={moduleIndex}
           currentIndex={currentIndex}
+          onSelectLesson={onSelectLesson}
           onSelectResource={onSelectResource}
         />
       ))}
@@ -29,14 +34,8 @@ ContentBar.propTypes = {
       lessons: PropTypes.arrayOf(LessonPropType).isRequired,
     })
   ).isRequired,
-  resources: PropTypes.arrayOf(
-    PropTypes.shape({
-      lessonId: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
-    })
-  ).isRequired,
+  resource: ResourcePropType,
   currentIndex: PropTypes.number.isRequired,
+  onSelectLesson: PropTypes.func.isRequired,
   onSelectResource: PropTypes.func.isRequired,
 };

@@ -34,6 +34,14 @@ export const OptionsDropDown = ({
       )}
       {!isTeacherRoute && (
         <Link
+          to={"/student/p2pcourses"}
+          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+        >
+          My P2P Courses
+        </Link>
+      )}
+      {!isTeacherRoute && (
+        <Link
           to={"/student/courses"}
           className="w-full text-left px-4 py-2 hover:bg-gray-100"
         >

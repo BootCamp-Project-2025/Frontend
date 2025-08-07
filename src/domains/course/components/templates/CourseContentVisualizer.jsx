@@ -1,5 +1,6 @@
 import LessonPlayerRY from "../molecules/LessonPlayer";
 import PdfVisualiser from "../molecules/PdfVisualiser";
+import { ResourcePropType } from "../molecules/ResourceItem";
 import CourseTitleNavigation from "../organisms/CourseTitleNavigation";
 import LessonExtraInfo from "../organisms/LessonExtraInfo";
 import PropTypes from "prop-types";
@@ -7,24 +8,21 @@ import PropTypes from "prop-types";
 export default function CourseContentVisualizer({
   courseName,
   resource,
+  lesson,
   onComplete,
 }) {
-  if (!resource) {
-    return <p className="p-4 text-gray-500">No resource</p>;
-  }
-
-  const { type, url, description } = resource;
+  const { type, url } = resource;
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 flex-1">
       <div>
         <CourseTitleNavigation
           title={courseName}
-          moduleTitle={resource.moduleTitle}
-          lessonTitle={resource.lessonTitle}
+          moduleTitle={lesson.moduleTitle}
+          lessonTitle={lesson.title}
         />
 
-        {type === "video" && url && (
+        {type === "video" && url && lesson.id === resource.lessonId && (
           <LessonPlayerRY
             videoUrl={url}
             resource={resource}
@@ -32,7 +30,7 @@ export default function CourseContentVisualizer({
           />
         )}
 
-        {type === "pdf" && url && (
+        {type === "pdf" && url && lesson.id === resource.lessonId && (
           <PdfVisualiser
             url={url}
             resource={resource}
@@ -41,16 +39,17 @@ export default function CourseContentVisualizer({
         )}
       </div>
 
-      <LessonExtraInfo description={description} resources={[]} />
+      <LessonExtraInfo description={lesson.description} resources={[]} />
     </div>
   );
 }
 
 CourseContentVisualizer.propTypes = {
   courseName: PropTypes.string.isRequired,
-  resource: PropTypes.shape({
-    lessonId: PropTypes.string.isRequired,
-    lessonTitle: PropTypes.string.isRequired,
+  resource: ResourcePropType,
+  lesson: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string,
     url: PropTypes.string.isRequired,
     type: PropTypes.oneOf(["video", "pdf", "link"]).isRequired,

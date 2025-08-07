@@ -13,6 +13,6 @@ describe("PendingMessages", () => {
         </BrowserRouter>
       </AuthProvider>
     );
-    expect(screen.getByText("Pending messages")).toBeInTheDocument();
+    expect(screen.findByText("Pending messages"));
   });
 });

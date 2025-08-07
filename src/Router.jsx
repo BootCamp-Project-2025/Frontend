@@ -25,7 +25,9 @@ import { ChatPage } from "./domains/chat/components/pages/ChatPage.jsx";
 import StudentProfile from "./domains/student/pages/StudentProfile.jsx";
 import { SearchRequestPage } from "./domains/teacher/pages/SearchRequestPage.jsx";
 import { MyCoursesListStudent } from "./domains/course/components/pages/MyCoursesListStudent.jsx";
+import { MyP2pCourses } from "./domains/course/components/pages/MyP2pCourses.jsx";
 import P2PCourse from "./domains/course/components/organisms/P2PCourse.jsx";
+import { P2PCourseList } from "./domains/teacher/pages/P2PCourseList.jsx";
 import P2PFilesList from "./domains/course/components/organisms/P2PFilesList.jsx";
 import P2PPostList from "./domains/course/components/organisms/P2PPostList.jsx";
 import CourseTrackProgress from "./domains/course/components/pages/CourseTrackProgres.jsx";
@@ -68,7 +70,7 @@ export default function Router() {
           />
           <Route path="/teacher/dashboard" element={<Dashboard />} />
           <Route path="/teacher/profile" element={<TeacherProfile />} />
-
+          <Route path="/teacher/p2pcourses" element={<P2PCourseList />} />
           <Route path="/teacher/courses" element={<CourseCardList />} />
 
           <Route
@@ -105,6 +107,7 @@ export default function Router() {
           <Route path="/student/profile" element={<StudentProfile />} />
           <Route path="/student/courses" element={<MyCoursesListStudent />} />
           <Route path="/student/my-requests" element={<StudentRequests />} />
+          <Route path="/student/p2pcourses" element={<MyP2pCourses />} />
           <Route
             path="/student/requests/:requestId"
             element={<RequestDetail />}
@@ -120,11 +123,11 @@ export default function Router() {
           </Route>
         </Route>
 
+        <Route path="proposal-form" element={<ProposalFormPopUp />} />
         <Route
-          path="course-track-progress/:enrollmentId"
+          path="courses/:enrollmentId/content"
           element={<CourseTrackProgress />}
         />
-        <Route path="proposal-form" element={<ProposalFormPopUp />} />
 
         <Route
           path="*"
