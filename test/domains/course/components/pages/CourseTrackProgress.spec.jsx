@@ -82,7 +82,9 @@ describe("CourseTrackProgress", () => {
 
     render(<CourseTrackProgress />);
 
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/No course content available/i)
+    ).toBeInTheDocument();
 
     await waitFor(() =>
       expect(screen.getByTestId("mock-visualizer")).toBeInTheDocument()
@@ -103,7 +105,9 @@ describe("CourseTrackProgress", () => {
     });
 
     render(<CourseTrackProgress />);
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/No course content available/i)
+    ).toBeInTheDocument();
 
     await waitFor(() =>
       expect(

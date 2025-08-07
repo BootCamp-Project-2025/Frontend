@@ -100,7 +100,11 @@ export default function CourseTrackProgress() {
         setLessons(lessons);
         setFlatResources(resources);
         console.log(resources);
-        const initialIndex = resources.findIndex((r) => !r.completed) || 0;
+        const initialIndex =
+          resources.findIndex((r) => !r.completed) === -1
+            ? 0
+            : resources.findIndex((r) => !r.completed);
+        console.log(initialIndex, "this ins index");
         setCurrentResourceIndex(initialIndex);
         setLessonToShow(
           lessons.find((lesson) => lesson.id === resources[0].lessonId)
@@ -263,11 +267,11 @@ export default function CourseTrackProgress() {
     }));
   }, [courseData, flatResources]);
 
-  if ((loading && !lessonToShow) || loadingGetEnrollment)
+  if (loading && !lessonToShow && loadingGetEnrollment)
     return <Loading text="Loading course content.." />;
 
   if (error || errorGetEnrollment)
-    return <Alert title="Error with P2P courses" description={error} />;
+    return <Alert title="Error with courses" description={error} />;
 
   if (!courseData) return <Alert title="No course content available." />;
 
