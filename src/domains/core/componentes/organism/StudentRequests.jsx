@@ -10,11 +10,13 @@ import { useToastContext } from "../../../../shared/contexts/ToastContext";
 import { deleteRequest } from "../../../../shared/api/deleteRequest";
 import DeleteCardPopup from "../../../teacher/components/atoms/DeleteCardPopup";
 import { putRequest } from "../../../../shared/api/putRequest";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 
 export default function StudentRequests() {
   const { showToast } = useToastContext();
   const { openPopup, closePopup } = usePopup();
   const [requestList, setRequestList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const inputRef = useRef(null);
 
   const loadData = useCallback(async (title = "") => {
@@ -23,6 +25,7 @@ export default function StudentRequests() {
     );
     if (response.success) {
       setRequestList(response.data.data);
+      setLoading(false);
     }
   }, []);
 
@@ -112,6 +115,9 @@ export default function StudentRequests() {
     openPopup(RequestForm, { saveRequest, closePopup }, false);
   }, [openPopup, saveRequest, closePopup]);
 
+  if (loading) {
+    return <Loading text="Loading requests" />;
+  }
   return (
     <div className="wrapper w-full px-8 py-4 mx-auto">
       <SearchBar seach={search} ref={inputRef} placeholder="Find by title" />

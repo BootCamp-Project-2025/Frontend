@@ -1,20 +1,22 @@
-import { Icon } from "../atoms/Icon";
+import { Button } from "../atoms/Button";
 import PropTypes from "prop-types";
 
 export default function SearchBar({ className, seach, ...props }) {
   return (
-    <div className={`flex border-1 border-gray-400 rounded-sm ${className}`}>
+    <div className={`flex items-center gap-4 ${className}`}>
       <input
         data-testid="searchInput"
         {...props}
-        className="w-full py-2 px-3 focus:outline-gray-400"
+        className="bg-white outline-gray-300 w-full py-1.5 px-2.5 rounded-md outline-1 focus:outline-2 text-base focus:outline-blue-500"
       />
-      <button
-        onClick={seach}
-        className="px-2 border-l-1 border-gray-400 hover:cursor-pointer"
-      >
-        <Icon icon={"search"} />
-      </button>
+      <Button onClick={seach} type="submit">
+        <span
+          className="material-symbols-outlined"
+          style={{ fontSize: "1.3rem" }}
+        >
+          search
+        </span>
+      </Button>
     </div>
   );
 }
