@@ -10,8 +10,6 @@ export const CourseCard = ({
   name = "Course name",
   description = "Description course",
   rating = "0.0",
-  author = "Author name",
-  showAuthor = true,
   showDescription = true,
   showRating = true,
   redirecTo = "",
@@ -115,11 +113,6 @@ export const CourseCard = ({
             {description}
           </p>
         )}
-        {showAuthor && (
-          <p className="line-clamp-1 text-xs uppercase font-[400] text-gray-950 mt-auto">
-            {author}
-          </p>
-        )}
       </div>
     </Card>
   );
@@ -130,9 +123,7 @@ CourseCard.propTypes = {
   imageURL: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  author: PropTypes.string,
   rating: PropTypes.string,
-  showAuthor: PropTypes.bool,
   showDescription: PropTypes.bool,
   showRating: PropTypes.bool,
   redirecTo: PropTypes.string,

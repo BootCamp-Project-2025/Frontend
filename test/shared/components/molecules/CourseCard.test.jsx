@@ -32,7 +32,6 @@ describe("CourseCard", () => {
         <CourseCard
           name="Test Course"
           description="This is a test course"
-          author="Jane Doe"
           rating="5.0"
         />
       </MemoryRouter>
@@ -40,7 +39,6 @@ describe("CourseCard", () => {
 
     expect(screen.getByText("Test Course")).toBeInTheDocument();
     expect(screen.getByText("This is a test course")).toBeInTheDocument();
-    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
     expect(screen.getByText("5.0")).toBeInTheDocument();
     expect(screen.getByTestId("icon-star")).toBeInTheDocument();
   });

@@ -42,7 +42,6 @@ export const CourseCardList = ({
                 <CourseCard
                   key={course.id ? course.id : idx}
                   id={course.id}
-                  author={course.author}
                   description={course.description}
                   imageURL={course.imgSrc}
                   name={course.name}

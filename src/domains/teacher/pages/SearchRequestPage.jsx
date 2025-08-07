@@ -4,6 +4,7 @@ import { Pagination } from "../../../shared/components/molecules/Pagination";
 import RequestCard from "../components/molecules/RequestCard";
 import { usePagination } from "../../../shared/hooks/usePagination";
 import { Loading } from "../../../shared/components/molecules/Loading";
+import { Title } from "../../../shared/components/atoms/Title";
 
 export const SearchRequestPage = () => {
   const activeFilters = ["category", "subcategory", "language"];
@@ -45,8 +46,10 @@ export const SearchRequestPage = () => {
   ];
 
   return (
-    <div className="wrapper p-12 flex flex-col gap-2 justify-center">
-      <h1 className="text-3xl font-bold mb-6 text-center">Students requests</h1>
+    <div className="wrapper flex flex-col gap-5 justify-center">
+      <Title className="border-b-1" color="default">
+        Search Request
+      </Title>
       <Searcher
         placeholder="Search requests just for you"
         query={query}

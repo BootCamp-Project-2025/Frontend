@@ -70,15 +70,8 @@ function CourseCardList({ style = {}, className = "" }) {
   };
 
   return (
-    <div
-      style={style}
-      className={`mx-auto wrapper p-4 flex flex-col gap-6 ${className}`}
-    >
-      <Title
-        size="xxl"
-        color="default"
-        className="border-b-2 border-[var(--color-secondary-500)]"
-      >
+    <div style={style} className={`wrapper flex flex-col gap-5 ${className}`}>
+      <Title className="border-b-1" color="default">
         Course Section
       </Title>
 

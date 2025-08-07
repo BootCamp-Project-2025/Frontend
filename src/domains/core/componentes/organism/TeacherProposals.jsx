@@ -4,6 +4,7 @@ import SearchBar from "../../../../shared/components/molecules/SearchBar";
 import { Alert } from "../../../../shared/components/molecules/Alert";
 import ProposalCard from "../molecules/ProposalCard";
 import { useAuth } from "../../../../shared/hooks/useAuth";
+import { Title } from "../../../../shared/components/atoms/Title";
 
 const TeacherProposals = () => {
   const [proposalList, setProposalList] = useState([]);
@@ -45,7 +46,10 @@ const TeacherProposals = () => {
   };
 
   return (
-    <div className="wrapper max-w-[90rem] w-full px-8 py-4 mx-auto flex flex-col gap-8">
+    <div className="wrapper flex flex-col gap-5">
+      <Title className="border-b-1" color="default">
+        Proposals
+      </Title>
       <SearchBar
         seach={handleSearch}
         ref={inputRef}
