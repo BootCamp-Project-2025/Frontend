@@ -57,24 +57,26 @@ export const PendingMessages = () => {
     <div className="flex flex-col items-start gap-2 mt-10">
       <em className="text-2xl font-semibold not-italic">Pending messages</em>
       {data.length > 0 ? (
-        <ul className="flex items-center gap-4 flex-wrap w-full">
+        <ul className="flex items-center gap-4 flex-wrap">
           {data.map((row, idx) => (
-            <EventCard key={idx} id={row.id} color="blue" type="top">
-              <div className="flex items-center justify-between p-2 py-4 w-50 bg-[color:var(--color-secondary-50)] hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)]">
-                <Icon
-                  icon={"message"}
-                  className={"min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem]"}
-                ></Icon>
-                <span className="overflow-hidden text-ellipsis break-words break-all font-semibold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] mx-1">
-                  {row.userName}
-                </span>
-                <div
-                  className={
-                    "min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem] bg-red-500 rounded-full"
-                  }
-                ></div>
-              </div>
-            </EventCard>
+            <li className="w-fit" key={idx}>
+              <EventCard id={row.id} color="blue" type="top">
+                <div className="flex items-center justify-between p-2 py-4 w-50 bg-[color:var(--color-secondary-50)] hover:bg-[color:var(--color-secondary-100)] disabled:bg-[color:var(--color-secondary-150)]">
+                  <Icon
+                    icon={"message"}
+                    className={"min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem]"}
+                  ></Icon>
+                  <span className="overflow-hidden text-ellipsis break-words break-all font-semibold overflow-hidden text-ellipsis break-words [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical] mx-1">
+                    {row.userName}
+                  </span>
+                  <div
+                    className={
+                      "min-h-[1rem] h-[1rem] w-[1rem] min-w-[1rem] bg-red-500 rounded-full"
+                    }
+                  ></div>
+                </div>
+              </EventCard>
+            </li>
           ))}
         </ul>
       ) : (

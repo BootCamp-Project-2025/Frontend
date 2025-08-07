@@ -22,14 +22,14 @@ export const EventCard = ({
   const handleNavigate = () => {
     if (id !== "") {
       const locationBegging = isTeacherRoute ? "/teacher" : "/student";
-      navigate(locationBegging + "/chat", { state: { chatId: id } });
+      navigate(locationBegging + "/chats", { state: { chatId: id } });
     }
   };
 
   return (
     <button
       onClick={handleNavigate}
-      className={`${type === "bottom" ? "border-b-4" : "border-t-6"} ${borderColor} rounded-md mt-4 shadow-sm block transition-colors duration-200`}
+      className={`${type === "bottom" ? "border-b-4" : "border-t-6"} ${borderColor} rounded-md mt-4 shadow-sm block transition-colors duration-200 w-full`}
     >
       {children}
     </button>
