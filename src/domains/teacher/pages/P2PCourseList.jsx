@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { Title } from "../../../../shared/components/atoms/Title";
-import { Alert } from "../../../../shared/components/molecules/Alert";
-import { P2pCourseCard } from "../../../../shared/components/molecules/P2pCourseCard";
-import { Loading } from "../../../../shared/components/molecules/Loading";
-import { ApiGet } from "../../api/ApiGet";
+import { Title } from "../../../shared/components/atoms/Title";
+import { Alert } from "../../../shared/components/molecules/Alert";
+import { P2pCourseCard } from "../../../shared/components/molecules/P2pCourseCard";
+import { Loading } from "../../../shared/components/molecules/Loading";
+import { ApiGet } from "../../course/api/ApiGet";
 
-export const MyP2pCourses = () => {
+export const P2PCourseList = () => {
   const [dataResponse, setDataResponse] = useState({ data: [], loading: true });
 
   useEffect(() => {
     const loadData = async () => {
-      const { data, error, status } = await ApiGet("p2pCourses/userCourse");
+      const { data, error, status } = await ApiGet("p2pCourses/teacherCourse");
       setDataResponse({ data: data.data ?? [], loading: false, error, status });
     };
     loadData();
@@ -19,7 +19,7 @@ export const MyP2pCourses = () => {
   return (
     <main className="flex flex-col h-full w-full gap-5 max-w-[90rem] px-8 py-4 mx-auto">
       <Title className="border-b-1" color="default">
-        My P2P Courses
+        P2P Courses
       </Title>
 
       {dataResponse.loading && <Loading text="Loading courses..." />}
@@ -54,8 +54,10 @@ export const MyP2pCourses = () => {
                   name={p2pcourse.name}
                   status={p2pcourse.status}
                   remainingSession={p2pcourse.remainingSession}
-                  author={p2pcourse.teacherName}
-                  redirecTo={`/student/p2p-course/${p2pcourse.id}/posts`}
+                  author={p2pcourse.studentName}
+                  redirecTo={""}
+                  chatId={p2pcourse.chatId}
+                  student={false}
                 />
               );
             })}

@@ -9,14 +9,19 @@ export const P2pCourseCard = ({
   redirecTo = "",
   status = "",
   remainingSession,
+  chatId = "",
+  student = true,
   ...props
 }) => {
   const navigate = useNavigate();
-  const showAuthor = true;
-  const fontColor = { ACTIVE: "emerald", CANCELED: "gray", COMPLETED: "gray" };
+  const fontColor = { ACTIVE: "lime", CANCELED: "gray", COMPLETED: "gray" };
 
   const handleCardClick = () => {
-    navigate(redirecTo || `/student/p2p-course/${id}`);
+    if (student) {
+      navigate(redirecTo || `/student/p2p-course/${id}/post`);
+    } else {
+      navigate(`/teacher/chats`, { state: { chatId: chatId } });
+    }
   };
 
   return (
@@ -36,20 +41,21 @@ export const P2pCourseCard = ({
           <p className="text-base font-bold text-gray-900 line-clamp-2">
             {name}
           </p>
-          <p
-            className={`text-base font-extrabold text-${fontColor[status]}-900 line-clamp-2`}
-          >
-            {status}
-          </p>
+          {status && (
+            <p
+              className={`text-base font-extrabold text-${fontColor[status]}-600 line-clamp-2`}
+            >
+              {status}
+            </p>
+          )}
         </div>
         <p className="line-clamp-1 text-xs font-[400] text-gray-950 mt-auto">
           Reminding Sessions: {remainingSession}
         </p>
-        {showAuthor && (
-          <p className="line-clamp-1 text-xs font-[400] text-gray-950 mt-auto">
-            Teacher: <span className="uppercase">{author}</span>
-          </p>
-        )}
+        <p className="line-clamp-1 text-xs font-[400] text-gray-950 mt-auto">
+          {student ? "Teacher: " : "Student: "}
+          <span className="uppercase">{author}</span>
+        </p>
       </div>
     </Card>
   );
@@ -62,4 +68,6 @@ P2pCourseCard.propTypes = {
   redirecTo: PropTypes.string,
   status: PropTypes.string,
   remainingSession: PropTypes.number,
+  chatId: PropTypes.string,
+  student: PropTypes.bool,
 };
