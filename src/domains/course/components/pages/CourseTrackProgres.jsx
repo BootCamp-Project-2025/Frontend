@@ -37,8 +37,7 @@ export default function CourseTrackProgress() {
 
         console.log("Course Track Progress Data:", data);
         console.log("Course Track Progress Error:", apiError);
-        if (apiError === true)
-          throw new Error("API error fetching course progress");
+        if (apiError) throw new Error("API error fetching course progress");
         console.log(data); // it is getting student-track-progress
 
         const courseInfo = data.data;
@@ -104,9 +103,7 @@ export default function CourseTrackProgress() {
         const initialIndex = resources.findIndex((r) => !r.completed) || 0;
         setCurrentResourceIndex(initialIndex);
         setLessonToShow(
-          lessons.find(
-            (lesson) => lesson.id === resources[initialIndex].lessonId
-          )
+          lessons.find((lesson) => lesson.id === resources[0].lessonId)
         );
       } catch (err) {
         console.error(err);
