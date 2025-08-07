@@ -35,7 +35,6 @@ export default function CourseModule({
         }),
     },
     { text: "Quiz", onClick: () => uploadQuizPopUp() },
-    { text: "Assignment", onClick: () => console.log("Assignment") },
   ];
 
   function uploadQuizPopUp() {
