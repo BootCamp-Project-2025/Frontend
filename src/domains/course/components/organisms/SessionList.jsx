@@ -43,7 +43,7 @@ export default function SessionList({
     save("SESSION");
   }, [save]);
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-4 overflow-y-auto h-[62vh]">
       <div className="flex">
         <Title className="p-0" size="xl" color="default">
           Sessions
