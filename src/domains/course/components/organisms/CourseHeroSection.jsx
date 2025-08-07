@@ -20,6 +20,7 @@ export const CourseHeroSection = ({
   loadingIsEnrolled = false,
   loadingEnrollIn = false,
   handleEnroll = () => {},
+  showCourseDetailsStats = true,
 }) => {
   return (
     <div className=" md:bg-[#2D2D2F]  ">
@@ -33,11 +34,14 @@ export const CourseHeroSection = ({
             <img src={imgSrc} alt="course image" className="w-full" />
           </div>
           <p className=" font-bold text-3xl line-clamp-2">{name}</p>
-          <CourseDetailsStats
-            rating={rating}
-            raters={raters}
-            students={students}
-          ></CourseDetailsStats>
+          {showCourseDetailsStats && (
+            <CourseDetailsStats
+              rating={rating}
+              raters={raters}
+              students={students}
+            ></CourseDetailsStats>
+          )}
+
           <CourseDetailsCreatedBy teacher={userName}></CourseDetailsCreatedBy>
           <CourseDetailsLanguage language={language}></CourseDetailsLanguage>
           <Button
@@ -83,4 +87,5 @@ CourseHeroSection.propTypes = {
   loadingIsEnrolled: PropTypes.bool,
   handleEnroll: PropTypes.func,
   loadingEnrollIn: PropTypes.bool,
+  showCourseDetailsStats: PropTypes.bool,
 };

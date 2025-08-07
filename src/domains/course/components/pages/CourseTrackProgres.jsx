@@ -35,8 +35,9 @@ export default function CourseTrackProgress() {
           `student-track-progress/enrollment/${enrollment.id}`
         );
 
+        console.log("Course Track Progress Data:", data);
+        console.log("Course Track Progress Error:", apiError);
         if (apiError) throw new Error("API error fetching course progress");
-
         console.log(data); // it is getting student-track-progress
 
         const courseInfo = data.data;
@@ -99,12 +100,14 @@ export default function CourseTrackProgress() {
         setLessons(lessons);
         setFlatResources(resources);
         console.log(resources);
-        const initialIndex = resources.findIndex((r) => !r.completed) || 0;
+        const initialIndex =
+          resources.findIndex((r) => !r.completed) === -1
+            ? 0
+            : resources.findIndex((r) => !r.completed);
+        console.log(initialIndex, "this ins index");
         setCurrentResourceIndex(initialIndex);
         setLessonToShow(
-          lessons.find(
-            (lesson) => lesson.id === resources[initialIndex].lessonId
-          )
+          lessons.find((lesson) => lesson.id === resources[0].lessonId)
         );
       } catch (err) {
         console.error(err);
@@ -264,11 +267,11 @@ export default function CourseTrackProgress() {
     }));
   }, [courseData, flatResources]);
 
-  if ((loading && !lessonToShow) || loadingGetEnrollment)
+  if (loading && !lessonToShow && loadingGetEnrollment)
     return <Loading text="Loading course content.." />;
 
-  if (error || errorGetEnrollment.status >= 400)
-    return <Alert title="Error with P2P courses" description={error} />;
+  if (error || errorGetEnrollment)
+    return <Alert title="Error with courses" description={error} />;
 
   if (!courseData) return <Alert title="No course content available." />;
 

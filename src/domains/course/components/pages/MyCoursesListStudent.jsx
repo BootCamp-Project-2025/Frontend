@@ -187,6 +187,7 @@ export const MyCoursesListStudent = () => {
               name={course.name}
               rating={course.rating}
               showAuthor={false}
+              showRating={false}
               redirecTo={`/courses/${course.courseId}/content`}
               showDropOption
               onDropCourse={() => {
