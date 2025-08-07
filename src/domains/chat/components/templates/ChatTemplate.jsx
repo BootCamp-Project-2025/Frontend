@@ -9,6 +9,7 @@ import { useAuth } from "../../../../shared/hooks/useAuth";
 import { ProposalChatAlert } from "../atoms/ProposalChatAlert";
 import { formatInitialP2P } from "../../../../shared/utils/formatInitialP2P";
 import { postRequest } from "../../../../shared/api/postRequest";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 
 export default function ChatTemplate({ chatIdProp = null }) {
   const params = useParams();
@@ -101,7 +102,9 @@ export default function ChatTemplate({ chatIdProp = null }) {
           />
         </>
       ) : (
-        <div>Loading...</div>
+        <div className="flex h-full justify-center self-center">
+          <Loading />
+        </div>
       )}
     </div>
   );

@@ -42,6 +42,12 @@ export const StudentSidebar = () => {
               ></SidebarRow>
 
               <SidebarRow
+                name={"P2P Courses"}
+                route={"/student/p2pcourses"}
+                icon={"p2p"}
+              ></SidebarRow>
+
+              <SidebarRow
                 name={"Courses"}
                 route={"/student/courses"}
                 icon={"courses"}

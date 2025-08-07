@@ -4,6 +4,8 @@ import CourseContentTrackBar from "../templates/CourseContentTrackBar";
 import CourseContentVisualizer from "../templates/CourseContentVisualizer";
 import { ApiGet } from "../../api/ApiGet";
 import { ApiPut } from "../../api/ApiPut";
+import { Loading } from "../../../../shared/components/molecules/Loading";
+import { Alert } from "../../../../shared/components/molecules/Alert";
 
 export default function CourseTrackProgress() {
   const { enrollmentId } = useParams();
@@ -13,6 +15,8 @@ export default function CourseTrackProgress() {
   const [error, setError] = useState(null);
   const [currentResourceIndex, setCurrentResourceIndex] = useState(0);
   const [progress, setProgress] = useState();
+  const [lessons, setLessons] = useState();
+  const [lessonToShow, setLessonToShow] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -28,8 +32,20 @@ export default function CourseTrackProgress() {
         setCourseData(courseInfo);
         setProgress(courseInfo.progress);
         let globalCounter = 0;
-        const resources = courseInfo.modules.flatMap((module) =>
-          module.lessons.flatMap((lesson) => {
+        const lessons = [];
+        const resources = [];
+
+        courseInfo.modules.forEach((module) => {
+          module.lessons.forEach((lesson) => {
+            lessons.push({
+              id: lesson.id,
+              title: lesson.title,
+              description: lesson.description,
+              moduleTitle: module.title,
+              trackId: lesson.progress.trackId,
+              enrollmentId: lesson.progress.enrollmentId,
+            });
+
             const videoResources = (lesson.videos || []).map((video) => ({
               lessonId: lesson.id,
               lessonTitle: lesson.title,
@@ -65,14 +81,20 @@ export default function CourseTrackProgress() {
               ),
             }));
 
-            return [...videoResources, ...fileResources];
-          })
-        );
+            resources.push(...videoResources, ...fileResources);
+          });
+        });
 
+        setLessons(lessons);
         setFlatResources(resources);
         console.log(resources);
         const initialIndex = resources.findIndex((r) => !r.completed) || 0;
         setCurrentResourceIndex(initialIndex);
+        setLessonToShow(
+          lessons.find(
+            (lesson) => lesson.id === resources[initialIndex].lessonId
+          )
+        );
       } catch (err) {
         console.error(err);
         setError("Failed to load course progress.");
@@ -87,6 +109,14 @@ export default function CourseTrackProgress() {
   const handleSelectResource = useCallback((index) => {
     setCurrentResourceIndex(index);
   }, []);
+
+  const handleSelectLesson = useCallback(
+    (lessonId) => {
+      console.log(lessonId, "este es el lesson en CursetrackProgress");
+      setLessonToShow(lessons.find((lesson) => lesson.id === lessonId));
+    },
+    [lessons]
+  );
 
   const handleCompleteResource = useCallback(
     async (resource) => {
@@ -223,11 +253,13 @@ export default function CourseTrackProgress() {
     }));
   }, [courseData, flatResources]);
 
-  if (loading)
-    return <p className="text-center mt-4">Loading course content...</p>;
-  if (error) return <p className="text-center text-red-500 mt-4">{error}</p>;
-  if (!courseData || !flatResources.length)
-    return <p className="text-center mt-4">No course content available.</p>;
+  if (loading && !lessonToShow)
+    return <Loading text="Loading course content.." />;
+
+  if (error)
+    return <Alert title="Error with P2P courses" description={error} />;
+
+  if (!courseData) return <Alert title="No course content available." />;
 
   return (
     <div className="flex flex-row w-full">
@@ -235,12 +267,14 @@ export default function CourseTrackProgress() {
         courseName={courseData.courseName}
         resource={currentResource}
         onComplete={handleCompleteResource}
+        lesson={lessonToShow}
       />
       <CourseContentTrackBar
         originalModules={modulesWithResources}
-        resources={flatResources}
+        resource={currentResource}
         currentIndex={currentResourceIndex}
         onSelectResource={handleSelectResource}
+        onSelectLesson={handleSelectLesson}
         progress={progress}
       />
     </div>

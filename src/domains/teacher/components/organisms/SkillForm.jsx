@@ -33,14 +33,23 @@ export const SkillForm = ({
   };
 
   const saveNewRecordDB = async (data) => {
+    console.log(newLevel);
     let newId = uuidv4();
-    const payload = { ...data, level: newLevel, id: newId };
+    const payload = {
+      ...data,
+      level: newLevel.label?.toLowerCase() ?? newLevel.toLowerCase(),
+      id: newId,
+    };
     addCard(payload);
     closePopup();
   };
 
   const updateRecordDB = async (data) => {
-    const payload = { ...data, level: newLevel, id };
+    const payload = {
+      ...data,
+      level: newLevel.label?.toLowerCase() ?? newLevel.toLowerCase(),
+      id,
+    };
     updateCard(payload);
     closePopup();
   };

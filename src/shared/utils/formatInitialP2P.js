@@ -1,11 +1,11 @@
 export const formatInitialP2P = (chat, userId, proposal, newChatId) => {
   return {
     studentId: userId,
-    teacherId: chat.participantsIds.filter((p) => p.id != userId)[0],
+    teacherId: chat.participantsIds.filter((p) => p != userId)[0],
     chatId: newChatId,
     // TODO add endpoint to get request information
     name: chat.name,
-    remainingSession: 0,
+    remainingSession: proposal.sessions.length,
     status: "ACTIVE",
     posts: [],
     files: [],

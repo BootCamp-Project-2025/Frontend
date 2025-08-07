@@ -59,8 +59,6 @@ export default function ResourceItem({ resource, isActive, onSelectResource }) {
     return resource.name;
   };
 
-  console.log(resource, "this is the resource");
-
   return (
     <li
       onClick={() => {

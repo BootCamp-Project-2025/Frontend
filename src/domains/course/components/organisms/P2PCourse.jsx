@@ -257,7 +257,7 @@ export default function P2PCourse() {
   }
 
   return (
-    <div className="static mx-10">
+    <div className="static mx-10 m-b-6">
       <Title className="text-center" size="xxl" color="default">
         {course.name}
       </Title>
@@ -287,7 +287,11 @@ export default function P2PCourse() {
             "fixed bottom-4 right-10 w-2/4 h-2/3 overflow-y-hidden bg-white border-1"
           }
         >
-          <ChatTemplate chatIdProp={course.chatId} />
+          {course.chatId ? (
+            <ChatTemplate chatIdProp={course.chatId} />
+          ) : (
+            <Loading size="sm" />
+          )}
           <button
             onClick={handleChatVisibility}
             className="h-5 w-5 sticky left-[95%] bottom-[93%] hover:cursor-pointer"

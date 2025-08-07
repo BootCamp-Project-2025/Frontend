@@ -30,10 +30,11 @@ describe("StudentSidebar", () => {
   it("renders all SidebarRow components", () => {
     renderSidebar();
     const rows = screen.getAllByTestId("sidebar-row");
-    expect(rows).toHaveLength(5);
+    expect(rows).toHaveLength(6);
     expect(rows.map((el) => el.textContent)).toEqual([
       "Dashboard",
       "Student Profile",
+      "P2P Courses",
       "Courses",
       "Requests",
       "Chats",
