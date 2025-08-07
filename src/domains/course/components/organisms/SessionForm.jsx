@@ -45,8 +45,10 @@ export default function SessionForm({ saveOrEdit, closePopup, session }) {
   }, []);
 
   const formatDoubleDigits = useCallback(
-    (digits) => {
-      digits = Number(digits) + (isAM ? 0 : 12);
+    (digits, isHour) => {
+      if (isHour) {
+        digits = Number(digits) + (isAM ? 0 : 12);
+      }
       if (digits.toString().length === 1) return `0${digits}`;
       return digits;
     },
@@ -70,7 +72,7 @@ export default function SessionForm({ saveOrEdit, closePopup, session }) {
   const handleSave = useCallback(
     (data) => {
       const minutes = formatDoubleDigits(data.minutes);
-      const hours = formatDoubleDigits(data.hours);
+      const hours = formatDoubleDigits(data.hours, true);
       const completeTime = new Date(
         `${data.dateOfTheSession}T${hours}:${minutes}:00`
       );
