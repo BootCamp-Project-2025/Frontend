@@ -113,10 +113,10 @@ export const Header = ({ complete = true }) => {
             <AvatarMenuDropDown
               className="hidden md:flex h-[2.6rem]"
               userName={user?.userName}
-              avatarURL={user?.avatarURL}
+              avatarURL={user?.profilePicture}
             >
               <OptionsDropDown
-                avatarURL={user?.avatarURL}
+                avatarURL={user?.profilePicture}
                 userName={user?.userName}
                 userEmail={user?.userEmail}
                 logOut={logOut}
@@ -154,7 +154,7 @@ export const Header = ({ complete = true }) => {
                 ></HeaderButtons>
                 {user && (
                   <OptionsDropDown
-                    avatarURL={user?.avatarURL}
+                    avatarURL={user?.profilePicture}
                     userName={user?.userName}
                     userEmail={user?.userEmail}
                     logOut={logOut}

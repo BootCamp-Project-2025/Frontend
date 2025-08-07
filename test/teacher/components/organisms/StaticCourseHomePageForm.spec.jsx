@@ -17,7 +17,6 @@ const CourseData = {
 };
 
 const searchParams = { get: vi.fn() };
-
 searchParams.get.mockReturnValue("");
 
 vi.mock("react-router-dom", async () => {
@@ -28,11 +27,12 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-describe("test for static course home page", async () => {
+describe("test for static course home page", () => {
   it("exist", () => {
     expect(StaticCourseHomePageForm).toBeDefined();
   });
-  it("renders correctry", () => {
+
+  it("renders correctly", () => {
     const response = {
       responseData: { data: CourseData },
       loading: false,
@@ -43,7 +43,8 @@ describe("test for static course home page", async () => {
     render(<StaticCourseHomePageForm />);
     expect(screen.getByText("Home page course")).toBeInTheDocument();
   });
-  it("doesnt render due to loading request", () => {
+
+  it("doesn't render due to loading request", () => {
     const response = {
       data: {},
       loading: true,
@@ -52,9 +53,10 @@ describe("test for static course home page", async () => {
     };
     vi.spyOn(useGetModule, "UseGet").mockReturnValue(response);
     render(<StaticCourseHomePageForm />);
-    expect(screen.getByText("loading")).toBeInTheDocument();
+    expect(screen.getByText(/loading course data/i)).toBeInTheDocument();
   });
-  it("doesnt render due to error in request", () => {
+
+  it("doesn't render due to error in request", () => {
     const response = {
       data: {},
       loading: false,
@@ -63,6 +65,6 @@ describe("test for static course home page", async () => {
     };
     vi.spyOn(useGetModule, "UseGet").mockReturnValue(response);
     render(<StaticCourseHomePageForm />);
-    expect(screen.getByText("data couldnt be loadedd")).toBeInTheDocument();
+    expect(screen.getByText(/data couldn't be loaded/i)).toBeInTheDocument();
   });
 });

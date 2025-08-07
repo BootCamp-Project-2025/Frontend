@@ -212,10 +212,8 @@ const AvatarProfile = ({ profilePicture, updateProfilePicture }) => {
       <Image
         src={preview || validProfilePicture || profilePictureDefault}
         alt="profile image"
-        width="w-48 2xl:w-72"
-        height="h-48 2xl:h-72"
         styleType="profile"
-        classname="transition duration-300 hover:brightness-50 cursor-pointer object-cover"
+        classname="h-40  min-w-40 w-40  min-h-40 transition duration-300 hover:brightness-50 cursor-pointer object-cover"
       />
     </div>
   );

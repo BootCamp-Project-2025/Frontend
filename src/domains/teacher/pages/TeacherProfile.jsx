@@ -9,12 +9,13 @@ import { LanguageSection } from "../components/organisms/LanguageSection";
 import { useAuth } from "../../../shared/hooks/useAuth";
 
 const TeacherProfile = () => {
-  const { token, user } = useAuth();
-  console.log(token);
+  const { user, handleUpdateUser } = useAuth();
+
   return (
     <main className="wrapper flex flex-col justify-between h-full w-full gap-16 px-8 py-4 mx-auto">
       <ProfileTitle title="Teacher Profile" />
-      {user && <ProfileInfo user={user} />}
+      {user && <ProfileInfo user={user} handleUpdateUser={handleUpdateUser} />}
+
       {user?.freelancerProfile && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
           <EducationSection freelancerId={user.freelancerProfile} />

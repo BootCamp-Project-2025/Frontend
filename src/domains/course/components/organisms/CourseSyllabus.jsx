@@ -8,10 +8,15 @@ import { moduleReducer } from "../../utils/ModuleReducer";
 import { ApiGet } from "../../api/ApiGet";
 import { useParams } from "react-router-dom";
 import { useToastContext } from "../../../../shared/contexts/ToastContext";
+import { CourseDetailsModule } from "../molecules/CourseDetailsModule";
+import { UseGet } from "../../api/UseGet";
+import { Alert } from "../../../../shared/components/molecules/Alert";
+import { Loading } from "../../../../shared/components/molecules/Loading";
 
 export default function CourseSyllabus() {
   const { courseId } = useParams();
   const { showToast } = useToastContext();
+  const { responseData, loading, error } = UseGet("courses", courseId);
   const [modules, dispatch] = useReducer(moduleReducer, []);
   useEffect(() => {
     const loadData = async () => {
@@ -96,17 +101,67 @@ export default function CourseSyllabus() {
       <Title className="border-b-1 my-3" color="black">
         Syllabus
       </Title>
-      <SyllabusInfo className="self-center hidden md:flex" />
 
-      {modules.map((module, index) => (
-        <div key={`add-module-${module.position}`}>
+      {!loading && !error && responseData?.data?.published && (
+        <Alert
+          type="info"
+          title="This course has already been published"
+          description="Editing is disabled because the course is published."
+        />
+      )}
+
+      {loading && <Loading text="Loading course data"></Loading>}
+
+      {!loading && error && (
+        <Alert
+          type="error"
+          title="Data couldn't be loaded. Please try again later."
+        ></Alert>
+      )}
+
+      {!loading && !error && responseData?.data?.published && (
+        <div className="flex flex-col border border-gray-400 border-b-0">
+          {modules.map((mod) => (
+            <CourseDetailsModule key={mod.id} {...mod} />
+          ))}
+        </div>
+      )}
+
+      {!loading && !error && !responseData?.data?.published && (
+        <>
+          <SyllabusInfo className="self-center hidden md:flex" />
+
+          {modules.map((module, index) => (
+            <div key={`add-module-${module.position}`}>
+              <Button
+                data-testid={`addModule-${index}`}
+                onClick={handlersAddModule[index]}
+                radius="small"
+                className={
+                  "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
+                }
+                variant="bordered"
+              >
+                <div className="flex w-full items-center">
+                  <Icon icon={"plus"} />
+                  <p className="mx-auto">Add module</p>
+                </div>
+              </Button>
+              <CourseModule
+                modules={modules}
+                dispatch={dispatch}
+                id={`module-${index}`}
+                key={`module-${module.position}`}
+                title={module.title}
+                moduleIndex={index}
+              />
+            </div>
+          ))}
           <Button
-            data-testid={`addModule-${index}`}
-            onClick={handlersAddModule[index]}
+            data-testid="addModuleEnd"
+            onClick={addModuleAtTheEnd}
             radius="small"
-            className={
-              "opacity-0 hover:opacity-100 transition-opacity w-40 my-4 text-center self-start"
-            }
+            className={"w-40 my-4 text-center self-start"}
             variant="bordered"
             size="sm"
           >
@@ -115,38 +170,16 @@ export default function CourseSyllabus() {
               <p className="mx-auto">Add module</p>
             </div>
           </Button>
-          <CourseModule
-            modules={modules}
-            dispatch={dispatch}
-            id={`module-${index}`}
-            key={`module-${module.position}`}
-            title={module.title}
-            moduleIndex={index}
-          />
-        </div>
-      ))}
-      <Button
-        data-testid="addModuleEnd"
-        onClick={addModuleAtTheEnd}
-        radius="small"
-        className={"w-40 my-4 text-center self-start"}
-        variant="bordered"
-        size="sm"
-      >
-        <div className="flex w-full items-center">
-          <Icon icon={"plus"} />
-          <p className="mx-auto">Add module</p>
-        </div>
-      </Button>
-      <Button
-        data-testid="saveButton"
-        onClick={save}
-        radius="small"
-        className={"self-center w-40 my-4 text-center"}
-        size="sm"
-      >
-        <p className="w-full">Save</p>
-      </Button>
+          <Button
+            data-testid="saveButton"
+            onClick={save}
+            radius="small"
+            className={"self-center w-40 my-4 text-center"}
+          >
+            <p className="w-full">Save</p>
+          </Button>
+        </>
+      )}
     </div>
   );
 }

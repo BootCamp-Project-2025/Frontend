@@ -32,7 +32,7 @@ const About = ({ text, updateAbout }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 flex-[0.5] px-10">
+    <div className="flex flex-col gap-2 flex-[0.5] ">
       <div className="flex items-center gap-2">
         <Title size="lg" color="default">
           About me

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Icon } from "../../../../shared/components/atoms/Icon";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -12,21 +12,21 @@ export function ChatHeader({ chat, ownerId }) {
   const { onlineUsers } = useContext(SocketContext);
   const [user, setUser] = useState();
 
-  const participantId = useMemo(() => {
-    return chat.participantsIds.filter((p) => p.id != ownerId)[0];
-  }, [chat.participantsIds]);
-
   function fetchUserInfo() {
+    const userId = chat.participantsIds.filter((id) => id != ownerId)[0];
     axios
-      .get(`${API_URL}/users/${participantId}`)
+      .get(`${API_URL}/users/${userId}`)
       .then((response) => response.data)
-      .then((userResponse) => setUser(userResponse))
+      .then((userResponse) => {
+        console.log(userResponse);
+        setUser(userResponse);
+      })
       .catch((error) => console.error(error));
   }
 
   useEffect(() => {
-    if (participantId) fetchUserInfo();
-  }, []);
+    if (chat.participantsIds) fetchUserInfo();
+  }, [chat.participantsIds]);
 
   const isOnline = (participantId) => {
     return onlineUsers.includes(participantId);

@@ -11,8 +11,8 @@ export const UsePut = async (path, id, body) => {
     status = response.status;
   } catch (err) {
     error = true;
-    status = err.status;
-    responseData = err.response.data ?? null;
+    status = err?.status;
+    responseData = err?.response?.data ?? null;
   }
   return { responseData, error, status };
 };

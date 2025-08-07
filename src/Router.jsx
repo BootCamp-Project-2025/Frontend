@@ -32,6 +32,7 @@ import CourseTrackProgress from "./domains/course/components/pages/CourseTrackPr
 import TeacherProposals from "./domains/core/componentes/organism/TeacherProposals.jsx";
 import RequestDetail from "./domains/core/componentes/organism/RequestDetail.jsx";
 import ProposalFormPopUp from "./domains/course/components/organisms/ProposalFormPopUp.jsx";
+import { StaticCourseConfiguration } from "./domains/course/components/organisms/StaticCourseConfiguration.jsx";
 
 export default function Router() {
   return (
@@ -90,6 +91,10 @@ export default function Router() {
             path="/teacher/courses/:courseId/syllabus"
             element={<CourseSyllabus />}
           />
+          <Route
+            path="/teacher/courses/:courseId/configuration"
+            element={<StaticCourseConfiguration />}
+          />
           <Route path="/teacher/chats">
             <Route index element={<ChatPage />} />
           </Route>
@@ -115,29 +120,6 @@ export default function Router() {
           </Route>
         </Route>
 
-        <Route
-          path="/dashboard/teacher/profile"
-          element={
-            <main>
-              <TeacherProfile />
-            </main>
-          }
-        />
-        <Route
-          path="/student/requests"
-          element={
-            <main>
-              <StudentRequests />
-            </main>
-          }
-        />
-        <Route path="health-check" element={<HealthCheck />} />
-        <Route path="course-select" element={<CourseTypeSelection />} />
-        <Route path="teacher-profile" element={<TeacherProfile />} />
-        <Route path="button-gallery" element={<ButtonGallery />} />
-        <Route path="dropdown-gallery" element={<DropdownSelectGallery />} />
-        <Route path="file-upload" element={<FileUploadExample />} />
-        <Route path="texteditor-showcase" element={<TextEditorShowcase />} />
         <Route
           path="course-track-progress/:enrollmentId"
           element={<CourseTrackProgress />}
