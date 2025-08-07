@@ -5,7 +5,7 @@ export const formatInitialP2P = (chat, userId, proposal, newChatId) => {
     chatId: newChatId,
     // TODO add endpoint to get request information
     name: chat.name,
-    remainingSession: 0,
+    remainingSession: proposal.sessions.length,
     status: "ACTIVE",
     posts: [],
     files: [],
