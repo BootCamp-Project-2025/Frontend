@@ -20,7 +20,7 @@ export const P2pCourseCard = ({
     if (student) {
       navigate(redirecTo || `/student/p2p-course/${id}/post`);
     } else {
-      navigate(redirecTo || `/teacher/p2p-course/${id}/post`);
+      navigate(redirecTo || `/teacher/p2p-course/${id}`);
       // navigate(`/teacher/chats`, { state: { chatId: chatId } });
     }
   };
