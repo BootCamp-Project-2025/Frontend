@@ -443,6 +443,7 @@ export function AuthProvider({ children }) {
     if (!keycloak) return;
 
     try {
+      console.log("Updating session roles...");
       await keycloak.updateToken(-1);
       const roles = keycloak.tokenParsed?.realm_access?.roles || [];
       console.log("Updated roles:", roles);
@@ -459,7 +460,7 @@ export function AuthProvider({ children }) {
           user: finalUser,
         },
       });
-
+      setAuthToken(keycloak.token);
       saveSessionToLocalStorage(
         finalUser,
         keycloak.token,
