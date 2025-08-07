@@ -36,7 +36,8 @@ export default function CourseTrackProgress() {
         );
 
         if (apiError) throw new Error("API error fetching course progress");
-
+        console.log("Course Track Progress Data:", data);
+        console.log("Course Track Progress Error:", apiError);
         console.log(data); // it is getting student-track-progress
 
         const courseInfo = data.data;
@@ -267,7 +268,6 @@ export default function CourseTrackProgress() {
   if ((loading && !lessonToShow) || loadingGetEnrollment)
     return <Loading text="Loading course content.." />;
 
-  console.log(error, errorGetEnrollment);
   if (error || errorGetEnrollment)
     return <Alert title="Error with P2P courses" description={error} />;
 
